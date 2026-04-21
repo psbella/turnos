@@ -1,1 +1,3 @@
-
+console.log("STATUS:", response.status);
+console.log("HEADERS:", response.headers);
+console.log("DATA RAW:", response.data);
