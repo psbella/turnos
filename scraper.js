@@ -1,38 +1,48 @@
 const axios = require("axios");
 const fs = require("fs");
 
-async function obtenerFarmacias(fecha) {
+function formatearFecha() {
+  const d = new Date();
+
+  const pad = (n) => String(n).padStart(2, "0");
+
+  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
+
+async function fetchHTML(fecha) {
   const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
 
   const res = await axios.get(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0"
+      "User-Agent": "Mozilla/5.0",
+      "Accept": "text/html,application/xhtml+xml",
+      "Referer": "https://turnos.colfarmamdp.com.ar/"
     }
   });
 
-  // 👇 ACÁ VA EL DIAGNÓSTICO
-console.log("STATUS:", res.status);
-console.log("DATA LENGTH:", res.data?.length);
-console.log("DATA RAW:");
-console.log(res.data);
+  console.log("STATUS:", res.status);
+  console.log("DATA LENGTH:", res.data?.length || 0);
 
-  const html = res.data;
+  return res.data;
+}
 
+function parsear(html) {
   const lines = html
     .split("\n")
     .map(l => l.trim())
     .filter(Boolean);
 
   const farmacias = [];
-  let current = null;
+  let actual = null;
 
   for (const line of lines) {
+    // Detecta farmacia en formato [NOMBRE]
     const match = line.match(/\[(.*?)\]/);
 
     if (match) {
-      if (current) farmacias.push(current);
+      if (actual) farmacias.push(actual);
 
-      current = {
+      actual = {
         farmacia: match[1],
         direccion: "",
         telefono: ""
@@ -40,48 +50,63 @@ console.log(res.data);
       continue;
     }
 
-    if (!current) continue;
+    if (!actual) continue;
 
-    if (!line.includes("http") && !line.match(/[A-Za-z\[\]]/) && !current.direccion) {
-      current.direccion = line;
+    // dirección (heurística simple)
+    if (!actual.direccion && !line.includes("http") && !line.includes("[")) {
+      actual.direccion = line;
       continue;
     }
 
+    // teléfono (números)
     if (line.match(/[0-9]{3,}/)) {
-      current.telefono = line;
+      actual.telefono = line;
     }
   }
 
-  if (current) farmacias.push(current);
+  if (actual) farmacias.push(actual);
 
   return farmacias;
 }
 
 async function run() {
-  const hoy = new Date();
+  try {
+    const fecha = formatearFecha();
 
-  const fecha = hoy.toLocaleDateString("es-AR"); // 21/04/2026
+    console.log("Fecha usada:", fecha);
 
-  const data = await obtenerFarmacias(fecha);
+    const html = await fetchHTML(fecha);
 
-  console.log("Farmacias encontradas:", data.length);
+    console.log("RAW preview:", html.slice(0, 300));
 
-  // 📦 guardar data principal
-  fs.writeFileSync("data.json", JSON.stringify({ fecha, farmacias: data }, null, 2));
+    const farmacias = parsear(html);
 
-  // 📜 histórico
-  let historico = {};
-  if (fs.existsSync("historico.json")) {
-    historico = JSON.parse(fs.readFileSync("historico.json"));
+    console.log("Farmacias encontradas:", farmacias.length);
+
+    // 📦 data actual
+    const dataFinal = {
+      fecha,
+      farmacias
+    };
+
+    fs.writeFileSync("data.json", JSON.stringify(dataFinal, null, 2));
+
+    // 📜 histórico
+    let historico = {};
+
+    if (fs.existsSync("historico.json")) {
+      historico = JSON.parse(fs.readFileSync("historico.json"));
+    }
+
+    historico[fecha] = farmacias;
+
+    fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
+
+    console.log("✔ Actualización completa");
+
+  } catch (err) {
+    console.error("ERROR SCRAPER:", err.message);
   }
-
-  historico[fecha] = { farmacias: data };
-
-  fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
-
-  console.log("✔ Actualizado correctamente");
 }
 
-run().catch(err => {
-  console.error("Error scraper:", err.message);
-});
+run();
