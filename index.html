@@ -147,33 +147,23 @@
 <script>
 let data = {};
 let fechas = [];
+let fechaActual = "";
 
 function format(d){
-  const pad=n=>String(n).padStart(2,'0');
-  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
+  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 }
-
-function parseFecha(str){
-  const [d,m,y] = str.split('/');
-  return new Date(y, m-1, d);
-}
-
-function ordenarFechas(arr){
-  return arr.sort((a,b)=>parseFecha(a)-parseFecha(b));
-}
-
-let fechaActual = "";
 
 function render(fecha){
 
-  document.getElementById("fecha").innerText = fecha;
-
-  const lista = data[fecha] || [];
+  console.log("RENDER:", fecha);
 
   const cont = document.getElementById("lista");
+  document.getElementById("fecha").innerText = fecha;
 
-  if(lista.length === 0){
-    cont.innerHTML = `<div class="empty">Sin farmacias para esta fecha</div>`;
+  const lista = data[fecha];
+
+  if(!lista){
+    cont.innerHTML = "<div class='empty'>Sin datos para esta fecha</div>";
     return;
   }
 
@@ -185,7 +175,6 @@ function render(fecha){
         <div class="name">${f.farmacia}</div>
         <div class="muted">${f.direccion || ""}</div>
         <div class="muted">${f.telefono || ""}</div>
-        <div class="badge">Turno activo</div>
       </div>
     `;
   });
@@ -193,24 +182,35 @@ function render(fecha){
 
 function hoy(){
   const h = format(new Date());
+  console.log("HOY:", h);
+
   if(data[h]){
     fechaActual = h;
   } else {
-    fechaActual = fechas[0]; // fallback seguro
+    fechaActual = fechas[0];
   }
+
   render(fechaActual);
 }
 
 fetch("turnos_hasta_31_12.json")
-  .then(r => r.json())
+  .then(r => {
+    console.log("STATUS JSON:", r.status);
+    return r.json();
+  })
   .then(json => {
-
     data = json;
 
-    fechas = ordenarFechas(Object.keys(data));
+    fechas = Object.keys(data);
 
-    hoy(); // arranca siempre en hoy
+    console.log("FECHAS:", fechas);
 
+    hoy();
+  })
+  .catch(err => {
+    console.error("ERROR FETCH:", err);
+    document.getElementById("lista").innerHTML =
+      "<div class='empty'>Error cargando datos</div>";
   });
 </script>
 
