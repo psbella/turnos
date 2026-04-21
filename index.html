@@ -2,27 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="theme-color" content="#0d1117">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Farmacias de Turno · MDP</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0d1117;
-      --surface:#161b22;
-      --accent:#3fb950;
-      --muted:#7d8590;
-      --border:rgba(255,255,255,0.08);
-      --radius:14px;
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-
     body{
-      font-family:Nunito, sans-serif;
-      background:var(--bg);
+      margin:0;
+      font-family:Nunito,sans-serif;
+      background:#0d1117;
       color:#e6edf3;
       display:flex;
       justify-content:center;
@@ -35,82 +24,51 @@
     }
 
     header{
+      padding:14px 0;
+      border-bottom:1px solid rgba(255,255,255,0.08);
       position:sticky;
       top:0;
-      background:var(--bg);
-      padding:14px 0;
-      border-bottom:1px solid var(--border);
+      background:#0d1117;
     }
 
     .title{
-      font-family:"Bebas Neue", sans-serif;
+      font-family:"Bebas Neue",sans-serif;
       font-size:26px;
-      letter-spacing:1px;
     }
 
     .sub{
       font-size:12px;
-      color:var(--muted);
+      color:#7d8590;
     }
 
     .fecha{
       margin-top:10px;
-      font-size:13px;
-      color:var(--muted);
       text-align:center;
+      font-size:13px;
+      color:#7d8590;
     }
 
     button{
       margin-top:10px;
       width:100%;
-      background:var(--surface);
-      border:none;
-      color:#fff;
       padding:10px;
+      border:none;
       border-radius:10px;
+      background:#161b22;
+      color:white;
       cursor:pointer;
     }
 
-    button:hover{opacity:0.8}
-
     .card{
-      background:var(--surface);
-      border:1px solid var(--border);
+      background:#161b22;
+      border:1px solid rgba(255,255,255,0.08);
       padding:14px;
-      border-radius:var(--radius);
+      border-radius:14px;
       margin-top:10px;
     }
 
-    .name{
-      font-weight:700;
-      color:#fff;
-      margin-bottom:4px;
-    }
-
-    .muted{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:2px;
-    }
-
-    .empty{
-      text-align:center;
-      margin-top:40px;
-      color:var(--muted);
-    }
-
-    .badge{
-      display:inline-block;
-      margin-top:8px;
-      font-size:11px;
-      color:var(--accent);
-    }
-
-    .loading{
-      text-align:center;
-      margin-top:40px;
-      color:var(--muted);
-    }
+    .name{font-weight:700}
+    .muted{font-size:12px;color:#7d8590}
   </style>
 </head>
 
@@ -122,33 +80,40 @@
     <div class="title">Farmacias de Turno</div>
     <div class="sub">Mar del Plata</div>
 
-    <div class="fecha" id="fecha">Cargando...</div>
+    <!-- IMPORTANTE: ESTE ID ES CLAVE -->
+    <div id="fecha" class="fecha">Cargando...</div>
 
     <button onclick="hoy()">Actualizar / Hoy</button>
   </header>
 
-  <div id="lista" class="loading">Cargando datos...</div>
+  <div id="lista">Cargando...</div>
 
 </div>
 
 <script>
+
 let data = {};
 let fechas = [];
 let fechaActual = "";
 
+/* FORMATO CONSISTENTE */
 function format(d){
   return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 }
 
+/* RENDER SEGURO (NO ROMPE SI FALTA DOM) */
 function render(fecha){
 
-  document.getElementById("fecha").innerText = fecha;
+  const fechaEl = document.getElementById("fecha");
+  if(fechaEl) fechaEl.innerText = fecha;
 
-  const lista = data[fecha] || [];
   const cont = document.getElementById("lista");
+  if(!cont) return;
 
-  if(lista.length === 0){
-    cont.innerHTML = `<div class="empty">Sin farmacias para esta fecha</div>`;
+  const lista = data[fecha];
+
+  if(!lista){
+    cont.innerHTML = "<div class='card'>Sin datos para esta fecha</div>";
     return;
   }
 
@@ -160,12 +125,12 @@ function render(fecha){
         <div class="name">${f.farmacia}</div>
         <div class="muted">${f.direccion || ""}</div>
         <div class="muted">${f.telefono || ""}</div>
-        <div class="badge">Turno activo</div>
       </div>
     `;
   });
 }
 
+/* ARRANQUE SEGURO */
 function hoy(){
   const h = format(new Date());
 
@@ -178,22 +143,24 @@ function hoy(){
   render(fechaActual);
 }
 
+/* CARGA JSON */
 fetch("turnos_hasta_31_12.json")
   .then(r => r.json())
   .then(json => {
 
     data = json;
-
     fechas = Object.keys(data);
 
-    hoy();
+    console.log("FECHAS:", fechas.length);
 
+    hoy();
   })
   .catch(err => {
     document.getElementById("lista").innerHTML =
-      "<div class='empty'>Error cargando datos</div>";
+      "<div class='card'>Error cargando datos</div>";
     console.error(err);
   });
+
 </script>
 
 </body>
