@@ -154,6 +154,11 @@ let data = {};
 let fechas = [];
 let index = 0;
 
+  function normalizarFecha(f){
+  const [d,m,y] = f.split('/');
+  return `${d.padStart(2,'0')}/${m.padStart(2,'0')}/${y}`;
+}
+
 function format(d){
   const pad=n=>String(n).padStart(2,'0');
   return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
