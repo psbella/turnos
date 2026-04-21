@@ -86,11 +86,6 @@
       padding:14px;
       border-radius:var(--radius);
       margin-top:10px;
-      transition:0.15s;
-    }
-
-    .card:hover{
-      border-color:rgba(63,185,80,0.4);
     }
 
     .name{
@@ -154,33 +149,34 @@ let data = {};
 let fechas = [];
 let index = 0;
 
-  function normalizarFecha(f){
-  const [d,m,y] = f.split('/');
-  return `${d.padStart(2,'0')}/${m.padStart(2,'0')}/${y}`;
-}
-
 function format(d){
   const pad=n=>String(n).padStart(2,'0');
   return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
 }
 
-/* 🔥 FIX CLAVE: ordenar fechas correctamente */
+function parseFecha(str){
+  const [d,m,y] = str.split('/');
+  return new Date(y, m-1, d);
+}
+
+/* orden real por fecha */
 function ordenarFechas(arr){
-  return arr.sort((a, b) => {
-    const [da, ma, ya] = a.split('/').map(Number);
-    const [db, mb, yb] = b.split('/').map(Number);
-    return new Date(ya, ma-1, da) - new Date(yb, mb-1, db);
-  });
+  return arr.sort((a,b)=>parseFecha(a)-parseFecha(b));
 }
 
 function render(){
+
   const fecha = fechas[index];
   document.getElementById("fecha").innerText = fecha;
 
-  const lista = data[fecha] || [];
+  /* 🔥 FIX REAL: búsqueda tolerante */
+  const key = Object.keys(data).find(k => k.replace(/\s/g,'') === fecha.replace(/\s/g,''));
+
+  const lista = key ? data[key] : [];
+
   const cont = document.getElementById("lista");
 
-  if(lista.length === 0){
+  if(!lista || lista.length === 0){
     cont.innerHTML = `<div class="empty">Sin farmacias para esta fecha</div>`;
     return;
   }
@@ -226,23 +222,15 @@ fetch("turnos_hasta_31_12.json")
   .then(r => r.json())
   .then(json => {
 
-    data = {};
+    data = json;
 
-    Object.keys(json).forEach(k => {
-      const nk = normalizarFecha(k);
-      data[nk] = json[k];
-    });
+    fechas = ordenarFechas(Object.keys(data));
 
-    fechas = Object.keys(data).sort((a, b) => {
-      const [da, ma, ya] = a.split('/').map(Number);
-      const [db, mb, yb] = b.split('/').map(Number);
-      return new Date(ya, ma-1, da) - new Date(yb, mb-1, db);
-    });
-
-    index = fechas.length - 1; // opcional: arrancar en última fecha o cambiá a 0
+    index = fechas.length - 1; // arranca en última fecha (podés cambiarlo)
 
     render();
   });
+
 </script>
 
 </body>
