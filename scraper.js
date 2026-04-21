@@ -12,12 +12,14 @@ function getFechaHoy() {
 
 async function scrape() {
   const fecha = getFechaHoy();
-  const url = `http://www.turnos.colfarmamdp.com.ar/?fecha=${fecha}`;
+
+  const url = `http://colfarmamdp.com.ar/ajax/buscaturno2.php?fecha=${fecha}`;
 
   try {
     const { data } = await axios.get(url, {
       headers: {
-        "User-Agent": "Mozilla/5.0"
+        "User-Agent": "Mozilla/5.0",
+        "Referer": "http://colfarmamdp.com.ar/"
       }
     });
 
@@ -35,6 +37,32 @@ async function scrape() {
         farmacias.push({ farmacia, direccion, telefono });
       }
     });
+
+    const resultado = {
+      fecha,
+      cantidad: farmacias.length,
+      farmacias,
+      timestamp: new Date().toISOString()
+    };
+
+    fs.writeFileSync("data.json", JSON.stringify(resultado, null, 2));
+
+    let historico = {};
+    if (fs.existsSync("historico.json")) {
+      historico = JSON.parse(fs.readFileSync("historico.json"));
+    }
+
+    historico[fecha] = resultado;
+
+    fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
+
+    console.log("OK:", resultado.cantidad, "farmacias");
+  } catch (error) {
+    console.error("ERROR:", error.message);
+  }
+}
+
+scrape();    });
 
     const resultado = {
       fecha,
