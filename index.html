@@ -225,10 +225,14 @@ function hoy(){
 fetch("turnos_hasta_31_12.json")
   .then(r => r.json())
   .then(json => {
-    data = json;
+    data = {};
 
-    /* 🔥 FIX aplicado acá */
-fechas = ordenarFechas(Object.keys(data).map(normalizarFecha));
+Object.keys(json).forEach(k => {
+  const nk = normalizarFecha(k);
+  data[nk] = json[k];
+});
+
+fechas = ordenarFechas(Object.keys(data));
     render();
   });
 
