@@ -1,20 +1,28 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 async function obtenerFarmacias(fecha) {
   const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
-  
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (compatible; Node.js)',
-    },
-  });
 
-  if (!res.ok) {
-    throw new Error(`Error en la petición: ${res.status}`);
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; Node.js)',
+      },
+    });
+
+    console.log('Respuesta completa:', response.data);
+
+    // Si esperás JSON y es un string, intentá parsearlo (si es necesario)
+    try {
+      const data = JSON.parse(response.data);
+      console.log('Datos parseados:', data);
+    } catch (e) {
+      console.log('No se pudo parsear como JSON, se recibió:', response.data);
+    }
+
+  } catch (error) {
+    console.error('Error en la petición:', error.message);
   }
-
-  const data = await res.json();
-  console.log(data);
 }
 
-obtenerFarmacias('2026-04-21').
+obtenerFarmacias('2026
