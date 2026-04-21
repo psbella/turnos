@@ -3,8 +3,10 @@ let data = {};
 let fechas = [];
 
 function format(d){
-  const pad=n=>String(n).padStart(2,'0');
-  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
+  const dia = d.getDate();
+  const mes = d.getMonth()+1;
+  const anio = d.getFullYear();
+  return `${dia}/${mes}/${anio}`;
 }
 
 function parseFecha(str){
