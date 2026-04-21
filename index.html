@@ -228,8 +228,7 @@ fetch("turnos_hasta_31_12.json")
     data = json;
 
     /* 🔥 FIX aplicado acá */
-    fechas = ordenarFechas(Object.keys(data));
-
+fechas = ordenarFechas(Object.keys(data).map(normalizarFecha));
     render();
   });
 
