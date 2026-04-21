@@ -225,17 +225,24 @@ function hoy(){
 fetch("turnos_hasta_31_12.json")
   .then(r => r.json())
   .then(json => {
+
     data = {};
 
-Object.keys(json).forEach(k => {
-  const nk = normalizarFecha(k);
-  data[nk] = json[k];
-});
+    Object.keys(json).forEach(k => {
+      const nk = normalizarFecha(k);
+      data[nk] = json[k];
+    });
 
-fechas = ordenarFechas(Object.keys(data));
+    fechas = Object.keys(data).sort((a, b) => {
+      const [da, ma, ya] = a.split('/').map(Number);
+      const [db, mb, yb] = b.split('/').map(Number);
+      return new Date(ya, ma-1, da) - new Date(yb, mb-1, db);
+    });
+
+    index = fechas.length - 1; // opcional: arrancar en última fecha o cambiá a 0
+
     render();
   });
-
 </script>
 
 </body>
