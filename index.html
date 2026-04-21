@@ -159,6 +159,7 @@ function parseFecha(str){
   return new Date(y, m-1, d);
 }
 
+/* orden real por fecha */
 function ordenarFechas(arr){
   return arr.sort((a,b)=>parseFecha(a)-parseFecha(b));
 }
@@ -168,12 +169,14 @@ function render(){
   const fecha = fechas[index];
   document.getElementById("fecha").innerText = fecha;
 
-  /* 🔥 CLAVE: SIN INVENTOS */
-  const lista = data[fecha] || [];
+  /* 🔥 FIX REAL: búsqueda tolerante */
+  const key = Object.keys(data).find(k => k.replace(/\s/g,'') === fecha.replace(/\s/g,''));
+
+  const lista = key ? data[key] : [];
 
   const cont = document.getElementById("lista");
 
-  if(lista.length === 0){
+  if(!lista || lista.length === 0){
     cont.innerHTML = `<div class="empty">Sin farmacias para esta fecha</div>`;
     return;
   }
@@ -223,10 +226,11 @@ fetch("turnos_hasta_31_12.json")
 
     fechas = ordenarFechas(Object.keys(data));
 
-    index = fechas.length - 1;
+    index = fechas.length - 1; // arranca en última fecha (podés cambiarlo)
 
     render();
   });
+
 </script>
 
 </body>
