@@ -1,1 +1,33 @@
+name: Actualizar farmacias
 
+on:
+  schedule:
+    - cron: "5 12 * * *" # 09:05 Argentina
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar scraper
+        run: node scraper.js
+
+      - name: Commit cambios
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@github.com"
+          git add data.json historico.json
+          git commit -m "update turnos" || echo "sin cambios"
+          git push
