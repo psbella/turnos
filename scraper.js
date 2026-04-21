@@ -10,6 +10,12 @@ async function obtenerFarmacias(fecha) {
     }
   });
 
+  // 👇 ACÁ VA EL DIAGNÓSTICO
+console.log("STATUS:", res.status);
+console.log("DATA LENGTH:", res.data?.length);
+console.log("DATA RAW:");
+console.log(res.data);
+
   const html = res.data;
 
   const lines = html
