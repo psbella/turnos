@@ -8,75 +8,92 @@ function hoy() {
 }
 
 async function run() {
-  const fecha = hoy();
+  try {
+    const fecha = hoy();
 
-  const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
+    const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
 
-  const res = await axios.get(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0",
-      "Accept": "text/html",
-      "Referer": "https://turnos.colfarmamdp.com.ar/"
+    const res = await axios.get(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "es-AR,es;q=0.9",
+        "Referer": "https://turnos.colfarmamdp.com.ar/"
+      }
+    });
+
+    const html = res.data;
+
+    console.log("STATUS:", res.status);
+    console.log("SIZE:", html?.length || 0);
+
+    // 🔥 DEBUG REAL (clave para tu caso)
+    fs.writeFileSync("debug_raw.html", html);
+
+    // ─────────────────────────────
+    // PARSER ROBUSTO
+    // ─────────────────────────────
+
+    const lines = html.split(/\n+/).map(l => l.trim()).filter(Boolean);
+
+    const farmacias = [];
+    let actual = null;
+
+    for (const line of lines) {
+      // nombre farmacia
+      const match = line.match(/\[(.*?)\]/);
+
+      if (match) {
+        if (actual) farmacias.push(actual);
+
+        actual = {
+          farmacia: match[1],
+          direccion: "",
+          telefono: ""
+        };
+        continue;
+      }
+
+      if (!actual) continue;
+
+      // dirección (heurística: línea sin links ni tags)
+      if (!actual.direccion && !line.includes("http") && line.length > 5) {
+        actual.direccion = line;
+        continue;
+      }
+
+      // teléfono (números)
+      if (/\d{3,}/.test(line)) {
+        actual.telefono = line;
+      }
     }
-  });
 
-  const text = res.data;
+    if (actual) farmacias.push(actual);
 
-  console.log("STATUS:", res.status);
-  console.log("SIZE:", text.length);
+    const output = {
+      fecha,
+      farmacias
+    };
 
-  // 🔥 REGEX REALISTA (captura bloques completos)
-  const bloques = text.split(/\n+/);
+    fs.writeFileSync("data.json", JSON.stringify(output, null, 2));
 
-  const farmacias = [];
+    // histórico
+    let historico = {};
 
-  let actual = null;
-
-  for (const l of bloques) {
-    const nombre = l.match(/\[(.*?)\]/);
-
-    if (nombre) {
-      if (actual) farmacias.push(actual);
-
-      actual = {
-        farmacia: nombre[1],
-        direccion: "",
-        telefono: ""
-      };
-      continue;
+    if (fs.existsSync("historico.json")) {
+      historico = JSON.parse(fs.readFileSync("historico.json"));
     }
 
-    if (!actual) continue;
+    historico[fecha] = farmacias;
 
-    if (!actual.direccion && l.length > 5 && !l.includes("http")) {
-      actual.direccion = l.trim();
-      continue;
-    }
+    fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
 
-    if (/\d{3,}/.test(l)) {
-      actual.telefono = l.trim();
-    }
+    console.log("✔ FARMACIAS ENCONTRADAS:", farmacias.length);
+
+  } catch (err) {
+    console.error("ERROR:", err.message);
   }
-
-  if (actual) farmacias.push(actual);
-
-  const data = {
-    fecha,
-    farmacias
-  };
-
-  fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
-
-  let hist = {};
-  if (fs.existsSync("historico.json")) {
-    hist = JSON.parse(fs.readFileSync("historico.json"));
-  }
-
-  hist[fecha] = farmacias;
-
-  fs.writeFileSync("historico.json", JSON.stringify(hist, null, 2));
-
-  console.log("OK FARMACIAS:", farmacias.length);
 }
 
 run();
