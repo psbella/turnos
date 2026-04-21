@@ -159,6 +159,15 @@ function format(d){
   return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
 }
 
+/* 🔥 FIX CLAVE: ordenar fechas correctamente */
+function ordenarFechas(arr){
+  return arr.sort((a, b) => {
+    const [da, ma, ya] = a.split('/').map(Number);
+    const [db, mb, yb] = b.split('/').map(Number);
+    return new Date(ya, ma-1, da) - new Date(yb, mb-1, db);
+  });
+}
+
 function render(){
   const fecha = fechas[index];
   document.getElementById("fecha").innerText = fecha;
@@ -186,26 +195,39 @@ function render(){
 }
 
 function prev(){
-  if(index>0){index--;render();}
+  if(index > 0){
+    index--;
+    render();
+  }
 }
 
 function next(){
-  if(index<fechas.length-1){index++;render();}
+  if(index < fechas.length - 1){
+    index++;
+    render();
+  }
 }
 
 function hoy(){
   const h = format(new Date());
   const i = fechas.indexOf(h);
-  if(i>=0){index=i;render();}
+  if(i >= 0){
+    index = i;
+    render();
+  }
 }
 
 fetch("turnos_hasta_31_12.json")
-  .then(r=>r.json())
-  .then(json=>{
-    data=json;
-    fechas=Object.keys(data);
+  .then(r => r.json())
+  .then(json => {
+    data = json;
+
+    /* 🔥 FIX aplicado acá */
+    fechas = ordenarFechas(Object.keys(data));
+
     render();
   });
+
 </script>
 
 </body>
