@@ -1,4 +1,4 @@
-const axios = require("axios");
+const puppeteer = require("puppeteer");
 const fs = require("fs");
 
 function hoy() {
@@ -8,92 +8,90 @@ function hoy() {
 }
 
 async function run() {
-  try {
-    const fecha = hoy();
+  const fecha = hoy();
 
-    const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
+  const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
 
-    const res = await axios.get(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "es-AR,es;q=0.9",
-        "Referer": "https://turnos.colfarmamdp.com.ar/"
-      }
-    });
+  console.log("Iniciando browser...");
 
-    const html = res.data;
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+  });
 
-    console.log("STATUS:", res.status);
-    console.log("SIZE:", html?.length || 0);
+  const page = await browser.newPage();
 
-    // 🔥 DEBUG REAL (clave para tu caso)
-    fs.writeFileSync("debug_raw.html", html);
+  await page.setUserAgent(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+  );
 
-    // ─────────────────────────────
-    // PARSER ROBUSTO
-    // ─────────────────────────────
+  await page.goto(url, {
+    waitUntil: "networkidle2",
+    timeout: 60000
+  });
 
-    const lines = html.split(/\n+/).map(l => l.trim()).filter(Boolean);
+  const content = await page.content();
 
-    const farmacias = [];
-    let actual = null;
+  console.log("HTML SIZE:", content.length);
 
-    for (const line of lines) {
-      // nombre farmacia
-      const match = line.match(/\[(.*?)\]/);
+  // DEBUG
+  fs.writeFileSync("debug_raw.html", content);
 
-      if (match) {
-        if (actual) farmacias.push(actual);
+  // extracción simple del texto visible
+  const text = await page.evaluate(() => document.body.innerText);
 
-        actual = {
-          farmacia: match[1],
-          direccion: "",
-          telefono: ""
-        };
-        continue;
-      }
+  const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
 
-      if (!actual) continue;
+  const farmacias = [];
+  let actual = null;
 
-      // dirección (heurística: línea sin links ni tags)
-      if (!actual.direccion && !line.includes("http") && line.length > 5) {
-        actual.direccion = line;
-        continue;
-      }
+  for (const line of lines) {
+    const match = line.match(/\[(.*?)\]/);
 
-      // teléfono (números)
-      if (/\d{3,}/.test(line)) {
-        actual.telefono = line;
-      }
+    if (match) {
+      if (actual) farmacias.push(actual);
+
+      actual = {
+        farmacia: match[1],
+        direccion: "",
+        telefono: ""
+      };
+      continue;
     }
 
-    if (actual) farmacias.push(actual);
+    if (!actual) continue;
 
-    const output = {
-      fecha,
-      farmacias
-    };
-
-    fs.writeFileSync("data.json", JSON.stringify(output, null, 2));
-
-    // histórico
-    let historico = {};
-
-    if (fs.existsSync("historico.json")) {
-      historico = JSON.parse(fs.readFileSync("historico.json"));
+    if (!actual.direccion && line.length > 5) {
+      actual.direccion = line;
+      continue;
     }
 
-    historico[fecha] = farmacias;
-
-    fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
-
-    console.log("✔ FARMACIAS ENCONTRADAS:", farmacias.length);
-
-  } catch (err) {
-    console.error("ERROR:", err.message);
+    if (/\d{3,}/.test(line)) {
+      actual.telefono = line;
+    }
   }
+
+  if (actual) farmacias.push(actual);
+
+  const output = {
+    fecha,
+    farmacias
+  };
+
+  fs.writeFileSync("data.json", JSON.stringify(output, null, 2));
+
+  let historico = {};
+  if (fs.existsSync("historico.json")) {
+    historico = JSON.parse(fs.readFileSync("historico.json"));
+  }
+
+  historico[fecha] = farmacias;
+
+  fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
+
+  console.log("✔ FARMACIAS:", farmacias.length);
+
+  await browser.close();
 }
 
 run();
