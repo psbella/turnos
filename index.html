@@ -2,168 +2,336 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
   <title>Farmacias de Turno · MDP</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body{
-      margin:0;
-      font-family:Nunito,sans-serif;
-      background:#0d1117;
-      color:#e6edf3;
-      display:flex;
-      justify-content:center;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2230;
+      --accent: #3fb950;
+      --accent-dim: rgba(63,185,80,0.12);
+      --text: #e6edf3;
+      --muted: #7d8590;
+      --border: rgba(255,255,255,0.08);
+      --radius: 14px;
     }
 
-    .app{
-      width:100%;
-      max-width:480px;
-      padding:16px;
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 0 40px;
     }
 
-    header{
-      padding:14px 0;
-      border-bottom:1px solid rgba(255,255,255,0.08);
-      position:sticky;
-      top:0;
-      background:#0d1117;
+    header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
     }
 
-    .title{
-      font-family:"Bebas Neue",sans-serif;
-      font-size:26px;
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
     }
 
-    .sub{
-      font-size:12px;
-      color:#7d8590;
+    .cross {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .cross::before, .cross::after {
+      content: '';
+      position: absolute;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+    .cross::before { width: 12px; height: 32px; left: 10px; top: 0; }
+    .cross::after  { width: 32px; height: 12px; left: 0; top: 10px; }
+
+    .app-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: var(--text);
+      line-height: 1;
     }
 
-    .fecha{
-      margin-top:10px;
-      text-align:center;
-      font-size:13px;
-      color:#7d8590;
+    .app-sub {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
     }
 
-    button{
-      margin-top:10px;
-      width:100%;
-      padding:10px;
-      border:none;
-      border-radius:10px;
-      background:#161b22;
-      color:white;
-      cursor:pointer;
+    .content { padding: 16px 16px 0; }
+
+    .intro {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
     }
 
-    .card{
-      background:#161b22;
-      border:1px solid rgba(255,255,255,0.08);
-      padding:14px;
-      border-radius:14px;
-      margin-top:10px;
+    .intro strong {
+      color: var(--text);
+      font-weight: 700;
     }
 
-    .name{font-weight:700}
-    .muted{font-size:12px;color:#7d8590}
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transition: border-color 0.15s;
+    }
+    .card:hover { border-color: rgba(63,185,80,0.25); }
+
+    .card-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--accent);
+      opacity: 0.5;
+      line-height: 1;
+      min-width: 24px;
+      margin-top: 2px;
+    }
+
+    .card-body { flex: 1; min-width: 0; }
+
+    .card-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 6px;
+      text-transform: capitalize;
+    }
+
+    .card-detail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .card-detail:last-child { margin-bottom: 0; }
+
+    .icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .phone-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .phone-link:hover { text-decoration: underline; }
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error {
+      background: rgba(218,54,51,0.1);
+      border: 1px solid rgba(218,54,51,0.25);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+      color: #f85149;
+      font-size: 14px;
+    }
+
+    .error-title { font-weight: 700; margin-bottom: 4px; }
+
+    .empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 20px 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
   </style>
 </head>
-
 <body>
 
-<div class="app">
+<header>
+  <div class="header-top">
+    <div class="cross"></div>
+    <div>
+      <div class="app-title">Farmacias de Turno</div>
+      <div class="app-sub">MAR DEL PLATA</div>
+    </div>
+  </div>
+</header>
 
-  <header>
-    <div class="title">Farmacias de Turno</div>
-    <div class="sub">Mar del Plata</div>
-
-    <!-- IMPORTANTE: ESTE ID ES CLAVE -->
-    <div id="fecha" class="fecha">Cargando...</div>
-
-    <button onclick="hoy()">Actualizar / Hoy</button>
-  </header>
-
-  <div id="lista">Cargando...</div>
-
-  <div id="info-turno" style="text-align:center;font-size:12px;color:#7d8590;margin:10px 0;"></div>
-
+<div class="content">
+  <p class="intro" id="intro" style="display:none;"></p>
+  <div id="lista"></div>
 </div>
 
+<footer>
+  Datos: <a href="http://colfarmamdp.com.ar" target="_blank">Colegio de Farmacéuticos MDP</a>
+</footer>
+
 <script>
+  const PROXY = 'https://api.allorigins.win/raw?url=';
+  const BASE  = 'http://colfarmamdp.com.ar/ajax/buscaturno2.php?fecha=';
 
-let data = {};
-let fechas = [];
-let fechaActual = "";
+  const lista = document.getElementById('lista');
+  const intro = document.getElementById('intro');
 
-/* FORMATO CONSISTENTE */
-function format(d){
-  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-}
+  function pad(n){ return String(n).padStart(2,'0'); }
 
-/* RENDER SEGURO (NO ROMPE SI FALTA DOM) */
-function render(fecha){
-
-  const fechaEl = document.getElementById("fecha");
-  if(fechaEl) fechaEl.innerText = fecha;
-
-  const cont = document.getElementById("lista");
-  if(!cont) return;
-
-  const lista = data[fecha];
-
-  if(!lista){
-    cont.innerHTML = "<div class='card'>Sin datos para esta fecha</div>";
-    return;
+  function formatFecha(d){
+    return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
   }
 
-  cont.innerHTML = "";
-
-  lista.forEach(f => {
-    cont.innerHTML += `
-      <div class="card">
-        <div class="name">${f.farmacia}</div>
-        <div class="muted">${f.direccion || ""}</div>
-        <div class="muted">${f.telefono || ""}</div>
-      </div>
-    `;
-  });
-}
-
-/* ARRANQUE SEGURO */
-function hoy(){
-  const h = format(new Date());
-
-  if(data[h]){
-    fechaActual = h;
-  } else {
-    fechaActual = fechas[0];
+  function labelFecha(d){
+    const dias  = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return `${dias[d.getDay()]} ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
   }
 
-  render(fechaActual);
-}
+  function capFirst(str){
+    return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
 
-/* CARGA JSON */
-fetch("turnos_hasta_31_12.json")
-  .then(r => r.json())
-  .then(json => {
+  function setLoading(){
+    intro.style.display = 'none';
+    lista.innerHTML = `<div class="loading"><div class="spinner"></div><span>Consultando farmacias...</span></div>`;
+  }
 
-    data = json;
-    fechas = Object.keys(data);
+  function setError(msg){
+    intro.style.display = 'none';
+    lista.innerHTML = `<div class="error"><div class="error-title">No se pudo cargar</div>${msg}</div>`;
+  }
 
-    console.log("FECHAS:", fechas.length);
+  async function cargar(){
+    const hoy = new Date();
+    const fecha = formatFecha(hoy);
+    setLoading();
 
-    hoy();
-  })
-  .catch(err => {
-    document.getElementById("lista").innerHTML =
-      "<div class='card'>Error cargando datos</div>";
-    console.error(err);
-  });
+    try {
+      const encodedFecha = fecha.replace(/\//g, '%2F');
+      const url = `${PROXY}${encodeURIComponent(BASE + encodedFecha)}`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('Error de red');
+      const html = await res.text();
 
+      const parser = new DOMParser();
+      const doc    = parser.parseFromString(html, 'text/html');
+      const rows   = doc.querySelectorAll('table tr');
+
+      const farmacias = [];
+      rows.forEach(tr => {
+        const cells = tr.querySelectorAll('td');
+        if(cells.length >= 2){
+          const nombre    = cells[0].textContent.trim();
+          const direccion = cells[1].textContent.trim();
+          const telefono  = cells[2] ? cells[2].textContent.trim() : '';
+          if(nombre && nombre !== 'Farmacia'){
+            farmacias.push({ nombre, direccion, telefono });
+          }
+        }
+      });
+
+      if(farmacias.length === 0){
+        lista.innerHTML = `<div class="empty">No se encontraron farmacias para esta fecha.</div>`;
+        return;
+      }
+
+      intro.innerHTML = `Hoy <strong>${labelFecha(hoy)}</strong> están de turno desde las 9:00 hs. por 24 horas las siguientes farmacias:`;
+      intro.style.display = 'block';
+
+      lista.innerHTML = '';
+      farmacias.forEach((f, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+
+        const phoneHtml = f.telefono
+          ? `<a class="phone-link" href="tel:${f.telefono.replace(/\D/g,'')}">${f.telefono}</a>`
+          : '<span style="color:var(--muted);font-style:italic;">sin teléfono</span>';
+
+        div.innerHTML = `
+          <div class="card-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="card-body">
+            <div class="card-name">${capFirst(f.nombre)}</div>
+            <div class="card-detail">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                <circle cx="12" cy="9" r="2.5"/>
+              </svg>
+              <span>${capFirst(f.direccion)}</span>
+            </div>
+            <div class="card-detail">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.2 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.48-.59a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              ${phoneHtml}
+            </div>
+          </div>
+        `;
+        lista.appendChild(div);
+      });
+
+    } catch(e) {
+      setError('Revisá tu conexión a internet e intentá de nuevo.');
+    }
+  }
+
+  cargar();
 </script>
-
 </body>
 </html>
