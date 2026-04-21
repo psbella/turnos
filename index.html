@@ -1,149 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="theme-color" content="#0d1117">
-  <title>Farmacias de Turno · MDP</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#0d1117;
-      --surface:#161b22;
-      --accent:#3fb950;
-      --muted:#7d8590;
-      --border:rgba(255,255,255,0.08);
-      --radius:14px;
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-
-    body{
-      font-family:Nunito, sans-serif;
-      background:var(--bg);
-      color:#e6edf3;
-      display:flex;
-      justify-content:center;
-    }
-
-    .app{
-      width:100%;
-      max-width:480px;
-      padding:16px;
-    }
-
-    header{
-      position:sticky;
-      top:0;
-      background:var(--bg);
-      padding:14px 0;
-      border-bottom:1px solid var(--border);
-      z-index:10;
-    }
-
-    .title{
-      font-family:"Bebas Neue", sans-serif;
-      font-size:26px;
-      letter-spacing:1px;
-    }
-
-    .sub{
-      font-size:12px;
-      color:var(--muted);
-    }
-
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-top:10px;
-      gap:8px;
-    }
-
-    button{
-      background:var(--surface);
-      border:none;
-      color:#fff;
-      padding:8px 10px;
-      border-radius:10px;
-      cursor:pointer;
-    }
-
-    button:hover{opacity:0.8}
-
-    .fecha{
-      text-align:center;
-      flex:1;
-      font-size:13px;
-      color:var(--muted);
-    }
-
-    .card{
-      background:var(--surface);
-      border:1px solid var(--border);
-      padding:14px;
-      border-radius:var(--radius);
-      margin-top:10px;
-    }
-
-    .name{
-      font-weight:700;
-      color:#fff;
-      margin-bottom:4px;
-    }
-
-    .muted{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:2px;
-    }
-
-    .empty{
-      text-align:center;
-      margin-top:40px;
-      color:var(--muted);
-    }
-
-    .badge{
-      display:inline-block;
-      margin-top:8px;
-      font-size:11px;
-      color:var(--accent);
-    }
-
-    .loading{
-      text-align:center;
-      margin-top:40px;
-      color:var(--muted);
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <header>
-    <div class="title">Farmacias de Turno</div>
-    <div class="sub">Mar del Plata</div>
-
-    <div class="nav">
-      <button onclick="prev()">⬅</button>
-      <div class="fecha" id="fecha">Cargando...</div>
-      <button onclick="next()">➡</button>
-    </div>
-
-    <div style="text-align:center;margin-top:8px;">
-      <button onclick="hoy()">Hoy</button>
-    </div>
-  </header>
-
-  <div id="lista" class="loading">Cargando datos...</div>
-
-</div>
-
 <script>
 let data = {};
 let fechas = [];
@@ -159,7 +13,6 @@ function parseFecha(str){
   return new Date(y, m-1, d);
 }
 
-/* orden real por fecha */
 function ordenarFechas(arr){
   return arr.sort((a,b)=>parseFecha(a)-parseFecha(b));
 }
@@ -169,14 +22,12 @@ function render(){
   const fecha = fechas[index];
   document.getElementById("fecha").innerText = fecha;
 
-  /* 🔥 FIX REAL: búsqueda tolerante */
-  const key = Object.keys(data).find(k => k.replace(/\s/g,'') === fecha.replace(/\s/g,''));
-
-  const lista = key ? data[key] : [];
+  /* 🔥 CLAVE: SIN INVENTOS */
+  const lista = data[fecha] || [];
 
   const cont = document.getElementById("lista");
 
-  if(!lista || lista.length === 0){
+  if(lista.length === 0){
     cont.innerHTML = `<div class="empty">Sin farmacias para esta fecha</div>`;
     return;
   }
@@ -226,12 +77,8 @@ fetch("turnos_hasta_31_12.json")
 
     fechas = ordenarFechas(Object.keys(data));
 
-    index = fechas.length - 1; // arranca en última fecha (podés cambiarlo)
+    index = fechas.length - 1;
 
     render();
   });
-
 </script>
-
-</body>
-</html>
