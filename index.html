@@ -147,7 +147,6 @@
 <script>
 let data = {};
 let fechas = [];
-let index = 0;
 
 function format(d){
   const pad=n=>String(n).padStart(2,'0');
@@ -163,12 +162,12 @@ function ordenarFechas(arr){
   return arr.sort((a,b)=>parseFecha(a)-parseFecha(b));
 }
 
-function render(){
+let fechaActual = "";
 
-  const fecha = fechas[index];
+function render(fecha){
+
   document.getElementById("fecha").innerText = fecha;
 
-  /* 🔥 CLAVE: SIN INVENTOS */
   const lista = data[fecha] || [];
 
   const cont = document.getElementById("lista");
@@ -192,27 +191,14 @@ function render(){
   });
 }
 
-function prev(){
-  if(index > 0){
-    index--;
-    render();
-  }
-}
-
-function next(){
-  if(index < fechas.length - 1){
-    index++;
-    render();
-  }
-}
-
 function hoy(){
   const h = format(new Date());
-  const i = fechas.indexOf(h);
-  if(i >= 0){
-    index = i;
-    render();
+  if(data[h]){
+    fechaActual = h;
+  } else {
+    fechaActual = fechas[0]; // fallback seguro
   }
+  render(fechaActual);
 }
 
 fetch("turnos_hasta_31_12.json")
@@ -223,9 +209,8 @@ fetch("turnos_hasta_31_12.json")
 
     fechas = ordenarFechas(Object.keys(data));
 
-    index = fechas.length - 1;
+    hoy(); // arranca siempre en hoy
 
-    render();
   });
 </script>
 
