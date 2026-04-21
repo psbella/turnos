@@ -1,49 +1,45 @@
 const axios = require("axios");
 const fs = require("fs");
 
-function formatearFecha() {
+function hoy() {
   const d = new Date();
-
   const pad = (n) => String(n).padStart(2, "0");
-
   return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
 }
 
-async function fetchHTML(fecha) {
+async function run() {
+  const fecha = hoy();
+
   const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
 
   const res = await axios.get(url, {
     headers: {
       "User-Agent": "Mozilla/5.0",
-      "Accept": "text/html,application/xhtml+xml",
+      "Accept": "text/html",
       "Referer": "https://turnos.colfarmamdp.com.ar/"
     }
   });
 
+  const text = res.data;
+
   console.log("STATUS:", res.status);
-  console.log("DATA LENGTH:", res.data?.length || 0);
+  console.log("SIZE:", text.length);
 
-  return res.data;
-}
-
-function parsear(html) {
-  const lines = html
-    .split("\n")
-    .map(l => l.trim())
-    .filter(Boolean);
+  // 🔥 REGEX REALISTA (captura bloques completos)
+  const bloques = text.split(/\n+/);
 
   const farmacias = [];
+
   let actual = null;
 
-  for (const line of lines) {
-    // Detecta farmacia en formato [NOMBRE]
-    const match = line.match(/\[(.*?)\]/);
+  for (const l of bloques) {
+    const nombre = l.match(/\[(.*?)\]/);
 
-    if (match) {
+    if (nombre) {
       if (actual) farmacias.push(actual);
 
       actual = {
-        farmacia: match[1],
+        farmacia: nombre[1],
         direccion: "",
         telefono: ""
       };
@@ -52,61 +48,35 @@ function parsear(html) {
 
     if (!actual) continue;
 
-    // dirección (heurística simple)
-    if (!actual.direccion && !line.includes("http") && !line.includes("[")) {
-      actual.direccion = line;
+    if (!actual.direccion && l.length > 5 && !l.includes("http")) {
+      actual.direccion = l.trim();
       continue;
     }
 
-    // teléfono (números)
-    if (line.match(/[0-9]{3,}/)) {
-      actual.telefono = line;
+    if (/\d{3,}/.test(l)) {
+      actual.telefono = l.trim();
     }
   }
 
   if (actual) farmacias.push(actual);
 
-  return farmacias;
-}
+  const data = {
+    fecha,
+    farmacias
+  };
 
-async function run() {
-  try {
-    const fecha = formatearFecha();
+  fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
 
-    console.log("Fecha usada:", fecha);
-
-    const html = await fetchHTML(fecha);
-
-    console.log("RAW preview:", html.slice(0, 300));
-
-    const farmacias = parsear(html);
-
-    console.log("Farmacias encontradas:", farmacias.length);
-
-    // 📦 data actual
-    const dataFinal = {
-      fecha,
-      farmacias
-    };
-
-    fs.writeFileSync("data.json", JSON.stringify(dataFinal, null, 2));
-
-    // 📜 histórico
-    let historico = {};
-
-    if (fs.existsSync("historico.json")) {
-      historico = JSON.parse(fs.readFileSync("historico.json"));
-    }
-
-    historico[fecha] = farmacias;
-
-    fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
-
-    console.log("✔ Actualización completa");
-
-  } catch (err) {
-    console.error("ERROR SCRAPER:", err.message);
+  let hist = {};
+  if (fs.existsSync("historico.json")) {
+    hist = JSON.parse(fs.readFileSync("historico.json"));
   }
+
+  hist[fecha] = farmacias;
+
+  fs.writeFileSync("historico.json", JSON.stringify(hist, null, 2));
+
+  console.log("OK FARMACIAS:", farmacias.length);
 }
 
 run();
