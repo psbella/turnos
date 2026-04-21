@@ -40,7 +40,6 @@
       background:var(--bg);
       padding:14px 0;
       border-bottom:1px solid var(--border);
-      z-index:10;
     }
 
     .title{
@@ -54,31 +53,25 @@
       color:var(--muted);
     }
 
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .fecha{
       margin-top:10px;
-      gap:8px;
+      font-size:13px;
+      color:var(--muted);
+      text-align:center;
     }
 
     button{
+      margin-top:10px;
+      width:100%;
       background:var(--surface);
       border:none;
       color:#fff;
-      padding:8px 10px;
+      padding:10px;
       border-radius:10px;
       cursor:pointer;
     }
 
     button:hover{opacity:0.8}
-
-    .fecha{
-      text-align:center;
-      flex:1;
-      font-size:13px;
-      color:var(--muted);
-    }
 
     .card{
       background:var(--surface);
@@ -129,11 +122,9 @@
     <div class="title">Farmacias de Turno</div>
     <div class="sub">Mar del Plata</div>
 
-    
+    <div class="fecha" id="fecha">Cargando...</div>
 
-    <div style="text-align:center;margin-top:8px;">
-      <button onclick="hoy()">Hoy</button>
-    </div>
+    <button onclick="hoy()">Actualizar / Hoy</button>
   </header>
 
   <div id="lista" class="loading">Cargando datos...</div>
@@ -151,15 +142,13 @@ function format(d){
 
 function render(fecha){
 
-  console.log("RENDER:", fecha);
-
-  const cont = document.getElementById("lista");
   document.getElementById("fecha").innerText = fecha;
 
-  const lista = data[fecha];
+  const lista = data[fecha] || [];
+  const cont = document.getElementById("lista");
 
-  if(!lista){
-    cont.innerHTML = "<div class='empty'>Sin datos para esta fecha</div>";
+  if(lista.length === 0){
+    cont.innerHTML = `<div class="empty">Sin farmacias para esta fecha</div>`;
     return;
   }
 
@@ -171,6 +160,7 @@ function render(fecha){
         <div class="name">${f.farmacia}</div>
         <div class="muted">${f.direccion || ""}</div>
         <div class="muted">${f.telefono || ""}</div>
+        <div class="badge">Turno activo</div>
       </div>
     `;
   });
@@ -178,7 +168,6 @@ function render(fecha){
 
 function hoy(){
   const h = format(new Date());
-  console.log("HOY:", h);
 
   if(data[h]){
     fechaActual = h;
@@ -190,23 +179,20 @@ function hoy(){
 }
 
 fetch("turnos_hasta_31_12.json")
-  .then(r => {
-    console.log("STATUS JSON:", r.status);
-    return r.json();
-  })
+  .then(r => r.json())
   .then(json => {
+
     data = json;
 
     fechas = Object.keys(data);
 
-    console.log("FECHAS:", fechas);
-
     hoy();
+
   })
   .catch(err => {
-    console.error("ERROR FETCH:", err);
     document.getElementById("lista").innerHTML =
       "<div class='empty'>Error cargando datos</div>";
+    console.error(err);
   });
 </script>
 
