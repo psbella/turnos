@@ -275,6 +275,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <script src="data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <script>
 const geoCache = {};
@@ -284,47 +285,72 @@ let activeCard = null;
 let currentCoords = null;
 let currentDireccion = null;
 let currentFarmacia = null;
-cargar();
-</script>
 
 function pad(n){ return String(n).padStart(2,'0'); }
-function formatFecha(d){ return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear(); }
+
+function formatFecha(d){
+  return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();
+}
+
 function labelFecha(d){
   const dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
   const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   return dias[d.getDay()]+' '+d.getDate()+' de '+meses[d.getMonth()]+' de '+d.getFullYear();
 }
-function capFirst(str){ return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()); }
-function mapsUrl(dir){ return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(dir+', Mar del Plata, Argentina'); }
-function wazeUrl(lat,lng){ return 'https://waze.com/ul?ll='+lat+','+lng+'&navigate=yes'; }
+
+function capFirst(str){
+  return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function mapsUrl(dir){
+  return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(dir+', Mar del Plata, Argentina');
+}
+
+function wazeUrl(lat,lng){
+  return 'https://waze.com/ul?ll='+lat+','+lng+'&navigate=yes';
+}
 
 async function geocode(dir){
   if(geoCache[dir]) return geoCache[dir];
-  const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(dir+', Mar del Plata, Buenos Aires, Argentina');
+
+  const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+
+    encodeURIComponent(dir+', Mar del Plata, Buenos Aires, Argentina');
+
   try{
     const res = await fetch(url, {headers:{'Accept-Language':'es'}});
     const data = await res.json();
+
     if(data.length>0){
       const c=[parseFloat(data[0].lat), parseFloat(data[0].lon)];
-      geoCache[dir]=c; return c;
+      geoCache[dir]=c;
+      return c;
     }
   }catch(e){}
+
   return null;
 }
 
 const markerIcon = L.divIcon({
   html:'<div style="background:#3fb950;width:14px;height:14px;border-radius:50%;border:3px solid #0d1117;box-shadow:0 0 0 2px #3fb950;"></div>',
-  iconSize:[14,14], iconAnchor:[7,7], className:''
+  iconSize:[14,14],
+  iconAnchor:[7,7],
+  className:''
 });
 
 function placeMarker(mapObj, lat, lng){
   mapObj.setView([lat,lng],16);
-  mapObj.eachLayer(l=>{ if(l instanceof L.Marker) mapObj.removeLayer(l); });
+
+  mapObj.eachLayer(l=>{
+    if(l instanceof L.Marker) mapObj.removeLayer(l);
+  });
+
   L.marker([lat,lng],{icon:markerIcon}).addTo(mapObj);
   setTimeout(()=>mapObj.invalidateSize(),50);
 }
 
-function isDesktop(){ return window.innerWidth >= 768; }
+function isDesktop(){
+  return window.innerWidth >= 768;
+}
 
 function showFarmacia(farmacia, direccion){
   currentFarmacia = farmacia;
@@ -348,24 +374,24 @@ function showDesktop(farmacia, direccion){
   container.style.display = 'block';
   container.innerHTML = '';
 
-  // Re-init map to avoid stale state
-  if(mapDesktop){ mapDesktop.remove(); mapDesktop=null; }
+  if(mapDesktop){
+    mapDesktop.remove();
+    mapDesktop=null;
+  }
+
   mapDesktop = L.map('map-desktop',{zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(mapDesktop);
-  L.control.attribution({position:'bottomright',prefix:'© OSM'}).addTo(mapDesktop);
 
-  document.getElementById('desktopBtnMaps').onclick = ()=> window.open(mapsUrl(direccion),'_blank');
-  document.getElementById('desktopBtnWaze').onclick = ()=>{ if(currentCoords) window.open(wazeUrl(currentCoords[0],currentCoords[1]),'_blank'); };
+  document.getElementById('desktopBtnMaps').onclick =
+    ()=> window.open(mapsUrl(direccion),'_blank');
+
+  document.getElementById('desktopBtnWaze').onclick =
+    ()=>{ if(currentCoords) window.open(wazeUrl(currentCoords[0],currentCoords[1]),'_blank'); };
 
   geocode(direccion).then(coords=>{
     if(coords){
       currentCoords = coords;
       placeMarker(mapDesktop, coords[0], coords[1]);
-      document.getElementById('desktopBtnWaze').style.display='';
-    } else {
-      currentCoords = null;
-      container.innerHTML='<div class="geo-loading-desktop"><span style="color:var(--muted)">No se pudo geolocalizar</span></div>';
-      document.getElementById('desktopBtnWaze').style.display='none';
     }
   });
 }
@@ -374,30 +400,21 @@ function showMobile(farmacia, direccion){
   document.getElementById('sheetName').textContent = capFirst(farmacia);
   document.getElementById('sheetAddr').textContent = capFirst(direccion);
 
-  const mobileMap = document.getElementById('map-mobile');
-  mobileMap.innerHTML = '<div class="geo-loading"><div class="mini-spinner"></div><span>Buscando en el mapa...</span></div>';
-
   document.getElementById('mapSheet').classList.add('open');
   document.getElementById('overlay').classList.add('open');
 
-  document.getElementById('mobileBtnMaps').onclick = ()=> window.open(mapsUrl(direccion),'_blank');
-  document.getElementById('mobileBtnWaze').onclick = ()=>{ if(currentCoords) window.open(wazeUrl(currentCoords[0],currentCoords[1]),'_blank'); };
-
   geocode(direccion).then(coords=>{
-    mobileMap.innerHTML = '';
-    if(mapMobile){ mapMobile.remove(); mapMobile=null; }
+    if(mapMobile){
+      mapMobile.remove();
+      mapMobile=null;
+    }
+
     mapMobile = L.map('map-mobile',{zoomControl:false,attributionControl:false});
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(mapMobile);
-    L.control.attribution({position:'bottomright',prefix:'© OSM'}).addTo(mapMobile);
 
     if(coords){
       currentCoords = coords;
       placeMarker(mapMobile, coords[0], coords[1]);
-      document.getElementById('mobileBtnWaze').style.display='';
-    } else {
-      currentCoords = null;
-      mapMobile.setView([-38.0, -57.55], 13);
-      document.getElementById('mobileBtnWaze').style.display='none';
     }
   });
 }
@@ -405,7 +422,11 @@ function showMobile(farmacia, direccion){
 function closeMobile(){
   document.getElementById('mapSheet').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
-  if(activeCard){ activeCard.classList.remove('active'); activeCard=null; }
+
+  if(activeCard){
+    activeCard.classList.remove('active');
+    activeCard=null;
+  }
 }
 
 document.getElementById('mapClose').addEventListener('click', closeMobile);
@@ -415,55 +436,44 @@ function cargar(){
   const hoy = new Date();
   const fecha = formatFecha(hoy);
   const farmacias = TURNOS[fecha] || [];
+
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
 
-  if(!farmacias || farmacias.length === 0){
+  if(!farmacias.length){
     intro.innerHTML = 'Hoy <strong>'+labelFecha(hoy)+'</strong> no hay datos disponibles.';
-    intro.style.display = 'block';
-    lista.innerHTML = '<div class="empty">Sin información para esta fecha.</div>';
+    lista.innerHTML = '<div class="empty">Sin información.</div>';
     return;
   }
 
-  intro.innerHTML = 'Hoy <strong>'+labelFecha(hoy)+'</strong> están de turno desde las 9:00 hs. por 24 horas las siguientes farmacias:';
-  intro.style.display = 'block';
-
+  intro.innerHTML = 'Hoy <strong>'+labelFecha(hoy)+'</strong> están de turno:';
   lista.innerHTML = '';
-  farmacias.forEach((f, i) => {
+
+  farmacias.forEach((f,i)=>{
     const div = document.createElement('div');
     div.className = 'card';
-    const phoneHtml = f.telefono
-      ? '<a class="phone-link" href="tel:'+f.telefono.replace(/\D/g,'')+'" onclick="event.stopPropagation()">'+f.telefono+'</a>'
-      : '<span style="color:var(--muted);font-style:italic;">sin teléfono</span>';
+
     div.innerHTML = `
       <div class="card-num">${String(i+1).padStart(2,'0')}</div>
       <div class="card-body">
         <div class="card-name">${capFirst(f.farmacia)}</div>
-        <div class="card-detail">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-            <circle cx="12" cy="9" r="2.5"/>
-          </svg>
-          <a class="maps-link" href="${mapsUrl(f.direccion)}" target="_blank" onclick="event.stopPropagation()">${capFirst(f.direccion)}</a>
-        </div>
-        <div class="card-detail">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.2 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.48-.59a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-          </svg>
-          ${phoneHtml}
-        </div>
+        <div class="card-detail">${capFirst(f.direccion)}</div>
       </div>
     `;
-    div.addEventListener('click', ()=>{
-      if(activeCard && activeCard!==div) activeCard.classList.remove('active');
+
+    div.onclick = ()=>{
+      if(activeCard) activeCard.classList.remove('active');
       div.classList.add('active');
       activeCard = div;
+
       showFarmacia(f.farmacia, f.direccion);
-    });
+    };
+
     lista.appendChild(div);
   });
 }
 
+// 👇 IMPORTANTE: ejecutar al final
 cargar();
 </script>
 </body>
