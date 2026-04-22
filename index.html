@@ -3,7 +3,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <script>
-// ===== VARIABLES GLOBALES (FALTABAN) =====
 const geoCache = {};
 let mapMobile = null;
 let mapDesktop = null;
@@ -12,7 +11,6 @@ let currentCoords = null;
 let currentDireccion = null;
 let currentFarmacia = null;
 
-// ===== FUNCIONES =====
 function pad(n){ return String(n).padStart(2,'0'); }
 
 function formatFecha(d){
@@ -30,26 +28,26 @@ function capFirst(str){
 }
 
 function mapsUrl(dir){
-  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(dir + ', Mar del Plata, Argentina');
+  return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(dir+', Mar del Plata, Argentina');
 }
 
 function wazeUrl(lat,lng){
-  return 'https://waze.com/ul?ll=' + lat + ',' + lng + '&navigate=yes';
+  return 'https://waze.com/ul?ll='+lat+','+lng+'&navigate=yes';
 }
 
 async function geocode(dir){
   if(geoCache[dir]) return geoCache[dir];
 
-  const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' +
-    encodeURIComponent(dir + ', Mar del Plata, Buenos Aires, Argentina');
+  const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+
+    encodeURIComponent(dir+', Mar del Plata, Buenos Aires, Argentina');
 
   try{
     const res = await fetch(url, {headers:{'Accept-Language':'es'}});
     const data = await res.json();
 
-    if(data.length > 0){
-      const c = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-      geoCache[dir] = c;
+    if(data.length>0){
+      const c=[parseFloat(data[0].lat), parseFloat(data[0].lon)];
+      geoCache[dir]=c;
       return c;
     }
   }catch(e){}
@@ -66,7 +64,11 @@ const markerIcon = L.divIcon({
 
 function placeMarker(mapObj, lat, lng){
   mapObj.setView([lat,lng],16);
-  mapObj.eachLayer(l => { if(l instanceof L.Marker) mapObj.removeLayer(l); });
+
+  mapObj.eachLayer(l=>{
+    if(l instanceof L.Marker) mapObj.removeLayer(l);
+  });
+
   L.marker([lat,lng],{icon:markerIcon}).addTo(mapObj);
   setTimeout(()=>mapObj.invalidateSize(),50);
 }
@@ -97,23 +99,24 @@ function showDesktop(farmacia, direccion){
   container.style.display = 'block';
   container.innerHTML = '';
 
-  if(mapDesktop){ mapDesktop.remove(); mapDesktop=null; }
+  if(mapDesktop){
+    mapDesktop.remove();
+    mapDesktop=null;
+  }
 
   mapDesktop = L.map('map-desktop',{zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(mapDesktop);
-  L.control.attribution({position:'bottomright',prefix:'© OSM'}).addTo(mapDesktop);
 
-  document.getElementById('desktopBtnMaps').onclick = ()=> window.open(mapsUrl(direccion),'_blank');
-  document.getElementById('desktopBtnWaze').onclick = ()=>{
-    if(currentCoords) window.open(wazeUrl(currentCoords[0],currentCoords[1]),'_blank');
-  };
+  document.getElementById('desktopBtnMaps').onclick =
+    ()=> window.open(mapsUrl(direccion),'_blank');
+
+  document.getElementById('desktopBtnWaze').onclick =
+    ()=>{ if(currentCoords) window.open(wazeUrl(currentCoords[0],currentCoords[1]),'_blank'); };
 
   geocode(direccion).then(coords=>{
     if(coords){
       currentCoords = coords;
       placeMarker(mapDesktop, coords[0], coords[1]);
-    } else {
-      currentCoords = null;
     }
   });
 }
@@ -122,21 +125,14 @@ function showMobile(farmacia, direccion){
   document.getElementById('sheetName').textContent = capFirst(farmacia);
   document.getElementById('sheetAddr').textContent = capFirst(direccion);
 
-  const mobileMap = document.getElementById('map-mobile');
-  mobileMap.innerHTML = '<div class="geo-loading"><div class="mini-spinner"></div><span>Buscando en el mapa...</span></div>';
-
   document.getElementById('mapSheet').classList.add('open');
   document.getElementById('overlay').classList.add('open');
 
-  document.getElementById('mobileBtnMaps').onclick = ()=> window.open(mapsUrl(direccion),'_blank');
-  document.getElementById('mobileBtnWaze').onclick = ()=>{
-    if(currentCoords) window.open(wazeUrl(currentCoords[0],currentCoords[1]),'_blank');
-  };
-
   geocode(direccion).then(coords=>{
-    mobileMap.innerHTML = '';
-
-    if(mapMobile){ mapMobile.remove(); mapMobile=null; }
+    if(mapMobile){
+      mapMobile.remove();
+      mapMobile=null;
+    }
 
     mapMobile = L.map('map-mobile',{zoomControl:false,attributionControl:false});
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(mapMobile);
@@ -144,9 +140,6 @@ function showMobile(farmacia, direccion){
     if(coords){
       currentCoords = coords;
       placeMarker(mapMobile, coords[0], coords[1]);
-    } else {
-      currentCoords = null;
-      mapMobile.setView([-38.0, -57.55], 13);
     }
   });
 }
@@ -164,7 +157,7 @@ function closeMobile(){
 document.getElementById('mapClose').addEventListener('click', closeMobile);
 document.getElementById('overlay').addEventListener('click', closeMobile);
 
-// ===== FUNCIÓN PRINCIPAL =====
+// ✅ FUNCIÓN LIMPIA
 function cargar(){
   const hoy = new Date();
   const fecha = formatFecha(hoy);
@@ -173,14 +166,13 @@ function cargar(){
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
 
-  if(!farmacias || farmacias.length === 0){
+  if(!farmacias.length){
     intro.innerHTML = 'Hoy <strong>'+labelFecha(hoy)+'</strong> no hay datos disponibles.';
-    lista.innerHTML = '<div class="empty">Sin información para esta fecha.</div>';
+    lista.innerHTML = '<div class="empty">Sin información.</div>';
     return;
   }
 
-  intro.innerHTML = 'Hoy <strong>'+labelFecha(hoy)+'</strong> están de turno desde las 9:00 hs. por 24 horas las siguientes farmacias:';
-
+  intro.innerHTML = 'Hoy <strong>'+labelFecha(hoy)+'</strong> están de turno:';
   lista.innerHTML = '';
 
   farmacias.forEach((f, i) => {
@@ -191,23 +183,24 @@ function cargar(){
       <div class="card-num">${String(i+1).padStart(2,'0')}</div>
       <div class="card-body">
         <div class="card-name">${capFirst(f.farmacia)}</div>
-        <div class="card-detail">
-          <a class="maps-link" href="${mapsUrl(f.direccion)}" target="_blank">${capFirst(f.direccion)}</a>
-        </div>
+        <div class="card-detail">${capFirst(f.direccion)}</div>
       </div>
     `;
 
-    div.addEventListener('click', ()=>{
-      if(activeCard && activeCard!==div) activeCard.classList.remove('active');
+    div.onclick = ()=>{
+      if(activeCard) activeCard.classList.remove('active');
       div.classList.add('active');
       activeCard = div;
+
       showFarmacia(f.farmacia, f.direccion);
-    });
+    };
 
     lista.appendChild(div);
   });
 }
 
-// ===== INIT =====
+// INIT
 cargar();
 </script>
+</body>
+</html>
