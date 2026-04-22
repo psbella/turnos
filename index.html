@@ -259,7 +259,7 @@ const farmacias = (TURNOS && TURNOS[fecha]) ? TURNOS[fecha] : [];
 /* ===== INIT (CLAVE) ===== */
 async function init(){
   try{
-    const res = await fetch('./ciclos_final.json');
+    const res = await fetch('/turnos/ciclos_final.json')
     TURNOS = await res.json();
     cargar();
   }catch(e){
