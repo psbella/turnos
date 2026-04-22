@@ -141,18 +141,8 @@
 
 <!-- SOLO UNA VEZ -->
 <script>
-let TURNOS = {};
+let CICLOS = {};
 
-fetch('/turnos/ciclos_final.json')
-  .then(r => r.json())
-  .then(data => {
-    TURNOS = data;
-    cargar();
-  });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-
-<script>
 const geoCache = {};
 let mapMobile = null;
 let mapDesktop = null;
@@ -162,10 +152,6 @@ let currentCoords = null;
 /* ===== utils ===== */
 function pad(n){ return String(n).padStart(2,'0'); }
 
-function formatFecha(d){
-  return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();
-}
-
 function labelFecha(d){
   const dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
   const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -174,6 +160,14 @@ function labelFecha(d){
 
 function capFirst(str){
   return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+}
+
+/* ===== CICLOS ===== */
+function getCicloHoy(){
+  const inicio = new Date(2024, 0, 1); // ⚠️ AJUSTAR A CICLO 1 REAL
+  const hoy = new Date();
+  const diff = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+  return (diff % 16) + 1;
 }
 
 /* ===== MAPA ===== */
@@ -220,9 +214,9 @@ function showFarmacia(f, dir){
 /* ===== LISTA ===== */
 function cargar(){
   const hoy = new Date();
-const fecha = String(hoy.getDate());
+  const ciclo = getCicloHoy();
 
-const farmacias = (TURNOS && TURNOS[fecha]) ? TURNOS[fecha] : [];
+  const farmacias = (CICLOS && CICLOS[ciclo]) ? CICLOS[ciclo] : [];
 
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
@@ -256,11 +250,11 @@ const farmacias = (TURNOS && TURNOS[fecha]) ? TURNOS[fecha] : [];
   });
 }
 
-/* ===== INIT (CLAVE) ===== */
+/* ===== INIT ===== */
 async function init(){
   try{
-    const res = await fetch('/turnos/ciclos_final.json')
-    TURNOS = await res.json();
+    const res = await fetch('/turnos/ciclos_final.json');
+    CICLOS = await res.json();
     cargar();
   }catch(e){
     console.error("Error cargando JSON", e);
