@@ -140,7 +140,16 @@
 </div>
 
 <!-- SOLO UNA VEZ -->
-<script src="ciclos_final.json"></script>
+<script>
+let TURNOS = {};
+
+fetch('./ciclos_final.json')
+  .then(r => r.json())
+  .then(data => {
+    TURNOS = data;
+    cargar();
+  });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <script>
