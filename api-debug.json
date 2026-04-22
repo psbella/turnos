@@ -1,0 +1,132 @@
+[
+  {
+    "url": "https://www.chefarmacia.com.ar/manifest.json",
+    "data": {
+      "shortcuts": [
+        {
+          "name": "Farmacias San Isidro",
+          "short_name": "San Isidro",
+          "description": "Accede a las farmacias de turno de San Isidro",
+          "url": "/localidades/san-isidro",
+          "icons": [
+            {
+              "src": "public/icons/icon-512x512.png",
+              "sizes": "192x192"
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        {
+          "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
+          "sizes": "2880x1800",
+          "type": "image/png",
+          "description": "PWABuilder Home Screen"
+        },
+        {
+          "src": "https://www.pwabuilder.com/assets/screenshots/screen2.png",
+          "sizes": "2880x1800",
+          "type": "image/png",
+          "description": "PWABuilder Report Card"
+        },
+        {
+          "src": "https://www.pwabuilder.com/assets/screenshots/screen3.png",
+          "sizes": "2880x1800",
+          "type": "image/png",
+          "description": "Manifest information on the Report Card"
+        }
+      ],
+      "orientation": "any",
+      "name": "CheFarmacia - Farmacias de Turno",
+      "short_name": "CheFarmacia",
+      "description": "Encuentra farmacias de turno cerca tuyo en Argentina. Búsqueda por ubicación, mapa y listado.",
+      "start_url": "/",
+      "display": "standalone",
+      "background_color": "#f8fafc",
+      "theme_color": "#2563eb",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        }
+      ]
+    }
+  },
+  {
+    "url": "https://www.chefarmacia.com.ar/manifest.json",
+    "data": {
+      "shortcuts": [
+        {
+          "name": "Farmacias San Isidro",
+          "short_name": "San Isidro",
+          "description": "Accede a las farmacias de turno de San Isidro",
+          "url": "/localidades/san-isidro",
+          "icons": [
+            {
+              "src": "public/icons/icon-512x512.png",
+              "sizes": "192x192"
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        {
+          "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
+          "sizes": "2880x1800",
+          "type": "image/png",
+          "description": "PWABuilder Home Screen"
+        },
+        {
+          "src": "https://www.pwabuilder.com/assets/screenshots/screen2.png",
+          "sizes": "2880x1800",
+          "type": "image/png",
+          "description": "PWABuilder Report Card"
+        },
+        {
+          "src": "https://www.pwabuilder.com/assets/screenshots/screen3.png",
+          "sizes": "2880x1800",
+          "type": "image/png",
+          "description": "Manifest information on the Report Card"
+        }
+      ],
+      "orientation": "any",
+      "name": "CheFarmacia - Farmacias de Turno",
+      "short_name": "CheFarmacia",
+      "description": "Encuentra farmacias de turno cerca tuyo en Argentina. Búsqueda por ubicación, mapa y listado.",
+      "start_url": "/",
+      "display": "standalone",
+      "background_color": "#f8fafc",
+      "theme_color": "#2563eb",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        }
+      ]
+    }
+  }
+]

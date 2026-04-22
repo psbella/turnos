@@ -1,97 +1,97 @@
-const puppeteer = require("puppeteer");
+const res = await axios.get(url, {
+  headers: {
+    "User-Agent": "Mozilla/5.0",
+    "Referer": "http://turnos.colfarmamdp.com.ar/",
+    "Accept": "text/html,application/xhtml+xml",
+    "Accept-Language": "es-AR,es;q=0.9",
+    "Connection": "keep-alive"
+  },
+  timeout: 10000
+});
 const fs = require("fs");
 
-function hoy() {
-  const d = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
-  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+function generarFechas(cantidadDias) {
+  const fechas = [];
+  const hoy = new Date();
+
+  for (let i = 0; i < cantidadDias; i++) {
+    const d = new Date(hoy);
+    d.setDate(d.getDate() + i);
+
+    const dia = String(d.getDate()).padStart(2, "0");
+    const mes = String(d.getMonth() + 1).padStart(2, "0");
+    const año = d.getFullYear();
+
+    fechas.push(`${dia}/${mes}/${año}`);
+  }
+
+  return fechas;
 }
 
 async function run() {
-  const fecha = hoy();
+  const fechas = generarFechas(16); // 🔥 16 ciclos
 
-  const url = `https://turnos.colfmarmamdp.com/ajax/buscaturno2.php?fecha=${fecha}`;
+  const resultados = [];
 
-  console.log("Iniciando browser...");
+  for (const fecha of fechas) {
+    const url = `http://turnos.colfarmamdp.com.ar/ajax/buscaturno2.php?fecha=${fecha}`;
 
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    console.log("Consultando:", fecha);
+
+    try {
+      const res = await axios.get(url, {
+        headers: { "User-Agent": "Mozilla/5.0" },
+        timeout: 10000
+      });
+
+      const texto = res.data;
+
+      const farmacias = [];
+
+const regex = /\[(.*?)\].*\n(.*?)\n(.*)/g;
+
+let match;
+
+while ((match = regex.exec(texto)) !== null) {
+  farmacias.push({
+    farmacia: match[1].trim(),
+    direccion: match[2].trim(),
+    telefono: match[3].trim()
   });
+}
 
-  const page = await browser.newPage();
+      const lines = texto.split("\n");
 
-  await page.setUserAgent(
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].includes("http")) {
+          const nombre = lines[i].replace(/[\[\]]/g, "").trim();
+          const direccion = lines[i + 1]?.trim();
+          const telefono = lines[i + 2]?.trim();
+
+          farmacias.push({
+            farmacia: nombre,
+            direccion,
+            telefono
+          });
+        }
+      }
+
+      resultados.push({
+        fecha,
+        farmacias
+      });
+
+    } catch (err) {
+      console.log("Error en", fecha, err.message);
+    }
+  }
+
+  fs.writeFileSync(
+    "data.json",
+    JSON.stringify(resultados, null, 2)
   );
 
-  await page.goto(url, {
-    waitUntil: "networkidle2",
-    timeout: 60000
-  });
-
-  const content = await page.content();
-
-  console.log("HTML SIZE:", content.length);
-
-  // DEBUG
-  fs.writeFileSync("debug_raw.html", content);
-
-  // extracción simple del texto visible
-  const text = await page.evaluate(() => document.body.innerText);
-
-  const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
-
-  const farmacias = [];
-  let actual = null;
-
-  for (const line of lines) {
-    const match = line.match(/\[(.*?)\]/);
-
-    if (match) {
-      if (actual) farmacias.push(actual);
-
-      actual = {
-        farmacia: match[1],
-        direccion: "",
-        telefono: ""
-      };
-      continue;
-    }
-
-    if (!actual) continue;
-
-    if (!actual.direccion && line.length > 5) {
-      actual.direccion = line;
-      continue;
-    }
-
-    if (/\d{3,}/.test(line)) {
-      actual.telefono = line;
-    }
-  }
-
-  if (actual) farmacias.push(actual);
-
-  const output = {
-    fecha,
-    farmacias
-  };
-
-  fs.writeFileSync("data.json", JSON.stringify(output, null, 2));
-
-  let historico = {};
-  if (fs.existsSync("historico.json")) {
-    historico = JSON.parse(fs.readFileSync("historico.json"));
-  }
-
-  historico[fecha] = farmacias;
-
-  fs.writeFileSync("historico.json", JSON.stringify(historico, null, 2));
-
-  console.log("✔ FARMACIAS:", farmacias.length);
-
-  await browser.close();
+  console.log("RESPUESTA:", texto.slice(0, 500));
 }
 
 run();
