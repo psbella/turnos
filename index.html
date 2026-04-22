@@ -220,9 +220,9 @@ function showFarmacia(f, dir){
 /* ===== LISTA ===== */
 function cargar(){
   const hoy = new Date();
-  const fecha = formatFecha(hoy);
+const fecha = String(hoy.getDate());
 
-  const farmacias = TURNOS?.[fecha] || [];
+const farmacias = (TURNOS && TURNOS[fecha]) ? TURNOS[fecha] : [];
 
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
@@ -241,7 +241,7 @@ function cargar(){
 
     div.innerHTML = `
       <div class="card-num">${pad(i+1)}</div>
-      <div class="card-name">${capFirst(f.farmacia)}</div>
+      <div class="card-name">${capFirst(f.nombre)}</div>
     `;
 
     div.onclick = ()=>{
@@ -249,7 +249,7 @@ function cargar(){
       div.classList.add('active');
       activeCard = div;
 
-      showFarmacia(f.farmacia, f.direccion);
+      showFarmacia(f.nombre, f.direccion)
     };
 
     lista.appendChild(div);
