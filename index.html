@@ -143,7 +143,7 @@
 <script>
 let TURNOS = {};
 
-fetch('./ciclos_final.json')
+fetch('/turnos/ciclos_final.json')
   .then(r => r.json())
   .then(data => {
     TURNOS = data;
@@ -257,7 +257,18 @@ const farmacias = (TURNOS && TURNOS[fecha]) ? TURNOS[fecha] : [];
 }
 
 /* ===== INIT (CLAVE) ===== */
-window.addEventListener('DOMContentLoaded', cargar);
+async function init(){
+  try{
+    const res = await fetch('./ciclos_final.json');
+    TURNOS = await res.json();
+    cargar();
+  }catch(e){
+    console.error("Error cargando JSON", e);
+    document.getElementById('intro').innerText = "Error cargando datos";
+  }
+}
+
+init();
 </script>
 
 </body>
