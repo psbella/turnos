@@ -270,9 +270,13 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="data.js"></script>
-<script src="app.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<script src="data.js"></script>
+
+<script>
 const geoCache = {};
 let mapMobile = null;
 let mapDesktop = null;
@@ -280,6 +284,8 @@ let activeCard = null;
 let currentCoords = null;
 let currentDireccion = null;
 let currentFarmacia = null;
+cargar();
+</script>
 
 function pad(n){ return String(n).padStart(2,'0'); }
 function formatFecha(d){ return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear(); }
@@ -408,7 +414,7 @@ document.getElementById('overlay').addEventListener('click', closeMobile);
 function cargar(){
   const hoy = new Date();
   const fecha = formatFecha(hoy);
-  const farmacias = TURNOS[fecha];
+  const farmacias = TURNOS[fecha] || [];
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
 
