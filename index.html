@@ -249,15 +249,21 @@
     }
 
     .gmaps-link {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       margin-top: 8px;
-      padding: 4px 8px;
-      background: var(--accent);
-      color: #0d1117;
+      padding: 4px 0;
+      color: var(--accent);
       text-decoration: none;
-      border-radius: 6px;
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .gmaps-link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -305,6 +311,7 @@
     Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚
   </p>
 </footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 // ==================== CONFIGURACIÓN ====================
@@ -469,7 +476,13 @@ async function agregarTodosLosMarcadores(farmacias) {
       <b>${capFirst(farmacia.nombre)}</b><br>
       ${farmacia.direccion}<br>
       ${telefonoLinkPopup}<br>
-      <a href="${gmapsUrl}" target="_blank" rel="noopener noreferrer" class="gmaps-link">🗺️ Abrir en Google Maps</a>
+      <a href="${gmapsUrl}" target="_blank" rel="noopener noreferrer" class="gmaps-link">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/>
+          <circle cx="12" cy="9" r="3" fill="var(--bg)"/>
+        </svg>
+        Google Maps
+      </a>
     `;
     
     if (coords) {
