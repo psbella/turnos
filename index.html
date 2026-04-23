@@ -11,7 +11,7 @@
 
   <title>Farmacias de Turno · Mar del Plata</title>
 
-  <!-- Favicon cruz verde -->
+  <!-- Favicon cruz verde moderna -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d1117'/%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d1117'/%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
 
@@ -121,25 +121,48 @@
       flex: 1;
     }
 
-    .card-name { font-weight: 700; font-size: 16px; }
+    .card-name { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
 
     .card-address {
       font-size: 12px;
       color: var(--text);
-      margin-top: 4px;
       opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .card-phone {
       font-size: 12px;
       text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
     }
 
     .phone-link {
       color: var(--accent);
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       cursor: pointer;
+    }
+
+    /* Íconos SVG modernos */
+    .icon-location, .icon-phone {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .icon-location svg, .icon-phone svg {
+      width: 14px;
+      height: 14px;
     }
 
     .col-map { display: none; }
@@ -332,12 +355,17 @@ function obtenerCicloActual() {
   return ciclo;
 }
 
-// ==================== ICONO FARMACIA ====================
+// ==================== ICONO FARMACIA MODERNO ====================
 const pharmacyIcon = L.divIcon({
   className: 'custom-pharmacy-icon',
-  html: '<div style="background-color: #3fb950; width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3);"><span style="color: white; font-weight: bold; font-size: 18px;">⚕️</span></div>',
-  iconSize: [26, 26],
-  popupAnchor: [0, -13]
+  html: `<div style="background: linear-gradient(135deg, #3fb950, #2a8a3a); width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 0 3px rgba(63,185,80,0.2); transition: transform 0.1s;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="white"/>
+      <circle cx="12" cy="9" r="3" fill="#2a8a3a"/>
+    </svg>
+   </div>`,
+  iconSize: [34, 34],
+  popupAnchor: [0, -17]
 });
 
 // ==================== CARGA DE DATOS ====================
@@ -422,7 +450,7 @@ async function agregarTodosLosMarcadores(farmacias) {
     farmaciasCoords[i] = coords;
     
     const telefonoLimpio = limpiarTelefono(farmacia.telefono);
-    const telefonoLinkPopup = telefonoLimpio ? `<br><a href="tel:${telefonoLimpio}" style="color: var(--accent);">📞 Llamar</a>` : '<br>📞 Sin teléfono';
+    const telefonoLinkPopup = telefonoLimpio ? `<br><a href="tel:${telefonoLimpio}" style="color: var(--accent); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;">📞 Llamar</a>` : '<br>📞 Sin teléfono';
     const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.direccion + ', Mar del Plata')}`;
     
     const popupText = `
@@ -465,15 +493,13 @@ async function agregarTodosLosMarcadores(farmacias) {
   console.log(`📍 Agregados ${puntosAgregados} marcadores`);
 }
 
-// ==================== CENTRAR MAPA MOBILE ====================
-function centrarMapaMobileEnFarmacia(index) {
-  const coords = farmaciasCoords[index];
-  const view = coords || [-38.0055, -57.5426];
-  const zoom = coords ? 16 : 13;
-  if (mapMobile) {
-    mapMobile.setView(view, zoom);
-    if (markersMobile[index]) markersMobile[index].openPopup();
-  }
+// ==================== FUNCIÓN PARA GENERAR SVG ÍCONOS ====================
+function getLocationIcon() {
+  return `<span class="icon-location"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;
+}
+
+function getPhoneIcon() {
+  return `<span class="icon-phone"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#3fb950"/></svg></span>`;
 }
 
 // ==================== MOSTRAR FARMACIAS ====================
@@ -500,33 +526,48 @@ async function mostrarFarmacias() {
     
     const telefonoLimpio = limpiarTelefono(farmacia.telefono);
     const telefonoLink = telefonoLimpio 
-      ? `<a href="tel:${telefonoLimpio}" class="phone-link">📞 ${farmacia.telefono}</a>`
-      : '📞 Sin teléfono';
+      ? `<a href="tel:${telefonoLimpio}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${farmacia.telefono}</a>`
+      : `📞 Sin teléfono`;
     
     div.innerHTML = `
       <div class="card-num">${pad(index + 1)}</div>
       <div class="card-info">
         <div class="card-name">${capFirst(farmacia.nombre)}</div>
-        <div class="card-address">📍 ${farmacia.direccion}</div>
+        <div class="card-address">${getLocationIcon()} ${farmacia.direccion}</div>
       </div>
       <div class="card-phone">${telefonoLink}</div>
     `;
     
-    // Evento para centrar el mapa (solo si no se clickeó el teléfono)
-    div.addEventListener('click', (e) => {
-      // Si el click NO viene del enlace del teléfono
-      if (!e.target.closest('.phone-link')) {
-        if (activeCard) activeCard.classList.remove('active');
-        div.classList.add('active');
-        activeCard = div;
-        centrarMapaMobileEnFarmacia(index);
-        
-        // En desktop, abrir el popup también
-        if (mapDesktop && markersDesktop[index]) {
-          markersDesktop[index].openPopup();
-        }
+    // Evento para abrir la hoja del mapa al tocar la tarjeta
+    div.onclick = (e) => {
+      // Si el click fue en el enlace del teléfono, NO abrir el mapa
+      if (e.target.closest('.phone-link')) return;
+      
+      // Abrir la hoja del mapa
+      const sheet = document.getElementById('mapSheet');
+      const sheetName = document.getElementById('sheetName');
+      sheetName.innerHTML = `${capFirst(farmacia.nombre)}<br><small style="font-size:12px">${farmacia.direccion}</small>`;
+      sheet.classList.add('open');
+      
+      // Centrar el mapa mobile en la farmacia
+      const coords = farmaciasCoords[index];
+      const view = coords || [-38.0055, -57.5426];
+      const zoom = coords ? 16 : 13;
+      if (mapMobile) {
+        mapMobile.setView(view, zoom);
+        if (markersMobile[index]) markersMobile[index].openPopup();
       }
-    });
+      
+      // Resaltar tarjeta activa
+      if (activeCard) activeCard.classList.remove('active');
+      div.classList.add('active');
+      activeCard = div;
+      
+      // En desktop, abrir el popup también
+      if (mapDesktop && markersDesktop[index]) {
+        markersDesktop[index].openPopup();
+      }
+    };
     
     lista.appendChild(div);
   });
