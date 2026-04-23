@@ -1,3 +1,2 @@
 User-agent: *
 Disallow: /ciclos_final.json
-Disallow: /privacidad.html
