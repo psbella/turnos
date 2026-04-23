@@ -3,9 +3,7 @@ const urlsToCache = [
   '/turnos/',
   '/turnos/index.html',
   '/turnos/manifest.json',
-  '/turnos/ciclos_final.json',
-  'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js'
+  '/turnos/ciclos_final.json'
 ];
 
 self.addEventListener('install', event => {
@@ -18,17 +16,13 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   
-  // EXCLUIR completamente las peticiones a OpenStreetMap
-  if (url.hostname === 'nominatim.openstreetmap.org' ||
-      url.hostname === 'tile.openstreetmap.org') {
-    return;  // El navegador maneja esto directamente, NO el SW
+  // NO interceptar NINGUNA petición a APIs externas
+  if (url.hostname !== 'psbella.github.io') {
+    return; // Dejar que el navegador maneje todo lo que no sea tu dominio
   }
   
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) return response;
-        return fetch(event.request);
-      })
+      .then(response => response || fetch(event.request))
   );
 });
