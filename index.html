@@ -333,7 +333,7 @@ let farmaciasCoords = [];
 const geoCache = {};
 
 // ==================== FECHA INICIO CICLO 1 ====================
-const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22);
+const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22, 9, 0, 0); // 22 de abril 2026 - 9:00 GMT-3
 
 // ==================== UTILIDADES ====================
 function pad(n) { 
@@ -362,14 +362,19 @@ function limpiarTelefono(tel) {
   return tel.replace(/\s/g, '');
 }
 
-// ==================== CÁLCULO DE CICLO ====================
+// ==================== CÁLCULO DE CICLO (CORREGIDO CON Math.floor) ====================
 function obtenerCicloActual() {
   const fechaGMT3 = formatearFechaGMT3();
   const diferenciaMs = fechaGMT3 - FECHA_INICIO_CICLO_1;
-  const diasDesdeInicio = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
-  let ciclo = (diasDesdeInicio % CONFIG.TOTAL_CICLOS) + 1;
+  const diasCompletos = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
+  let ciclo = (diasCompletos % CONFIG.TOTAL_CICLOS) + 1;
   if (ciclo <= 0) ciclo = 1;
+  
+  console.log(`📅 Fecha inicio: ${FECHA_INICIO_CICLO_1.toLocaleString('es-AR', {timeZone: CONFIG.ZONA_HORARIA})}`);
+  console.log(`📅 Hoy: ${fechaGMT3.toLocaleString('es-AR', {timeZone: CONFIG.ZONA_HORARIA})}`);
+  console.log(`📅 Días completos desde inicio: ${diasCompletos}`);
   console.log(`📅 Ciclo actual: ${ciclo}`);
+  
   return ciclo;
 }
 
@@ -608,7 +613,7 @@ function programarActualizacion() {
   proxima.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
   if (ahora >= proxima) proxima.setDate(proxima.getDate() + 1);
   const tiempoMs = proxima - ahora;
-  console.log(`⏰ Próxima actualización en ${Math.round(tiempoMs / 60000)} minutos`);
+  console.log(`⏰ Próxima actualización en ${Math.round(tiempoMs / 60000)} minutos (${proxima.toLocaleString('es-AR', {timeZone: CONFIG.ZONA_HORARIA})})`);
   setTimeout(() => {
     console.log('🔄 Actualizando farmacias...');
     if (mapDesktop) mapDesktop._initialZoomDone = false;
