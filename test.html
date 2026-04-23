@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Todas las farmacias (sin repetir)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; }
+    #map { height: 100vh; width: 100%; }
+    .info { position: absolute; top: 10px; left: 10px; background: #161b22; padding: 8px 16px; border-radius: 8px; z-index: 1000; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="info">📍 Todas las farmacias de turno (sin repetir) - <span id="count"></span> farmacias únicas</div>
+  <div id="map"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([-38.0055, -57.5426], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Ícono de farmacia (círculo verde con cruz blanca)
+    const pharmacyIcon = L.divIcon({
+      className: 'custom-pharmacy-icon',
+      html: `<div style="background:#3fb950;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="white"/>
+        </svg>
+      </div>`,
+      iconSize: [28, 28],
+      popupAnchor: [0, -14]
+    });
+
+    async function cargarYCrearMapa() {
+      try {
+        const response = await fetch('ciclos_final.json');
+        const data = await response.json();
+        
+        // Usar un Map para evitar repetir por nombre+direccion
+        const farmaciasUnicas = new Map();
+        
+        for (const grupo in data) {
+          for (const farmacia of data[grupo]) {
+            const key = `${farmacia.nombre}|${farmacia.direccion}`;
+            if (!farmaciasUnicas.has(key)) {
+              farmaciasUnicas.set(key, farmacia);
+            }
+          }
+        }
+        
+        const unicas = Array.from(farmaciasUnicas.values());
+        document.getElementById('count').textContent = unicas.length;
+        
+        let puntosAgregados = 0;
+        const bounds = L.latLngBounds();
+        
+        for (const farmacia of unicas) {
+          if (farmacia.lat && farmacia.lng) {
+            const popupText = `<b>${farmacia.nombre}</b><br>${farmacia.direccion}<br>📞 ${farmacia.telefono || 'Sin teléfono'}`;
+            const marker = L.marker([farmacia.lat, farmacia.lng], { icon: pharmacyIcon })
+              .addTo(map)
+              .bindPopup(popupText);
+            bounds.extend([farmacia.lat, farmacia.lng]);
+            puntosAgregados++;
+          } else {
+            console.warn('⚠️ Sin coordenadas:', farmacia.nombre, farmacia.direccion);
+          }
+        }
+        
+        if (puntosAgregados > 0) {
+          map.fitBounds(bounds);
+        }
+        
+        console.log(`✅ ${puntosAgregados} farmacias únicas agregadas al mapa`);
+      } catch (error) {
+        console.error('❌ Error cargando JSON:', error);
+        document.querySelector('.info').innerHTML += ' - ERROR al cargar datos';
+      }
+    }
+    
+    cargarYCrearMapa();
+  </script>
+</body>
+</html>
