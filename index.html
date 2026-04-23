@@ -502,7 +502,7 @@ async function mostrarFarmacias() {
     
     const telefonoLimpio = limpiarTelefono(farmacia.telefono);
     const telefonoLink = telefonoLimpio 
-      ? `<a href="tel:${telefonoLimpio}">📞 ${farmacia.telefono}</a>`
+      ? `<a href="tel:${telefonoLimpio}" class="phone-link">📞 ${farmacia.telefono}</a>`
       : '📞 Sin teléfono';
     
     div.innerHTML = `
@@ -514,20 +514,21 @@ async function mostrarFarmacias() {
       <div class="card-phone">${telefonoLink}</div>
     `;
     
-    div.onclick = (e) => {
-      // Evitar que el clic en el enlace del teléfono también active el centrado
-      if (e.target.tagName !== 'A') {
+    // Evento para centrar el mapa (solo si no se clickeó el teléfono)
+    div.addEventListener('click', (e) => {
+      // Si el click NO viene del enlace del teléfono
+      if (!e.target.closest('.phone-link')) {
         if (activeCard) activeCard.classList.remove('active');
         div.classList.add('active');
         activeCard = div;
         centrarMapaMobileEnFarmacia(index);
         
-        // En desktop, también abrir el popup en el mapa desktop
+        // En desktop, abrir el popup también
         if (mapDesktop && markersDesktop[index]) {
           markersDesktop[index].openPopup();
         }
       }
-    };
+    });
     
     lista.appendChild(div);
   });
