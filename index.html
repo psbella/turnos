@@ -152,7 +152,6 @@
       cursor: pointer;
     }
 
-    /* Íconos SVG modernos */
     .icon-location, .icon-phone, .icon-data, .icon-dev {
       display: inline-flex;
       align-items: center;
@@ -267,7 +266,6 @@
       text-decoration: underline;
     }
 
-    /* Responsive mobile */
     @media (max-width: 768px) {
       .card {
         flex-wrap: wrap;
@@ -396,6 +394,10 @@ const geoCache = {};
 const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22, 9, 0, 0);
 
 // ==================== UTILIDADES ====================
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function pad(n) { 
   return String(n).padStart(2, '0'); 
 }
@@ -512,7 +514,7 @@ function limpiarMarcadores() {
   farmaciasCoords = [];
 }
 
-// ==================== AGREGAR MARCADORES ====================
+// ==================== AGREGAR MARCADORES (CON DELAY) ====================
 async function agregarTodosLosMarcadores(farmacias) {
   initMapDesktop();
   initMapMobile();
@@ -524,6 +526,10 @@ async function agregarTodosLosMarcadores(farmacias) {
   
   for (let i = 0; i < farmacias.length; i++) {
     const farmacia = farmacias[i];
+    
+    // Delay de 1 segundo entre cada geocodificación para evitar error 429
+    if (i > 0) await delay(1000);
+    
     const coords = await geocode(farmacia.direccion);
     farmaciasCoords[i] = coords;
     
@@ -623,7 +629,6 @@ async function mostrarFarmacias() {
       <div class="card-phone">${telefonoLink}</div>
     `;
     
-    // Evento para abrir la hoja del mapa al tocar la tarjeta
     div.onclick = (e) => {
       if (e.target.closest('.phone-link')) return;
       
@@ -677,7 +682,7 @@ function programarActualizacion() {
 document.getElementById('closeSheet').addEventListener('click', () => {
   document.getElementById('mapSheet').classList.remove('open');
 });
-  
+
 // ==================== INICIALIZACIÓN ====================
 async function init() {
   console.log('🚀 Farmacias de Turno - Mar del Plata');
