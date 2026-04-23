@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
+  <meta name="description" content="Farmacias de turno en Mar del Plata actualizadas diariamente. Encontrá direcciones, teléfonos y ubicación en mapa.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Farmacias de Turno · Mar del Plata">
+  <meta property="og:description" content="Encontrá las farmacias de turno en MDP con mapa, dirección y teléfono">
+  <meta property="og:image" content="https://psbella.github.io/turnos/icon-512.png">
+  <meta property="og:url" content="https://psbella.github.io/turnos/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Farmacias de Turno · Mar del Plata</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg-dark:#0d1117;--surface-dark:#161b22;--text-dark:#e6edf3;--border-dark:rgba(255,255,255,0.08);--bg-light:#f6f8fa;--surface-light:#ffffff;--text-light:#1f2328;--border-light:rgba(0,0,0,0.1);--accent:#3fb950;--accent-dim:rgba(63,185,80,0.12);--radius:14px}
+    body{font-family:'Nunito',sans-serif;min-height:100dvh;display:flex;flex-direction:column;transition:background-color .3s ease,color .3s ease}
+    body *{transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+    body.dark{--bg:var(--bg-dark);--surface:var(--surface-dark);--text:var(--text-dark);--border:rgba(255,255,255,0.08);background:var(--bg-dark);color:var(--text-dark)}
+    body.light{--bg:var(--bg-light);--surface:var(--surface-light);--text:var(--text-light);--border:rgba(0,0,0,0.1);background:var(--bg-light);color:var(--text-light)}
+    header{border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);backdrop-filter:blur(10px);z-index:10}
+    .header-inner{max-width:1100px;margin:0 auto;padding:18px 24px;display:flex;flex-direction:column;gap:4px}
+    .header-top{display:flex;align-items:center;gap:12px}
+    .cross{width:32px;height:32px;position:relative;flex-shrink:0}
+    .cross::before,.cross::after{content:'';position:absolute;background:var(--accent);border-radius:3px}
+    .cross::before{width:12px;height:32px;left:10px;top:0}
+    .cross::after{width:32px;height:12px;left:0;top:10px}
+    .app-title{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--text);letter-spacing:1px}
+    .subtitle{font-size:14px;color:#7d8590;margin-left:44px;letter-spacing:1px}
+    .theme-switch-wrapper{margin-left:auto;text-align:center}
+    .theme-switch{width:64px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:30px;position:relative;cursor:pointer;transition:all .3s;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 6px;box-sizing:border-box}
+    .theme-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;pointer-events:none;z-index:1}
+    .theme-icon svg{width:14px;height:14px;stroke:var(--accent);color:var(--accent)}
+    .theme-slider{width:22px;height:22px;background:var(--accent);border-radius:50%;position:absolute;top:2px;left:3px;transition:transform .3s ease;box-shadow:0 1px 2px rgba(0,0,0,0.2)}
+    .theme-switch.active .theme-slider{transform:translateX(34px)}
+    .theme-label{font-size:10px;color:#7d8590;margin-top:5px;text-transform:lowercase}
+    .layout{max-width:1100px;margin:0 auto;padding:24px 24px 60px;flex:1}
+    @media (min-width:768px){.layout{display:grid;grid-template-columns:1fr 1fr;gap:28px}}
+    .col-list{min-width:0}
+    .intro{font-size:16px;color:var(--text);margin-bottom:20px;padding:16px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);display:flex;flex-direction:column;gap:10px}
+    .intro-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .intro strong{color:var(--accent);font-weight:700}
+    .stats{font-size:14px;color:#7d8590;display:flex;align-items:center;gap:8px}
+    .icon-intro,.icon-stats,.icon-location,.icon-phone,.icon-data,.icon-dev{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0}
+    .icon-intro svg,.icon-stats svg,.icon-location svg,.icon-phone svg,.icon-data svg,.icon-dev svg{width:18px;height:18px}
+    .card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;cursor:pointer;transition:all .2s}
+    body.light .card:hover{background:#f0f2f5}
+    body.dark .card:hover{background:#1a1f2a}
+    .card.active{border-color:var(--accent);background:var(--accent-dim)}
+    .card-num{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);opacity:0.7;min-width:32px}
+    .card-info{flex:1}
+    .card-name{font-weight:700;font-size:16px;margin-bottom:6px}
+    .card-address{font-size:12px;color:var(--text);opacity:0.85;display:flex;align-items:center;gap:6px;word-break:break-word}
+    .card-phone{font-size:12px;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:6px;white-space:nowrap}
+    .phone-link{color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+    .col-map{display:none}
+    @media (min-width:768px){.col-map{display:block;position:sticky;top:90px}}
+    #map-desktop{height:500px;width:100%;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#1a1f2a}
+    .map-sheet{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .3s ease;z-index:20}
+    .map-sheet.open{transform:translateY(0)}
+    .map-sheet-header{padding:16px;font-weight:700;text-align:center;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+    .map-sheet-close{background:none;border:none;color:#7d8590;font-size:24px;cursor:pointer;padding:0 8px}
+    #map-mobile{height:350px;width:100%;background:#1a1f2a}
+    .footer{max-width:1100px;margin:0 auto;padding:24px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:#7d8590}
+    .footer p{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;flex-wrap:wrap}
+    .footer a{color:var(--accent);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
+    .gmaps-link{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 0;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;transition:opacity .2s}
+    .gmaps-link:hover{opacity:0.8;text-decoration:underline}
+    @media (max-width:768px){.card{flex-wrap:wrap;gap:8px}.card-num{min-width:28px;font-size:18px}.card-info{flex:1;min-width:0}.card-name{font-size:14px;word-break:break-word}.card-address{font-size:11px;white-space:normal;word-break:break-word}.card-phone{font-size:11px;white-space:nowrap}.intro{font-size:14px;padding:12px}.stats{font-size:13px}.map-sheet-header{padding:12px;font-size:14px}#map-mobile{height:280px}.footer p{font-size:11px}}
+  </style>
+</head>
+<body class="dark">
+<header>
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="cross"></div>
+      <div class="app-title">Farmacias de Turno</div>
+      <div class="theme-switch-wrapper">
+        <div class="theme-switch" id="theme-switch">
+          <span class="theme-icon sun">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M12 1.5V3.5M12 20.5V22.5M1.5 12H3.5M20.5 12H22.5M4.3 4.3L5.7 5.7M18.3 18.3L19.7 19.7M19.7 4.3L18.3 5.7M5.7 18.3L4.3 19.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="theme-slider"></div>
+          <span class="theme-icon moon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3.5a9 9 0 1 0 10 10z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="theme-label" id="theme-label">tema oscuro</div>
+      </div>
+    </div>
+    <div class="subtitle">CIUDAD DE MAR DEL PLATA</div>
+  </div>
+</header>
+<div class="layout">
+  <div class="col-list">
+    <div class="intro" id="intro"><span>Cargando datos...</span></div>
+    <div id="lista"></div>
+  </div>
+  <div class="col-map"><div id="map-desktop"></div></div>
+</div>
+<div class="map-sheet" id="mapSheet">
+  <div class="map-sheet-header"><span id="sheetName"></span><button class="map-sheet-close" id="closeSheet">✕</button></div>
+  <div id="map-mobile"></div>
+</div>
+<footer class="footer">
+  <p><span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="var(--accent)"/></svg></span><span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span></p>
+  <p><span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="var(--accent)"/></svg></span><span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span></p>
+  <p style="font-size:11px;margin-top:8px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap"><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> <span>·</span> <a href="privacidad.html" target="_blank">Política de Privacidad</a> <span>·</span> <span>© 2026 Farmacias de Turno MDP</span></p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+// ==================== CONFIGURACIÓN ====================
+const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',TOTAL_CICLOS:16,RUTA_JSON:'ciclos_final.json'};
+let ciclosData={},mapDesktop=null,mapMobile=null,activeCard=null,markersDesktop=[],markersMobile=[],farmaciasCoords=[],geoCache={};
+const FECHA_INICIO_CICLO_1=new Date(2026,3,22,9,0,0);
+function delay(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
+function pad(n){return String(n).padStart(2,'0');}
+function formatearFechaGMT3(){const ahora=new Date(),opciones={timeZone:CONFIG.ZONA_HORARIA};return new Date(ahora.toLocaleString('en-US',opciones));}
+function labelFecha(d){const dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];return `${dias[d.getDay()]} ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;}
+function capFirst(str){if(!str)return '';return str.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());}
+function limpiarTelefono(tel){if(!tel||tel==='nan'||tel==='NaN'||tel==='null')return '';return tel.replace(/\s/g,'');}
+function obtenerCicloActual(){const fechaGMT3=formatearFechaGMT3(),diferenciaMs=fechaGMT3-FECHA_INICIO_CICLO_1,diasCompletos=Math.floor(diferenciaMs/(1000*60*60*24));let ciclo=(diasCompletos%CONFIG.TOTAL_CICLOS)+1;if(ciclo<=0)ciclo=1;console.log(`📅 Ciclo actual: ${ciclo}`);return ciclo;}
+const pharmacyIcon=L.divIcon({className:'custom-pharmacy-icon',html:`<div style="background:#3fb950;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.3);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="white"/></svg></div>`,iconSize:[32,32],popupAnchor:[0,-16]});
+async function cargarDatos(){const intro=document.getElementById('intro');try{console.log('🔍 Buscando JSON en:',CONFIG.RUTA_JSON);const response=await fetch(CONFIG.RUTA_JSON);if(!response.ok)throw new Error(`HTTP ${response.status}`);const texto=await response.text();try{ciclosData=JSON.parse(texto);}catch(e){throw new Error('El archivo JSON tiene formato inválido');}await mostrarFarmacias();}catch(error){console.error('❌ Error:',error);intro.innerHTML=`<span>⚠️ Error al cargar los datos</span><div class="stats">${error.message}</div>`;document.getElementById('lista').innerHTML='<div class="card">No se pudieron cargar las farmacias</div>';}}
+async function geocode(direccion){if(!direccion)return null;if(geoCache[direccion])return geoCache[direccion];try{const query=`${direccion}, Mar del Plata, Buenos Aires, Argentina`;const response=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(query));const data=await response.json();if(data&&data.length>0){const coords=[parseFloat(data[0].lat),parseFloat(data[0].lon)];geoCache[direccion]=coords;return coords;}}catch(error){console.error('Error geocoding:',error);}return null;}
+function initMapDesktop(){if(mapDesktop)return;mapDesktop=L.map('map-desktop').setView([-38.0055,-57.5426],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors'}).addTo(mapDesktop);}
+function initMapMobile(){if(mapMobile)return;mapMobile=L.map('map-mobile').setView([-38.0055,-57.5426],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors'}).addTo(mapMobile);}
+function limpiarMarcadores(){markersDesktop.forEach(marker=>mapDesktop.removeLayer(marker));markersMobile.forEach(marker=>mapMobile.removeLayer(marker));markersDesktop=[];markersMobile=[];farmaciasCoords=[];}
+async function agregarTodosLosMarcadores(farmacias){initMapDesktop();initMapMobile();limpiarMarcadores();const desktopBounds=L.latLngBounds(),mobileBounds=L.latLngBounds();let puntosAgregados=0;for(let i=0;i<farmacias.length;i++){const farmacia=farmacias[i];if(i>0)await delay(1000);const coords=await geocode(farmacia.direccion);farmaciasCoords[i]=coords;const telefonoLimpio=limpiarTelefono(farmacia.telefono);const telefonoIcon=`<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;const telefonoLinkPopup=telefonoLimpio?`<br><a href="tel:${telefonoLimpio}" style="color: var(--accent); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;">${telefonoIcon} ${farmacia.telefono}</a>`:'<br>📞 Sin teléfono';const gmapsUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.direccion+', Mar del Plata')}`;const popupText=`<b>${capFirst(farmacia.nombre)}</b><br>${farmacia.direccion}<br>${telefonoLinkPopup}<br><a href="${gmapsUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;if(coords){const markerDesktop=L.marker(coords,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(popupText);const markerMobile=L.marker(coords,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(popupText);markersDesktop.push(markerDesktop);markersMobile.push(markerMobile);desktopBounds.extend(coords);mobileBounds.extend(coords);puntosAgregados++;}else{const fallbackCoords=[-38.0055,-57.5426];const markerDesktop=L.marker(fallbackCoords,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(popupText+'<br><small>📍 Ubicación aproximada</small>');const markerMobile=L.marker(fallbackCoords,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(popupText+'<br><small>📍 Ubicación aproximada</small>');markersDesktop.push(markerDesktop);markersMobile.push(markerMobile);desktopBounds.extend(fallbackCoords);mobileBounds.extend(fallbackCoords);puntosAgregados++;}}if(puntosAgregados>0){if(!mapDesktop._initialZoomDone){mapDesktop.fitBounds(desktopBounds);mapDesktop._initialZoomDone=true;}if(!mapMobile._initialZoomDone){mapMobile.fitBounds(mobileBounds);mapMobile._initialZoomDone=true;}}console.log(`📍 Agregados ${puntosAgregados} marcadores`);}
+function getLocationIcon(){return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;}
+function getPhoneIcon(){return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;}
+async function mostrarFarmacias(){const ciclo=obtenerCicloActual(),farmacias=ciclosData[ciclo]||[],fechaGMT3=formatearFechaGMT3(),intro=document.getElementById('intro'),lista=document.getElementById('lista');if(!farmacias.length){intro.innerHTML=`<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fechaGMT3)}</div>`;lista.innerHTML='<div class="card">Sin farmacias registradas</div>';return;}const fechaFin=new Date(fechaGMT3);fechaFin.setDate(fechaFin.getDate()+1);intro.innerHTML=`<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fechaGMT3)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;lista.innerHTML='';farmacias.forEach((farmacia,index)=>{const div=document.createElement('div');div.className='card';const telefonoLimpio=limpiarTelefono(farmacia.telefono);const telefonoLink=telefonoLimpio?`<a href="tel:${telefonoLimpio}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${farmacia.telefono}</a>`:`<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;div.innerHTML=`<div class="card-num">${pad(index+1)}</div><div class="card-info"><div class="card-name">${capFirst(farmacia.nombre)}</div><div class="card-address">${getLocationIcon()} ${farmacia.direccion}</div></div><div class="card-phone">${telefonoLink}</div>`;div.onclick=(e)=>{if(e.target.closest('.phone-link'))return;const sheet=document.getElementById('mapSheet'),sheetName=document.getElementById('sheetName');sheetName.innerHTML=`${capFirst(farmacia.nombre)}<br><small style="font-size:12px">${farmacia.direccion}</small>`;sheet.classList.add('open');const coords=farmaciasCoords[index],view=coords||[-38.0055,-57.5426],zoom=coords?16:13;if(mapMobile){mapMobile.setView(view,zoom);if(markersMobile[index])markersMobile[index].openPopup();}if(activeCard)activeCard.classList.remove('active');div.classList.add('active');activeCard=div;if(mapDesktop&&markersDesktop[index])markersDesktop[index].openPopup();};lista.appendChild(div);});await agregarTodosLosMarcadores(farmacias);console.log(`✅ Mostradas ${farmacias.length} farmacias`);}
+function programarActualizacion(){const ahora=formatearFechaGMT3();let proxima=new Date(ahora);proxima.setHours(CONFIG.HORA_CAMBIO,0,0,0);if(ahora>=proxima)proxima.setDate(proxima.getDate()+1);const tiempoMs=proxima-ahora;console.log(`⏰ Próxima actualización en ${Math.round(tiempoMs/60000)} minutos`);setTimeout(()=>{console.log('🔄 Actualizando farmacias...');if(mapDesktop)mapDesktop._initialZoomDone=false;if(mapMobile)mapMobile._initialZoomDone=false;mostrarFarmacias();programarActualizacion();},tiempoMs);}
+document.getElementById('closeSheet').addEventListener('click',()=>{document.getElementById('mapSheet').classList.remove('open');});
+function initTheme(){const savedTheme=localStorage.getItem('theme'),prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches,switchEl=document.getElementById('theme-switch'),labelEl=document.getElementById('theme-label');let isDark=true;if(savedTheme==='light')isDark=false;else if(savedTheme==='dark')isDark=true;else isDark=prefersDark;if(isDark){document.body.classList.remove('light');document.body.classList.add('dark');switchEl.classList.remove('active');labelEl.textContent='tema oscuro';}else{document.body.classList.remove('dark');document.body.classList.add('light');switchEl.classList.add('active');labelEl.textContent='tema claro';}}
+document.getElementById('theme-switch').addEventListener('click',()=>{const switchEl=document.getElementById('theme-switch'),labelEl=document.getElementById('theme-label');if(document.body.classList.contains('dark')){document.body.classList.remove('dark');document.body.classList.add('light');localStorage.setItem('theme','light');switchEl.classList.add('active');labelEl.textContent='tema claro';}else{document.body.classList.remove('light');document.body.classList.add('dark');localStorage.setItem('theme','dark');switchEl.classList.remove('active');labelEl.textContent='tema oscuro';}});
+async function init(){console.log('🚀 Farmacias de Turno - Mar del Plata');initTheme();await cargarDatos();programarActualizacion();}
+init();
+</script>
+</body>
+</html>
