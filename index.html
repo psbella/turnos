@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">e
   <meta name="theme-color" content="#0d1117">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -347,7 +347,64 @@ function mostrarFarmacias() {
       if (activeCard) activeCard.classList.remove('active');
       div.classList.add('active');
       activeCard = div;
-      mostrarMapa(farmacia.nombre, farmacia.direccion, farmacia.telefono);
+      async function mostrarMapa(nombre, direccion, telefono) {
+  const sheet = document.getElementById('mapSheet');
+  const sheetName = document.getElementById('sheetName');
+  sheetName.innerHTML = `${capFirst(nombre)}<br><small style="font-size:12px">${direccion}</small>`;
+  
+  // Abrir la hoja ANTES de inicializar el mapa
+  sheet.classList.add('open');
+  
+  // Pequeño retraso para que el DOM se actualice
+  await new Promise(r => setTimeout(r, 100));
+  
+  const coords = await geocode(direccion);
+  const view = coords || [-38.0055, -57.5426];
+  const zoom = coords ? 16 : 13;
+  
+  // Inicializar o actualizar mapa desktop
+  if (!mapDesktop) {
+    mapDesktop = initMapa('map-desktop', view, zoom);
+  } else {
+    mapDesktop.setView(view, zoom);
+    if (currentMarker) mapDesktop.removeLayer(currentMarker);
+  }
+  
+  // Inicializar o actualizar mapa mobile
+  if (!mapMobile) {
+    const mapContainer = document.getElementById('map-mobile');
+    if (mapContainer) {
+      mapMobile = initMapa('map-mobile', view, zoom);
+    } else {
+      console.error('No se encontró #map-mobile');
+      return;
+    }
+  } else {
+    mapMobile.setView(view, zoom);
+    // Limpiar marcadores viejos
+    mapMobile.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        mapMobile.removeLayer(layer);
+      }
+    });
+  }
+  
+  const popupText = `<b>${capFirst(nombre)}</b><br>${direccion}<br>${formatearTelefono(telefono)}`;
+  
+  if (coords) {
+    currentMarker = L.marker(coords).addTo(mapDesktop).bindPopup(popupText).openPopup();
+    L.marker(coords).addTo(mapMobile).bindPopup(popupText).openPopup();
+  } else {
+    currentMarker = L.marker(view).addTo(mapDesktop).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>').openPopup();
+    L.marker(view).addTo(mapMobile).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>').openPopup();
+  }
+  
+  // Forzar actualización del tamaño del mapa
+  setTimeout(() => {
+    if (mapDesktop) mapDesktop.invalidateSize();
+    if (mapMobile) mapMobile.invalidateSize();
+  }, 200);
+}
     };
     
     lista.appendChild(div);
