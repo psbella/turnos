@@ -93,26 +93,52 @@
 
     .col-list { min-width: 0; }
 
+    /* NUEVO ESTILO DEL INTRO - DOS LÍNEAS IZQUIERDA */
     .intro {
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 16px;
-      padding: 12px 16px;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 20px;
+      padding: 16px;
       background: var(--surface);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      line-height: 1.6;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
-    .intro strong { color: var(--accent); }
-
-    .intro-header {
+    .intro-line {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .intro strong { 
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .stats {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-intro, .icon-stats, .icon-location, .icon-phone, .icon-data, .icon-dev {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .icon-intro svg, .icon-stats svg, .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg {
+      width: 18px;
+      height: 18px;
     }
 
     .card {
@@ -173,20 +199,6 @@
       cursor: pointer;
     }
 
-    .icon-location, .icon-phone, .icon-data, .icon-dev, .icon-stats, .icon-header {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-
-    .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg, .icon-stats svg, .icon-header svg {
-      width: 14px;
-      height: 14px;
-    }
-
     .col-map { display: none; }
 
     @media (min-width: 768px) {
@@ -234,14 +246,6 @@
     }
 
     #map-mobile { height: 350px; width: 100%; background: #1a1f2a; }
-
-    .stats {
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
 
     .footer {
       max-width: 1100px;
@@ -322,8 +326,12 @@
       }
       
       .intro {
+        font-size: 14px;
+        padding: 12px;
+      }
+
+      .stats {
         font-size: 13px;
-        padding: 10px 12px;
       }
 
       .map-sheet-header {
@@ -629,18 +637,18 @@ async function mostrarFarmacias() {
     return;
   }
   
-  // Calcular fecha de fin del turno (inicio + 1 día)
   const fechaFin = new Date(fechaGMT3);
   fechaFin.setDate(fechaFin.getDate() + 1);
   
   intro.innerHTML = `
-    <div class="stats">
-      <span class="icon-stats"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#3fb950" stroke-width="1.5" fill="none"/></svg></span>
-      💊 Turno vigente · <strong>${labelFecha(fechaGMT3)}</strong>
-      <span style="font-size: 11px; color: var(--muted);">(hasta las 9 del ${labelFecha(fechaFin)})</span>
+    <div class="intro-line">
+      <span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#3fb950" stroke-width="1.5" fill="none"/></svg></span>
+      <span>Turno vigente · <strong>${labelFecha(fechaGMT3)}</strong></span>
+      <span style="font-size: 12px; color: var(--muted);">(hasta las 9 del ${labelFecha(fechaFin)})</span>
     </div>
     <div class="stats">
-      📊 ${farmacias.length} farmacias de turno
+      <span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4H20V8L12 14L4 8V4Z" stroke="#3fb950" stroke-width="1.5" fill="none"/><path d="M4 8V20H20V8" stroke="#3fb950" stroke-width="1.5" fill="none"/></svg></span>
+      <span>${farmacias.length} farmacias de turno</span>
     </div>
   `;
   
