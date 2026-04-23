@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
@@ -99,12 +99,22 @@
       min-width: 32px;
     }
 
+    .card-info {
+      flex: 1;
+    }
+
     .card-name { font-weight: 700; font-size: 16px; }
+
+    .card-address {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
 
     .card-phone {
       font-size: 12px;
-      color: var(--muted);
-      margin-left: auto;
+      color: var(--accent);
+      text-align: right;
     }
 
     .col-map { display: none; }
@@ -155,20 +165,16 @@
 
     #map-mobile { height: 300px; width: 100%; }
 
-    .badge-ciclo {
-      display: inline-block;
-      background: var(--accent-dim);
-      color: var(--accent);
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 12px;
-      margin-left: 8px;
-    }
-
     .stats {
       font-size: 12px;
       color: var(--muted);
       margin-top: 8px;
+    }
+
+    .error-message {
+      color: #f85149;
+      padding: 20px;
+      text-align: center;
     }
   </style>
 </head>
@@ -206,10 +212,10 @@
 <script>
 // ==================== CONFIGURACIÓN ====================
 const CONFIG = {
-  HORA_CAMBIO: 9,                                  // 9:00 AM
-  ZONA_HORARIA: 'America/Argentina/Buenos_Aires', // GMT-3
-  TOTAL_CICLOS: 16,                               // 16 ciclos
-  RUTA_JSON: 'ciclos_final.json'          // Ruta de tu JSON
+  HORA_CAMBIO: 9,
+  ZONA_HORARIA: 'America/Argentina/Buenos_Aires',
+  TOTAL_CICLOS: 16,
+  RUTA_JSON: 'ciclos_final.json'
 };
 
 // ==================== VARIABLES GLOBALES ====================
@@ -243,7 +249,7 @@ function capFirst(str) {
 }
 
 function formatearTelefono(tel) {
-  if (!tel || tel === 'nan' || tel === 'NaN') return '📞 Sin teléfono';
+  if (!tel || tel === 'nan' || tel === 'NaN' || tel === 'null') return '📞 Sin teléfono';
   return `📞 ${tel}`;
 }
 
@@ -251,11 +257,9 @@ function formatearTelefono(tel) {
 function obtenerCicloActual() {
   const fechaGMT3 = formatearFechaGMT3();
   
-  // Fecha base: 1 de enero del año actual
   const inicioAnio = new Date(fechaGMT3.getFullYear(), 0, 0);
   const diaDelAnio = Math.floor((fechaGMT3 - inicioAnio) / (1000 * 60 * 60 * 24));
   
-  // Ciclo del 1 al 16 (rota diariamente)
   const ciclo = ((diaDelAnio - 1) % CONFIG.TOTAL_CICLOS) + 1;
   
   console.log(`📅 ${labelFecha(fechaGMT3)} | Día #${diaDelAnio} | Ciclo ${ciclo}`);
@@ -264,11 +268,26 @@ function obtenerCicloActual() {
 
 // ==================== CARGA DE DATOS ====================
 async function cargarDatos() {
+  const intro = document.getElementById('intro');
+  
   try {
-    const response = await fetch(CONFIG.RUTA_JSON);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    console.log('🔍 Buscando JSON en:', CONFIG.RUTA_JSON);
     
-    ciclosData = await response.json();
+    const response = await fetch(CONFIG.RUTA_JSON);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: No se encontró el archivo`);
+    }
+    
+    const texto = await response.text();
+    
+    // Intentar parsear el JSON
+    try {
+      ciclosData = JSON.parse(texto);
+    } catch (e) {
+      console.error('Error parseando JSON:', e);
+      throw new Error('El archivo JSON tiene formato inválido');
+    }
     
     const ciclosDisponibles = Object.keys(ciclosData).length;
     console.log(`✅ Cargados ${ciclosDisponibles} ciclos`);
@@ -276,8 +295,13 @@ async function cargarDatos() {
     mostrarFarmacias();
     
   } catch (error) {
-    console.error('❌ Error cargando JSON:', error);
-    document.getElementById('intro').innerHTML = '⚠️ Error cargando datos. Verifica la ruta del JSON.';
+    console.error('❌ Error:', error);
+    intro.innerHTML = `
+      <span>⚠️ Error al cargar los datos</span>
+      <div class="stats">${error.message}</div>
+      <div class="stats" style="margin-top:8px">Verifica que el archivo <strong>ciclos_final.json</strong> exista en la misma carpeta</div>
+    `;
+    document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>';
   }
 }
 
@@ -311,13 +335,12 @@ function mostrarFarmacias() {
     div.className = 'card';
     
     div.innerHTML = `
-  <div class="card-num">${pad(index + 1)}</div>
-  <div style="flex:1">
-    <div class="card-name">${capFirst(farmacia.nombre)}</div>
-    <div style="font-size: 12px; color: var(--muted);">📍 ${farmacia.direccion}</div>
-  </div>
-  <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
-`;
+      <div class="card-num">${pad(index + 1)}</div>
+      <div class="card-info">
+        <div class="card-name">${capFirst(farmacia.nombre)}</div>
+        <div class="card-address">📍 ${farmacia.direccion}</div>
+      </div>
+      <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
     `;
     
     div.onclick = () => {
@@ -372,10 +395,9 @@ async function mostrarMapa(nombre, direccion, telefono) {
   sheet.classList.add('open');
   
   const coords = await geocode(direccion);
-  const view = coords || [-38.0055, -57.5426]; // Centro de MDP
+  const view = coords || [-38.0055, -57.5426];
   const zoom = coords ? 16 : 13;
   
-  // Mapa desktop
   if (!mapDesktop) {
     mapDesktop = initMapa('map-desktop', view, zoom);
   } else {
@@ -383,7 +405,6 @@ async function mostrarMapa(nombre, direccion, telefono) {
     if (currentMarker) mapDesktop.removeLayer(currentMarker);
   }
   
-  // Mapa mobile
   if (!mapMobile) {
     mapMobile = initMapa('map-mobile', view, zoom);
   } else {
@@ -435,17 +456,9 @@ document.getElementById('closeSheet').addEventListener('click', () => {
   document.getElementById('mapSheet').classList.remove('open');
 });
 
-document.addEventListener('click', (e) => {
-  const sheet = document.getElementById('mapSheet');
-  if (sheet.classList.contains('open') && !sheet.contains(e.target)) {
-    sheet.classList.remove('open');
-  }
-});
-
 // ==================== INICIALIZACIÓN ====================
 async function init() {
   console.log('🚀 Farmacias de Turno - Mar del Plata');
-  console.log(`⏰ Zona: ${CONFIG.ZONA_HORARIA} | Cambio a las ${CONFIG.HORA_CAMBIO}:00`);
   await cargarDatos();
   programarActualizacion();
 }
