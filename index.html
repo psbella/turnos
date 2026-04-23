@@ -177,7 +177,6 @@
       text-align: center;
     }
     
-    /* Loader */
     .loader {
       text-align: center;
       padding: 40px;
@@ -233,6 +232,7 @@ let mapMobile = null;
 let activeCard = null;
 let markersDesktop = [];
 let markersMobile = [];
+let desktopBounds = null;
 const geoCache = {};
 
 // ==================== UTILIDADES ====================
@@ -272,7 +272,7 @@ function obtenerCicloActual() {
   return ciclo;
 }
 
-// ==================== ICONO CRUZ VERDE ====================
+// ==================== ICONO FARMACIA (cruz médica ⚕️) ====================
 const pharmacyIcon = L.divIcon({
   className: 'custom-pharmacy-icon',
   html: '<div style="background-color: #3fb950; width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3);"><span style="color: white; font-weight: bold; font-size: 18px;">⚕️</span></div>',
@@ -373,7 +373,8 @@ async function agregarTodosLosMarcadores(farmacias) {
   initMapMobile();
   limpiarMarcadores();
   
-  const bounds = L.latLngBounds();
+  const desktopBounds = L.latLngBounds();
+  const mobileBounds = L.latLngBounds();
   let puntosAgregados = 0;
   
   for (const farmacia of farmacias) {
@@ -381,28 +382,35 @@ async function agregarTodosLosMarcadores(farmacias) {
     const popupText = `<b>${capFirst(farmacia.nombre)}</b><br>${farmacia.direccion}<br>${formatearTelefono(farmacia.telefono)}`;
     
     if (coords) {
-      const markerDesktop = L.marker(coords, { icon: crossIcon }).addTo(mapDesktop).bindPopup(popupText);
-      const markerMobile = L.marker(coords, { icon: crossIcon }).addTo(mapMobile).bindPopup(popupText);
+      const markerDesktop = L.marker(coords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupText);
+      const markerMobile = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupText);
       markersDesktop.push(markerDesktop);
       markersMobile.push(markerMobile);
-      bounds.extend(coords);
+      desktopBounds.extend(coords);
+      mobileBounds.extend(coords);
       puntosAgregados++;
     } else {
-      // Si no hay coordenadas, usar un punto aproximado
       const fallbackCoords = [-38.0055, -57.5426];
-      const markerDesktop = L.marker(fallbackCoords, { icon: crossIcon }).addTo(mapDesktop).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>');
-      const markerMobile = L.marker(fallbackCoords, { icon: crossIcon }).addTo(mapMobile).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>');
+      const markerDesktop = L.marker(fallbackCoords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>');
+      const markerMobile = L.marker(fallbackCoords, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>');
       markersDesktop.push(markerDesktop);
       markersMobile.push(markerMobile);
-      bounds.extend(fallbackCoords);
+      desktopBounds.extend(fallbackCoords);
+      mobileBounds.extend(fallbackCoords);
       puntosAgregados++;
     }
   }
   
-  // Ajustar el zoom para ver todas las farmacias
+  // Ajustar el zoom SOLO la primera vez que se cargan los mapas
   if (puntosAgregados > 0) {
-    mapDesktop.fitBounds(bounds);
-    mapMobile.fitBounds(bounds);
+    if (!mapDesktop._initialZoomDone) {
+      mapDesktop.fitBounds(desktopBounds);
+      mapDesktop._initialZoomDone = true;
+    }
+    if (!mapMobile._initialZoomDone) {
+      mapMobile.fitBounds(mobileBounds);
+      mapMobile._initialZoomDone = true;
+    }
   }
   
   console.log(`📍 Agregados ${puntosAgregados} marcadores al mapa`);
@@ -450,20 +458,21 @@ async function mostrarFarmacias() {
       if (activeCard) activeCard.classList.remove('active');
       div.classList.add('active');
       activeCard = div;
-      centrarMapaEnFarmacia(farmacia);
+      // SOLO centrar el mapa mobile, el desktop se queda quieto
+      centrarMapaMobileEnFarmacia(farmacia);
     };
     
     lista.appendChild(div);
   });
   
-  // Agregar TODAS las farmacias al mapa con la cruz verde
+  // Agregar TODAS las farmacias al mapa con el ícono de farmacia
   await agregarTodosLosMarcadores(farmacias);
   
   console.log(`✅ Mostradas ${farmacias.length} farmacias`);
 }
 
-// ==================== CENTRAR MAPA EN UNA FARMACIA ESPECÍFICA ====================
-async function centrarMapaEnFarmacia(farmacia) {
+// ==================== CENTRAR SOLO MAPA MOBILE ====================
+async function centrarMapaMobileEnFarmacia(farmacia) {
   const sheet = document.getElementById('mapSheet');
   const sheetName = document.getElementById('sheetName');
   sheetName.innerHTML = `${capFirst(farmacia.nombre)}<br><small style="font-size:12px">${farmacia.direccion}</small>`;
@@ -473,8 +482,16 @@ async function centrarMapaEnFarmacia(farmacia) {
   const view = coords || [-38.0055, -57.5426];
   const zoom = coords ? 16 : 13;
   
-  if (mapDesktop) mapDesktop.setView(view, zoom);
-  if (mapMobile) mapMobile.setView(view, zoom);
+  // SOLO mover el mapa mobile, el desktop NO se toca
+  if (mapMobile) {
+    mapMobile.setView(view, zoom);
+    // Abrir el popup de esta farmacia en el mapa mobile
+    const marker = markersMobile.find(m => {
+      const popup = m.getPopup();
+      return popup && popup.getContent().includes(capFirst(farmacia.nombre));
+    });
+    if (marker) marker.openPopup();
+  }
 }
 
 // ==================== ACTUALIZACIÓN AUTOMÁTICA ====================
@@ -494,6 +511,9 @@ function programarActualizacion() {
   
   setTimeout(() => {
     console.log('🔄 Actualizando farmacias...');
+    // Resetear el flag de zoom inicial para que reajuste el zoom al actualizar
+    if (mapDesktop) mapDesktop._initialZoomDone = false;
+    if (mapMobile) mapMobile._initialZoomDone = false;
     mostrarFarmacias();
     programarActualizacion();
   }, tiempoMs);
