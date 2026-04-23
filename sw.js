@@ -16,15 +16,19 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // NO interceptar peticiones a la API de geocoding (para evitar CORS)
   const url = new URL(event.request.url);
-  if (url.hostname === 'nominatim.openstreetmap.org') {
-    // Dejar que el navegador maneje la petición directamente
-    return;
+  
+  // EXCLUIR completamente las peticiones a OpenStreetMap
+  if (url.hostname === 'nominatim.openstreetmap.org' ||
+      url.hostname === 'tile.openstreetmap.org') {
+    return;  // El navegador maneja esto directamente, NO el SW
   }
   
   event.respondWith(
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
+      .then(response => {
+        if (response) return response;
+        return fetch(event.request);
+      })
   );
 });
