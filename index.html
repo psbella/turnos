@@ -151,7 +151,7 @@
     }
 
     /* Íconos SVG modernos */
-    .icon-location, .icon-phone {
+    .icon-location, .icon-phone, .icon-data, .icon-dev {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -160,7 +160,7 @@
       flex-shrink: 0;
     }
 
-    .icon-location svg, .icon-phone svg {
+    .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg {
       width: 14px;
       height: 14px;
     }
@@ -227,6 +227,16 @@
       text-align: center;
       font-size: 13px;
       color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .footer a {
@@ -236,10 +246,6 @@
 
     .footer a:hover {
       text-decoration: underline;
-    }
-
-    .footer p {
-      margin: 8px 0;
     }
 
     .gmaps-link {
@@ -290,8 +296,14 @@
 </div>
 
 <footer class="footer">
-  <p>📋 Datos obtenidos del <a href="http://colfarmamdp.com.ar/" target="_blank" rel="noopener noreferrer">Colegio de Farmacéuticos de Gral. Pueyrredon</a></p>
-  <p>💻 Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a></p>
+  <p>
+    <span class="icon-data"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="#3fb950"/></svg></span>
+    Datos obtenidos del <a href="http://colfarmamdp.com.ar/" target="_blank" rel="noopener noreferrer">Colegio de Farmacéuticos de Gral. Pueyrredon</a>
+  </p>
+  <p>
+    <span class="icon-dev"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 4v2h4v12h-4v2h6V4h-6zM4 4v16h6v-2H6V6h4V4H4z" fill="#3fb950"/><path d="M10 8h2v8h-2V8zm-4 4h2v4H6v-4zm12-4h-2v8h2V8z" fill="#3fb950"/></svg></span>
+    Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚
+  </p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -450,7 +462,8 @@ async function agregarTodosLosMarcadores(farmacias) {
     farmaciasCoords[i] = coords;
     
     const telefonoLimpio = limpiarTelefono(farmacia.telefono);
-    const telefonoLinkPopup = telefonoLimpio ? `<br><a href="tel:${telefonoLimpio}" style="color: var(--accent); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;">📞 Llamar</a>` : '<br>📞 Sin teléfono';
+    const telefonoIcon = `<span class="icon-phone"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#3fb950"/></svg></span>`;
+    const telefonoLinkPopup = telefonoLimpio ? `<br><a href="tel:${telefonoLimpio}" style="color: var(--accent); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;">${telefonoIcon} ${farmacia.telefono}</a>` : '<br>📞 Sin teléfono';
     const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.direccion + ', Mar del Plata')}`;
     
     const popupText = `
@@ -527,7 +540,7 @@ async function mostrarFarmacias() {
     const telefonoLimpio = limpiarTelefono(farmacia.telefono);
     const telefonoLink = telefonoLimpio 
       ? `<a href="tel:${telefonoLimpio}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${farmacia.telefono}</a>`
-      : `📞 Sin teléfono`;
+      : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
     
     div.innerHTML = `
       <div class="card-num">${pad(index + 1)}</div>
