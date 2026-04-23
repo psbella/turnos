@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+</head>
+<body>
+  <div id="lista">Cargando...</div>
+  <script>
+    fetch('ciclos_final.json')
+      .then(r => r.json())
+      .then(data => {
+        const grupos = Object.keys(data);
+        const hoy = new Date();
+        const fechaBase = new Date(2026, 3, 22);
+        const dias = Math.floor((hoy - fechaBase) / (1000*3600*24));
+        const ciclo = (dias % 16) + 1;
+        const farmacias = data[ciclo] || [];
+        const html = farmacias.map(f => `<p><b>${f.nombre}</b><br>${f.direccion}<br>${f.telefono}</p>`).join('');
+        document.getElementById('lista').innerHTML = html || '<p>No hay farmacias para ciclo ' + ciclo + '</p>';
+      })
+      .catch(e => document.getElementById('lista').innerHTML = 'Error: ' + e.message);
+  </script>
+</body>
+</html>
