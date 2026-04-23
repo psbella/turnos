@@ -9,6 +9,18 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
 
+  <!-- SEO -->
+  <meta name="description" content="Farmacias de turno en Mar del Plata actualizadas diariamente. Encontrá direcciones, teléfonos y ubicación en mapa.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Redes Sociales -->
+  <meta property="og:title" content="Farmacias de Turno · Mar del Plata">
+  <meta property="og:description" content="Encontrá las farmacias de turno en MDP con mapa, dirección y teléfono">
+  <meta property="og:image" content="https://psbella.github.io/turnos/icon-512.png">
+  <meta property="og:url" content="https://psbella.github.io/turnos/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
   <title>Farmacias de Turno · Mar del Plata</title>
 
   <!-- Favicon cruz verde moderna -->
@@ -90,9 +102,18 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .intro strong { color: var(--accent); }
+
+    .intro-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     .card {
       background: var(--surface);
@@ -152,7 +173,7 @@
       cursor: pointer;
     }
 
-    .icon-location, .icon-phone, .icon-data, .icon-dev {
+    .icon-location, .icon-phone, .icon-data, .icon-dev, .icon-stats, .icon-header {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -161,7 +182,7 @@
       flex-shrink: 0;
     }
 
-    .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg {
+    .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg, .icon-stats svg, .icon-header svg {
       width: 14px;
       height: 14px;
     }
@@ -217,7 +238,9 @@
     .stats {
       font-size: 12px;
       color: var(--muted);
-      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .footer {
@@ -354,11 +377,11 @@
 
 <footer class="footer">
   <p>
-    <span class="icon-data"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="#3fb950"/></svg></span>
+    <span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="#3fb950"/></svg></span>
     <span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank" rel="noopener noreferrer">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span>
   </p>
   <p>
-    <span class="icon-dev"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="#3fb950"/></svg></span>
+    <span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="#3fb950"/></svg></span>
     <span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span>
   </p>
   <p style="font-size: 11px; margin-top: 8px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
@@ -391,7 +414,7 @@ let farmaciasCoords = [];
 const geoCache = {};
 
 // ==================== FECHA INICIO CICLO 1 ====================
-const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22, 9, 0, 0);
+const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 20, 9, 0, 0);
 
 // ==================== UTILIDADES ====================
 function delay(ms) {
@@ -435,17 +458,16 @@ function obtenerCicloActual() {
   return ciclo;
 }
 
-// ==================== ICONO FARMACIA MODERNO ====================
+// ==================== ICONO MAPA: Cruz blanca en círculo verde ====================
 const pharmacyIcon = L.divIcon({
   className: 'custom-pharmacy-icon',
-  html: `<div style="background: linear-gradient(135deg, #3fb950, #2a8a3a); width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 0 3px rgba(63,185,80,0.2); transition: transform 0.1s;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="white"/>
-      <circle cx="12" cy="9" r="3" fill="#2a8a3a"/>
+  html: `<div style="background: #3fb950; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="white"/>
     </svg>
    </div>`,
-  iconSize: [34, 34],
-  popupAnchor: [0, -17]
+  iconSize: [32, 32],
+  popupAnchor: [0, -16]
 });
 
 // ==================== CARGA DE DATOS ====================
@@ -514,7 +536,7 @@ function limpiarMarcadores() {
   farmaciasCoords = [];
 }
 
-// ==================== AGREGAR MARCADORES (CON DELAY) ====================
+// ==================== AGREGAR MARCADORES ====================
 async function agregarTodosLosMarcadores(farmacias) {
   initMapDesktop();
   initMapMobile();
@@ -527,14 +549,13 @@ async function agregarTodosLosMarcadores(farmacias) {
   for (let i = 0; i < farmacias.length; i++) {
     const farmacia = farmacias[i];
     
-    // Delay de 1 segundo entre cada geocodificación para evitar error 429
     if (i > 0) await delay(1000);
     
     const coords = await geocode(farmacia.direccion);
     farmaciasCoords[i] = coords;
     
     const telefonoLimpio = limpiarTelefono(farmacia.telefono);
-    const telefonoIcon = `<span class="icon-phone"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#3fb950"/></svg></span>`;
+    const telefonoIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#3fb950"/></svg></span>`;
     const telefonoLinkPopup = telefonoLimpio ? `<br><a href="tel:${telefonoLimpio}" style="color: var(--accent); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;">${telefonoIcon} ${farmacia.telefono}</a>` : '<br>📞 Sin teléfono';
     const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.direccion + ', Mar del Plata')}`;
     
@@ -586,11 +607,11 @@ async function agregarTodosLosMarcadores(farmacias) {
 
 // ==================== FUNCIÓN PARA GENERAR SVG ÍCONOS ====================
 function getLocationIcon() {
-  return `<span class="icon-location"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;
+  return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;
 }
 
 function getPhoneIcon() {
-  return `<span class="icon-phone"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#3fb950"/></svg></span>`;
+  return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#3fb950"/></svg></span>`;
 }
 
 // ==================== MOSTRAR FARMACIAS ====================
@@ -608,7 +629,21 @@ async function mostrarFarmacias() {
     return;
   }
   
-  intro.innerHTML = `<span>💊 Farmacias de turno · <strong>${labelFecha(fechaGMT3)}</strong></span><div class="stats">📊 ${farmacias.length} farmacias de turno</div>`;
+  // Calcular fecha de fin del turno (inicio + 1 día)
+  const fechaFin = new Date(fechaGMT3);
+  fechaFin.setDate(fechaFin.getDate() + 1);
+  
+  intro.innerHTML = `
+    <div class="stats">
+      <span class="icon-stats"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#3fb950" stroke-width="1.5" fill="none"/></svg></span>
+      💊 Turno vigente · <strong>${labelFecha(fechaGMT3)}</strong>
+      <span style="font-size: 11px; color: var(--muted);">(hasta las 9 del ${labelFecha(fechaFin)})</span>
+    </div>
+    <div class="stats">
+      📊 ${farmacias.length} farmacias de turno
+    </div>
+  `;
+  
   lista.innerHTML = '';
   
   farmacias.forEach((farmacia, index) => {
