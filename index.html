@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">e
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d1117">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -127,7 +127,7 @@
       }
     }
 
-    #map-desktop { height: 400px; width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    #map-desktop { height: 500px; width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: #1a1f2a; }
 
     .map-sheet {
       position: fixed;
@@ -163,7 +163,7 @@
       padding: 0 8px;
     }
 
-    #map-mobile { height: 300px; width: 100%; }
+    #map-mobile { height: 350px; width: 100%; background: #1a1f2a; }
 
     .stats {
       font-size: 12px;
@@ -175,6 +175,13 @@
       color: #f85149;
       padding: 20px;
       text-align: center;
+    }
+    
+    /* Loader */
+    .loader {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
     }
   </style>
 </head>
@@ -209,6 +216,7 @@
   <div id="map-mobile"></div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 // ==================== CONFIGURACIÓN ====================
 const CONFIG = {
@@ -223,7 +231,8 @@ let ciclosData = {};
 let mapDesktop = null;
 let mapMobile = null;
 let activeCard = null;
-let currentMarker = null;
+let markersDesktop = [];
+let markersMobile = [];
 const geoCache = {};
 
 // ==================== UTILIDADES ====================
@@ -249,22 +258,27 @@ function capFirst(str) {
 }
 
 function formatearTelefono(tel) {
-  if (!tel || tel === 'nan' || tel === 'NaN' || tel === 'null') return '📞 Sin teléfono';
+  if (!tel || tel === 'nan' || tel === 'NaN' || tel === 'null') return 'Sin teléfono';
   return `📞 ${tel}`;
 }
 
-// ==================== CÁLCULO DE CICLO ====================
+// ==================== CÁLCULO DE CICLO (interno, no se muestra) ====================
 function obtenerCicloActual() {
   const fechaGMT3 = formatearFechaGMT3();
-  
   const inicioAnio = new Date(fechaGMT3.getFullYear(), 0, 0);
   const diaDelAnio = Math.floor((fechaGMT3 - inicioAnio) / (1000 * 60 * 60 * 24));
-  
   const ciclo = ((diaDelAnio - 1) % CONFIG.TOTAL_CICLOS) + 1;
-  
-  console.log(`📅 ${labelFecha(fechaGMT3)} | Día #${diaDelAnio} | Ciclo ${ciclo}`);
+  console.log(`Ciclo interno: ${ciclo}`);
   return ciclo;
 }
+
+// ==================== ICONO CRUZ VERDE ====================
+const crossIcon = L.divIcon({
+  className: 'custom-cross-icon',
+  html: '<div style="background-color: #3fb950; width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3);"><div style="color: white; font-weight: bold; font-size: 18px;">†</div></div>',
+  iconSize: [24, 24],
+  popupAnchor: [0, -12]
+});
 
 // ==================== CARGA DE DATOS ====================
 async function cargarDatos() {
@@ -281,7 +295,6 @@ async function cargarDatos() {
     
     const texto = await response.text();
     
-    // Intentar parsear el JSON
     try {
       ciclosData = JSON.parse(texto);
     } catch (e) {
@@ -292,7 +305,7 @@ async function cargarDatos() {
     const ciclosDisponibles = Object.keys(ciclosData).length;
     console.log(`✅ Cargados ${ciclosDisponibles} ciclos`);
     
-    mostrarFarmacias();
+    await mostrarFarmacias();
     
   } catch (error) {
     console.error('❌ Error:', error);
@@ -305,115 +318,7 @@ async function cargarDatos() {
   }
 }
 
-// ==================== MOSTRAR FARMACIAS ====================
-function mostrarFarmacias() {
-  const ciclo = obtenerCicloActual();
-  const farmacias = ciclosData[ciclo] || [];
-  const fechaGMT3 = formatearFechaGMT3();
-  
-  const intro = document.getElementById('intro');
-  const lista = document.getElementById('lista');
-  
-  if (!farmacias.length) {
-    intro.innerHTML = `
-      <span>⚠️ No hay datos para el ciclo ${ciclo}</span>
-      <div class="stats">📅 ${labelFecha(fechaGMT3)}</div>
-    `;
-    lista.innerHTML = '<div class="card">Sin farmacias registradas para este ciclo</div>';
-    return;
-  }
-  
-  intro.innerHTML = `
-    <span>🔄 Ciclo ${ciclo} · Turnos de hoy: <strong>${labelFecha(fechaGMT3)}</strong></span>
-    <div class="stats">📊 ${farmacias.length} farmacias de turno</div>
-  `;
-  
-  lista.innerHTML = '';
-  
-  farmacias.forEach((farmacia, index) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    
-    div.innerHTML = `
-      <div class="card-num">${pad(index + 1)}</div>
-      <div class="card-info">
-        <div class="card-name">${capFirst(farmacia.nombre)}</div>
-        <div class="card-address">📍 ${farmacia.direccion}</div>
-      </div>
-      <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
-    `;
-    
-    div.onclick = () => {
-      if (activeCard) activeCard.classList.remove('active');
-      div.classList.add('active');
-      activeCard = div;
-      async function mostrarMapa(nombre, direccion, telefono) {
-  const sheet = document.getElementById('mapSheet');
-  const sheetName = document.getElementById('sheetName');
-  sheetName.innerHTML = `${capFirst(nombre)}<br><small style="font-size:12px">${direccion}</small>`;
-  
-  // Abrir la hoja ANTES de inicializar el mapa
-  sheet.classList.add('open');
-  
-  // Pequeño retraso para que el DOM se actualice
-  await new Promise(r => setTimeout(r, 100));
-  
-  const coords = await geocode(direccion);
-  const view = coords || [-38.0055, -57.5426];
-  const zoom = coords ? 16 : 13;
-  
-  // Inicializar o actualizar mapa desktop
-  if (!mapDesktop) {
-    mapDesktop = initMapa('map-desktop', view, zoom);
-  } else {
-    mapDesktop.setView(view, zoom);
-    if (currentMarker) mapDesktop.removeLayer(currentMarker);
-  }
-  
-  // Inicializar o actualizar mapa mobile
-  if (!mapMobile) {
-    const mapContainer = document.getElementById('map-mobile');
-    if (mapContainer) {
-      mapMobile = initMapa('map-mobile', view, zoom);
-    } else {
-      console.error('No se encontró #map-mobile');
-      return;
-    }
-  } else {
-    mapMobile.setView(view, zoom);
-    // Limpiar marcadores viejos
-    mapMobile.eachLayer((layer) => {
-      if (layer instanceof L.Marker) {
-        mapMobile.removeLayer(layer);
-      }
-    });
-  }
-  
-  const popupText = `<b>${capFirst(nombre)}</b><br>${direccion}<br>${formatearTelefono(telefono)}`;
-  
-  if (coords) {
-    currentMarker = L.marker(coords).addTo(mapDesktop).bindPopup(popupText).openPopup();
-    L.marker(coords).addTo(mapMobile).bindPopup(popupText).openPopup();
-  } else {
-    currentMarker = L.marker(view).addTo(mapDesktop).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>').openPopup();
-    L.marker(view).addTo(mapMobile).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>').openPopup();
-  }
-  
-  // Forzar actualización del tamaño del mapa
-  setTimeout(() => {
-    if (mapDesktop) mapDesktop.invalidateSize();
-    if (mapMobile) mapMobile.invalidateSize();
-  }, 200);
-}
-    };
-    
-    lista.appendChild(div);
-  });
-  
-  console.log(`✅ Mostradas ${farmacias.length} farmacias del ciclo ${ciclo}`);
-}
-
-// ==================== MAPA ====================
+// ==================== GEOCODING ====================
 async function geocode(direccion) {
   if (!direccion) return null;
   if (geoCache[direccion]) return geoCache[direccion];
@@ -437,53 +342,139 @@ async function geocode(direccion) {
   return null;
 }
 
-function initMapa(mapElement, view, zoom) {
-  const map = L.map(mapElement).setView(view, zoom);
+// ==================== INICIALIZAR MAPAS ====================
+function initMapDesktop() {
+  if (mapDesktop) return;
+  mapDesktop = L.map('map-desktop').setView([-38.0055, -57.5426], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-  return map;
+  }).addTo(mapDesktop);
 }
 
-async function mostrarMapa(nombre, direccion, telefono) {
-  const sheet = document.getElementById('mapSheet');
-  const sheetName = document.getElementById('sheetName');
-  sheetName.innerHTML = `${capFirst(nombre)}<br><small style="font-size:12px">${direccion}</small>`;
-  sheet.classList.add('open');
+function initMapMobile() {
+  if (mapMobile) return;
+  mapMobile = L.map('map-mobile').setView([-38.0055, -57.5426], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(mapMobile);
+}
+
+// ==================== LIMPIAR MARCADORES ====================
+function limpiarMarcadores() {
+  markersDesktop.forEach(marker => mapDesktop.removeLayer(marker));
+  markersMobile.forEach(marker => mapMobile.removeLayer(marker));
+  markersDesktop = [];
+  markersMobile = [];
+}
+
+// ==================== AGREGAR MARCADORES DE TODAS LAS FARMACIAS ====================
+async function agregarTodosLosMarcadores(farmacias) {
+  initMapDesktop();
+  initMapMobile();
+  limpiarMarcadores();
   
-  const coords = await geocode(direccion);
-  const view = coords || [-38.0055, -57.5426];
-  const zoom = coords ? 16 : 13;
+  const bounds = L.latLngBounds();
+  let puntosAgregados = 0;
   
-  if (!mapDesktop) {
-    mapDesktop = initMapa('map-desktop', view, zoom);
-  } else {
-    mapDesktop.setView(view, zoom);
-    if (currentMarker) mapDesktop.removeLayer(currentMarker);
-  }
-  
-  if (!mapMobile) {
-    mapMobile = initMapa('map-mobile', view, zoom);
-  } else {
-    mapMobile.setView(view, zoom);
-    if (mapMobile._layers) {
-      Object.keys(mapMobile._layers).forEach(key => {
-        if (mapMobile._layers[key] instanceof L.Marker) {
-          mapMobile.removeLayer(mapMobile._layers[key]);
-        }
-      });
+  for (const farmacia of farmacias) {
+    const coords = await geocode(farmacia.direccion);
+    const popupText = `<b>${capFirst(farmacia.nombre)}</b><br>${farmacia.direccion}<br>${formatearTelefono(farmacia.telefono)}`;
+    
+    if (coords) {
+      const markerDesktop = L.marker(coords, { icon: crossIcon }).addTo(mapDesktop).bindPopup(popupText);
+      const markerMobile = L.marker(coords, { icon: crossIcon }).addTo(mapMobile).bindPopup(popupText);
+      markersDesktop.push(markerDesktop);
+      markersMobile.push(markerMobile);
+      bounds.extend(coords);
+      puntosAgregados++;
+    } else {
+      // Si no hay coordenadas, usar un punto aproximado
+      const fallbackCoords = [-38.0055, -57.5426];
+      const markerDesktop = L.marker(fallbackCoords, { icon: crossIcon }).addTo(mapDesktop).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>');
+      const markerMobile = L.marker(fallbackCoords, { icon: crossIcon }).addTo(mapMobile).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>');
+      markersDesktop.push(markerDesktop);
+      markersMobile.push(markerMobile);
+      bounds.extend(fallbackCoords);
+      puntosAgregados++;
     }
   }
   
-  const popupText = `<b>${capFirst(nombre)}</b><br>${direccion}<br>${formatearTelefono(telefono)}`;
-  
-  if (coords) {
-    currentMarker = L.marker(coords).addTo(mapDesktop).bindPopup(popupText).openPopup();
-    L.marker(coords).addTo(mapMobile).bindPopup(popupText).openPopup();
-  } else {
-    currentMarker = L.marker(view).addTo(mapDesktop).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>').openPopup();
-    L.marker(view).addTo(mapMobile).bindPopup(popupText + '<br><small>📍 Ubicación aproximada</small>').openPopup();
+  // Ajustar el zoom para ver todas las farmacias
+  if (puntosAgregados > 0) {
+    mapDesktop.fitBounds(bounds);
+    mapMobile.fitBounds(bounds);
   }
+  
+  console.log(`📍 Agregados ${puntosAgregados} marcadores al mapa`);
+}
+
+// ==================== MOSTRAR FARMACIAS ====================
+async function mostrarFarmacias() {
+  const ciclo = obtenerCicloActual();
+  const farmacias = ciclosData[ciclo] || [];
+  const fechaGMT3 = formatearFechaGMT3();
+  
+  const intro = document.getElementById('intro');
+  const lista = document.getElementById('lista');
+  
+  if (!farmacias.length) {
+    intro.innerHTML = `
+      <span>⚠️ No hay datos para hoy</span>
+      <div class="stats">📅 ${labelFecha(fechaGMT3)}</div>
+    `;
+    lista.innerHTML = '<div class="card">Sin farmacias registradas</div>';
+    return;
+  }
+  
+  intro.innerHTML = `
+    <span>💊 Farmacias de turno · <strong>${labelFecha(fechaGMT3)}</strong></span>
+    <div class="stats">📊 ${farmacias.length} farmacias de turno</div>
+  `;
+  
+  lista.innerHTML = '';
+  
+  farmacias.forEach((farmacia, index) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    
+    div.innerHTML = `
+      <div class="card-num">${pad(index + 1)}</div>
+      <div class="card-info">
+        <div class="card-name">${capFirst(farmacia.nombre)}</div>
+        <div class="card-address">📍 ${farmacia.direccion}</div>
+      </div>
+      <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
+    `;
+    
+    div.onclick = () => {
+      if (activeCard) activeCard.classList.remove('active');
+      div.classList.add('active');
+      activeCard = div;
+      centrarMapaEnFarmacia(farmacia);
+    };
+    
+    lista.appendChild(div);
+  });
+  
+  // Agregar TODAS las farmacias al mapa con la cruz verde
+  await agregarTodosLosMarcadores(farmacias);
+  
+  console.log(`✅ Mostradas ${farmacias.length} farmacias`);
+}
+
+// ==================== CENTRAR MAPA EN UNA FARMACIA ESPECÍFICA ====================
+async function centrarMapaEnFarmacia(farmacia) {
+  const sheet = document.getElementById('mapSheet');
+  const sheetName = document.getElementById('sheetName');
+  sheetName.innerHTML = `${capFirst(farmacia.nombre)}<br><small style="font-size:12px">${farmacia.direccion}</small>`;
+  sheet.classList.add('open');
+  
+  const coords = await geocode(farmacia.direccion);
+  const view = coords || [-38.0055, -57.5426];
+  const zoom = coords ? 16 : 13;
+  
+  if (mapDesktop) mapDesktop.setView(view, zoom);
+  if (mapMobile) mapMobile.setView(view, zoom);
 }
 
 // ==================== ACTUALIZACIÓN AUTOMÁTICA ====================
