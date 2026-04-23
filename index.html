@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -310,9 +311,13 @@ function mostrarFarmacias() {
     div.className = 'card';
     
     div.innerHTML = `
-      <div class="card-num">${pad(index + 1)}</div>
-      <div class="card-name">${capFirst(farmacia.nombre)}</div>
-      <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
+  <div class="card-num">${pad(index + 1)}</div>
+  <div style="flex:1">
+    <div class="card-name">${capFirst(farmacia.nombre)}</div>
+    <div style="font-size: 12px; color: var(--muted);">📍 ${farmacia.direccion}</div>
+  </div>
+  <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
+`;
     `;
     
     div.onclick = () => {
