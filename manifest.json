@@ -1,0 +1,21 @@
+{
+  "name": "Farmacias de Turno MDP",
+  "short_name": "FarmaTurnos",
+  "description": "Encontrá las farmacias de turno en Mar del Plata",
+  "start_url": "/turnos/",
+  "display": "standalone",
+  "theme_color": "#0d1117",
+  "background_color": "#0d1117",
+  "icons": [
+    {
+      "src": "https://psbella.github.io/turnos/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://psbella.github.io/turnos/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
