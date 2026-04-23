@@ -132,6 +132,11 @@
       text-align: right;
     }
 
+    .card-phone a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
     .col-map { display: none; }
 
     @media (min-width: 768px) {
@@ -186,7 +191,6 @@
       margin-top: 8px;
     }
 
-    /* Footer */
     .footer {
       max-width: 1100px;
       margin: 0 auto;
@@ -210,16 +214,16 @@
       margin: 8px 0;
     }
 
-    .error-message {
-      color: #f85149;
-      padding: 20px;
-      text-align: center;
-    }
-    
-    .loader {
-      text-align: center;
-      padding: 40px;
-      color: var(--muted);
+    .gmaps-link {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 8px;
+      background: var(--accent);
+      color: #0d1117;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -279,10 +283,11 @@ let mapMobile = null;
 let activeCard = null;
 let markersDesktop = [];
 let markersMobile = [];
+let farmaciasCoords = [];
 const geoCache = {};
 
 // ==================== FECHA INICIO CICLO 1 ====================
-const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22); // 22 de abril de 2026
+const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22);
 
 // ==================== UTILIDADES ====================
 function pad(n) { 
@@ -311,19 +316,19 @@ function formatearTelefono(tel) {
   return `📞 ${tel}`;
 }
 
+function limpiarTelefono(tel) {
+  if (!tel || tel === 'nan' || tel === 'NaN' || tel === 'null') return '';
+  return tel.replace(/\s/g, '');
+}
+
 // ==================== CÁLCULO DE CICLO ====================
 function obtenerCicloActual() {
   const fechaGMT3 = formatearFechaGMT3();
-  
   const diferenciaMs = fechaGMT3 - FECHA_INICIO_CICLO_1;
   const diasDesdeInicio = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
-  
   let ciclo = (diasDesdeInicio % CONFIG.TOTAL_CICLOS) + 1;
-  
   if (ciclo <= 0) ciclo = 1;
-  
-  console.log(`📅 Ciclo actual: ${ciclo} (día ${diasDesdeInicio} desde inicio)`);
-  
+  console.log(`📅 Ciclo actual: ${ciclo}`);
   return ciclo;
 }
 
@@ -338,37 +343,20 @@ const pharmacyIcon = L.divIcon({
 // ==================== CARGA DE DATOS ====================
 async function cargarDatos() {
   const intro = document.getElementById('intro');
-  
   try {
     console.log('🔍 Buscando JSON en:', CONFIG.RUTA_JSON);
-    
     const response = await fetch(CONFIG.RUTA_JSON);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: No se encontró el archivo`);
-    }
-    
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const texto = await response.text();
-    
     try {
       ciclosData = JSON.parse(texto);
     } catch (e) {
-      console.error('Error parseando JSON:', e);
       throw new Error('El archivo JSON tiene formato inválido');
     }
-    
-    const ciclosDisponibles = Object.keys(ciclosData).length;
-    console.log(`✅ Cargados ${ciclosDisponibles} ciclos`);
-    
     await mostrarFarmacias();
-    
   } catch (error) {
     console.error('❌ Error:', error);
-    intro.innerHTML = `
-      <span>⚠️ Error al cargar los datos</span>
-      <div class="stats">${error.message}</div>
-      <div class="stats" style="margin-top:8px">Verifica que el archivo <strong>ciclos_final.json</strong> exista en la misma carpeta</div>
-    `;
+    intro.innerHTML = `<span>⚠️ Error al cargar los datos</span><div class="stats">${error.message}</div>`;
     document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>';
   }
 }
@@ -377,15 +365,10 @@ async function cargarDatos() {
 async function geocode(direccion) {
   if (!direccion) return null;
   if (geoCache[direccion]) return geoCache[direccion];
-  
   try {
     const query = `${direccion}, Mar del Plata, Buenos Aires, Argentina`;
-    const response = await fetch(
-      'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' +
-      encodeURIComponent(query)
-    );
+    const response = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(query));
     const data = await response.json();
-    
     if (data && data.length > 0) {
       const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
       geoCache[direccion] = coords;
@@ -420,6 +403,7 @@ function limpiarMarcadores() {
   markersMobile.forEach(marker => mapMobile.removeLayer(marker));
   markersDesktop = [];
   markersMobile = [];
+  farmaciasCoords = [];
 }
 
 // ==================== AGREGAR MARCADORES ====================
@@ -432,9 +416,21 @@ async function agregarTodosLosMarcadores(farmacias) {
   const mobileBounds = L.latLngBounds();
   let puntosAgregados = 0;
   
-  for (const farmacia of farmacias) {
+  for (let i = 0; i < farmacias.length; i++) {
+    const farmacia = farmacias[i];
     const coords = await geocode(farmacia.direccion);
-    const popupText = `<b>${capFirst(farmacia.nombre)}</b><br>${farmacia.direccion}<br>${formatearTelefono(farmacia.telefono)}`;
+    farmaciasCoords[i] = coords;
+    
+    const telefonoLimpio = limpiarTelefono(farmacia.telefono);
+    const telefonoLinkPopup = telefonoLimpio ? `<br><a href="tel:${telefonoLimpio}" style="color: var(--accent);">📞 Llamar</a>` : '<br>📞 Sin teléfono';
+    const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.direccion + ', Mar del Plata')}`;
+    
+    const popupText = `
+      <b>${capFirst(farmacia.nombre)}</b><br>
+      ${farmacia.direccion}<br>
+      ${telefonoLinkPopup}<br>
+      <a href="${gmapsUrl}" target="_blank" rel="noopener noreferrer" class="gmaps-link">🗺️ Abrir en Google Maps</a>
+    `;
     
     if (coords) {
       const markerDesktop = L.marker(coords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupText);
@@ -466,8 +462,18 @@ async function agregarTodosLosMarcadores(farmacias) {
       mapMobile._initialZoomDone = true;
     }
   }
-  
   console.log(`📍 Agregados ${puntosAgregados} marcadores`);
+}
+
+// ==================== CENTRAR MAPA MOBILE ====================
+function centrarMapaMobileEnFarmacia(index) {
+  const coords = farmaciasCoords[index];
+  const view = coords || [-38.0055, -57.5426];
+  const zoom = coords ? 16 : 13;
+  if (mapMobile) {
+    mapMobile.setView(view, zoom);
+    if (markersMobile[index]) markersMobile[index].openPopup();
+  }
 }
 
 // ==================== MOSTRAR FARMACIAS ====================
@@ -480,24 +486,22 @@ async function mostrarFarmacias() {
   const lista = document.getElementById('lista');
   
   if (!farmacias.length) {
-    intro.innerHTML = `
-      <span>⚠️ No hay datos para hoy</span>
-      <div class="stats">📅 ${labelFecha(fechaGMT3)}</div>
-    `;
+    intro.innerHTML = `<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fechaGMT3)}</div>`;
     lista.innerHTML = '<div class="card">Sin farmacias registradas</div>';
     return;
   }
   
-  intro.innerHTML = `
-    <span>💊 Farmacias de turno · <strong>${labelFecha(fechaGMT3)}</strong></span>
-    <div class="stats">📊 ${farmacias.length} farmacias de turno</div>
-  `;
-  
+  intro.innerHTML = `<span>💊 Farmacias de turno · <strong>${labelFecha(fechaGMT3)}</strong></span><div class="stats">📊 ${farmacias.length} farmacias de turno</div>`;
   lista.innerHTML = '';
   
   farmacias.forEach((farmacia, index) => {
     const div = document.createElement('div');
     div.className = 'card';
+    
+    const telefonoLimpio = limpiarTelefono(farmacia.telefono);
+    const telefonoLink = telefonoLimpio 
+      ? `<a href="tel:${telefonoLimpio}">📞 ${farmacia.telefono}</a>`
+      : '📞 Sin teléfono';
     
     div.innerHTML = `
       <div class="card-num">${pad(index + 1)}</div>
@@ -505,43 +509,29 @@ async function mostrarFarmacias() {
         <div class="card-name">${capFirst(farmacia.nombre)}</div>
         <div class="card-address">📍 ${farmacia.direccion}</div>
       </div>
-      <div class="card-phone">${formatearTelefono(farmacia.telefono)}</div>
+      <div class="card-phone">${telefonoLink}</div>
     `;
     
-    div.onclick = () => {
-      if (activeCard) activeCard.classList.remove('active');
-      div.classList.add('active');
-      activeCard = div;
-      centrarMapaMobileEnFarmacia(farmacia);
+    div.onclick = (e) => {
+      // Evitar que el clic en el enlace del teléfono también active el centrado
+      if (e.target.tagName !== 'A') {
+        if (activeCard) activeCard.classList.remove('active');
+        div.classList.add('active');
+        activeCard = div;
+        centrarMapaMobileEnFarmacia(index);
+        
+        // En desktop, también abrir el popup en el mapa desktop
+        if (mapDesktop && markersDesktop[index]) {
+          markersDesktop[index].openPopup();
+        }
+      }
     };
     
     lista.appendChild(div);
   });
   
   await agregarTodosLosMarcadores(farmacias);
-  
   console.log(`✅ Mostradas ${farmacias.length} farmacias`);
-}
-
-// ==================== CENTRAR MAPA MOBILE ====================
-async function centrarMapaMobileEnFarmacia(farmacia) {
-  const sheet = document.getElementById('mapSheet');
-  const sheetName = document.getElementById('sheetName');
-  sheetName.innerHTML = `${capFirst(farmacia.nombre)}<br><small style="font-size:12px">${farmacia.direccion}</small>`;
-  sheet.classList.add('open');
-  
-  const coords = await geocode(farmacia.direccion);
-  const view = coords || [-38.0055, -57.5426];
-  const zoom = coords ? 16 : 13;
-  
-  if (mapMobile) {
-    mapMobile.setView(view, zoom);
-    const marker = markersMobile.find(m => {
-      const popup = m.getPopup();
-      return popup && popup.getContent().includes(capFirst(farmacia.nombre));
-    });
-    if (marker) marker.openPopup();
-  }
 }
 
 // ==================== ACTUALIZACIÓN AUTOMÁTICA ====================
@@ -549,16 +539,9 @@ function programarActualizacion() {
   const ahora = formatearFechaGMT3();
   let proxima = new Date(ahora);
   proxima.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
-  
-  if (ahora >= proxima) {
-    proxima.setDate(proxima.getDate() + 1);
-  }
-  
+  if (ahora >= proxima) proxima.setDate(proxima.getDate() + 1);
   const tiempoMs = proxima - ahora;
-  const minutos = Math.round(tiempoMs / 60000);
-  
-  console.log(`⏰ Próxima actualización en ${minutos} minutos (${proxima.toLocaleString('es-AR')})`);
-  
+  console.log(`⏰ Próxima actualización en ${Math.round(tiempoMs / 60000)} minutos`);
   setTimeout(() => {
     console.log('🔄 Actualizando farmacias...');
     if (mapDesktop) mapDesktop._initialZoomDone = false;
