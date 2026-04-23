@@ -328,11 +328,8 @@
       "lat": -37.9985783,
       "lng": -57.5073923
     }
-}
   ],
-"5": [
-
-
+  "5": [
     {
       "nombre": "BAUZA",
       "direccion": "SARMIENTO 2599",
@@ -634,14 +631,13 @@
       "lng": -57.5351103
     },
     {
-            "nombre": "SAN JUAN S.C.S.",
+      "nombre": "SAN JUAN S.C.S.",
       "direccion": "BELGRANO 4250",
       "telefono": "4725920",
       "lat": -38.0333866,
       "lng": -57.5350506
     }
-  ]
-,
+  ],
   "9": [
     {
       "nombre": "GARCIA BORDENAVE",
@@ -951,14 +947,13 @@
       "lng": -57.5537424
     },
     {
- "nombre": "VARA",
+      "nombre": "VARA",
       "direccion": "DIAGONAL ESTADOS UNIDOS 779",
       "telefono": "2235808030",
       "lat": -38.0074079,
       "lng": -57.5506702
     }
-  ]
-,
+  ],
   "13": [
     {
       "nombre": "25 DE MAYO",
@@ -1282,7 +1277,7 @@
       "lng": -57.4312112
     },
     {
- "nombre": "VITA",
+      "nombre": "VITA",
       "direccion": "TEODORO BRONZINI 210",
       "telefono": "2235033528",
       "lat": -38.0105335,
