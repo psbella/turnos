@@ -680,14 +680,7 @@ function programarActualizacion() {
 document.getElementById('closeSheet').addEventListener('click', () => {
   document.getElementById('mapSheet').classList.remove('open');
 });
-
-// ==================== SERVICE WORKER PARA PWA ====================
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/turnos/sw.js')
-    .then(() => console.log('✅ Service Worker registrado'))
-    .catch(err => console.log('❌ Error SW:', err));
-}
-
+  
 // ==================== INICIALIZACIÓN ====================
 async function init() {
   console.log('🚀 Farmacias de Turno - Mar del Plata');
