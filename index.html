@@ -93,7 +93,6 @@
 
     .col-list { min-width: 0; }
 
-    /* NUEVO ESTILO DEL INTRO - DOS LÍNEAS IZQUIERDA */
     .intro {
       font-size: 16px;
       color: var(--text);
@@ -422,7 +421,7 @@ let farmaciasCoords = [];
 const geoCache = {};
 
 // ==================== FECHA INICIO CICLO 1 ====================
-const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22, 9, 0, 0); // 22 de abril 9:00
+const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 22, 9, 0, 0);
 
 // ==================== UTILIDADES ====================
 function delay(ms) {
@@ -648,10 +647,11 @@ async function mostrarFarmacias() {
     </div>
     <div class="stats">
       <span class="icon-stats">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 12L10 17L20 7" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  </svg>
-</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12L10 17L20 7" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </span>
+      <span>${farmacias.length} farmacias de turno</span>
     </div>
   `;
   
