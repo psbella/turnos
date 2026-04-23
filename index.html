@@ -9,9 +9,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d1117'/%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
-
   <title>Farmacias de Turno · Mar del Plata</title>
+
+  <!-- Favicon cruz verde -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d1117'/%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d1117'/%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,13 +132,14 @@
 
     .card-phone {
       font-size: 12px;
-      color: var(--accent);
       text-align: right;
     }
 
-    .card-phone a {
+    .phone-link {
       color: var(--accent);
       text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
     }
 
     .col-map { display: none; }
@@ -311,11 +314,6 @@ function labelFecha(d) {
 function capFirst(str) {
   if (!str) return '';
   return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-}
-
-function formatearTelefono(tel) {
-  if (!tel || tel === 'nan' || tel === 'NaN' || tel === 'null') return 'Sin teléfono';
-  return `📞 ${tel}`;
 }
 
 function limpiarTelefono(tel) {
