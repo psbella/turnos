@@ -644,6 +644,12 @@ async function init() {
 
 init();
 </script>
-
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/turnos/sw.js')
+    .then(() => console.log('Service Worker registrado'))
+    .catch(err => console.log('Error SW:', err));
+}
+</script>
 </body>
 </html>
