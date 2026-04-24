@@ -420,8 +420,8 @@
       "nombre": "GILARDONI",
       "direccion": "CALLE 0 ESQ. 817 S/N",
       "telefono": "2291510527",
-      "lat": null,
-      "lng": null
+      "lat": -38.201116,
+      "lng": -57.683231
     },
     {
       "nombre": "ITALIANA",
@@ -699,8 +699,8 @@
       "nombre": "PHARMARURAL SCS",
       "direccion": "RUTA JARDIN JM FANGIO 16500",
       "telefono": "2233540982",
-      "lat": null,
-      "lng": null
+     "lat": -37.9134137,
+     "lng": -57.4818696
     },
     {
       "nombre": "SOICH ALAIN",
@@ -1059,8 +1059,8 @@
       "nombre": "JARDIN DE LA SIERRA SCS",
       "direccion": "ARGENTINA 360",
       "telefono": "2234370421",
-      "lat": null,
-      "lng": null
+      "lat": -37.9473691,
+      "lng": -57.4740998
     },
     {
       "nombre": "JORGE RUIZ",
