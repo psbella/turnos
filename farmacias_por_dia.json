@@ -1,0 +1,2549 @@
+{
+  "1": [
+    {
+      "nombre": "ATENA",
+      "direccion": "Ituzaing� 3801",
+      "telefono": "4731552",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CASTRO",
+      "direccion": "R. Pe�a 2535",
+      "telefono": "4937823",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL PUERTO",
+      "direccion": "12 de Octubre 3499",
+      "telefono": "4800271",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FALDINA",
+      "direccion": "Luro 7498",
+      "telefono": "2233467859",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FEBA SCS",
+      "direccion": "Col�n 9102",
+      "telefono": "4870670",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FERRERO",
+      "direccion": "Fto de la Plaza 6304",
+      "telefono": "2235362678",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LOPEZ",
+      "direccion": "25 de Mayo 2999",
+      "telefono": "4951637",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MARQUEZ",
+      "direccion": "Jara 936",
+      "telefono": "4758219",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PEREIRA",
+      "direccion": "Constituci�n 4375",
+      "telefono": "4790001",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PIROLA",
+      "direccion": "J. B. Justo 6736",
+      "telefono": "2235393277",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "STECKINGER",
+      "direccion": "R Pe�a 4727",
+      "telefono": "4721994",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "2": [
+    {
+      "nombre": "BADAMAR",
+      "direccion": "Col�n 1399",
+      "telefono": "4515104",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "BUSTOS",
+      "direccion": "Matheu 3673",
+      "telefono": "4724031",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL INTERZONAL",
+      "direccion": "Juan B. Justo 6404",
+      "telefono": "2235599679",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "EL GROSELLAR",
+      "direccion": "Estrada 5610",
+      "telefono": "2234562065",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MAR DEL GOMEZ",
+      "direccion": "J.B.Justo 2278",
+      "telefono": "4827037",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MARTI",
+      "direccion": "T. Bronzini 597",
+      "telefono": "2235023596",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MEDICI SCS",
+      "direccion": "San Juan y Rawson",
+      "telefono": "4728758",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PEREIRA CECILIA",
+      "direccion": "Luro 4824",
+      "telefono": "4760001",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMABEACH  SCS",
+      "direccion": "Edison 1582",
+      "telefono": "2235301393",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PREVILEY KAI SCS",
+      "direccion": "F. de la Plaza 5120",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ROCHA",
+      "direccion": "Independencia 1399",
+      "telefono": "6282751",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "3": [
+    {
+      "nombre": "BAUZA",
+      "direccion": "Sarmiento y Alberti",
+      "telefono": "4511243",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 de Octubre 5054",
+      "telefono": "4809713",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DI IORIO  BUONO",
+      "direccion": "Colec.R 88 P,Peron 9874 Batan",
+      "telefono": "4642801",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA. NUEVA CORDOBA",
+      "direccion": "C�rdoba 4546",
+      "telefono": "4941294",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FERNANDEZ",
+      "direccion": "Carlos Tejedor 298",
+      "telefono": "4728768",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FRASSON",
+      "direccion": "A. Ali� 1195",
+      "telefono": "4787253",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LILIANA CASTRO",
+      "direccion": "Alvarado y Dorrego",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MOLINA",
+      "direccion": "San Juan 1299",
+      "telefono": "4740039",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PIZZOLO",
+      "direccion": "Fto de la Plaza 3658",
+      "telefono": "2236703020",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PREVILEY",
+      "direccion": "J. P. Ramos 2413",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "4": [
+    {
+      "nombre": "CORAL SCS",
+      "direccion": "Independencia 874",
+      "telefono": "4743111",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DOMINGUEZ LAY",
+      "direccion": "Carlos Tejedor 3627",
+      "telefono": "2234548666",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GILARDONI",
+      "direccion": "Calle 0 Esq.817 S/N Chapadmalal",
+      "telefono": "2291510527",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ITALIANA",
+      "direccion": "XX de Setiembre 1678",
+      "telefono": "4730178",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MONTERIOS SCS",
+      "direccion": "Col�n 4986",
+      "telefono": "4727980",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MORON",
+      "direccion": "Luro 5802",
+      "telefono": "4783056",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PAZ",
+      "direccion": "Talcahuano 793",
+      "telefono": "4823985",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMADIET",
+      "direccion": "Guemes 3185",
+      "telefono": "4518563",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RM SCS",
+      "direccion": "Constitucion 7508",
+      "telefono": "4712727",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VIDA",
+      "direccion": "Constituci�n 5232",
+      "telefono": "4790101",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "5": [
+    {
+      "nombre": "BADANEZ",
+      "direccion": "San Martin 2149",
+      "telefono": "2235510731",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CASTORINA",
+      "direccion": "Fto de la Plaza 2657",
+      "telefono": "2235736459",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DANTE",
+      "direccion": "Moreno y XX de Setiembre",
+      "telefono": "4943337",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "EXPRESS MDQ SCS",
+      "direccion": "Falucho N� 1602",
+      "telefono": "2235193304",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LA PERLA",
+      "direccion": "Espa�a 1003",
+      "telefono": "2235065049",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LUNADELABRAH SCS",
+      "direccion": "Independencia y Matheu",
+      "telefono": "4755524",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMAVIP",
+      "direccion": "Mario Bravo 3504",
+      "telefono": "2235798821",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PUEYRREDON III",
+      "direccion": "J.B.Justo 1846",
+      "telefono": "4894040",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SACK",
+      "direccion": "Alberti 6567",
+      "telefono": "2235993771",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "URQUIZA",
+      "direccion": "Libertad 5302",
+      "telefono": "2235167870",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "6": [
+    {
+      "nombre": "DEL BARRIO",
+      "direccion": "Jara 3290",
+      "telefono": "4755685",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ELBEY y FARINA",
+      "direccion": "Colon 7279",
+      "telefono": "4702524",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FRONTINI",
+      "direccion": "12 de Octubre 5362",
+      "telefono": "4820421",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GALILEO SUR SCS",
+      "direccion": "Mario Bravo 502",
+      "telefono": "2236185741",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GUEMES",
+      "direccion": "Gascon  1299",
+      "telefono": "2233522656",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "M.R.L.",
+      "direccion": "Constituci�n 4793",
+      "telefono": "4713000",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MOBILIA",
+      "direccion": "Av.Pte Peron 10419 (Batan)",
+      "telefono": "2236344967",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "NVA LUJAN D.LOS.ANGELES SCS",
+      "direccion": "Fto de la Plaza 6992",
+      "telefono": "2233465521",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PALKIN",
+      "direccion": "Independencia 3501",
+      "telefono": "2235589900",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SAN JUAN",
+      "direccion": "Belgrano 4250",
+      "telefono": "4725920",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "7": [
+    {
+      "nombre": "FCIA. MUSTERS SCS",
+      "direccion": "San Juan 3301",
+      "telefono": "4728225",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GUEVARA",
+      "direccion": "San Juan 381",
+      "telefono": "4732109",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "HERRERA",
+      "direccion": "Edison 2601",
+      "telefono": "2235353340",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "HERRERO",
+      "direccion": "Jara 1842",
+      "telefono": "2235847235",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JULIAN ALBERTO",
+      "direccion": "Calle 2 entre 441 y 443",
+      "telefono": "2236219647",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MALEN",
+      "direccion": "Catamarca N� 3201",
+      "telefono": "4732646",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MARTIGNONE",
+      "direccion": "J. B. Justo 1601",
+      "telefono": "4805295",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMAPORT SCS",
+      "direccion": "12 de Octubre 3185",
+      "telefono": "4895735",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMARURAL SCS",
+      "direccion": "Ruta Jardin JM Fangio16500 S/Padre",
+      "telefono": "2233540982",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SOICH ALAIN",
+      "direccion": "J. P. Ramos y 41",
+      "telefono": "2236910038",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TEJEDOR  381 SCS",
+      "direccion": "Tejedor 581",
+      "telefono": "4713066",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "8": [
+    {
+      "nombre": "ANGELUCCI",
+      "direccion": "J. B. Justo e Independencia",
+      "telefono": "2235648000",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ARANDA",
+      "direccion": "Libertad  5579",
+      "telefono": "4750052",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "BOSQUE GRANDE SCS",
+      "direccion": "V�rtiz 9162",
+      "telefono": "2236008877",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FARMAHUINCO SCS",
+      "direccion": "V�rtiz 4282",
+      "telefono": "2235314718",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA. SOCIAL LURO",
+      "direccion": "Luro 3499",
+      "telefono": "4730287",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LASSERRE",
+      "direccion": "Carlos Tejedor 2618",
+      "telefono": "2233123880",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "NUEVA CONSTITUCION SCS",
+      "direccion": "Constituci�n 6679",
+      "telefono": "2234567991",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SERI",
+      "direccion": "San Juan 702",
+      "telefono": "223 3528606",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SIMINI",
+      "direccion": "Las Heras 3010",
+      "telefono": "4939265",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "STOLAR",
+      "direccion": "Alberti 6001",
+      "telefono": "4774811",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "9": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "J. P. Ramos 821",
+      "telefono": "4815223",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CRISTI SCS",
+      "direccion": "Luro 3804",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DIAGONAL",
+      "direccion": "Rivadavia 2960",
+      "telefono": "2235216164",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA.CONSTITUCION LASALLE",
+      "direccion": "Constitucion  6995",
+      "telefono": "4716464",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA.SE.AD.HE",
+      "direccion": "J. B. Justo 5402",
+      "telefono": "2236933753",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA.SERRAT",
+      "direccion": "12 de Octubre 3792",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GRIMALDI DIEZ",
+      "direccion": "Pe�a y Guemes",
+      "telefono": "2233450267",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MENDELEIV SUR",
+      "direccion": "Colon 6699",
+      "telefono": "2236865638",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RIMATU",
+      "direccion": "Sicilia 1474 y Av de los Trabajadores",
+      "telefono": "4840713",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RIQUELME",
+      "direccion": "XX de Setiembre 399",
+      "telefono": "2233475520",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VILLAFRANCA",
+      "direccion": "Libertad 7693",
+      "telefono": "2235399462",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "10": [
+    {
+      "nombre": "AMANCAY MDQ",
+      "direccion": "Patricio Peralta Ramos 521",
+      "telefono": "2235239233",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "AVENIDA",
+      "direccion": "Libertad y Misiones",
+      "telefono": "4735863",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "COPAL",
+      "direccion": "San Juan y Alvarado",
+      "telefono": "6532086",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL LABRADOR",
+      "direccion": "Tucum�n 2853",
+      "telefono": "4913241",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA NUEVA PLAZA II",
+      "direccion": "Constitucion  5700",
+      "telefono": "4715757",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FLORES",
+      "direccion": "Luro 6501",
+      "telefono": "4813387",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FRESCO",
+      "direccion": "Cerrito 1512",
+      "telefono": "2236542256",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GOMEZ",
+      "direccion": "Alvarado 2318",
+      "telefono": "6260034",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MAMMANA",
+      "direccion": "Chile 2987",
+      "telefono": "2234814382",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RAMA PRE 05 SCS",
+      "direccion": "Talcahuano  2002",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "11": [
+    {
+      "nombre": "25 de MAYO",
+      "direccion": "XX de Set y 25 de Mayo",
+      "telefono": "2236410479",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CARRIZO",
+      "direccion": "Colect.Ruta 226 N�1610",
+      "telefono": "2235464734",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "KILDUFF",
+      "direccion": "Alberti 1387",
+      "telefono": "4860599",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LISSARRAGUE",
+      "direccion": "Neuqu�n y Ayacucho",
+      "telefono": "2236774797",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MILAZZO",
+      "direccion": "Fto. De la Plaza 4332",
+      "telefono": "2236920583",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MONTTI",
+      "direccion": "Tucuman 3392",
+      "telefono": "2235015346",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ORTEGA FARMACEUTICA",
+      "direccion": "Luro 6900",
+      "telefono": "2235401424",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PRAMOS SCS",
+      "direccion": "J. P. Ramos 402",
+      "telefono": "2235577707",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RODRIGUEZ SUSANA",
+      "direccion": "Della Paolera 2040",
+      "telefono": "2236695468",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ZAMACZUK",
+      "direccion": "J. B. Justo 1302",
+      "telefono": "4809105",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "12": [
+    {
+      "nombre": "ALLEMMA",
+      "direccion": "Mario Bravo 2067",
+      "telefono": "4841484",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DELLA MAGGIORA",
+      "direccion": "Col�n 4101",
+      "telefono": "4723587",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FARMALYF SCS",
+      "direccion": "Independencia 4117",
+      "telefono": "4726788",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JARDIN DE LA SIERRA",
+      "direccion": "Av. Argentina 360 S. de los Padres",
+      "telefono": "2234370421",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JORGE RUIZ",
+      "direccion": "Jara y 9 de Julio",
+      "telefono": "4729609",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MURRAY",
+      "direccion": "Belgrano 3302",
+      "telefono": "4956623",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PINOS DE ANCHORENA",
+      "direccion": "Constitucion 6039",
+      "telefono": "4793333",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "POUSSET",
+      "direccion": "Alvarado 6579",
+      "telefono": "4783427",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ROMERO",
+      "direccion": "11 de Septiembre 3783",
+      "telefono": "2234388059",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VALENTINI",
+      "direccion": "Jara y Almafuerte",
+      "telefono": "4744588",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VIZCAY",
+      "direccion": "Alem 3495",
+      "telefono": "4864449",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "13": [
+    {
+      "nombre": "AZCONEGUI",
+      "direccion": "12 de Octubre y Talcahuano",
+      "telefono": "2235634110",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CANESSA",
+      "direccion": "J. B. Justo 494",
+      "telefono": "4801616",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "COMUFARMA",
+      "direccion": "Rodr�guez Pe�a 6628",
+      "telefono": "2236285899",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CUELLO",
+      "direccion": "Coronel Suarez 468",
+      "telefono": "2233424688",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FERRANDO",
+      "direccion": "Balcarce 2899",
+      "telefono": "4916617",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GUIDI",
+      "direccion": "Comodoro Rivadavia 4466",
+      "telefono": "2233044912",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LAS HERAS",
+      "direccion": "Calabria 9131",
+      "telefono": "6283542",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "OLIVERI",
+      "direccion": "Luro 4102",
+      "telefono": "2235721444",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SENA",
+      "direccion": "Bvar. P. P. Ramos 3987",
+      "telefono": "4510422",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TELLERIA",
+      "direccion": "Fto. De la Plaza 4583",
+      "telefono": "2236769086",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VILLEGAS",
+      "direccion": "San Juan 15",
+      "telefono": "4739489",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "14": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "Luro 7898",
+      "telefono": "4789228",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FARMA-RICHAR SCS",
+      "direccion": "T. Del Fuego y Alvarado",
+      "telefono": "4724494",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FLIA.PRE SCS",
+      "direccion": "San Martin 5521",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LA BOTICA DE LOS TRONCOS",
+      "direccion": "Alem 3777",
+      "telefono": "2236962133",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LIZALDE",
+      "direccion": "C. Tejedor 2156",
+      "telefono": "2236024116",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MELUCCI",
+      "direccion": "Libertad 4109",
+      "telefono": "4720605",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SAN JOSE",
+      "direccion": "Pu�n 1712",
+      "telefono": "4840213",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SZPYRNAL SCS",
+      "direccion": "R. Pe�a 3695 y 14 de Julio",
+      "telefono": "4763940",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TROZZI",
+      "direccion": "J. P. Ramos 1701",
+      "telefono": "2233008488",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VIDELA",
+      "direccion": "Calle 18 N� 262 Est.Chapadmalal",
+      "telefono": "2233545778",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VITA",
+      "direccion": "Berutti y Los Andes",
+      "telefono": "2235033528",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "15": [
+    {
+      "nombre": "CARRERA",
+      "direccion": "Tripulantes del Fournier N� 11012",
+      "telefono": "4653547",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL AGUILA",
+      "direccion": "Luro 4610",
+      "telefono": "2234982230",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA. SUR",
+      "direccion": "Colon 5398",
+      "telefono": "4748777",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GARCIA CASABAL",
+      "direccion": "Luro 9615",
+      "telefono": "4871651",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JARDIN DEL BOSQUE",
+      "direccion": "Mario Bravo 2674",
+      "telefono": "2235244020",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JULIO RIADIGOS",
+      "direccion": "Castelli 1311",
+      "telefono": "4518537",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "OSCAR GARCIA",
+      "direccion": "J. P. Ramos 1099",
+      "telefono": "4817471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PABLO SIMINI",
+      "direccion": "Cerrito 285",
+      "telefono": "3530938",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SAMPAOLESI",
+      "direccion": "C�rdoba 3869",
+      "telefono": "2234474443",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TREJOMAR",
+      "direccion": "Strobel 5191",
+      "telefono": "4749549",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "16": [
+    {
+      "nombre": "ANDRES FRONTINI",
+      "direccion": "Jara 42",
+      "telefono": "4711961",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FAILONI",
+      "direccion": "F. U. Camet 123",
+      "telefono": "4736352",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FLORES PRADO",
+      "direccion": "Beltran 5688",
+      "telefono": "2235313404",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "NUEVA EDISON FARMACEUTICA SCS",
+      "direccion": "Edison 1175",
+      "telefono": "2236701400",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "OMBRONI",
+      "direccion": "Independencia 3002",
+      "telefono": "3521496",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PENNISI FORELL",
+      "direccion": "Fortunato de la Plaza 3237",
+      "telefono": "4859172",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PREMEDICA SCS",
+      "direccion": "126 esq 135 Batan",
+      "telefono": "2233777777",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RIADIGOS",
+      "direccion": "J. B. Justo y C�rdoba",
+      "telefono": "4953022",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RODRIGUEZ",
+      "direccion": "Jara y Alberti",
+      "telefono": "2235160637",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ROIG",
+      "direccion": "Luro 3219",
+      "telefono": "4916427",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "17": [
+    {
+      "nombre": "ATENA",
+      "direccion": "Ituzaing� 3801",
+      "telefono": "4731552",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CASTRO",
+      "direccion": "R. Pe�a 2535",
+      "telefono": "4937823",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL PUERTO",
+      "direccion": "12 de Octubre 3499",
+      "telefono": "4800271",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FALDINA",
+      "direccion": "Luro 7498",
+      "telefono": "2233467859",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FEBA SCS",
+      "direccion": "Col�n 9102",
+      "telefono": "4870670",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FERRERO",
+      "direccion": "Fto de la Plaza 6304",
+      "telefono": "2235362678",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LOPEZ",
+      "direccion": "25 de Mayo 2999",
+      "telefono": "4951637",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MARQUEZ",
+      "direccion": "Jara 936",
+      "telefono": "4758219",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PEREIRA",
+      "direccion": "Constituci�n 4375",
+      "telefono": "4790001",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PIROLA",
+      "direccion": "J. B. Justo 6736",
+      "telefono": "2235393277",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "STECKINGER",
+      "direccion": "R Pe�a 4727",
+      "telefono": "4721994",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "18": [
+    {
+      "nombre": "BADAMAR",
+      "direccion": "Col�n 1399",
+      "telefono": "4515104",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "BUSTOS",
+      "direccion": "Matheu 3673",
+      "telefono": "4724031",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL INTERZONAL",
+      "direccion": "Juan B. Justo 6404",
+      "telefono": "2235599679",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "EL GROSELLAR",
+      "direccion": "Estrada 5610",
+      "telefono": "2234562065",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MAR DEL GOMEZ",
+      "direccion": "J.B.Justo 2278",
+      "telefono": "4827037",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MARTI",
+      "direccion": "T. Bronzini 597",
+      "telefono": "2235023596",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MEDICI SCS",
+      "direccion": "San Juan y Rawson",
+      "telefono": "4728758",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PEREIRA CECILIA",
+      "direccion": "Luro 4824",
+      "telefono": "4760001",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMABEACH  SCS",
+      "direccion": "Edison 1582",
+      "telefono": "2235301393",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PREVILEY KAI SCS",
+      "direccion": "F. de la Plaza 5120",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ROCHA",
+      "direccion": "Independencia 1399",
+      "telefono": "6282751",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "19": [
+    {
+      "nombre": "BAUZA",
+      "direccion": "Sarmiento y Alberti",
+      "telefono": "4511243",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 de Octubre 5054",
+      "telefono": "4809713",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DI IORIO  BUONO",
+      "direccion": "Colec.R 88 P,Peron 9874 Batan",
+      "telefono": "4642801",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA. NUEVA CORDOBA",
+      "direccion": "C�rdoba 4546",
+      "telefono": "4941294",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FERNANDEZ",
+      "direccion": "Carlos Tejedor 298",
+      "telefono": "4728768",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FRASSON",
+      "direccion": "A. Ali� 1195",
+      "telefono": "4787253",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LILIANA CASTRO",
+      "direccion": "Alvarado y Dorrego",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MOLINA",
+      "direccion": "San Juan 1299",
+      "telefono": "4740039",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PIZZOLO",
+      "direccion": "Fto de la Plaza 3658",
+      "telefono": "2236703020",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PREVILEY",
+      "direccion": "J. P. Ramos 2413",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "20": [
+    {
+      "nombre": "CORAL SCS",
+      "direccion": "Independencia 874",
+      "telefono": "4743111",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DOMINGUEZ LAY",
+      "direccion": "Carlos Tejedor 3627",
+      "telefono": "2234548666",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GILARDONI",
+      "direccion": "Calle 0 Esq.817 S/N Chapadmalal",
+      "telefono": "2291510527",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ITALIANA",
+      "direccion": "XX de Setiembre 1678",
+      "telefono": "4730178",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MONTERIOS SCS",
+      "direccion": "Col�n 4986",
+      "telefono": "4727980",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MORON",
+      "direccion": "Luro 5802",
+      "telefono": "4783056",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PAZ",
+      "direccion": "Talcahuano 793",
+      "telefono": "4823985",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMADIET",
+      "direccion": "Guemes 3185",
+      "telefono": "4518563",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RM SCS",
+      "direccion": "Constitucion 7508",
+      "telefono": "4712727",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VIDA",
+      "direccion": "Constituci�n 5232",
+      "telefono": "4790101",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "21": [
+    {
+      "nombre": "BADANEZ",
+      "direccion": "San Martin 2149",
+      "telefono": "2235510731",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CASTORINA",
+      "direccion": "Fto de la Plaza 2657",
+      "telefono": "2235736459",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DANTE",
+      "direccion": "Moreno y XX de Setiembre",
+      "telefono": "4943337",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "EXPRESS MDQ SCS",
+      "direccion": "Falucho N� 1602",
+      "telefono": "2235193304",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LA PERLA",
+      "direccion": "Espa�a 1003",
+      "telefono": "2235065049",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LUNADELABRAH SCS",
+      "direccion": "Independencia y Matheu",
+      "telefono": "4755524",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMAVIP",
+      "direccion": "Mario Bravo 3504",
+      "telefono": "2235798821",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PUEYRREDON III",
+      "direccion": "J.B.Justo 1846",
+      "telefono": "4894040",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SACK",
+      "direccion": "Alberti 6567",
+      "telefono": "2235993771",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "URQUIZA",
+      "direccion": "Libertad 5302",
+      "telefono": "2235167870",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "22": [
+    {
+      "nombre": "DEL BARRIO",
+      "direccion": "Jara 3290",
+      "telefono": "4755685",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ELBEY y FARINA",
+      "direccion": "Colon 7279",
+      "telefono": "4702524",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FRONTINI",
+      "direccion": "12 de Octubre 5362",
+      "telefono": "4820421",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GALILEO SUR SCS",
+      "direccion": "Mario Bravo 502",
+      "telefono": "2236185741",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GUEMES",
+      "direccion": "Gascon  1299",
+      "telefono": "2233522656",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "M.R.L.",
+      "direccion": "Constituci�n 4793",
+      "telefono": "4713000",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MOBILIA",
+      "direccion": "Av.Pte Peron 10419 (Batan)",
+      "telefono": "2236344967",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "NVA LUJAN D.LOS.ANGELES SCS",
+      "direccion": "Fto de la Plaza 6992",
+      "telefono": "2233465521",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PALKIN",
+      "direccion": "Independencia 3501",
+      "telefono": "2235589900",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SAN JUAN",
+      "direccion": "Belgrano 4250",
+      "telefono": "4725920",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "23": [
+    {
+      "nombre": "FCIA. MUSTERS SCS",
+      "direccion": "San Juan 3301",
+      "telefono": "4728225",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GUEVARA",
+      "direccion": "San Juan 381",
+      "telefono": "4732109",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "HERRERA",
+      "direccion": "Edison 2601",
+      "telefono": "2235353340",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "HERRERO",
+      "direccion": "Jara 1842",
+      "telefono": "2235847235",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JULIAN ALBERTO",
+      "direccion": "Calle 2 entre 441 y 443",
+      "telefono": "2236219647",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MALEN",
+      "direccion": "Catamarca N� 3201",
+      "telefono": "4732646",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MARTIGNONE",
+      "direccion": "J. B. Justo 1601",
+      "telefono": "4805295",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMAPORT SCS",
+      "direccion": "12 de Octubre 3185",
+      "telefono": "4895735",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PHARMARURAL SCS",
+      "direccion": "Ruta Jardin JM Fangio16500 S/Padre",
+      "telefono": "2233540982",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SOICH ALAIN",
+      "direccion": "J. P. Ramos y 41",
+      "telefono": "2236910038",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TEJEDOR  381 SCS",
+      "direccion": "Tejedor 581",
+      "telefono": "4713066",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "24": [
+    {
+      "nombre": "ANGELUCCI",
+      "direccion": "J. B. Justo e Independencia",
+      "telefono": "2235648000",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ARANDA",
+      "direccion": "Libertad  5579",
+      "telefono": "4750052",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "BOSQUE GRANDE SCS",
+      "direccion": "V�rtiz 9162",
+      "telefono": "2236008877",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FARMAHUINCO SCS",
+      "direccion": "V�rtiz 4282",
+      "telefono": "2235314718",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA. SOCIAL LURO",
+      "direccion": "Luro 3499",
+      "telefono": "4730287",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LASSERRE",
+      "direccion": "Carlos Tejedor 2618",
+      "telefono": "2233123880",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "NUEVA CONSTITUCION SCS",
+      "direccion": "Constituci�n 6679",
+      "telefono": "2234567991",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SERI",
+      "direccion": "San Juan 702",
+      "telefono": "223 3528606",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SIMINI",
+      "direccion": "Las Heras 3010",
+      "telefono": "4939265",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "STOLAR",
+      "direccion": "Alberti 6001",
+      "telefono": "4774811",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "25": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "J. P. Ramos 821",
+      "telefono": "4815223",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CRISTI SCS",
+      "direccion": "Luro 3804",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DIAGONAL",
+      "direccion": "Rivadavia 2960",
+      "telefono": "2235216164",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA.CONSTITUCION LASALLE",
+      "direccion": "Constitucion  6995",
+      "telefono": "4716464",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA.SE.AD.HE",
+      "direccion": "J. B. Justo 5402",
+      "telefono": "2236933753",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA.SERRAT",
+      "direccion": "12 de Octubre 3792",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GRIMALDI DIEZ",
+      "direccion": "Pe�a y Guemes",
+      "telefono": "2233450267",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MENDELEIV SUR",
+      "direccion": "Colon 6699",
+      "telefono": "2236865638",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RIMATU",
+      "direccion": "Sicilia 1474 y Av de los Trabajadores",
+      "telefono": "4840713",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RIQUELME",
+      "direccion": "XX de Setiembre 399",
+      "telefono": "2233475520",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VILLAFRANCA",
+      "direccion": "Libertad 7693",
+      "telefono": "2235399462",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "26": [
+    {
+      "nombre": "AMANCAY MDQ",
+      "direccion": "Patricio Peralta Ramos 521",
+      "telefono": "2235239233",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "AVENIDA",
+      "direccion": "Libertad y Misiones",
+      "telefono": "4735863",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "COPAL",
+      "direccion": "San Juan y Alvarado",
+      "telefono": "6532086",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL LABRADOR",
+      "direccion": "Tucum�n 2853",
+      "telefono": "4913241",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA NUEVA PLAZA II",
+      "direccion": "Constitucion  5700",
+      "telefono": "4715757",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FLORES",
+      "direccion": "Luro 6501",
+      "telefono": "4813387",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FRESCO",
+      "direccion": "Cerrito 1512",
+      "telefono": "2236542256",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GOMEZ",
+      "direccion": "Alvarado 2318",
+      "telefono": "6260034",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MAMMANA",
+      "direccion": "Chile 2987",
+      "telefono": "2234814382",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RAMA PRE 05 SCS",
+      "direccion": "Talcahuano  2002",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "27": [
+    {
+      "nombre": "25 de MAYO",
+      "direccion": "XX de Set y 25 de Mayo",
+      "telefono": "2236410479",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CARRIZO",
+      "direccion": "Colect.Ruta 226 N�1610",
+      "telefono": "2235464734",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "KILDUFF",
+      "direccion": "Alberti 1387",
+      "telefono": "4860599",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LISSARRAGUE",
+      "direccion": "Neuqu�n y Ayacucho",
+      "telefono": "2236774797",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MILAZZO",
+      "direccion": "Fto. De la Plaza 4332",
+      "telefono": "2236920583",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MONTTI",
+      "direccion": "Tucuman 3392",
+      "telefono": "2235015346",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ORTEGA FARMACEUTICA",
+      "direccion": "Luro 6900",
+      "telefono": "2235401424",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PRAMOS SCS",
+      "direccion": "J. P. Ramos 402",
+      "telefono": "2235577707",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "RODRIGUEZ SUSANA",
+      "direccion": "Della Paolera 2040",
+      "telefono": "2236695468",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ZAMACZUK",
+      "direccion": "J. B. Justo 1302",
+      "telefono": "4809105",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "28": [
+    {
+      "nombre": "ALLEMMA",
+      "direccion": "Mario Bravo 2067",
+      "telefono": "4841484",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DELLA MAGGIORA",
+      "direccion": "Col�n 4101",
+      "telefono": "4723587",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FARMALYF SCS",
+      "direccion": "Independencia 4117",
+      "telefono": "4726788",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JARDIN DE LA SIERRA",
+      "direccion": "Av. Argentina 360 S. de los Padres",
+      "telefono": "2234370421",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JORGE RUIZ",
+      "direccion": "Jara y 9 de Julio",
+      "telefono": "4729609",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MURRAY",
+      "direccion": "Belgrano 3302",
+      "telefono": "4956623",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PINOS DE ANCHORENA",
+      "direccion": "Constitucion 6039",
+      "telefono": "4793333",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "POUSSET",
+      "direccion": "Alvarado 6579",
+      "telefono": "4783427",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "ROMERO",
+      "direccion": "11 de Septiembre 3783",
+      "telefono": "2234388059",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VALENTINI",
+      "direccion": "Jara y Almafuerte",
+      "telefono": "4744588",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VIZCAY",
+      "direccion": "Alem 3495",
+      "telefono": "4864449",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "29": [
+    {
+      "nombre": "AZCONEGUI",
+      "direccion": "12 de Octubre y Talcahuano",
+      "telefono": "2235634110",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CANESSA",
+      "direccion": "J. B. Justo 494",
+      "telefono": "4801616",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "COMUFARMA",
+      "direccion": "Rodr�guez Pe�a 6628",
+      "telefono": "2236285899",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "CUELLO",
+      "direccion": "Coronel Suarez 468",
+      "telefono": "2233424688",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FERRANDO",
+      "direccion": "Balcarce 2899",
+      "telefono": "4916617",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GUIDI",
+      "direccion": "Comodoro Rivadavia 4466",
+      "telefono": "2233044912",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LAS HERAS",
+      "direccion": "Calabria 9131",
+      "telefono": "6283542",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "OLIVERI",
+      "direccion": "Luro 4102",
+      "telefono": "2235721444",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SENA",
+      "direccion": "Bvar. P. P. Ramos 3987",
+      "telefono": "4510422",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TELLERIA",
+      "direccion": "Fto. De la Plaza 4583",
+      "telefono": "2236769086",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VILLEGAS",
+      "direccion": "San Juan 15",
+      "telefono": "4739489",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "30": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "Luro 7898",
+      "telefono": "4789228",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FARMA-RICHAR SCS",
+      "direccion": "T. Del Fuego y Alvarado",
+      "telefono": "4724494",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FLIA.PRE SCS",
+      "direccion": "San Martin 5521",
+      "telefono": "2235374123",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LA BOTICA DE LOS TRONCOS",
+      "direccion": "Alem 3777",
+      "telefono": "2236962133",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "LIZALDE",
+      "direccion": "C. Tejedor 2156",
+      "telefono": "2236024116",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MELUCCI",
+      "direccion": "Libertad 4109",
+      "telefono": "4720605",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SAN JOSE",
+      "direccion": "Pu�n 1712",
+      "telefono": "4840213",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SZPYRNAL SCS",
+      "direccion": "R. Pe�a 3695 y 14 de Julio",
+      "telefono": "4763940",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TROZZI",
+      "direccion": "J. P. Ramos 1701",
+      "telefono": "2233008488",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VIDELA",
+      "direccion": "Calle 18 N� 262 Est.Chapadmalal",
+      "telefono": "2233545778",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "VITA",
+      "direccion": "Berutti y Los Andes",
+      "telefono": "2235033528",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "31": [
+    {
+      "nombre": "CARRERA",
+      "direccion": "Tripulantes del Fournier N� 11012",
+      "telefono": "4653547",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL AGUILA",
+      "direccion": "Luro 4610",
+      "telefono": "2234982230",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "FCIA. SUR",
+      "direccion": "Colon 5398",
+      "telefono": "4748777",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "GARCIA CASABAL",
+      "direccion": "Luro 9615",
+      "telefono": "4871651",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JARDIN DEL BOSQUE",
+      "direccion": "Mario Bravo 2674",
+      "telefono": "2235244020",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "JULIO RIADIGOS",
+      "direccion": "Castelli 1311",
+      "telefono": "4518537",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Col�n y San Luis",
+      "telefono": "2235410471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "OSCAR GARCIA",
+      "direccion": "J. P. Ramos 1099",
+      "telefono": "4817471",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "PABLO SIMINI",
+      "direccion": "Cerrito 285",
+      "telefono": "3530938",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "SAMPAOLESI",
+      "direccion": "C�rdoba 3869",
+      "telefono": "2234474443",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "TREJOMAR",
+      "direccion": "Strobel 5191",
+      "telefono": "4749549",
+      "lat": null,
+      "lng": null
+    }
+  ]
+}
