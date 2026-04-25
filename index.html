@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="/turnos/manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0d1117">
@@ -119,98 +118,27 @@
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
-const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',TOTAL_CICLOS:16,RUTA_JSON:'ciclos_final.json'};
+const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',RUTA_JSON:'farmacias_por_dia.json'};
 let ciclosData={},mapDesktop=null,mapMobile=null,activeCard=null,markersDesktop=[],markersMobile=[],farmaciasCoords=[];
-const FECHA_INICIO_CICLO_1=new Date(2026,3,22,9,0,0);
 function pad(n){return String(n).padStart(2,'0');}
 function formatearFechaGMT3(){const a=new Date(),o={timeZone:CONFIG.ZONA_HORARIA};return new Date(a.toLocaleString('en-US',o));}
 function labelFecha(d){const di=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],me=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`;}
 function capFirst(s){return s?s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()):'';}
 function limpiarTelefono(t){return(!t||t==='nan'||t==='NaN'||t==='null')?'':t.replace(/\s/g,'');}
-function obtenerCicloActual() {
-    const fechaGMT3 = formatearFechaGMT3();
-    const dia = fechaGMT3.getDate();
-    
-    // 👇 ESTE ES EL LOG 👇
-    console.log(`📅 Fecha actual: ${fechaGMT3.toLocaleDateString()} - Día del mes: ${dia}`);
-    
-    // Mapeo según el CSV
-    if (dia === 11 || dia === 27) return 1;
-    if (dia === 12 || dia === 28) return 2;
-    if (dia === 13 || dia === 29) return 3;
-    if (dia === 14 || dia === 30) return 4;
-    if (dia === 15 || dia === 31) return 5;
-    if (dia === 16) return 6;
-    if (dia === 1 || dia === 17) return 7;
-    if (dia === 2 || dia === 18) return 8;
-    if (dia === 3 || dia === 19) return 9;
-    if (dia === 4 || dia === 20) return 10;
-    if (dia === 5 || dia === 21) return 11;
-    if (dia === 6 || dia === 22) return 12;
-    if (dia === 7 || dia === 23) return 13;
-    if (dia === 8 || dia === 24) return 14;
-    if (dia === 9 || dia === 25) return 15;
-    if (dia === 10 || dia === 26) return 16;
-    
-    return 1;
-}
-  const pharmacyIcon=L.divIcon({className:'custom-pharmacy-icon',html:'<div style="background:#3fb950;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="white"/></svg></div>',iconSize:[32,32],popupAnchor:[0,-16]});
+function obtenerCicloActual(){return formatearFechaGMT3().getDate();}
+const pharmacyIcon=L.divIcon({className:'custom-pharmacy-icon',html:'<div style="background:#3fb950;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="white"/></svg></div>',iconSize:[32,32],popupAnchor:[0,-16]});
 async function cargarDatos(){const i=document.getElementById('intro');try{console.log('Cargando JSON...');const r=await fetch(CONFIG.RUTA_JSON);if(!r.ok)throw new Error('HTTP '+r.status);ciclosData=await r.json();mostrarFarmacias();}catch(e){console.error(e);i.innerHTML='⚠️ Error al cargar datos';document.getElementById('lista').innerHTML='<div class="card">No se pudieron cargar las farmacias</div>';}}
 function initMaps(){if(!mapDesktop)mapDesktop=L.map('map-desktop').setView([-38.0055,-57.5426],12),L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(mapDesktop);if(!mapMobile)mapMobile=L.map('map-mobile').setView([-38.0055,-57.5426],12),L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(mapMobile);}
 function limpiarMarcadores(){markersDesktop.forEach(m=>mapDesktop.removeLayer(m));markersMobile.forEach(m=>mapMobile.removeLayer(m));markersDesktop=[];markersMobile=[];farmaciasCoords=[];}
-function agregarMarcadores(farmacias){initMaps();limpiarMarcadores();const dBounds=L.latLngBounds(),mBounds=L.latLngBounds();farmacias.forEach((f,i)=>{const c=f.lat&&f.lng?[f.lat,f.lng]:null;farmaciasCoords[i]=c;const tClean=limpiarTelefono(f.telefono);const tIcon=`<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;const tLink=tClean?`<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>`:'<br>📞 Sin teléfono';const gUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion+', Mar del Plata')}`;const pop=`<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;if(c){const mD=L.marker(c,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(pop);const mM=L.marker(c,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(pop);markersDesktop.push(mD);markersMobile.push(mM);dBounds.extend(c);mBounds.extend(c);}else{const fb=[-38.0055,-57.5426];const mD=L.marker(fb,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(pop+'<br><small>📍 Ubicación aproximada</small>');const mM=L.marker(fb,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(pop+'<br><small>📍 Ubicación aproximada</small>');markersDesktop.push(mD);markersMobile.push(mM);dBounds.extend(fb);mBounds.extend(fb);}});if(farmacias.length>0){if(!mapDesktop._initialZoom){mapDesktop.fitBounds(dBounds);mapDesktop._initialZoom=true;}if(!mapMobile._initialZoom){mapMobile.fitBounds(mBounds);mapMobile._initialZoom=true;}}console.log('📍 Marcadores agregados:',farmacias.length);}
+function agregarMarcadores(farmacias){initMaps();limpiarMarcadores();const dBounds=L.latLngBounds(),mBounds=L.latLngBounds();farmacias.forEach((f,i)=>{const c=f.lat&&f.lng?[f.lat,f.lng]:null;farmaciasCoords[i]=c;const tClean=limpiarTelefono(f.telefono);const tIcon=`<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;const tLink=tClean?`<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>`:'<br>📞 Sin teléfono';const gUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion+', Mar del Plata')}`;const pop=`<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;if(c){const mD=L.marker(c,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(pop);const mM=L.marker(c,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(pop);markersDesktop.push(mD);markersMobile.push(mM);dBounds.extend(c);mBounds.extend(c);}else{const fb=[-38.0055,-57.5426];const mD=L.marker(fb,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(pop+'<br><small>📍 Ubicación aproximada</small>');const mM=L.marker(fb,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(pop+'<br><small>📍 Ubicación aproximada</small>');markersDesktop.push(mD);markersMobile.push(mM);dBounds.extend(fb);mBounds.extend(fb);}});if(farmacias.length>0){if(!mapDesktop._initialZoom){mapDesktop.fitBounds(dBounds);mapDesktop._initialZoom=true;}if(!mapMobile._initialZoom){mapMobile.fitBounds(mBounds);mapMobile._initialZoom=true;}}console.log(`📍 Marcadores agregados:`,farmacias.length);}
 function getLocationIcon(){return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;}
 function getPhoneIcon(){return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;}
-function mostrarFarmacias(){const ciclo=obtenerCicloActual(),farmacias=ciclosData[ciclo]||[],fecha=formatearFechaGMT3(),intro=document.getElementById('intro'),lista=document.getElementById('lista');if(!farmacias.length){intro.innerHTML=`<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`;lista.innerHTML='<div class="card">Sin farmacias registradas</div>';return;}const fechaFin=new Date(fecha);fechaFin.setDate(fechaFin.getDate()+1);intro.innerHTML=`<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;lista.innerHTML='';farmacias.forEach((f,i)=>{const div=document.createElement('div');div.className='card';const tClean=limpiarTelefono(f.telefono);const tLink=tClean?`<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>`:`<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;div.innerHTML=`<div class="card-num">${pad(i+1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;div.onclick=e=>{if(e.target.closest('.phone-link'))return;const sheet=document.getElementById('mapSheet');document.getElementById('sheetName').innerHTML=`${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;sheet.classList.add('open');const c=farmaciasCoords[i];if(c)mapMobile.setView(c,16);if(c&&markersMobile[i])markersMobile[i].openPopup();if(activeCard)activeCard.classList.remove('active');div.classList.add('active');activeCard=div;if(mapDesktop&&markersDesktop[i])markersDesktop[i].openPopup();};lista.appendChild(div);});agregarMarcadores(farmacias);}
+function mostrarFarmacias(){const dia=obtenerCicloActual(),farmacias=ciclosData[dia]||[],fecha=formatearFechaGMT3(),intro=document.getElementById('intro'),lista=document.getElementById('lista');if(!farmacias.length){intro.innerHTML=`<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`;lista.innerHTML='<div class="card">Sin farmacias registradas</div>';return;}const fechaFin=new Date(fecha);fechaFin.setDate(fechaFin.getDate()+1);intro.innerHTML=`<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;lista.innerHTML='';farmacias.forEach((f,i)=>{const div=document.createElement('div');div.className='card';const tClean=limpiarTelefono(f.telefono);const tLink=tClean?`<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>`:`<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;div.innerHTML=`<div class="card-num">${pad(i+1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;div.onclick=e=>{if(e.target.closest('.phone-link'))return;const sheet=document.getElementById('mapSheet');document.getElementById('sheetName').innerHTML=`${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;sheet.classList.add('open');const c=farmaciasCoords[i];if(c)mapMobile.setView(c,16);if(c&&markersMobile[i])markersMobile[i].openPopup();if(activeCard)activeCard.classList.remove('active');div.classList.add('active');activeCard=div;if(mapDesktop&&markersDesktop[i])markersDesktop[i].openPopup();};lista.appendChild(div);});agregarMarcadores(farmacias);}
 function programarActualizacion(){const a=formatearFechaGMT3();let p=new Date(a);p.setHours(9,0,0,0);if(a>=p)p.setDate(p.getDate()+1);setTimeout(()=>{mostrarFarmacias();programarActualizacion();},p-a);}
 document.getElementById('closeSheet').onclick=()=>document.getElementById('mapSheet').classList.remove('open');
-function initTheme(){const s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches,sw=document.getElementById('theme-switch'),l=document.getElementById('theme-label');let d=true;if(s==='light')d=false;else if(s==='dark')d=true;else d=p;if(d){document.body.classList.add('dark');document.body.classList.remove('light');sw.classList.remove('active');l.textContent='tema oscuro';}else{document.body.classList.add('light');document.body.classList.remove('dark');sw.classList.add('active');l.textContent='tema claro';}}
+function initTheme(){const s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches,sw=document.getElementById('theme-switch'),l=document.getElementById('theme-label');let d=s==='dark'||(!s&&p);if(d){document.body.classList.add('dark');document.body.classList.remove('light');sw.classList.remove('active');l.textContent='tema oscuro';}else{document.body.classList.add('light');document.body.classList.remove('dark');sw.classList.add('active');l.textContent='tema claro';}}
 document.getElementById('theme-switch').onclick=()=>{const sw=document.getElementById('theme-switch'),l=document.getElementById('theme-label');if(document.body.classList.contains('dark')){document.body.classList.remove('dark');document.body.classList.add('light');localStorage.setItem('theme','light');sw.classList.add('active');l.textContent='tema claro';}else{document.body.classList.remove('light');document.body.classList.add('dark');localStorage.setItem('theme','dark');sw.classList.remove('active');l.textContent='tema oscuro';}};
 (async()=>{console.log('🚀 Iniciando app optimizada');initTheme();await cargarDatos();programarActualizacion();})();
-// Registrar Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/turnos/sw.js')
-    .then(reg => console.log('✅ SW registrado'))
-    .catch(err => console.log('❌ Error SW:', err));
-}
-
-// Mostrar popup de instalación
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  
-  // Mostrar un botón de instalación en la página
-  const installBtn = document.createElement('button');
-  installBtn.textContent = '📱 Instalar App';
-  installBtn.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #3fb950;
-    color: #0d1117;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  `;
-  
-  installBtn.onclick = async () => {
-    installBtn.style.display = 'none';
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`Usuario ${outcome === 'accepted' ? 'instaló' : 'rechazó'}`);
-    deferredPrompt = null;
-  };
-  
-  document.body.appendChild(installBtn);
-});
-
 </script>
 </body>
 </html>
