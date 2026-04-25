@@ -1,0 +1,2549 @@
+{
+  "1": [
+    {
+      "nombre": "ATENA",
+      "direccion": "Ituzaingó 3801",
+      "telefono": "4731552",
+      "lat": -37.984203,
+      "lng": -57.55195
+    },
+    {
+      "nombre": "CASTRO",
+      "direccion": "Rodríguez Peña 2535",
+      "telefono": "4937823",
+      "lat": -38.0132753,
+      "lng": -57.5572296
+    },
+    {
+      "nombre": "DEL PUERTO",
+      "direccion": "12 de Octubre 3499",
+      "telefono": "4800271",
+      "lat": -38.041584,
+      "lng": -57.548029
+    },
+    {
+      "nombre": "FALDINA",
+      "direccion": "Luro 7498",
+      "telefono": "2233467859",
+      "lat": -37.9738219,
+      "lng": -57.5955756
+    },
+    {
+      "nombre": "FEBA SCS",
+      "direccion": "Colón 9102",
+      "telefono": "4870670",
+      "lat": -37.9868953,
+      "lng": -57.5828844
+    },
+    {
+      "nombre": "FERRERO",
+      "direccion": "Fortunato de la Plaza 6304",
+      "telefono": "2235362678",
+      "lat": -38.0242957,
+      "lng": -57.5915094
+    },
+    {
+      "nombre": "LOPEZ",
+      "direccion": "25 de Mayo 2999",
+      "telefono": "4951637",
+      "lat": -37.99576,
+      "lng": -57.549381
+    },
+    {
+      "nombre": "MARQUEZ",
+      "direccion": "Jara 936",
+      "telefono": "4758219",
+      "lat": -37.9810971,
+      "lng": -57.5658929
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PEREIRA",
+      "direccion": "Constitución 4375",
+      "telefono": "4790001",
+      "lat": -37.9686771,
+      "lng": -57.5471111
+    },
+    {
+      "nombre": "PIROLA",
+      "direccion": "Juan B. Justo 6736",
+      "telefono": "2235393277",
+      "lat": -37.9955369,
+      "lng": -57.6024246
+    },
+    {
+      "nombre": "STECKINGER",
+      "direccion": "Rodríguez Peña 4727",
+      "telefono": "4721994",
+      "lat": -38.0020921,
+      "lng": -57.5792556
+    }
+  ],
+  "2": [
+    {
+      "nombre": "BADAMAR",
+      "direccion": "Colón 1399",
+      "telefono": "4515104",
+      "lat": -38.0095162,
+      "lng": -57.5378622
+    },
+    {
+      "nombre": "BUSTOS",
+      "direccion": "Matheu 3673",
+      "telefono": "4724031",
+      "lat": -38.0106399,
+      "lng": -57.5711313
+    },
+    {
+      "nombre": "DEL INTERZONAL",
+      "direccion": "Juan B. Justo 6404",
+      "telefono": "2235599679",
+      "lat": -37.9977205,
+      "lng": -57.599484
+    },
+    {
+      "nombre": "EL GROSELLAR",
+      "direccion": "Estrada 5610",
+      "telefono": "2234562065",
+      "lat": -37.9529455,
+      "lng": -57.5522631
+    },
+    {
+      "nombre": "MAR DEL GOMEZ",
+      "direccion": "Juan B. Justo 2278",
+      "telefono": "4827037",
+      "lat": -38.0252026,
+      "lng": -57.5631648
+    },
+    {
+      "nombre": "MARTI",
+      "direccion": "Teodoro Bronzini 597",
+      "telefono": "2235023596",
+      "lat": -37.9740518,
+      "lng": -57.5719354
+    },
+    {
+      "nombre": "MEDICI SCS",
+      "direccion": "San Juan 2698",
+      "telefono": "4728758",
+      "lat": -37.9992693,
+      "lng": -57.5693295
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PEREIRA CECILIA",
+      "direccion": "Luro 4824",
+      "telefono": "4760001",
+      "lat": -37.9873869,
+      "lng": -57.5687261
+    },
+    {
+      "nombre": "PHARMABEACH  SCS",
+      "direccion": "Edison 1582",
+      "telefono": "2235301393",
+      "lat": -38.0495584,
+      "lng": -57.5577039
+    },
+    {
+      "nombre": "PREVILEY KAI SCS",
+      "direccion": "Fortunato de la Plaza 5120",
+      "telefono": "2235374123",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "ROCHA",
+      "direccion": "Independencia 1399",
+      "telefono": "6282751",
+      "lat": -37.993693,
+      "lng": -57.550971
+    }
+  ],
+  "3": [
+    {
+      "nombre": "BAUZA",
+      "direccion": "Alberti 1601",
+      "telefono": "4511243",
+      "lat": -38.0115836,
+      "lng": -57.5428825
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 de Octubre 5054",
+      "telefono": "4809713",
+      "lat": -38.0315841,
+      "lng": -57.5617076
+    },
+    {
+      "nombre": "DI IORIO  BUONO",
+      "direccion": "Presidente Peron 9874 Batan",
+      "telefono": "4642801",
+      "lat": -38.0080408,
+      "lng": -57.6670174
+    },
+    {
+      "nombre": "FCIA. NUEVA CORDOBA",
+      "direccion": "Córdoba 4546",
+      "telefono": "4941294",
+      "lat": -38.0222089,
+      "lng": -57.5652821
+    },
+    {
+      "nombre": "FERNANDEZ",
+      "direccion": "Carlos Tejedor 298",
+      "telefono": "4728768",
+      "lat": -37.9711924,
+      "lng": -57.5583845
+    },
+    {
+      "nombre": "FRASSON",
+      "direccion": "Arturo Alió 1195",
+      "telefono": "4787253",
+      "lat": -37.9708142,
+      "lng": -57.5919148
+    },
+    {
+      "nombre": "LILIANA CASTRO",
+      "direccion": "Dorrego 2992",
+      "telefono": "",
+      "lat": -38.0035884,
+      "lng": -57.567268
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MOLINA",
+      "direccion": "San Juan 1299",
+      "telefono": "4740039",
+      "lat": -37.98782,
+      "lng": -57.560384
+    },
+    {
+      "nombre": "PIZZOLO",
+      "direccion": "Fortunato de la Plaza 3658",
+      "telefono": "2236703020",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "PREVILEY",
+      "direccion": "Jacinto  Peralta  Ramos 2413",
+      "telefono": "2235374123",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    }
+  ],
+  "4": [
+    {
+      "nombre": "CORAL SCS",
+      "direccion": "Independencia 874",
+      "telefono": "4743111",
+      "lat": -37.9896524,
+      "lng": -57.5473864
+    },
+    {
+      "nombre": "DOMINGUEZ LAY",
+      "direccion": "Carlos Tejedor 3627",
+      "telefono": "2234548666",
+      "lat": -37.9447726,
+      "lng": -57.5366775
+    },
+    {
+      "nombre": "GILARDONI",
+      "direccion": "Calle Calle 0 y Calle 817",
+      "telefono": "2291510527",
+      "lat": -38.201116,
+      "lng": -57.683231
+    },
+    {
+      "nombre": "ITALIANA",
+      "direccion": "20 de Septiembre 1678",
+      "telefono": "4730178",
+      "lat": -37.9941475,
+      "lng": -57.5567449
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MONTERIOS SCS",
+      "direccion": "Colón 4986",
+      "telefono": "4727980",
+      "lat": -37.9914879,
+      "lng": -57.5741281
+    },
+    {
+      "nombre": "MORON",
+      "direccion": "Luro 5802",
+      "telefono": "4783056",
+      "lat": -37.9823676,
+      "lng": -57.578826
+    },
+    {
+      "nombre": "PAZ",
+      "direccion": "Talcahuano 793",
+      "telefono": "4823985",
+      "lat": -38.0282159,
+      "lng": -57.5724288
+    },
+    {
+      "nombre": "PHARMADIET",
+      "direccion": "Guemes 3185",
+      "telefono": "4518563",
+      "lat": -38.0177513,
+      "lng": -57.54356
+    },
+    {
+      "nombre": "RM SCS",
+      "direccion": "Constitucion 7508",
+      "telefono": "4712727",
+      "lat": -37.961802,
+      "lng": -57.5467823
+    },
+    {
+      "nombre": "VIDA",
+      "direccion": "Constitución 5232",
+      "telefono": "4790101",
+      "lat": -37.9644575,
+      "lng": -57.556156
+    }
+  ],
+  "5": [
+    {
+      "nombre": "BADANEZ",
+      "direccion": "San Martin 2149",
+      "telefono": "2235510731",
+      "lat": -38.0017219,
+      "lng": -57.5422496
+    },
+    {
+      "nombre": "CASTORINA",
+      "direccion": "Fortunato de la Plaza 2657",
+      "telefono": "2235736459",
+      "lat": -38.0242957,
+      "lng": -57.5915094
+    },
+    {
+      "nombre": "DANTE",
+      "direccion": "Moreno 3602",
+      "telefono": "4943337",
+      "lat": -37.9895,
+      "lng": -57.5525
+    },
+    {
+      "nombre": "EXPRESS MDQ SCS",
+      "direccion": "Falucho 1602",
+      "telefono": "2235193304",
+      "lat": -38.010138,
+      "lng": -57.541767
+    },
+    {
+      "nombre": "LA PERLA",
+      "direccion": "España 1003",
+      "telefono": "2235065049",
+      "lat": -37.9891797,
+      "lng": -57.5516655
+    },
+    {
+      "nombre": "LUNADELABRAH SCS",
+      "direccion": "Independencia 3802",
+      "telefono": "4755524",
+      "lat": -38.013268,
+      "lng": -57.566507
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PHARMAVIP",
+      "direccion": "Mario Bravo 3504",
+      "telefono": "2235798821",
+      "lat": -38.0605518,
+      "lng": -57.5714546
+    },
+    {
+      "nombre": "PUEYRREDON III",
+      "direccion": "Juan B. Justo 1846",
+      "telefono": "4894040",
+      "lat": -38.0282022,
+      "lng": -57.5592089
+    },
+    {
+      "nombre": "SACK",
+      "direccion": "Alberti 6567",
+      "telefono": "2235993771",
+      "lat": -37.986453,
+      "lng": -57.5925114
+    },
+    {
+      "nombre": "URQUIZA",
+      "direccion": "Libertad 5302",
+      "telefono": "2235167870",
+      "lat": -37.979978,
+      "lng": -57.5697605
+    }
+  ],
+  "6": [
+    {
+      "nombre": "DEL BARRIO",
+      "direccion": "Jara 3290",
+      "telefono": "4755685",
+      "lat": -37.9998812,
+      "lng": -57.5811586
+    },
+    {
+      "nombre": "ELBEY y FARINA",
+      "direccion": "Colon 7279",
+      "telefono": "4702524",
+      "lat": -37.9796525,
+      "lng": -57.5970067
+    },
+    {
+      "nombre": "FRONTINI",
+      "direccion": "12 de Octubre 5362",
+      "telefono": "4820421",
+      "lat": -38.0293354,
+      "lng": -57.5647213
+    },
+    {
+      "nombre": "GALILEO SUR SCS",
+      "direccion": "Mario Bravo 502",
+      "telefono": "2236185741",
+      "lat": -38.0366016,
+      "lng": -57.6029856
+    },
+    {
+      "nombre": "GUEMES",
+      "direccion": "Gascon  1299",
+      "telefono": "2233522656",
+      "lat": -38.012461,
+      "lng": -57.53892
+    },
+    {
+      "nombre": "M.R.L.",
+      "direccion": "Constitución 4793",
+      "telefono": "4713000",
+      "lat": -37.9666176,
+      "lng": -57.5512231
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MOBILIA",
+      "direccion": "Presidente Peron 10419 (Batan)",
+      "telefono": "2236344967",
+      "lat": -38.0080408,
+      "lng": -57.6670174
+    },
+    {
+      "nombre": "NVA LUJAN D.LOS.ANGELES SCS",
+      "direccion": "Fortunato de la Plaza 6992",
+      "telefono": "2233465521",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "PALKIN",
+      "direccion": "Independencia 3501",
+      "telefono": "2235589900",
+      "lat": -38.0107699,
+      "lng": -57.5647975
+    },
+    {
+      "nombre": "SAN JUAN",
+      "direccion": "Belgrano 4250",
+      "telefono": "4725920",
+      "lat": -37.9926957,
+      "lng": -57.5648588
+    }
+  ],
+  "7": [
+    {
+      "nombre": "FCIA. MUSTERS SCS",
+      "direccion": "San Juan 3301",
+      "telefono": "4728225",
+      "lat": -38.004099,
+      "lng": -57.573561
+    },
+    {
+      "nombre": "GUEVARA",
+      "direccion": "San Juan 381",
+      "telefono": "4732109",
+      "lat": -37.9805174,
+      "lng": -57.5544806
+    },
+    {
+      "nombre": "HERRERA",
+      "direccion": "Edison 2601",
+      "telefono": "2235353340",
+      "lat": -38.056571,
+      "lng": -57.566558
+    },
+    {
+      "nombre": "HERRERO",
+      "direccion": "Jara 1842",
+      "telefono": "2235847235",
+      "lat": -37.988439,
+      "lng": -57.5718728
+    },
+    {
+      "nombre": "JULIAN ALBERTO",
+      "direccion": "Calle 2 232, Playa Serena",
+      "telefono": "2236219647",
+      "lat": -38.082,
+      "lng": -57.546
+    },
+    {
+      "nombre": "MALEN",
+      "direccion": "Catamarca 3201",
+      "telefono": "4732646",
+      "lat": -38.0089513,
+      "lng": -57.5617587
+    },
+    {
+      "nombre": "MARTIGNONE",
+      "direccion": "Juan B. Justo 1601",
+      "telefono": "4805295",
+      "lat": -38.029462,
+      "lng": -57.557152
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PHARMAPORT SCS",
+      "direccion": "12 de Octubre 3185",
+      "telefono": "4895735",
+      "lat": -38.0436051,
+      "lng": -57.5453247
+    },
+    {
+      "nombre": "PHARMARURAL SCS",
+      "direccion": "Ruta Nacional 226 Km 16,5 El Coyunco",
+      "telefono": "2233540982",
+      "lat": -37.9134137,
+      "lng": -57.4818696
+    },
+    {
+      "nombre": "SOICH ALAIN",
+      "direccion": "Jacinto Peralta Ramos 2101,",
+      "telefono": "2236910038",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "TEJEDOR  381 SCS",
+      "direccion": "Tejedor 581",
+      "telefono": "4713066",
+      "lat": -37.9690869,
+      "lng": -57.5561915
+    }
+  ],
+  "8": [
+    {
+      "nombre": "ANGELUCCI",
+      "direccion": "Jacinto Peralta Ramos 11",
+      "telefono": "2235648000",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "ARANDA",
+      "direccion": "Libertad  5579",
+      "telefono": "4750052",
+      "lat": -37.9784996,
+      "lng": -57.5721728
+    },
+    {
+      "nombre": "BOSQUE GRANDE SCS",
+      "direccion": "Vertiz 9162",
+      "telefono": "2236008877",
+      "lat": -38.0095643,
+      "lng": -57.6046053
+    },
+    {
+      "nombre": "FARMAHUINCO SCS",
+      "direccion": "Vertiz 4282",
+      "telefono": "2235314718",
+      "lat": -38.0420059,
+      "lng": -57.5615828
+    },
+    {
+      "nombre": "FCIA. SOCIAL LURO",
+      "direccion": "Luro 3499",
+      "telefono": "4730287",
+      "lat": -37.994007,
+      "lng": -57.55515
+    },
+    {
+      "nombre": "LASSERRE",
+      "direccion": "Carlos Tejedor 2618",
+      "telefono": "2233123880",
+      "lat": -37.9525845,
+      "lng": -57.5433029
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "NUEVA CONSTITUCION SCS",
+      "direccion": "Constitución 6679",
+      "telefono": "2234567991",
+      "lat": -37.9570142,
+      "lng": -57.5702233
+    },
+    {
+      "nombre": "SERI",
+      "direccion": "San Juan 702",
+      "telefono": "223 3528606",
+      "lat": -37.983309,
+      "lng": -57.556412
+    },
+    {
+      "nombre": "SIMINI",
+      "direccion": "Las Heras 3010",
+      "telefono": "4939265",
+      "lat": -38.0145619,
+      "lng": -57.5463671
+    },
+    {
+      "nombre": "STOLAR",
+      "direccion": "Alberti 6001",
+      "telefono": "4774811",
+      "lat": -37.989245,
+      "lng": -57.587057
+    }
+  ],
+  "9": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "Jacinto  Peralta  Ramos 821",
+      "telefono": "4815223",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "CRISTI SCS",
+      "direccion": "Luro 3804",
+      "telefono": "2235374123",
+      "lat": -37.9924714,
+      "lng": -57.558681
+    },
+    {
+      "nombre": "DIAGONAL",
+      "direccion": "Rivadavia 2960",
+      "telefono": "2235216164",
+      "lat": -37.9984824,
+      "lng": -57.5512715
+    },
+    {
+      "nombre": "FCIA.CONSTITUCION LASALLE",
+      "direccion": "Constitucion  6995",
+      "telefono": "4716464",
+      "lat": -37.9554172,
+      "lng": -57.573378
+    },
+    {
+      "nombre": "FCIA.SE.AD.HE",
+      "direccion": "Juan B. Justo 5402",
+      "telefono": "2236933753",
+      "lat": -38.0241058,
+      "lng": -57.565134
+    },
+    {
+      "nombre": "FCIA.SERRAT",
+      "direccion": "12 de Octubre 3792",
+      "telefono": "2235374123",
+      "lat": -38.0397895,
+      "lng": -57.5508151
+    },
+    {
+      "nombre": "GRIMALDI DIEZ",
+      "direccion": "Peña 3386",
+      "telefono": "2233450267",
+      "lat": -38.009134,
+      "lng": -57.5658604
+    },
+    {
+      "nombre": "MENDELEIV SUR",
+      "direccion": "Colon 6699",
+      "telefono": "2236865638",
+      "lat": -37.982614,
+      "lng": -57.591149
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "RIMATU",
+      "direccion": "Sicilia 1474",
+      "telefono": "4840713",
+      "lat": -38.0412929,
+      "lng": -57.5849222
+    },
+    {
+      "nombre": "RIQUELME",
+      "direccion": "20 de Septiembre 399",
+      "telefono": "2233475520",
+      "lat": -37.983634,
+      "lng": -57.548591
+    },
+    {
+      "nombre": "VILLAFRANCA",
+      "direccion": "Libertad 7693",
+      "telefono": "2235399462",
+      "lat": -37.9676341,
+      "lng": -57.5934032
+    }
+  ],
+  "10": [
+    {
+      "nombre": "AMANCAY MDQ",
+      "direccion": "Patricio Peralta Ramos 521",
+      "telefono": "2235239233",
+      "lat": -37.987067,
+      "lng": -57.5449026
+    },
+    {
+      "nombre": "AVENIDA",
+      "direccion": "Libertad 4499",
+      "telefono": "4735863",
+      "lat": -37.9840272,
+      "lng": -57.5612408
+    },
+    {
+      "nombre": "COPAL",
+      "direccion": "San Juan y Alvarado",
+      "telefono": "6532086",
+      "lat": -38.0016409,
+      "lng": -57.5712472
+    },
+    {
+      "nombre": "DEL LABRADOR",
+      "direccion": "Tucumán 2853",
+      "telefono": "4913241",
+      "lat": -38.0116278,
+      "lng": -57.5485422
+    },
+    {
+      "nombre": "FCIA NUEVA PLAZA II",
+      "direccion": "Constitucion  5700",
+      "telefono": "4715757",
+      "lat": -37.9621811,
+      "lng": -57.5605937
+    },
+    {
+      "nombre": "FLORES",
+      "direccion": "Luro 6501",
+      "telefono": "4813387",
+      "lat": -37.978493,
+      "lng": -57.5854595
+    },
+    {
+      "nombre": "FRESCO",
+      "direccion": "Cerrito 1512",
+      "telefono": "2236542256",
+      "lat": -38.0414238,
+      "lng": -57.5676474
+    },
+    {
+      "nombre": "GOMEZ",
+      "direccion": "Alvarado 2318",
+      "telefono": "6260034",
+      "lat": -38.0112762,
+      "lng": -57.552722
+    },
+    {
+      "nombre": "MAMMANA",
+      "direccion": "Chile 2987",
+      "telefono": "2234814382",
+      "lat": -37.995371,
+      "lng": -57.5835058
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "RAMA PRE 05 SCS",
+      "direccion": "Talcahuano  2002",
+      "telefono": "2235374123",
+      "lat": -38.036813,
+      "lng": -57.582445
+    }
+  ],
+  "11": [
+    {
+      "nombre": "25 de MAYO",
+      "direccion": "25 de Mayo 3611",
+      "telefono": "2236410479",
+      "lat": -37.9926083,
+      "lng": -57.5557311
+    },
+    {
+      "nombre": "CARRIZO",
+      "direccion": "Ruta Nacional 226 Km 16,5 El Coyunco",
+      "telefono": "2235464734",
+      "lat": -37.9134137,
+      "lng": -57.4818696
+    },
+    {
+      "nombre": "KILDUFF",
+      "direccion": "Alberti 1387",
+      "telefono": "4860599",
+      "lat": -38.0127575,
+      "lng": -57.5405068
+    },
+    {
+      "nombre": "LISSARRAGUE",
+      "direccion": "Ayacucho 4698",
+      "telefono": "2236774797",
+      "lat": -37.9807766,
+      "lng": -57.561358
+    },
+    {
+      "nombre": "MILAZZO",
+      "direccion": "Fortunato de la Plaza 4332",
+      "telefono": "2236920583",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MONTTI",
+      "direccion": "Tucuman 3392",
+      "telefono": "2235015346",
+      "lat": -38.0159045,
+      "lng": -57.5517061
+    },
+    {
+      "nombre": "ORTEGA FARMACEUTICA",
+      "direccion": "Luro 6900",
+      "telefono": "2235401424",
+      "lat": -37.9769789,
+      "lng": -57.5893768
+    },
+    {
+      "nombre": "PRAMOS SCS",
+      "direccion": "Jacinto  Peralta  Ramos 402",
+      "telefono": "2235577707",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "Rodríguez SUSANA",
+      "direccion": "Della Paolera 2040",
+      "telefono": "2236695468",
+      "lat": -37.9450073,
+      "lng": -57.5710867
+    },
+    {
+      "nombre": "ZAMACZUK",
+      "direccion": "Juan B. Justo 1302",
+      "telefono": "4809105",
+      "lat": -38.031653,
+      "lng": -57.5546193
+    }
+  ],
+  "12": [
+    {
+      "nombre": "ALLEMMA",
+      "direccion": "Mario Bravo 2067",
+      "telefono": "4841484",
+      "lat": -38.0366016,
+      "lng": -57.6029856
+    },
+    {
+      "nombre": "DELLA MAGGIORA",
+      "direccion": "Colón 4101",
+      "telefono": "4723587",
+      "lat": -37.995646,
+      "lng": -57.565363
+    },
+    {
+      "nombre": "FARMALYF SCS",
+      "direccion": "Independencia 4117",
+      "telefono": "4726788",
+      "lat": -38.0156641,
+      "lng": -57.56872
+    },
+    {
+      "nombre": "JARDIN DE LA SIERRA",
+      "direccion": "Av. Argentina 360 Sierra de los Padres",
+      "telefono": "2234370421",
+      "lat": -37.9473691,
+      "lng": -57.4740998
+    },
+    {
+      "nombre": "JORGE RUIZ",
+      "direccion": "9 de Julio 5002",
+      "telefono": "4729609",
+      "lat": -37.9846943,
+      "lng": -57.5693075
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MURRAY",
+      "direccion": "Belgrano 3302",
+      "telefono": "4956623",
+      "lat": -37.997426,
+      "lng": -57.555548
+    },
+    {
+      "nombre": "PINOS DE ANCHORENA",
+      "direccion": "Constitucion 6039",
+      "telefono": "4793333",
+      "lat": -37.9601837,
+      "lng": -57.5639647
+    },
+    {
+      "nombre": "POUSSET",
+      "direccion": "Alvarado 6579",
+      "telefono": "4783427",
+      "lat": -37.9896779,
+      "lng": -57.5953824
+    },
+    {
+      "nombre": "ROMERO",
+      "direccion": "11 de Septiembre 3783",
+      "telefono": "2234388059",
+      "lat": -37.9892537,
+      "lng": -57.5554879
+    },
+    {
+      "nombre": "VALENTINI",
+      "direccion": "Jara 3993",
+      "telefono": "4744588",
+      "lat": -38.0052912,
+      "lng": -57.5857945
+    },
+    {
+      "nombre": "VIZCAY",
+      "direccion": "Alem 3495",
+      "telefono": "4864449",
+      "lat": -38.0258171,
+      "lng": -57.5345857
+    }
+  ],
+  "13": [
+    {
+      "nombre": "AZCONEGUI",
+      "direccion": "Talcahuano 399",
+      "telefono": "2235634110",
+      "lat": -38.025588,
+      "lng": -57.569242
+    },
+    {
+      "nombre": "CANESSA",
+      "direccion": "Juan B. Justo 494",
+      "telefono": "4801616",
+      "lat": -38.0370265,
+      "lng": -57.547504
+    },
+    {
+      "nombre": "COMUFARMA",
+      "direccion": "Rodríguez Peña 6628",
+      "telefono": "2236285899",
+      "lat": -37.9925506,
+      "lng": -57.5984465
+    },
+    {
+      "nombre": "CUELLO",
+      "direccion": "Coronel Suarez 468",
+      "telefono": "2233424688",
+      "lat": -37.9696693,
+      "lng": -57.596525
+    },
+    {
+      "nombre": "FERRANDO",
+      "direccion": "Balcarce 2899",
+      "telefono": "4916617",
+      "lat": -37.9930589,
+      "lng": -57.5457484
+    },
+    {
+      "nombre": "GUIDI",
+      "direccion": "Rivadavia 4466",
+      "telefono": "2233044912",
+      "lat": -37.9908711,
+      "lng": -57.5664209
+    },
+    {
+      "nombre": "LAS HERAS",
+      "direccion": "Calabria 9131",
+      "telefono": "6283542",
+      "lat": -38.0191258,
+      "lng": -57.615743
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "OLIVERI",
+      "direccion": "Luro 4102",
+      "telefono": "2235721444",
+      "lat": -37.9910325,
+      "lng": -57.5616329
+    },
+    {
+      "nombre": "SENA",
+      "direccion": "Patricio Peralta Ramos 3987",
+      "telefono": "4510422",
+      "lat": -38.0166853,
+      "lng": -57.5301357
+    },
+    {
+      "nombre": "TELLERIA",
+      "direccion": "Fortunato de la Plaza 4583",
+      "telefono": "2236769086",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "VILLEGAS",
+      "direccion": "San Juan 15",
+      "telefono": "4739489",
+      "lat": -37.9777587,
+      "lng": -57.5522513
+    }
+  ],
+  "14": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "Luro 7898",
+      "telefono": "4789228",
+      "lat": -37.9718005,
+      "lng": -57.5995779
+    },
+    {
+      "nombre": "FARMA-RICHAR SCS",
+      "direccion": "Alvarado 5699",
+      "telefono": "4724494",
+      "lat": -37.994076,
+      "lng": -57.586337
+    },
+    {
+      "nombre": "FLIA.PRE SCS",
+      "direccion": "San Martin 5521",
+      "telefono": "2235374123",
+      "lat": -37.9844031,
+      "lng": -57.5764276
+    },
+    {
+      "nombre": "LA BOTICA DE LOS TRONCOS",
+      "direccion": "Alem 3777",
+      "telefono": "2236962133",
+      "lat": -38.0280779,
+      "lng": -57.5363768
+    },
+    {
+      "nombre": "LIZALDE",
+      "direccion": "Tejedor 2156",
+      "telefono": "2236024116",
+      "lat": -37.9563103,
+      "lng": -57.5463047
+    },
+    {
+      "nombre": "MELUCCI",
+      "direccion": "Libertad 4109",
+      "telefono": "4720605",
+      "lat": -37.9858868,
+      "lng": -57.5575604
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "SAN JOSE",
+      "direccion": "Puán 1712",
+      "telefono": "4840213",
+      "lat": -38.0655852,
+      "lng": -57.5477515
+    },
+    {
+      "nombre": "SZPYRNAL SCS",
+      "direccion": "Rodríguez Peña 3695",
+      "telefono": "4763940",
+      "lat": -38.0073981,
+      "lng": -57.5687521
+    },
+    {
+      "nombre": "TROZZI",
+      "direccion": "Jacinto  Peralta  Ramos 1701",
+      "telefono": "2233008488",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "VIDELA",
+      "direccion": "18 262 Estación Chapadmalal",
+      "telefono": "2233545778",
+      "lat": -37.9502297,
+      "lng": -57.4312112
+    },
+    {
+      "nombre": "VITA",
+      "direccion": "Teodoro Bronzini 210",
+      "telefono": "2235033528",
+      "lat": -37.9712356,
+      "lng": -57.5693342
+    }
+  ],
+  "15": [
+    {
+      "nombre": "CARRERA",
+      "direccion": "Tripulantes del Fournier 11012",
+      "telefono": "4653547",
+      "lat": -38.0464077,
+      "lng": -57.5623591
+    },
+    {
+      "nombre": "DEL AGUILA",
+      "direccion": "Luro 4610",
+      "telefono": "2234982230",
+      "lat": -37.988433,
+      "lng": -57.5666545
+    },
+    {
+      "nombre": "FCIA. SUR",
+      "direccion": "Colon 5398",
+      "telefono": "4748777",
+      "lat": -37.9893403,
+      "lng": -57.5784351
+    },
+    {
+      "nombre": "GARCIA CASABAL",
+      "direccion": "Luro 9615",
+      "telefono": "4871651",
+      "lat": -37.9710562,
+      "lng": -57.5529327
+    },
+    {
+      "nombre": "JARDIN DEL BOSQUE",
+      "direccion": "Mario Bravo 2674",
+      "telefono": "2235244020",
+      "lat": -38.0366016,
+      "lng": -57.6029856
+    },
+    {
+      "nombre": "JULIO RIADIGOS",
+      "direccion": "Castelli 1311",
+      "telefono": "4518537",
+      "lat": -38.0154187,
+      "lng": -57.5418369
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "OSCAR GARCIA",
+      "direccion": "Jacinto  Peralta  Ramos 1099",
+      "telefono": "4817471",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "PABLO SIMINI",
+      "direccion": "Cerrito 285",
+      "telefono": "3530938",
+      "lat": -38.0328269,
+      "lng": -57.5576353
+    },
+    {
+      "nombre": "SAMPAOLESI",
+      "direccion": "Córdoba 3869",
+      "telefono": "2234474443",
+      "lat": -38.0166312,
+      "lng": -57.5609935
+    },
+    {
+      "nombre": "TREJOMAR",
+      "direccion": "Strobel 5191",
+      "telefono": "4749549",
+      "lat": -37.9709063,
+      "lng": -57.5605575
+    }
+  ],
+  "16": [
+    {
+      "nombre": "ANDRES FRONTINI",
+      "direccion": "Jara 42",
+      "telefono": "4711961",
+      "lat": -37.9739867,
+      "lng": -57.560144
+    },
+    {
+      "nombre": "FAILONI",
+      "direccion": "Felix U. Camet 123",
+      "telefono": "4736352",
+      "lat": -37.979883,
+      "lng": -57.5440708
+    },
+    {
+      "nombre": "FLORES PRADO",
+      "direccion": "Beltran 5688",
+      "telefono": "2235313404",
+      "lat": -37.9280838,
+      "lng": -57.5614163
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "NUEVA EDISON FARMACEUTICA SCS",
+      "direccion": "Edison 1175",
+      "telefono": "2236701400",
+      "lat": -38.0466786,
+      "lng": -57.5546036
+    },
+    {
+      "nombre": "OMBRONI",
+      "direccion": "Independencia 3002",
+      "telefono": "3521496",
+      "lat": -38.00695,
+      "lng": -57.561358
+    },
+    {
+      "nombre": "PENNISI FORELL",
+      "direccion": "Fortunato de la Plaza 3237",
+      "telefono": "4859172",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "PREMEDICA SCS",
+      "direccion": "Calle 126 y Calle 135, Batan",
+      "telefono": "2233777777",
+      "lat": -37.90554325,
+      "lng": -57.4722800073339
+    },
+    {
+      "nombre": "RIADIGOS",
+      "direccion": "Córdoba 4595",
+      "telefono": "4953022",
+      "lat": -38.0225831,
+      "lng": -57.5656208
+    },
+    {
+      "nombre": "Rodríguez",
+      "direccion": "Jara 2598",
+      "telefono": "2235160637",
+      "lat": -37.9944219,
+      "lng": -57.5766958
+    },
+    {
+      "nombre": "ROIG",
+      "direccion": "Luro 3219",
+      "telefono": "4916427",
+      "lat": -37.9953299,
+      "lng": -57.5525393
+    }
+  ],
+  "17": [
+    {
+      "nombre": "ATENA",
+      "direccion": "Ituzaingo 3801",
+      "telefono": "4731552",
+      "lat": -37.984203,
+      "lng": -57.55195
+    },
+    {
+      "nombre": "CASTRO",
+      "direccion": "Rodríguez Peña 2535",
+      "telefono": "4937823",
+      "lat": -38.0132753,
+      "lng": -57.5572296
+    },
+    {
+      "nombre": "DEL PUERTO",
+      "direccion": "12 de Octubre 3499",
+      "telefono": "4800271",
+      "lat": -38.041584,
+      "lng": -57.548029
+    },
+    {
+      "nombre": "FALDINA",
+      "direccion": "Luro 7498",
+      "telefono": "2233467859",
+      "lat": -37.9738219,
+      "lng": -57.5955756
+    },
+    {
+      "nombre": "FEBA SCS",
+      "direccion": "Colón 9102",
+      "telefono": "4870670",
+      "lat": -37.9868953,
+      "lng": -57.5828844
+    },
+    {
+      "nombre": "FERRERO",
+      "direccion": "Fortunato de la Plaza 6304",
+      "telefono": "2235362678",
+      "lat": -38.0242957,
+      "lng": -57.5915094
+    },
+    {
+      "nombre": "LOPEZ",
+      "direccion": "25 de Mayo 2999",
+      "telefono": "4951637",
+      "lat": -37.99576,
+      "lng": -57.549381
+    },
+    {
+      "nombre": "MARQUEZ",
+      "direccion": "Jara 936",
+      "telefono": "4758219",
+      "lat": -37.9810971,
+      "lng": -57.5658929
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PEREIRA",
+      "direccion": "Constitución 4375",
+      "telefono": "4790001",
+      "lat": -37.9686771,
+      "lng": -57.5471111
+    },
+    {
+      "nombre": "PIROLA",
+      "direccion": "Juan B. Justo 6736",
+      "telefono": "2235393277",
+      "lat": -37.9955369,
+      "lng": -57.6024246
+    },
+    {
+      "nombre": "STECKINGER",
+      "direccion": "Rodríguez Peña 4727",
+      "telefono": "4721994",
+      "lat": -38.0020921,
+      "lng": -57.5792556
+    }
+  ],
+  "18": [
+    {
+      "nombre": "BADAMAR",
+      "direccion": "Colón 1399",
+      "telefono": "4515104",
+      "lat": -38.0095162,
+      "lng": -57.5378622
+    },
+    {
+      "nombre": "BUSTOS",
+      "direccion": "Matheu 3673",
+      "telefono": "4724031",
+      "lat": -38.0106399,
+      "lng": -57.5711313
+    },
+    {
+      "nombre": "DEL INTERZONAL",
+      "direccion": "Juan B. Justo 6404",
+      "telefono": "2235599679",
+      "lat": -37.9977205,
+      "lng": -57.599484
+    },
+    {
+      "nombre": "EL GROSELLAR",
+      "direccion": "Estrada 5610",
+      "telefono": "2234562065",
+      "lat": -37.9529455,
+      "lng": -57.5522631
+    },
+    {
+      "nombre": "MAR DEL GOMEZ",
+      "direccion": "J.B. Justo 2278",
+      "telefono": "4827037",
+      "lat": -38.0006609,
+      "lng": -57.5950582
+    },
+    {
+      "nombre": "MARTI",
+      "direccion": "Teodoro Bronzini 597",
+      "telefono": "2235023596",
+      "lat": -37.9740518,
+      "lng": -57.5719354
+    },
+    {
+      "nombre": "MEDICI SCS",
+      "direccion": "San Juan 2700",
+      "telefono": "4728758",
+      "lat": -37.999281,
+      "lng": -57.569339
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PEREIRA CECILIA",
+      "direccion": "Luro 4824",
+      "telefono": "4760001",
+      "lat": -37.9873869,
+      "lng": -57.5687261
+    },
+    {
+      "nombre": "PHARMABEACH  SCS",
+      "direccion": "Edison 1582",
+      "telefono": "2235301393",
+      "lat": -38.0495584,
+      "lng": -57.5577039
+    },
+    {
+      "nombre": "PREVILEY KAI SCS",
+      "direccion": "Fortunato de la Plaza 5120",
+      "telefono": "2235374123",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "ROCHA",
+      "direccion": "Independencia 1399",
+      "telefono": "6282751",
+      "lat": -37.993693,
+      "lng": -57.550971
+    }
+  ],
+  "19": [
+    {
+      "nombre": "BAUZA",
+      "direccion": "Alberti 1601",
+      "telefono": "4511243",
+      "lat": -38.0115836,
+      "lng": -57.5428825
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 de Octubre 5054",
+      "telefono": "4809713",
+      "lat": -38.0315841,
+      "lng": -57.5617076
+    },
+    {
+      "nombre": "DI IORIO  BUONO",
+      "direccion": "Presidente Peron 9874 Batan",
+      "telefono": "4642801",
+      "lat": -38.0080408,
+      "lng": -57.6670174
+    },
+    {
+      "nombre": "FCIA. NUEVA CORDOBA",
+      "direccion": "Córdoba 4546",
+      "telefono": "4941294",
+      "lat": -38.0222089,
+      "lng": -57.5652821
+    },
+    {
+      "nombre": "FERNANDEZ",
+      "direccion": "Tejedor 298",
+      "telefono": "4728768",
+      "lat": -37.9711924,
+      "lng": -57.5583845
+    },
+    {
+      "nombre": "FRASSON",
+      "direccion": "Arturo Alió 1195",
+      "telefono": "4787253",
+      "lat": -37.9708142,
+      "lng": -57.5919148
+    },
+    {
+      "nombre": "LILIANA CASTRO",
+      "direccion": "Dorrego 2992",
+      "telefono": "",
+      "lat": -38.0035884,
+      "lng": -57.567268
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MOLINA",
+      "direccion": "San Juan 1299",
+      "telefono": "4740039",
+      "lat": -37.98782,
+      "lng": -57.560384
+    },
+    {
+      "nombre": "PIZZOLO",
+      "direccion": "Fortunato de la Plaza 3658",
+      "telefono": "2236703020",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "PREVILEY",
+      "direccion": "Jacinto  Peralta  Ramos 2413",
+      "telefono": "2235374123",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    }
+  ],
+  "20": [
+    {
+      "nombre": "CORAL SCS",
+      "direccion": "Independencia 874",
+      "telefono": "4743111",
+      "lat": -37.9896524,
+      "lng": -57.5473864
+    },
+    {
+      "nombre": "DOMINGUEZ LAY",
+      "direccion": "Tejedor 3627",
+      "telefono": "2234548666",
+      "lat": -37.9447726,
+      "lng": -57.5366775
+    },
+    {
+      "nombre": "GILARDONI",
+      "direccion": "Calle 0 y Calle 817",
+      "telefono": "2291510527",
+      "lat": -38.201116,
+      "lng": -57.683231
+    },
+    {
+      "nombre": "ITALIANA",
+      "direccion": "20 de Septiembre 1678",
+      "telefono": "4730178",
+      "lat": -37.9941475,
+      "lng": -57.5567449
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MONTERIOS SCS",
+      "direccion": "Colón 4986",
+      "telefono": "4727980",
+      "lat": -37.9914879,
+      "lng": -57.5741281
+    },
+    {
+      "nombre": "MORON",
+      "direccion": "Luro 5802",
+      "telefono": "4783056",
+      "lat": -37.9823676,
+      "lng": -57.578826
+    },
+    {
+      "nombre": "PAZ",
+      "direccion": "Talcahuano 793",
+      "telefono": "4823985",
+      "lat": -38.0282159,
+      "lng": -57.5724288
+    },
+    {
+      "nombre": "PHARMADIET",
+      "direccion": "Guemes 3185",
+      "telefono": "4518563",
+      "lat": -38.0177513,
+      "lng": -57.54356
+    },
+    {
+      "nombre": "RM SCS",
+      "direccion": "Constitucion 7508",
+      "telefono": "4712727",
+      "lat": -37.961802,
+      "lng": -57.5467823
+    },
+    {
+      "nombre": "VIDA",
+      "direccion": "Constitución 5232",
+      "telefono": "4790101",
+      "lat": -37.9644575,
+      "lng": -57.556156
+    }
+  ],
+  "21": [
+    {
+      "nombre": "BADANEZ",
+      "direccion": "San Martin 2149",
+      "telefono": "2235510731",
+      "lat": -38.0017219,
+      "lng": -57.5422496
+    },
+    {
+      "nombre": "CASTORINA",
+      "direccion": "Fortunato de la Plaza 2657",
+      "telefono": "2235736459",
+      "lat": -38.0242957,
+      "lng": -57.5915094
+    },
+    {
+      "nombre": "DANTE",
+      "direccion": "Moreno 3602",
+      "telefono": "4943337",
+      "lat": -37.9895,
+      "lng": -57.5525
+    },
+    {
+      "nombre": "EXPRESS MDQ SCS",
+      "direccion": "Falucho 1602",
+      "telefono": "2235193304",
+      "lat": -38.010138,
+      "lng": -57.541767
+    },
+    {
+      "nombre": "LA PERLA",
+      "direccion": "España 1003",
+      "telefono": "2235065049",
+      "lat": -37.9891797,
+      "lng": -57.5516655
+    },
+    {
+      "nombre": "LUNADELABRAH SCS",
+      "direccion": "Independencia 3802",
+      "telefono": "4755524",
+      "lat": -38.013268,
+      "lng": -57.566507
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PHARMAVIP",
+      "direccion": "Mario Bravo 3504",
+      "telefono": "2235798821",
+      "lat": -38.0605518,
+      "lng": -57.5714546
+    },
+    {
+      "nombre": "PUEYRREDON III",
+      "direccion": "Juan B. Justo 1846",
+      "telefono": "4894040",
+      "lat": -38.0282022,
+      "lng": -57.5592089
+    },
+    {
+      "nombre": "SACK",
+      "direccion": "Alberti 6567",
+      "telefono": "2235993771",
+      "lat": -37.986453,
+      "lng": -57.5925114
+    },
+    {
+      "nombre": "URQUIZA",
+      "direccion": "Libertad 5302",
+      "telefono": "2235167870",
+      "lat": -37.979978,
+      "lng": -57.5697605
+    }
+  ],
+  "22": [
+    {
+      "nombre": "DEL BARRIO",
+      "direccion": "Jara 3290",
+      "telefono": "4755685",
+      "lat": -37.9998812,
+      "lng": -57.5811586
+    },
+    {
+      "nombre": "ELBEY y FARINA",
+      "direccion": "Colon 7279",
+      "telefono": "4702524",
+      "lat": -37.9796525,
+      "lng": -57.5970067
+    },
+    {
+      "nombre": "FRONTINI",
+      "direccion": "12 de Octubre 5362",
+      "telefono": "4820421",
+      "lat": -38.0293354,
+      "lng": -57.5647213
+    },
+    {
+      "nombre": "GALILEO SUR SCS",
+      "direccion": "Mario Bravo 502",
+      "telefono": "2236185741",
+      "lat": -38.0366016,
+      "lng": -57.6029856
+    },
+    {
+      "nombre": "GUEMES",
+      "direccion": "Gascon  1299",
+      "telefono": "2233522656",
+      "lat": -38.012461,
+      "lng": -57.53892
+    },
+    {
+      "nombre": "M.R.L.",
+      "direccion": "Constitución 4793",
+      "telefono": "4713000",
+      "lat": -37.9666176,
+      "lng": -57.5512231
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MOBILIA",
+      "direccion": "Presidente Peron 10419 Batan",
+      "telefono": "2236344967",
+      "lat": -38.0080408,
+      "lng": -57.6670174
+    },
+    {
+      "nombre": "NVA LUJAN D.LOS.ANGELES SCS",
+      "direccion": "Fortunato de la Plaza 6992",
+      "telefono": "2233465521",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "PALKIN",
+      "direccion": "Independencia 3501",
+      "telefono": "2235589900",
+      "lat": -38.0107699,
+      "lng": -57.5647975
+    },
+    {
+      "nombre": "SAN JUAN",
+      "direccion": "Belgrano 4250",
+      "telefono": "4725920",
+      "lat": -37.9926957,
+      "lng": -57.5648588
+    }
+  ],
+  "23": [
+    {
+      "nombre": "FCIA. MUSTERS SCS",
+      "direccion": "San Juan 3301",
+      "telefono": "4728225",
+      "lat": -38.004099,
+      "lng": -57.573561
+    },
+    {
+      "nombre": "GUEVARA",
+      "direccion": "San Juan 381",
+      "telefono": "4732109",
+      "lat": -37.9805174,
+      "lng": -57.5544806
+    },
+    {
+      "nombre": "HERRERA",
+      "direccion": "Edison 2601",
+      "telefono": "2235353340",
+      "lat": -38.056571,
+      "lng": -57.566558
+    },
+    {
+      "nombre": "HERRERO",
+      "direccion": "Jara 1842",
+      "telefono": "2235847235",
+      "lat": -37.988439,
+      "lng": -57.5718728
+    },
+    {
+      "nombre": "JULIAN ALBERTO",
+      "direccion": "Calle 2 232, Playa Serena",
+      "telefono": "2236219647",
+      "lat": -38.082,
+      "lng": -57.546
+    },
+    {
+      "nombre": "MALEN",
+      "direccion": "Catamarca 3201",
+      "telefono": "4732646",
+      "lat": -38.0089513,
+      "lng": -57.5617587
+    },
+    {
+      "nombre": "MARTIGNONE",
+      "direccion": "Juan B. Justo 1601",
+      "telefono": "4805295",
+      "lat": -38.029462,
+      "lng": -57.557152
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "PHARMAPORT SCS",
+      "direccion": "12 de Octubre 3185",
+      "telefono": "4895735",
+      "lat": -38.0436051,
+      "lng": -57.5453247
+    },
+    {
+      "nombre": "PHARMARURAL SCS",
+      "direccion": "Ruta Nacional 226 Km 16,5 El Coyunco",
+      "telefono": "2233540982",
+      "lat": -37.9134137,
+      "lng": -57.4818696
+    },
+    {
+      "nombre": "SOICH ALAIN",
+      "direccion": "Jacinto Peralta Ramos 2101,",
+      "telefono": "2236910038",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "TEJEDOR  381 SCS",
+      "direccion": "Tejedor 581",
+      "telefono": "4713066",
+      "lat": -37.9690869,
+      "lng": -57.5561915
+    }
+  ],
+  "24": [
+    {
+      "nombre": "ANGELUCCI",
+      "direccion": "Jacinto Peralta Ramos 11",
+      "telefono": "2235648000",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "ARANDA",
+      "direccion": "Libertad  5579",
+      "telefono": "4750052",
+      "lat": -37.9784996,
+      "lng": -57.5721728
+    },
+    {
+      "nombre": "BOSQUE GRANDE SCS",
+      "direccion": "Vertiz 9162",
+      "telefono": "2236008877",
+      "lat": -38.0095643,
+      "lng": -57.6046053
+    },
+    {
+      "nombre": "FARMAHUINCO SCS",
+      "direccion": "Vertiz 4282",
+      "telefono": "2235314718",
+      "lat": -38.0420059,
+      "lng": -57.5615828
+    },
+    {
+      "nombre": "FCIA. SOCIAL LURO",
+      "direccion": "Luro 3499",
+      "telefono": "4730287",
+      "lat": -37.994007,
+      "lng": -57.55515
+    },
+    {
+      "nombre": "LASSERRE",
+      "direccion": "Tejedor 2618",
+      "telefono": "2233123880",
+      "lat": -37.9525845,
+      "lng": -57.5433029
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "NUEVA CONSTITUCION SCS",
+      "direccion": "Constitución 6679",
+      "telefono": "2234567991",
+      "lat": -37.9570142,
+      "lng": -57.5702233
+    },
+    {
+      "nombre": "SERI",
+      "direccion": "San Juan 702",
+      "telefono": "223 3528606",
+      "lat": -37.983309,
+      "lng": -57.556412
+    },
+    {
+      "nombre": "SIMINI",
+      "direccion": "Las Heras 3010",
+      "telefono": "4939265",
+      "lat": -38.0145619,
+      "lng": -57.5463671
+    },
+    {
+      "nombre": "STOLAR",
+      "direccion": "Alberti 6001",
+      "telefono": "4774811",
+      "lat": -37.989245,
+      "lng": -57.587057
+    }
+  ],
+  "25": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "Jacinto  Peralta  Ramos 821",
+      "telefono": "4815223",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "CRISTI SCS",
+      "direccion": "Luro 3804",
+      "telefono": "2235374123",
+      "lat": -37.9924714,
+      "lng": -57.558681
+    },
+    {
+      "nombre": "DIAGONAL",
+      "direccion": "Rivadavia 2960",
+      "telefono": "2235216164",
+      "lat": -37.9984824,
+      "lng": -57.5512715
+    },
+    {
+      "nombre": "FCIA.CONSTITUCION LASALLE",
+      "direccion": "Constitucion  6995",
+      "telefono": "4716464",
+      "lat": -37.9554172,
+      "lng": -57.573378
+    },
+    {
+      "nombre": "FCIA.SE.AD.HE",
+      "direccion": "Juan B. Justo 5402",
+      "telefono": "2236933753",
+      "lat": -38.0241058,
+      "lng": -57.565134
+    },
+    {
+      "nombre": "FCIA.SERRAT",
+      "direccion": "12 de Octubre 3792",
+      "telefono": "2235374123",
+      "lat": -38.0397895,
+      "lng": -57.5508151
+    },
+    {
+      "nombre": "GRIMALDI DIEZ",
+      "direccion": "Rodríguez Peña 1299",
+      "telefono": "2233450267",
+      "lat": -38.019575,
+      "lng": -57.544658
+    },
+    {
+      "nombre": "MENDELEIV SUR",
+      "direccion": "Colon 6699",
+      "telefono": "2236865638",
+      "lat": -37.982614,
+      "lng": -57.591149
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "RIMATU",
+      "direccion": "Sicilia 1474",
+      "telefono": "4840713",
+      "lat": -38.0412929,
+      "lng": -57.5849222
+    },
+    {
+      "nombre": "RIQUELME",
+      "direccion": "20 de Septiembre 399",
+      "telefono": "2233475520",
+      "lat": -37.983634,
+      "lng": -57.548591
+    },
+    {
+      "nombre": "VILLAFRANCA",
+      "direccion": "Libertad 7693",
+      "telefono": "2235399462",
+      "lat": -37.9676341,
+      "lng": -57.5934032
+    }
+  ],
+  "26": [
+    {
+      "nombre": "AMANCAY MDQ",
+      "direccion": "Patricio Peralta Ramos 521",
+      "telefono": "2235239233",
+      "lat": -37.987067,
+      "lng": -57.5449026
+    },
+    {
+      "nombre": "AVENIDA",
+      "direccion": "Libertad 4499",
+      "telefono": "4735863",
+      "lat": -37.9840272,
+      "lng": -57.5612408
+    },
+    {
+      "nombre": "COPAL",
+      "direccion": "San Juan 2998",
+      "telefono": "6532086",
+      "lat": -38.0016409,
+      "lng": -57.5712472
+    },
+    {
+      "nombre": "DEL LABRADOR",
+      "direccion": "Tucumán 2853",
+      "telefono": "4913241",
+      "lat": -38.0116278,
+      "lng": -57.5485422
+    },
+    {
+      "nombre": "FCIA NUEVA PLAZA II",
+      "direccion": "Constitucion  5700",
+      "telefono": "4715757",
+      "lat": -37.9621811,
+      "lng": -57.5605937
+    },
+    {
+      "nombre": "FLORES",
+      "direccion": "Luro 6501",
+      "telefono": "4813387",
+      "lat": -37.978493,
+      "lng": -57.5854595
+    },
+    {
+      "nombre": "FRESCO",
+      "direccion": "Cerrito 1512",
+      "telefono": "2236542256",
+      "lat": -38.0414238,
+      "lng": -57.5676474
+    },
+    {
+      "nombre": "GOMEZ",
+      "direccion": "Alvarado 2318",
+      "telefono": "6260034",
+      "lat": -38.0112762,
+      "lng": -57.552722
+    },
+    {
+      "nombre": "MAMMANA",
+      "direccion": "Chile 2987",
+      "telefono": "2234814382",
+      "lat": -37.995371,
+      "lng": -57.5835058
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "RAMA PRE 05 SCS",
+      "direccion": "Talcahuano  2002",
+      "telefono": "2235374123",
+      "lat": -38.036813,
+      "lng": -57.582445
+    }
+  ],
+  "27": [
+    {
+      "nombre": "25 de MAYO",
+      "direccion": "25 de Mayo 3611",
+      "telefono": "2236410479",
+      "lat": -37.9926083,
+      "lng": -57.5557311
+    },
+    {
+      "nombre": "CARRIZO",
+      "direccion": "Ruta Nacional 226 Km 16,5 El Coyunco",
+      "telefono": "2235464734",
+      "lat": -37.9134137,
+      "lng": -57.4818696
+    },
+    {
+      "nombre": "KILDUFF",
+      "direccion": "Alberti 1387",
+      "telefono": "4860599",
+      "lat": -38.0127575,
+      "lng": -57.5405068
+    },
+    {
+      "nombre": "LISSARRAGUE",
+      "direccion": "Ayacucho 4698",
+      "telefono": "2236774797",
+      "lat": -37.9807766,
+      "lng": -57.561358
+    },
+    {
+      "nombre": "MILAZZO",
+      "direccion": "Fortunato de la Plaza 4332",
+      "telefono": "2236920583",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MONTTI",
+      "direccion": "Tucuman 3392",
+      "telefono": "2235015346",
+      "lat": -38.0159045,
+      "lng": -57.5517061
+    },
+    {
+      "nombre": "ORTEGA FARMACEUTICA",
+      "direccion": "Luro 6900",
+      "telefono": "2235401424",
+      "lat": -37.9769789,
+      "lng": -57.5893768
+    },
+    {
+      "nombre": "PRAMOS SCS",
+      "direccion": "Jacinto  Peralta  Ramos 402",
+      "telefono": "2235577707",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "Rodríguez SUSANA",
+      "direccion": "Della Paolera 2040",
+      "telefono": "2236695468",
+      "lat": -37.9450073,
+      "lng": -57.5710867
+    },
+    {
+      "nombre": "ZAMACZUK",
+      "direccion": "Juan B. Justo 1302",
+      "telefono": "4809105",
+      "lat": -38.031653,
+      "lng": -57.5546193
+    }
+  ],
+  "28": [
+    {
+      "nombre": "ALLEMMA",
+      "direccion": "Mario Bravo 2067",
+      "telefono": "4841484",
+      "lat": -38.0366016,
+      "lng": -57.6029856
+    },
+    {
+      "nombre": "DELLA MAGGIORA",
+      "direccion": "Colón 4101",
+      "telefono": "4723587",
+      "lat": -37.995646,
+      "lng": -57.565363
+    },
+    {
+      "nombre": "FARMALYF SCS",
+      "direccion": "Independencia 4117",
+      "telefono": "4726788",
+      "lat": -38.0156641,
+      "lng": -57.56872
+    },
+    {
+      "nombre": "JARDIN DE LA SIERRA",
+      "direccion": "Av. Argentina 360 Sierra de los Padres",
+      "telefono": "2234370421",
+      "lat": -37.9473691,
+      "lng": -57.4740998
+    },
+    {
+      "nombre": "JORGE RUIZ",
+      "direccion": "9 de Julio 5002",
+      "telefono": "4729609",
+      "lat": -37.9846943,
+      "lng": -57.5693075
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "MURRAY",
+      "direccion": "Belgrano 3302",
+      "telefono": "4956623",
+      "lat": -37.997426,
+      "lng": -57.555548
+    },
+    {
+      "nombre": "PINOS DE ANCHORENA",
+      "direccion": "Constitucion 6039",
+      "telefono": "4793333",
+      "lat": -37.9601837,
+      "lng": -57.5639647
+    },
+    {
+      "nombre": "POUSSET",
+      "direccion": "Alvarado 6579",
+      "telefono": "4783427",
+      "lat": -37.9896779,
+      "lng": -57.5953824
+    },
+    {
+      "nombre": "ROMERO",
+      "direccion": "11 de Septiembre 3783",
+      "telefono": "2234388059",
+      "lat": -37.9892537,
+      "lng": -57.5554879
+    },
+    {
+      "nombre": "VALENTINI",
+      "direccion": "Jara 3993",
+      "telefono": "4744588",
+      "lat": -38.0052912,
+      "lng": -57.5857945
+    },
+    {
+      "nombre": "VIZCAY",
+      "direccion": "Alem 3495",
+      "telefono": "4864449",
+      "lat": -38.0258171,
+      "lng": -57.5345857
+    }
+  ],
+  "29": [
+    {
+      "nombre": "AZCONEGUI",
+      "direccion": "Talcahuano 399",
+      "telefono": "2235634110",
+      "lat": -38.025588,
+      "lng": -57.569242
+    },
+    {
+      "nombre": "CANESSA",
+      "direccion": "Juan B. Justo 494",
+      "telefono": "4801616",
+      "lat": -38.0370265,
+      "lng": -57.547504
+    },
+    {
+      "nombre": "COMUFARMA",
+      "direccion": "Rodríguez Peña 6628",
+      "telefono": "2236285899",
+      "lat": -37.9925506,
+      "lng": -57.5984465
+    },
+    {
+      "nombre": "CUELLO",
+      "direccion": "Coronel Suarez 468",
+      "telefono": "2233424688",
+      "lat": -37.9696693,
+      "lng": -57.596525
+    },
+    {
+      "nombre": "FERRANDO",
+      "direccion": "Balcarce 2899",
+      "telefono": "4916617",
+      "lat": -37.9930589,
+      "lng": -57.5457484
+    },
+    {
+      "nombre": "GUIDI",
+      "direccion": "Rivadavia 4466",
+      "telefono": "2233044912",
+      "lat": -37.9908711,
+      "lng": -57.5664209
+    },
+    {
+      "nombre": "LAS HERAS",
+      "direccion": "Calabria 9131",
+      "telefono": "6283542",
+      "lat": -38.0191258,
+      "lng": -57.615743
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "OLIVERI",
+      "direccion": "Luro 4102",
+      "telefono": "2235721444",
+      "lat": -37.9910325,
+      "lng": -57.5616329
+    },
+    {
+      "nombre": "SENA",
+      "direccion": "Patricio Peralta Ramos 3987",
+      "telefono": "4510422",
+      "lat": -38.0166853,
+      "lng": -57.5301357
+    },
+    {
+      "nombre": "TELLERIA",
+      "direccion": "Fortunato de la Plaza 4583",
+      "telefono": "2236769086",
+      "lat": -38.0240168,
+      "lng": -57.5921893
+    },
+    {
+      "nombre": "VILLEGAS",
+      "direccion": "San Juan 15",
+      "telefono": "4739489",
+      "lat": -37.9777587,
+      "lng": -57.5522513
+    }
+  ],
+  "30": [
+    {
+      "nombre": "ABALLAY",
+      "direccion": "Luro 7898",
+      "telefono": "4789228",
+      "lat": -37.9718005,
+      "lng": -57.5995779
+    },
+    {
+      "nombre": "FARMA-RICHAR SCS",
+      "direccion": "Alvarado 5699",
+      "telefono": "4724494",
+      "lat": -37.994076,
+      "lng": -57.586337
+    },
+    {
+      "nombre": "FLIA.PRE SCS",
+      "direccion": "San Martin 5521",
+      "telefono": "2235374123",
+      "lat": -37.9844031,
+      "lng": -57.5764276
+    },
+    {
+      "nombre": "LA BOTICA DE LOS TRONCOS",
+      "direccion": "Alem 3777",
+      "telefono": "2236962133",
+      "lat": -38.0280779,
+      "lng": -57.5363768
+    },
+    {
+      "nombre": "LIZALDE",
+      "direccion": "Tejedor 2156",
+      "telefono": "2236024116",
+      "lat": -37.9563103,
+      "lng": -57.5463047
+    },
+    {
+      "nombre": "MELUCCI",
+      "direccion": "Libertad 4109",
+      "telefono": "4720605",
+      "lat": -37.9858868,
+      "lng": -57.5575604
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "SAN JOSE",
+      "direccion": "Puán 1712",
+      "telefono": "4840213",
+      "lat": -38.0655852,
+      "lng": -57.5477515
+    },
+    {
+      "nombre": "SZPYRNAL SCS",
+      "direccion": "Rodríguez Peña 3695",
+      "telefono": "4763940",
+      "lat": -38.0073981,
+      "lng": -57.5687521
+    },
+    {
+      "nombre": "TROZZI",
+      "direccion": "Jacinto  Peralta  Ramos 1701",
+      "telefono": "2233008488",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "VIDELA",
+      "direccion": "Calle 18, número 262, Estación Chapadmalal",
+      "telefono": "2233545778",
+      "lat": -37.9502297,
+      "lng": -57.4312112
+    },
+    {
+      "nombre": "VITA",
+      "direccion": "Teodoro Bronzini 210",
+      "telefono": "2235033528",
+      "lat": -37.9712356,
+      "lng": -57.5693342
+    }
+  ],
+  "31": [
+    {
+      "nombre": "CARRERA",
+      "direccion": "Tripulantes del Fournier  11012",
+      "telefono": "4653547",
+      "lat": -38.0464077,
+      "lng": -57.5623591
+    },
+    {
+      "nombre": "DEL AGUILA",
+      "direccion": "Luro 4610",
+      "telefono": "2234982230",
+      "lat": -37.988433,
+      "lng": -57.5666545
+    },
+    {
+      "nombre": "FCIA. SUR",
+      "direccion": "Colon 5398",
+      "telefono": "4748777",
+      "lat": -37.9893403,
+      "lng": -57.5784351
+    },
+    {
+      "nombre": "GARCIA CASABAL",
+      "direccion": "Luro 9615",
+      "telefono": "4871651",
+      "lat": -37.9710562,
+      "lng": -57.5529327
+    },
+    {
+      "nombre": "JARDIN DEL BOSQUE",
+      "direccion": "Mario Bravo 2674",
+      "telefono": "2235244020",
+      "lat": -38.0366016,
+      "lng": -57.6029856
+    },
+    {
+      "nombre": "JULIO RIADIGOS",
+      "direccion": "Castelli 1311",
+      "telefono": "4518537",
+      "lat": -38.0154187,
+      "lng": -57.5418369
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "Colón y San Luis",
+      "telefono": "2235410471",
+      "lat": -38.0029124,
+      "lng": -57.5510634
+    },
+    {
+      "nombre": "OSCAR GARCIA",
+      "direccion": "Jacinto  Peralta  Ramos 1099",
+      "telefono": "4817471",
+      "lat": -38.0382612,
+      "lng": -57.5945156
+    },
+    {
+      "nombre": "PABLO SIMINI",
+      "direccion": "Cerrito 285",
+      "telefono": "3530938",
+      "lat": -38.0328269,
+      "lng": -57.5576353
+    },
+    {
+      "nombre": "SAMPAOLESI",
+      "direccion": "Córdoba 3869",
+      "telefono": "2234474443",
+      "lat": -38.0166312,
+      "lng": -57.5609935
+    },
+    {
+      "nombre": "TREJOMAR",
+      "direccion": "Strobel 5191",
+      "telefono": "4749549",
+      "lat": -37.9709063,
+      "lng": -57.5605575
+    }
+  ]
+}
