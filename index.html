@@ -204,7 +204,9 @@ function mostrarTodasLasFarmacias() {
   todas.forEach((f, i) => {
     const div = document.createElement('div');
     div.className = 'card';
-    div.innerHTML = `<div class="card-num">${i+1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
+const tClean = limpiarTelefono(f.telefono);
+const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `${getPhoneIcon()} Sin teléfono`;
+div.innerHTML = `<div class="card-num">${i+1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
     div.onclick = () => { if(f.lat && f.lng) { mapDesktop.setView([f.lat, f.lng], 16); mapMobile.setView([f.lat, f.lng], 16); } };
     lista.appendChild(div);
   });
