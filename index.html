@@ -119,7 +119,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',RUTA_JSON:'ciclos_oficiales_definitivo.json'};
-let ciclosData={},mapDesktop=null,mapMobile=null,activeCard=null,markersDesktop=[],markersMobile=[],farmaciasCoords=[];
+let ciclosData={}, mapDesktop=null, mapMobile=null, activeCard=null, markersDesktop=[], markersMobile=[], farmaciasCoords=[];
 const FECHA_INICIO_CICLO_1=new Date(2026,3,6,9,0,0); // 6 de abril 9:00 GMT-3
 
 function pad(n){return String(n).padStart(2,'0');}
