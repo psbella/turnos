@@ -118,7 +118,7 @@
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
-const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',RUTA_JSON:'farmacias_por_dia.json'};
+const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',RUTA_JSON: 'farmacias_con_coordenadas_final.json'};
 let ciclosData={},mapDesktop=null,mapMobile=null,activeCard=null,markersDesktop=[],markersMobile=[],farmaciasCoords=[];
 function pad(n){return String(n).padStart(2,'0');}
 function formatearFechaGMT3(){const a=new Date(),o={timeZone:CONFIG.ZONA_HORARIA};return new Date(a.toLocaleString('en-US',o));}
