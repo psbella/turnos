@@ -293,10 +293,10 @@
     }
 
     .col-map {
-      min-width: 400px;
-      width: 100%;
-      position: relative;
-    }
+  min-width: 400px;
+  width: 100%;
+  position: relative;  /* ← esto hace que el botón flotante se posicione dentro del mapa */
+}
 
     #lista,
     .intro {
@@ -938,117 +938,81 @@
 
     // ==================== VER TODAS LAS FARMACIAS ====================
     function mostrarTodasLasFarmacias() {
-      if (modoTodas) return;
-      modoTodas = true;
+    if (modoTodas) return;
+    modoTodas = true;
 
-      const layout = document.querySelector('.layout');
-      if (layout) {
+    const layout = document.querySelector('.layout');
+    if (layout) {
         layout.style.display = 'grid';
         layout.style.gridTemplateColumns = '1fr 1fr';
         layout.style.gap = '28px';
         layout.style.width = '100%';
-      }
+    }
 
-      farmaciasOriginales = {
+    farmaciasOriginales = {
         lista: document.getElementById('lista').innerHTML,
         intro: document.getElementById('intro').innerHTML
-      };
+    };
 
-      const farmaciasUnicas = new Map();
-      for (const grupo in ciclosData) {
+    const farmaciasUnicas = new Map();
+    for (const grupo in ciclosData) {
         for (const f of ciclosData[grupo]) {
-          const key = `${f.nombre}|${f.direccion}`;
-          if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+            const key = `${f.nombre}|${f.direccion}`;
+            if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
         }
-      }
-      const todas = Array.from(farmaciasUnicas.values());
+    }
+    const todas = Array.from(farmaciasUnicas.values());
 
-      document.getElementById('intro').innerHTML = `
+    document.getElementById('intro').innerHTML = `
         <div class="intro-line">
-          <span class="icon-intro">📍</span>
-          <span>Todas las farmacias de Mar del Plata</span>
+            <span class="icon-intro">📍</span>
+            <span>Todas las farmacias de Mar del Plata</span>
         </div>
         <div class="stats">
-          <span>🏪 ${todas.length} farmacias únicas</span>
+            <span>🏪 ${todas.length} farmacias únicas</span>
         </div>
-      `;
+    `;
 
-      const listaDiv = document.getElementById('lista');
-      listaDiv.innerHTML = '';
-      todas.forEach((f, i) => {
+    const listaDiv = document.getElementById('lista');
+    listaDiv.innerHTML = '';
+    todas.forEach((f, i) => {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
-          <div class="card-num">${i + 1}</div>
-          <div class="card-info">
-            <div class="card-name">${capFirst(f.nombre)}</div>
-            <div class="card-address">📍 ${f.direccion}</div>
-          </div>
+            <div class="card-num">${i + 1}</div>
+            <div class="card-info">
+                <div class="card-name">${capFirst(f.nombre)}</div>
+                <div class="card-address">📍 ${f.direccion}</div>
+            </div>
         `;
         div.onclick = () => {
-          if (f.lat && f.lng) {
-            mapDesktop.setView([f.lat, f.lng], 16);
-            if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
-          }
+            if (f.lat && f.lng) {
+                mapDesktop.setView([f.lat, f.lng], 16);
+                if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
+            }
         };
         listaDiv.appendChild(div);
-      });
+    });
 
-      limpiarMarcadores();
-      agregarMarcadores(todas);
+    limpiarMarcadores();
+    agregarMarcadores(todas);
 
-      const btn = document.getElementById('btnTodasFarmacias');
-      btn.textContent = '↺ Volver';
-      btn.classList.remove('btn-todas');
-      btn.classList.add('btn-volver');
+    // Forzar que el mapa se redibuje y los popups funcionen
+    setTimeout(() => {
+        if (mapDesktop) mapDesktop.invalidateSize();
+        if (mapMobile) mapMobile.invalidateSize();
+    }, 100);
 
-      // Mostrar botón flotante sobre el mapa
-      const btnFlotante = document.getElementById('btnVolverFlotante');
-      if (btnFlotante) {
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '↺ Volver';
+    btn.classList.remove('btn-todas');
+    btn.classList.add('btn-volver');
+
+    const btnFlotante = document.getElementById('btnVolverFlotante');
+    if (btnFlotante) {
         btnFlotante.style.display = 'flex';
-      }
     }
-
-    function volverATurno() {
-      if (!modoTodas) return;
-      modoTodas = false;
-
-      const layout = document.querySelector('.layout');
-      if (layout) {
-        layout.style.display = '';
-        layout.style.gridTemplateColumns = '';
-        layout.style.gap = '';
-        layout.style.width = '';
-      }
-
-      document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
-      document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
-
-      const ciclo = obtenerCicloActual();
-      const farmaciasTurno = ciclosData[ciclo] || [];
-      limpiarMarcadores();
-      agregarMarcadores(farmaciasTurno);
-
-      const btn = document.getElementById('btnTodasFarmacias');
-      btn.textContent = '📍 Ver todas';
-      btn.classList.remove('btn-volver');
-      btn.classList.add('btn-todas');
-
-      // Ocultar botón flotante
-      const btnFlotante = document.getElementById('btnVolverFlotante');
-      if (btnFlotante) {
-        btnFlotante.style.display = 'none';
-      }
-    }
-
-    document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
-      if (modoTodas) volverATurno();
-      else mostrarTodasLasFarmacias();
-    });
-
-    document.getElementById('btnVolverFlotante').addEventListener('click', () => {
-      if (modoTodas) volverATurno();
-    });
+}
 
     // ==================== TEMA CLARO/OSCURO ====================
     function aplicarTema(tema) {
