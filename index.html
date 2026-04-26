@@ -21,7 +21,7 @@
 
   <title>Farmacias de Turno · Mar del Plata</title>
 
-  <!-- Anti-caché: evita que el navegador guarde versiones viejas -->
+  <!-- Anti-caché -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -30,7 +30,6 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
 
-  <!-- Fuentes y CSS de Leaflet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -45,25 +44,19 @@
     }
 
     :root {
-      /* Modo oscuro (por defecto) */
       --bg-dark: #0d1117;
       --surface-dark: #161b22;
       --text-dark: #e6edf3;
       --border-dark: rgba(255, 255, 255, 0.08);
-
-      /* Modo claro */
       --bg-light: #f6f8fa;
       --surface-light: #ffffff;
       --text-light: #1f2328;
       --border-light: rgba(0, 0, 0, 0.1);
-
-      /* Colores fijos */
       --accent: #3fb950;
       --accent-dim: rgba(63, 185, 80, 0.12);
       --radius: 14px;
     }
 
-    /* ========== ESTILOS BASE ========== */
     body {
       font-family: 'Nunito', sans-serif;
       min-height: 100dvh;
@@ -76,7 +69,6 @@
       transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
 
-    /* Tema oscuro */
     body.dark {
       --bg: var(--bg-dark);
       --surface: var(--surface-dark);
@@ -86,7 +78,6 @@
       color: var(--text-dark);
     }
 
-    /* Tema claro */
     body.light {
       --bg: var(--bg-light);
       --surface: var(--surface-light);
@@ -96,7 +87,6 @@
       color: var(--text-light);
     }
 
-    /* ========== HEADER ========== */
     header {
       border-bottom: 1px solid var(--border);
       position: sticky;
@@ -122,7 +112,6 @@
       flex-wrap: wrap;
     }
 
-    /* Logo cruz */
     .cross {
       width: 32px;
       height: 32px;
@@ -166,7 +155,6 @@
       letter-spacing: 1px;
     }
 
-    /* ========== BOTÓN DE TEMA (TOGGLE) ========== */
     .theme-switch-wrapper {
       margin-left: 12px;
       text-align: center;
@@ -229,7 +217,7 @@
       text-transform: lowercase;
     }
 
-    /* ========== BOTÓN VER TODAS (abajo de la lista) ========== */
+    /* Botones flotantes y normales */
     .btn-todas,
     .btn-volver {
       background: var(--surface);
@@ -254,7 +242,34 @@
       border-color: var(--accent);
     }
 
-    /* ========== LAYOUT PRINCIPAL ========== */
+    /* Botón flotante sobre el mapa */
+    .btn-volver-flotante {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--accent);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-volver-flotante:hover {
+      background: var(--accent-dim);
+      transform: scale(1.02);
+      border-color: var(--accent);
+    }
+
     .layout {
       max-width: 1100px;
       margin: 0 auto;
@@ -263,7 +278,6 @@
       width: 100%;
     }
 
-    /* Grid para desktop: dos columnas del mismo ancho (forzado) */
     @media (min-width: 768px) {
       .layout {
         display: grid !important;
@@ -281,6 +295,7 @@
     .col-map {
       min-width: 400px;
       width: 100%;
+      position: relative;
     }
 
     #lista,
@@ -298,7 +313,6 @@
       background: #1a1f2a;
     }
 
-    /* ========== INTRO (ENCABEZADO DEL TURNO) ========== */
     .intro {
       font-size: 16px;
       color: var(--text);
@@ -332,7 +346,6 @@
       gap: 8px;
     }
 
-    /* ========== ÍCONOS SVG ========== */
     .icon-intro,
     .icon-stats,
     .icon-location,
@@ -357,7 +370,6 @@
       height: 18px;
     }
 
-    /* ========== TARJETAS DE FARMACIAS ========== */
     .card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -430,7 +442,6 @@
       cursor: pointer;
     }
 
-    /* ========== MAPA DESKTOP ========== */
     .col-map {
       display: none;
     }
@@ -443,7 +454,6 @@
       }
     }
 
-    /* ========== MAPA MOBILE (HOJA DESLIZABLE) ========== */
     .map-sheet {
       position: fixed;
       bottom: 0;
@@ -486,7 +496,6 @@
       background: #1a1f2a;
     }
 
-    /* ========== FOOTER ========== */
     .footer {
       max-width: 1100px;
       margin: 0 auto;
@@ -515,7 +524,6 @@
       text-decoration: underline;
     }
 
-    /* ========== ENLACE A GOOGLE MAPS (POPUP) ========== */
     .gmaps-link {
       display: inline-flex;
       align-items: center;
@@ -534,7 +542,6 @@
       text-decoration: underline;
     }
 
-    /* ========== RESPONSIVE MOBILE ========== */
     @media (max-width: 768px) {
       .header-top {
         flex-wrap: wrap;
@@ -617,11 +624,8 @@
   <header>
     <div class="header-inner">
       <div class="header-top">
-        <!-- Logo cruz -->
         <div class="cross"></div>
         <div class="app-title">Farmacias de Turno</div>
-
-        <!-- Toggle de tema claro/oscuro -->
         <div class="theme-switch-wrapper">
           <div class="theme-switch" id="theme-switch">
             <span class="theme-icon sun">
@@ -645,23 +649,20 @@
   </header>
 
   <div class="layout">
-    <!-- Columna izquierda: lista de farmacias -->
     <div class="col-list">
       <div class="intro" id="intro"><span>Cargando datos...</span></div>
       <div id="lista"></div>
-      <!-- Botón "Ver todas" (abajo de la lista) -->
       <div style="display: flex; justify-content: center; margin-top: 24px;">
         <button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button>
       </div>
     </div>
 
-    <!-- Columna derecha: mapa desktop -->
     <div class="col-map">
+      <button id="btnVolverFlotante" class="btn-volver-flotante" style="display: none;">↺ Volver a turno</button>
       <div id="map-desktop"></div>
     </div>
   </div>
 
-  <!-- Hoja deslizable para mapa mobile (aparece al tocar una farmacia) -->
   <div class="map-sheet" id="mapSheet">
     <div class="map-sheet-header">
       <span id="sheetName"></span>
@@ -690,7 +691,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
   <script>
-    // ==================== CONFIGURACIÓN INICIAL ====================
+    // ==================== CONFIGURACIÓN ====================
     const CONFIG = {
       HORA_CAMBIO: 9,
       ZONA_HORARIA: 'America/Argentina/Buenos_Aires',
@@ -705,34 +706,30 @@
     let markersDesktop = [];
     let markersMobile = [];
     let farmaciasCoords = [];
-
     const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0);
+    let modoTodas = false;
+    let farmaciasOriginales = null;
+    let modoAutomatico = true;
 
     // ==================== FUNCIONES AUXILIARES ====================
-    function pad(n) {
-      return String(n).padStart(2, '0');
-    }
-
+    function pad(n) { return String(n).padStart(2, '0'); }
+    
     function formatearFechaGMT3() {
       const ahora = new Date();
       const opciones = { timeZone: CONFIG.ZONA_HORARIA };
       return new Date(ahora.toLocaleString('en-US', opciones));
     }
-
+    
     function labelFecha(d) {
       const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
       const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
       return `${dias[d.getDay()]} ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
     }
-
-    function capFirst(s) {
-      return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : '';
-    }
-
-    function limpiarTelefono(t) {
-      return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, '');
-    }
-
+    
+    function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
+    
+    function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
+    
     function obtenerCicloActual() {
       const fechaActual = formatearFechaGMT3();
       const diferenciaMs = fechaActual - FECHA_INICIO_CICLO_1;
@@ -742,7 +739,7 @@
       return ciclo;
     }
 
-    // ==================== ICONO DEL MAPA ====================
+    // ==================== ICONO MAPA ====================
     const pharmacyIcon = L.divIcon({
       className: 'custom-pharmacy-icon',
       html: `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -753,7 +750,7 @@
       popupAnchor: [0, -17]
     });
 
-    // ==================== CARGA DEL JSON ====================
+    // ==================== CARGA DE DATOS ====================
     async function cargarDatos() {
       const intro = document.getElementById('intro');
       try {
@@ -768,7 +765,7 @@
       }
     }
 
-    // ==================== INICIALIZACIÓN DE MAPAS ====================
+    // ==================== MAPAS ====================
     function initMaps() {
       if (!mapDesktop) {
         mapDesktop = L.map('map-desktop').setView([-38.0055, -57.5426], 12);
@@ -792,7 +789,6 @@
       farmaciasCoords = [];
     }
 
-    // ==================== AGREGAR MARCADORES ====================
     function agregarMarcadores(farmacias) {
       initMaps();
       limpiarMarcadores();
@@ -849,7 +845,7 @@
       }
     }
 
-    // ==================== ÍCONOS SVG PARA LA LISTA ====================
+    // ==================== ÍCONOS SVG ====================
     function getLocationIcon() {
       return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;
     }
@@ -858,7 +854,7 @@
       return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
     }
 
-    // ==================== MOSTRAR LISTA DE FARMACIAS (TURNO ACTUAL) ====================
+    // ==================== MOSTRAR FARMACIAS ====================
     function mostrarFarmacias() {
       const ciclo = obtenerCicloActual();
       const farmacias = ciclosData[ciclo] || [];
@@ -941,14 +937,10 @@
     document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
     // ==================== VER TODAS LAS FARMACIAS ====================
-    let modoTodas = false;
-    let farmaciasOriginales = null;
-
     function mostrarTodasLasFarmacias() {
       if (modoTodas) return;
       modoTodas = true;
 
-      // FORZAR EL LAYOUT PARA QUE EL MAPA NO SE ACHIQUE
       const layout = document.querySelector('.layout');
       if (layout) {
         layout.style.display = 'grid';
@@ -1009,6 +1001,12 @@
       btn.textContent = '↺ Volver';
       btn.classList.remove('btn-todas');
       btn.classList.add('btn-volver');
+
+      // Mostrar botón flotante sobre el mapa
+      const btnFlotante = document.getElementById('btnVolverFlotante');
+      if (btnFlotante) {
+        btnFlotante.style.display = 'flex';
+      }
     }
 
     function volverATurno() {
@@ -1035,6 +1033,12 @@
       btn.textContent = '📍 Ver todas';
       btn.classList.remove('btn-volver');
       btn.classList.add('btn-todas');
+
+      // Ocultar botón flotante
+      const btnFlotante = document.getElementById('btnVolverFlotante');
+      if (btnFlotante) {
+        btnFlotante.style.display = 'none';
+      }
     }
 
     document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
@@ -1042,9 +1046,11 @@
       else mostrarTodasLasFarmacias();
     });
 
-    // ==================== TEMA CLARO/OSCURO ====================
-    let modoAutomatico = true;
+    document.getElementById('btnVolverFlotante').addEventListener('click', () => {
+      if (modoTodas) volverATurno();
+    });
 
+    // ==================== TEMA CLARO/OSCURO ====================
     function aplicarTema(tema) {
       const sw = document.getElementById('theme-switch');
       const label = document.getElementById('theme-label');
