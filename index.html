@@ -489,7 +489,19 @@ function mostrarTodasLasFarmacias() {
         intro: document.getElementById('intro').innerHTML
     };
 
-    // Obtener todas las farmacias sin repetir (por nombre+direccion)
+    // Ocultar el mapa desktop temporalmente
+    const colMap = document.querySelector('.col-map');
+    if (colMap) {
+        colMap.style.display = 'none';
+    }
+
+    // Hacer que la columna de la lista ocupe todo el ancho
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = 'block';
+    }
+
+    // Obtener todas las farmacias sin repetir
     const farmaciasUnicas = new Map();
     for (const grupo in ciclosData) {
         for (const f of ciclosData[grupo]) {
@@ -511,7 +523,7 @@ function mostrarTodasLasFarmacias() {
         </div>
     `;
 
-    // Actualizar lista (solo nombre y dirección, sin teléfono para no saturar)
+    // Actualizar lista
     const listaDiv = document.getElementById('lista');
     listaDiv.innerHTML = '';
     todas.forEach((f, i) => {
@@ -551,6 +563,18 @@ function volverATurno() {
     // Restaurar la lista y el intro originales
     document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
     document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
+
+    // Restaurar el mapa desktop
+    const colMap = document.querySelector('.col-map');
+    if (colMap) {
+        colMap.style.display = '';
+    }
+
+    // Restaurar el layout original (grid)
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = '';
+    }
 
     // Recargar las farmacias del turno actual
     mostrarFarmacias();
