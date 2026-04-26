@@ -177,65 +177,113 @@ function mostrarFarmacias(){const ciclo=obtenerCicloActual(),farmacias=ciclosDat
 function programarActualizacion(){const a=formatearFechaGMT3();let p=new Date(a);p.setHours(9,0,0,0);if(a>=p)p.setDate(p.getDate()+1);setTimeout(()=>{mostrarFarmacias();programarActualizacion();},p-a);}
 document.getElementById('closeSheet').onclick=()=>document.getElementById('mapSheet').classList.remove('open');
 let modoTodas=false,farmaciasOriginales=null;
-function mostrarTodasLasFarmacias(){
-    if(modoTodas)return;
-    modoTodas=true;
-    farmaciasOriginales={lista:document.getElementById('lista').innerHTML,intro:document.getElementById('intro').innerHTML};
-    const farmaciasUnicas=new Map();
-    for(const grupo in ciclosData){
-        for(const f of ciclosData[grupo]){
-            const key=`${f.nombre}|${f.direccion}`;
-            if(!farmaciasUnicas.has(key))farmaciasUnicas.set(key,f);
+function mostrarTodasLasFarmacias() {
+    if (modoTodas) return;
+    modoTodas = true;
+
+    // Guardar estado original de la lista y el intro
+    farmaciasOriginales = {
+        lista: document.getElementById('lista').innerHTML,
+        intro: document.getElementById('intro').innerHTML
+    };
+
+    // Ocultar el mapa desktop temporalmente (para que la lista ocupe todo el ancho)
+    const colMap = document.querySelector('.col-map');
+    if (colMap) {
+        colMap.style.display = 'none';
+    }
+
+    // Hacer que la columna de la lista ocupe todo el ancho
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = 'block';
+    }
+
+    // Obtener todas las farmacias sin repetir
+    const farmaciasUnicas = new Map();
+    for (const grupo in ciclosData) {
+        for (const f of ciclosData[grupo]) {
+            const key = `${f.nombre}|${f.direccion}`;
+            if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
         }
     }
-    const todas=Array.from(farmaciasUnicas.values());
-    document.getElementById('intro').innerHTML=`<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
-    const listaDiv=document.getElementById('lista');
-    listaDiv.innerHTML='';
-    todas.forEach((f,i)=>{
-        const div=document.createElement('div');
-        div.className='card';
-        div.innerHTML=`<div class="card-num">${i+1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
-        div.onclick=()=>{if(f.lat&&f.lng){mapDesktop.setView([f.lat,f.lng],16);if(mapMobile)mapMobile.setView([f.lat,f.lng],16);}};
+    const todas = Array.from(farmaciasUnicas.values());
+
+    // Actualizar encabezado
+    const introDiv = document.getElementById('intro');
+    introDiv.innerHTML = `
+        <div class="intro-line">
+            <span class="icon-intro">📍</span>
+            <span>Todas las farmacias de Mar del Plata</span>
+        </div>
+        <div class="stats">
+            <span>🏪 ${todas.length} farmacias únicas</span>
+        </div>
+    `;
+
+    // Actualizar lista
+    const listaDiv = document.getElementById('lista');
+    listaDiv.innerHTML = '';
+    todas.forEach((f, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+            <div class="card-num">${i + 1}</div>
+            <div class="card-info">
+                <div class="card-name">${capFirst(f.nombre)}</div>
+                <div class="card-address">📍 ${f.direccion}</div>
+            </div>
+        `;
+        div.onclick = () => {
+            if (f.lat && f.lng) {
+                mapDesktop.setView([f.lat, f.lng], 16);
+                if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
+            }
+        };
         listaDiv.appendChild(div);
     });
+
+    // Actualizar mapa con todas las farmacias (el mapa desktop está oculto, pero igual se actualiza por si vuelve)
     limpiarMarcadores();
     agregarMarcadores(todas);
-    const btn=document.getElementById('btnTodasFarmacias');
-    btn.textContent='↺ Volver';
+
+    // Cambiar el texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '↺ Volver';
     btn.classList.remove('btn-todas');
     btn.classList.add('btn-volver');
 }
-function volverATurno(){
-    if(!modoTodas)return;
-    modoTodas=false;
-    document.getElementById('lista').innerHTML=farmaciasOriginales.lista;
-    document.getElementById('intro').innerHTML=farmaciasOriginales.intro;
-    const ciclo=obtenerCicloActual();
-    const farmaciasTurno=ciclosData[ciclo]||[];
+function volverATurno() {
+    if (!modoTodas) return;
+    modoTodas = false;
+
+    // Restaurar la lista y el intro originales
+    document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
+    document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
+
+    // Restaurar el mapa desktop
+    const colMap = document.querySelector('.col-map');
+    if (colMap) {
+        colMap.style.display = '';
+    }
+
+    // Restaurar el layout original (grid)
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = '';
+    }
+
+    // Recargar las farmacias del turno actual (y el mapa vuelve a mostrarlas)
+    const ciclo = obtenerCicloActual();
+    const farmaciasTurno = ciclosData[ciclo] || [];
     limpiarMarcadores();
     agregarMarcadores(farmaciasTurno);
-    const btn=document.getElementById('btnTodasFarmacias');
-    btn.textContent='📍 Ver todas';
+
+    // Restaurar el texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '📍 Ver todas';
     btn.classList.remove('btn-volver');
     btn.classList.add('btn-todas');
-}
-document.getElementById('btnTodasFarmacias').addEventListener('click',()=>{if(modoTodas)volverATurno();else mostrarTodasLasFarmacias();});
-let modoAutomatico=true;
-function aplicarTema(tema){
-    const sw=document.getElementById('theme-switch');
-    const label=document.getElementById('theme-label');
-    if(tema==='light'){
-        document.body.classList.add('light');
-        document.body.classList.remove('dark');
-        if(sw)sw.classList.add('active');
-        if(label)label.textContent='tema claro';
-    }else{
-        document.body.classList.add('dark');
-        document.body.classList.remove('light');
-        if(sw)sw.classList.remove('active');
-        if(label)label.textContent='tema oscuro';
-    }
 }
 function initTheme(){
     const savedTheme=localStorage.getItem('theme');
