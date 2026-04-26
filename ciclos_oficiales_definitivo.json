@@ -155,7 +155,7 @@
     { "nombre": "VITA", "direccion": "TEODORO BRONZINI 210", "telefono": "2235033528", "lat": -37.9712356, "lng": -57.5693342 }
   ],
   "13": [
-    { "nombre": "CARRERA", "direccion": "TRIPULANTES DEL FOURNIER 11012", "telefono": "4653547", "lat": -38.0464077, "lng": -57.5623591 },
+    { "nombre": "FARMACIA BARRIO BELGRANO SCS", "direccion": "TRIPULANTES DEL FOURNIER 11012", "telefono": "4653547", "lat": -37.99991249166657, "lng": -57.624114199999994 },
     { "nombre": "DEL AGUILA", "direccion": "LURO 4610", "telefono": "4721830", "lat": -37.988433, "lng": -57.5666545 },
     { "nombre": "FARMACIA SUR SCS", "direccion": "COLON 5398", "telefono": "4748777", "lat": -37.9893403, "lng": -57.5784351 },
     { "nombre": "GARCIA CASABAL", "direccion": "LURO 9615", "telefono": "4871651", "lat": -37.9710562, "lng": -57.5529327 },
