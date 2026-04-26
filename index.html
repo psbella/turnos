@@ -490,19 +490,10 @@ function mostrarTodasLasFarmacias() {
         intro: document.getElementById('intro').innerHTML
     };
 
-    // Ocultar el mapa desktop temporalmente (para que la lista ocupe todo el ancho)
-    const colMap = document.querySelector('.col-map');
-    if (colMap) {
-        colMap.style.display = 'none';
-    }
+    // NO ocultar el mapa desktop
+    // NO cambiar el layout (se mantiene el grid)
 
-    // Hacer que la columna de la lista ocupe todo el ancho
-    const layout = document.querySelector('.layout');
-    if (layout) {
-        layout.style.display = 'block';
-    }
-
-    // Obtener todas las farmacias sin repetir (por nombre+direccion)
+    // Obtener todas las farmacias sin repetir
     const farmaciasUnicas = new Map();
     for (const grupo in ciclosData) {
         for (const f of ciclosData[grupo]) {
@@ -513,8 +504,7 @@ function mostrarTodasLasFarmacias() {
     const todas = Array.from(farmaciasUnicas.values());
 
     // Actualizar encabezado
-    const introDiv = document.getElementById('intro');
-    introDiv.innerHTML = `
+    document.getElementById('intro').innerHTML = `
         <div class="intro-line">
             <span class="icon-intro">📍</span>
             <span>Todas las farmacias de Mar del Plata</span>
@@ -524,7 +514,7 @@ function mostrarTodasLasFarmacias() {
         </div>
     `;
 
-    // Actualizar lista (solo nombre y dirección, sin teléfono)
+    // Actualizar lista
     const listaDiv = document.getElementById('lista');
     listaDiv.innerHTML = '';
     todas.forEach((f, i) => {
@@ -545,6 +535,17 @@ function mostrarTodasLasFarmacias() {
         };
         listaDiv.appendChild(div);
     });
+
+    // Actualizar mapa con TODAS las farmacias (el mapa desktop sigue visible)
+    limpiarMarcadores();
+    agregarMarcadores(todas);
+
+    // Cambiar el texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '↺ Volver';
+    btn.classList.remove('btn-todas');
+    btn.classList.add('btn-volver');
+}
 
     // Actualizar mapa con todas las farmacias (aunque esté oculto, se actualiza por si vuelve)
     limpiarMarcadores();
