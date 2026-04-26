@@ -37,6 +37,34 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 
   <style>
+        /* ========== FORZAR ANCHO DEL MAPA EN MODO VER TODAS ========== */
+    /* Asegura que el grid siempre tenga dos columnas del mismo ancho */
+    .layout {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 24px 60px;
+    }
+
+    /* La columna de la lista puede encogerse pero no desbordar */
+    .col-list {
+      min-width: 0;
+      overflow-x: auto;
+    }
+
+    /* La columna del mapa debe tener un ancho mínimo */
+    .col-map {
+      min-width: 400px;
+      width: 100%;
+    }
+
+    /* El mapa ocupa todo el ancho de su contenedor */
+    #map-desktop {
+      width: 100% !important;
+      height: 500px;
+    }
     /* ========== RESET Y VARIABLES ========== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -982,6 +1010,26 @@
 
     // Muestra todas las farmacias (sin repetir) en la lista y en el mapa
     function mostrarTodasLasFarmacias() {
+      function mostrarTodasLasFarmacias() {
+    if (modoTodas) return;
+    modoTodas = true;
+
+    // FORZAR EL LAYOUT PARA QUE EL MAPA NO SE ACHIQUE
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = 'grid';
+        layout.style.gridTemplateColumns = '1fr 1fr';
+        layout.style.gap = '28px';
+    }
+
+    // Guardar estado original
+    farmaciasOriginales = {
+        lista: document.getElementById('lista').innerHTML,
+        intro: document.getElementById('intro').innerHTML
+    };
+
+    // ... resto del código igual
+}
     if (modoTodas) return;
     modoTodas = true;
 
