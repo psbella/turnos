@@ -966,7 +966,9 @@
     function mostrarTodasLasFarmacias() {
     if (modoTodas) return;
     modoTodas = true;
-
+    // Agregar clase CSS para forzar el ancho del mapa
+    document.body.classList.add('modo-todas');
+      
     // Guardar estado original
     farmaciasOriginales = {
         lista: document.getElementById('lista').innerHTML,
@@ -1038,6 +1040,11 @@
     function volverATurno() {
     if (!modoTodas) return;
     modoTodas = false;
+      
+    document.body.classList.remove('modo-todas');
+
+    // ... resto de la función (sin cambios)
+}
 
     // Restaurar la lista y el intro originales
     document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
