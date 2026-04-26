@@ -1,2 +1,2 @@
 User-agent: *
-Disallow: /ciclos_final.json
+Disallow: /ciclos_oficiales_definitivo.json
