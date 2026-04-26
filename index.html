@@ -19,25 +19,33 @@
 
   <title>Farmacias de Turno · Mar del Plata</title>
 
+  <!-- ANTI-CACHÉ: Evita que el navegador guarde versiones viejas -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
+  <!-- Favicon cruz verde -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
 
+  <!-- Fuentes y CSS de Leaflet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 
   <style>
+    /* ==================== RESET Y VARIABLES ==================== */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--bg-dark:#0d1117;--surface-dark:#161b22;--text-dark:#e6edf3;--border-dark:rgba(255,255,255,0.08);--bg-light:#f6f8fa;--surface-light:#ffffff;--text-light:#1f2328;--border-light:rgba(0,0,0,0.1);--accent:#3fb950;--accent-dim:rgba(63,185,80,0.12);--radius:14px}
+    
+    /* ==================== ESTILOS BASE ==================== */
     body{font-family:'Nunito',sans-serif;min-height:100dvh;display:flex;flex-direction:column;transition:background-color .3s ease,color .3s ease}
     body *{transition:background-color .2s ease,border-color .2s ease,color .2s ease}
     body.dark{--bg:var(--bg-dark);--surface:var(--surface-dark);--text:var(--text-dark);--border:rgba(255,255,255,0.08);background:var(--bg-dark);color:var(--text-dark)}
     body.light{--bg:var(--bg-light);--surface:var(--surface-light);--text:var(--text-light);--border:rgba(0,0,0,0.1);background:var(--bg-light);color:var(--text-light)}
+    
+    /* ==================== HEADER ==================== */
     header{border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);backdrop-filter:blur(10px);z-index:10}
     .header-inner{max-width:1100px;margin:0 auto;padding:18px 24px;display:flex;flex-direction:column;gap:4px}
     .header-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
@@ -47,6 +55,8 @@
     .cross::after{width:32px;height:12px;left:0;top:10px}
     .app-title{font-family:'Bebas Neue',sans-serif;font-size:27px;color:var(--text);letter-spacing:1px}
     .subtitle{font-size:14px;color:#7d8590;margin-left:44px;letter-spacing:1px}
+    
+    /* ==================== BOTÓN TEMA (TOGGLE) ==================== */
     .theme-switch-wrapper{margin-left:12px;text-align:center}
     .theme-switch{width:64px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:30px;position:relative;cursor:pointer;transition:all .3s;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 6px;box-sizing:border-box}
     .theme-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;pointer-events:none;z-index:1}
@@ -54,18 +64,46 @@
     .theme-slider{width:22px;height:22px;background:var(--accent);border-radius:50%;position:absolute;top:2px;left:3px;transition:transform .3s ease;box-shadow:0 1px 2px rgba(0,0,0,0.2)}
     .theme-switch.active .theme-slider{transform:translateX(34px)}
     .theme-label{font-size:10px;color:#7d8590;margin-top:5px;text-transform:lowercase}
-    .btn-todas,.btn-volver{background:var(--surface);border:1px solid var(--border);border-radius:30px;padding:6px 14px;cursor:pointer;font-size:12px;color:var(--accent);transition:all .2s;display:inline-flex;align-items:center;gap:6px;font-weight:500}
-    .btn-todas:hover,.btn-volver:hover{background:var(--accent-dim);transform:scale(1.02);border-color:var(--accent)}
+    
+    /* ==================== BOTÓN VER TODAS (abajo de la lista) ==================== */
+    .btn-todas, .btn-volver {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--accent);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      margin: 0 auto;
+    }
+    .btn-todas:hover, .btn-volver:hover {
+      background: var(--accent-dim);
+      transform: scale(1.02);
+      border-color: var(--accent);
+    }
+    
+    /* ==================== LAYOUT PRINCIPAL ==================== */
     .layout{max-width:1100px;margin:0 auto;padding:24px 24px 60px;flex:1}
     @media (min-width:768px){.layout{display:grid;grid-template-columns:1fr 1fr;gap:28px}}
     .col-list{min-width:0;width:100%}
     #lista, .intro{width:100%;box-sizing:border-box}
+    
+    /* ==================== INTRO (ENCABEZADO DEL TURNO) ==================== */
     .intro{font-size:16px;color:var(--text);margin-bottom:20px;padding:16px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);display:flex;flex-direction:column;gap:10px}
     .intro-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .intro strong{color:var(--accent);font-weight:700}
     .stats{font-size:14px;color:#7d8590;display:flex;align-items:center;gap:8px}
+    
+    /* ==================== ÍCONOS SVG ==================== */
     .icon-intro,.icon-stats,.icon-location,.icon-phone,.icon-data,.icon-dev{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0}
     .icon-intro svg,.icon-stats svg,.icon-location svg,.icon-phone svg,.icon-data svg,.icon-dev svg{width:18px;height:18px}
+    
+    /* ==================== TARJETAS DE FARMACIAS ==================== */
     .card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;cursor:pointer;transition:all .2s}
     body.light .card:hover{background:#f0f2f5}
     body.dark .card:hover{background:#1a1f2a}
@@ -76,20 +114,30 @@
     .card-address{font-size:12px;color:var(--text);opacity:0.85;display:flex;align-items:center;gap:6px;word-break:break-word}
     .card-phone{font-size:12px;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:6px;white-space:nowrap}
     .phone-link{color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+    
+    /* ==================== MAPA DESKTOP ==================== */
     .col-map{display:none}
     @media (min-width:768px){.col-map{display:block;position:sticky;top:90px}}
     #map-desktop{height:500px;width:100%;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#1a1f2a}
+    
+    /* ==================== MAPA MOBILE (HOJA DESLIZABLE) ==================== */
     .map-sheet{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .3s ease;z-index:20}
     .map-sheet.open{transform:translateY(0)}
     .map-sheet-header{padding:16px;font-weight:700;text-align:center;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
     .map-sheet-close{background:none;border:none;color:#7d8590;font-size:24px;cursor:pointer;padding:0 8px}
     #map-mobile-sheet{height:350px;width:100%;background:#1a1f2a}
+    
+    /* ==================== FOOTER ==================== */
     .footer{max-width:1100px;margin:0 auto;padding:24px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:#7d8590}
     .footer p{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;flex-wrap:wrap}
     .footer a{color:var(--accent);text-decoration:none}
     .footer a:hover{text-decoration:underline}
+    
+    /* ==================== ENLACE A GOOGLE MAPS EN POPUP ==================== */
     .gmaps-link{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 0;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;transition:opacity .2s}
     .gmaps-link:hover{opacity:0.8;text-decoration:underline}
+    
+    /* ==================== RESPONSIVE MOBILE ==================== */
     @media (max-width:768px){
       .header-top{flex-wrap:wrap;justify-content:space-between;align-items:center;row-gap:8px}
       .cross{order:1}
@@ -115,6 +163,7 @@
     <div class="header-top">
       <div class="cross"></div>
       <div class="app-title">Farmacias de Turno</div>
+      <!-- Botón de tema (toggle claro/oscuro) -->
       <div class="theme-switch-wrapper">
         <div class="theme-switch" id="theme-switch">
           <span class="theme-icon sun"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M12 1.5V3.5M12 20.5V22.5M1.5 12H3.5M20.5 12H22.5M4.3 4.3L5.7 5.7M18.3 18.3L19.7 19.7M19.7 4.3L18.3 5.7M5.7 18.3L4.3 19.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
@@ -129,18 +178,22 @@
 </header>
 
 <div class="layout">
+  <!-- Columna izquierda: lista de farmacias -->
   <div class="col-list">
     <div class="intro" id="intro"><span>Cargando datos...</span></div>
     <div id="lista"></div>
+    <!-- Botón Ver todas (abajo de la lista) -->
     <div style="display: flex; justify-content: center; margin-top: 24px;">
       <button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button>
     </div>
   </div>
+  <!-- Columna derecha: mapa desktop -->
   <div class="col-map">
     <div id="map-desktop"></div>
   </div>
 </div>
 
+<!-- Hoja deslizable para mapa mobile -->
 <div class="map-sheet" id="mapSheet">
   <div class="map-sheet-header">
     <span id="sheetName"></span>
@@ -150,33 +203,283 @@
 </div>
 
 <footer class="footer">
-  <p><span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="var(--accent)"/></svg></span><span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span></p>
-  <p><span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="var(--accent)"/></svg></span><span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span></p>
-  <p style="font-size:11px;margin-top:8px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap"><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> <span>·</span> <a href="privacidad.html" target="_blank">Política de Privacidad</a> <span>·</span> <span>© 2026 Farmacias de Turno MDP</span></p>
+  <p>
+    <span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="var(--accent)"/></svg></span>
+    <span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span>
+  </p>
+  <p>
+    <span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="var(--accent)"/></svg></span>
+    <span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span>
+  </p>
+  <p style="font-size:11px;margin-top:8px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
+    <span>·</span>
+    <a href="privacidad.html" target="_blank">Política de Privacidad</a>
+    <span>·</span>
+    <span>© 2026 Farmacias de Turno MDP</span>
+  </p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
-const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',RUTA_JSON:'ciclos_oficiales_definitivo.json'};
-let ciclosData={},mapDesktop=null,mapMobile=null,activeCard=null,markersDesktop=[],markersMobile=[],farmaciasCoords=[];
-const FECHA_INICIO_CICLO_1=new Date(2026,2,25,9,0,0);
-function pad(n){return String(n).padStart(2,'0');}
-function formatearFechaGMT3(){const a=new Date(),o={timeZone:CONFIG.ZONA_HORARIA};return new Date(a.toLocaleString('en-US',o));}
-function labelFecha(d){const di=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],me=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`;}
-function capFirst(s){return s?s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()):'';}
-function limpiarTelefono(t){return(!t||t==='nan'||t==='NaN'||t==='null')?'':t.replace(/\s/g,'');}
-function obtenerCicloActual(){const f=formatearFechaGMT3(),d=Math.floor((f-FECHA_INICIO_CICLO_1)/864e5);let c=(d%16)+1;if(c<=0)c=1;return c;}
-const pharmacyIcon=L.divIcon({className:'custom-pharmacy-icon',html:'<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>',iconSize:[34,34],popupAnchor:[0,-17]});
-async function cargarDatos(){const i=document.getElementById('intro');try{console.log('Cargando JSON...');const r=await fetch(CONFIG.RUTA_JSON);if(!r.ok)throw new Error('HTTP '+r.status);ciclosData=await r.json();mostrarFarmacias();}catch(e){console.error(e);i.innerHTML='⚠️ Error al cargar datos';document.getElementById('lista').innerHTML='<div class="card">No se pudieron cargar las farmacias</div>';}}
-function initMaps(){if(!mapDesktop)mapDesktop=L.map('map-desktop').setView([-38.0055,-57.5426],12),L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(mapDesktop);if(!mapMobile)mapMobile=L.map('map-mobile-sheet').setView([-38.0055,-57.5426],12),L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(mapMobile);}
-function limpiarMarcadores(){markersDesktop.forEach(m=>mapDesktop.removeLayer(m));markersMobile.forEach(m=>mapMobile.removeLayer(m));markersDesktop=[];markersMobile=[];farmaciasCoords=[];}
-function agregarMarcadores(farmacias){initMaps();limpiarMarcadores();const dBounds=L.latLngBounds(),mBounds=L.latLngBounds();farmacias.forEach((f,i)=>{const c=f.lat&&f.lng?[f.lat,f.lng]:null;farmaciasCoords[i]=c;const tClean=limpiarTelefono(f.telefono);const tIcon=`<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;const tLink=tClean?`<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>`:'<br>📞 Sin teléfono';const gUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion+', Mar del Plata')}`;const pop=`<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;if(c){const mD=L.marker(c,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(pop);const mM=L.marker(c,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(pop);markersDesktop.push(mD);markersMobile.push(mM);dBounds.extend(c);mBounds.extend(c);}else{const fb=[-38.0055,-57.5426];const mD=L.marker(fb,{icon:pharmacyIcon}).addTo(mapDesktop).bindPopup(pop+'<br><small>📍 Ubicación aproximada</small>');const mM=L.marker(fb,{icon:pharmacyIcon}).addTo(mapMobile).bindPopup(pop+'<br><small>📍 Ubicación aproximada</small>');markersDesktop.push(mD);markersMobile.push(mM);dBounds.extend(fb);mBounds.extend(fb);}});if(farmacias.length>0){if(!mapDesktop._initialZoom){mapDesktop.fitBounds(dBounds);mapDesktop._initialZoom=true;}if(!mapMobile._initialZoom){mapMobile.fitBounds(mBounds);mapMobile._initialZoom=true;}}console.log(`📍 Marcadores agregados:`,farmacias.length);}
-function getLocationIcon(){return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;}
-function getPhoneIcon(){return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;}
-function mostrarFarmacias(){const ciclo=obtenerCicloActual(),farmacias=ciclosData[ciclo]||[],fecha=formatearFechaGMT3(),intro=document.getElementById('intro'),lista=document.getElementById('lista');if(!farmacias.length){intro.innerHTML=`<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`;lista.innerHTML='<div class="card">Sin farmacias registradas</div>';return;}const fechaFin=new Date(fecha);fechaFin.setDate(fechaFin.getDate()+1);intro.innerHTML=`<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;lista.innerHTML='';farmacias.forEach((f,i)=>{const div=document.createElement('div');div.className='card';const tClean=limpiarTelefono(f.telefono);const tLink=tClean?`<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>`:`<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;div.innerHTML=`<div class="card-num">${pad(i+1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;div.onclick=e=>{if(e.target.closest('.phone-link'))return;const sheet=document.getElementById('mapSheet');document.getElementById('sheetName').innerHTML=`${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;sheet.classList.add('open');const c=farmaciasCoords[i];if(c)mapMobile.setView(c,16);if(c&&markersMobile[i])markersMobile[i].openPopup();if(activeCard)activeCard.classList.remove('active');div.classList.add('active');activeCard=div;if(mapDesktop&&markersDesktop[i])markersDesktop[i].openPopup();};lista.appendChild(div);});agregarMarcadores(farmacias);}
-function programarActualizacion(){const a=formatearFechaGMT3();let p=new Date(a);p.setHours(9,0,0,0);if(a>=p)p.setDate(p.getDate()+1);setTimeout(()=>{mostrarFarmacias();programarActualizacion();},p-a);}
-document.getElementById('closeSheet').onclick=()=>document.getElementById('mapSheet').classList.remove('open');
-let modoTodas=false,farmaciasOriginales=null;
+// ==================== CONFIGURACIÓN INICIAL ====================
+const CONFIG = {
+    HORA_CAMBIO: 9,                                   // El cambio de ciclo ocurre a las 9:00 AM
+    ZONA_HORARIA: 'America/Argentina/Buenos_Aires',   // Zona horaria GMT-3
+    RUTA_JSON: 'ciclos_oficiales_definitivo.json'     // Archivo JSON con los datos de farmacias
+};
+
+// ==================== VARIABLES GLOBALES ====================
+let ciclosData = {};          // Datos cargados del JSON
+let mapDesktop = null;        // Mapa para escritorio
+let mapMobile = null;         // Mapa para móvil (dentro de la hoja deslizable)
+let activeCard = null;        // Tarjeta activa en la lista
+let markersDesktop = [];      // Marcadores del mapa desktop
+let markersMobile = [];       // Marcadores del mapa mobile
+let farmaciasCoords = [];     // Coordenadas de las farmacias del ciclo actual
+
+// Fecha de inicio del ciclo 1 (ajustada para que coincida con el calendario oficial)
+const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0); // 25 de marzo 9:00 GMT-3
+
+// ==================== FUNCIONES AUXILIARES ====================
+// Agrega cero a la izquierda (ej: 1 -> 01)
+function pad(n) { return String(n).padStart(2, '0'); }
+
+// Obtiene la fecha actual en GMT-3 (zona horaria de Argentina)
+function formatearFechaGMT3() {
+    const ahora = new Date();
+    const opciones = { timeZone: CONFIG.ZONA_HORARIA };
+    return new Date(ahora.toLocaleString('en-US', opciones));
+}
+
+// Formatea una fecha para mostrarla en el encabezado (ej: "domingo 26 de abril de 2026")
+function labelFecha(d) {
+    const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    return `${dias[d.getDay()]} ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
+}
+
+// Capitaliza la primera letra de cada palabra
+function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
+
+// Limpia el formato de los teléfonos para el enlace "tel:"
+function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
+
+// ==================== CÁLCULO DEL CICLO ACTUAL ====================
+// Calcula el número de ciclo (1 al 16) según la fecha actual y la fecha de inicio
+function obtenerCicloActual() {
+    const fechaActual = formatearFechaGMT3();
+    const diferenciaMs = fechaActual - FECHA_INICIO_CICLO_1;
+    const diasCompletos = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
+    let ciclo = (diasCompletos % 16) + 1;
+    if (ciclo <= 0) ciclo = 1;
+    return ciclo;
+}
+
+// ==================== ICONO DEL MAPA (PIN SVG) ====================
+const pharmacyIcon = L.divIcon({
+    className: 'custom-pharmacy-icon',
+    html: `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/>
+            <path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+           </svg>`,
+    iconSize: [34, 34],
+    popupAnchor: [0, -17]
+});
+
+// ==================== CARGA DEL JSON ====================
+async function cargarDatos() {
+    const intro = document.getElementById('intro');
+    try {
+        const response = await fetch(CONFIG.RUTA_JSON);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        ciclosData = await response.json();
+        mostrarFarmacias();
+    } catch (e) {
+        console.error(e);
+        intro.innerHTML = '⚠️ Error al cargar datos';
+        document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>';
+    }
+}
+
+// ==================== INICIALIZACIÓN DE MAPAS ====================
+function initMaps() {
+    if (!mapDesktop) {
+        mapDesktop = L.map('map-desktop').setView([-38.0055, -57.5426], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(mapDesktop);
+    }
+    if (!mapMobile) {
+        mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(mapMobile);
+    }
+}
+
+// Limpia todos los marcadores de los mapas
+function limpiarMarcadores() {
+    markersDesktop.forEach(m => mapDesktop.removeLayer(m));
+    markersMobile.forEach(m => mapMobile.removeLayer(m));
+    markersDesktop = [];
+    markersMobile = [];
+    farmaciasCoords = [];
+}
+
+// ==================== AGREGAR MARCADORES AL MAPA ====================
+function agregarMarcadores(farmacias) {
+    initMaps();
+    limpiarMarcadores();
+    const desktopBounds = L.latLngBounds();
+    const mobileBounds = L.latLngBounds();
+
+    farmacias.forEach((f, i) => {
+        const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
+        farmaciasCoords[i] = coords;
+
+        const telefonoLimpio = limpiarTelefono(f.telefono);
+        const telefonoIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
+        const telefonoLink = telefonoLimpio
+            ? `<br><a href="tel:${telefonoLimpio}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${telefonoIcon} ${f.telefono}</a>`
+            : '<br>📞 Sin teléfono';
+
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
+        const popupContent = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${telefonoLink}<br>
+            <a href="${mapsUrl}" target="_blank" class="gmaps-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/>
+                    <circle cx="12" cy="9" r="3" fill="var(--bg)"/>
+                </svg>
+                Google Maps
+            </a>`;
+
+        if (coords) {
+            const markerDesktop = L.marker(coords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent);
+            const markerMobile = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent);
+            markersDesktop.push(markerDesktop);
+            markersMobile.push(markerMobile);
+            desktopBounds.extend(coords);
+            mobileBounds.extend(coords);
+        } else {
+            const fallback = [-38.0055, -57.5426];
+            const markerDesktop = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent + '<br><small>📍 Ubicación aproximada</small>');
+            const markerMobile = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent + '<br><small>📍 Ubicación aproximada</small>');
+            markersDesktop.push(markerDesktop);
+            markersMobile.push(markerMobile);
+            desktopBounds.extend(fallback);
+            mobileBounds.extend(fallback);
+        }
+    });
+
+    if (farmacias.length > 0) {
+        if (!mapDesktop._initialZoom) {
+            mapDesktop.fitBounds(desktopBounds);
+            mapDesktop._initialZoom = true;
+        }
+        if (!mapMobile._initialZoom) {
+            mapMobile.fitBounds(mobileBounds);
+            mapMobile._initialZoom = true;
+        }
+    }
+}
+
+// ==================== ÍCONOS SVG PARA LA LISTA ====================
+function getLocationIcon() {
+    return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;
+}
+function getPhoneIcon() {
+    return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
+}
+
+// ==================== MOSTRAR LISTA DE FARMACIAS (TURNO ACTUAL) ====================
+function mostrarFarmacias() {
+    const ciclo = obtenerCicloActual();
+    const farmacias = ciclosData[ciclo] || [];
+    const fecha = formatearFechaGMT3();
+    const intro = document.getElementById('intro');
+    const lista = document.getElementById('lista');
+
+    if (!farmacias.length) {
+        intro.innerHTML = `<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`;
+        lista.innerHTML = '<div class="card">Sin farmacias registradas</div>';
+        return;
+    }
+
+    const fechaFin = new Date(fecha);
+    fechaFin.setDate(fechaFin.getDate() + 1);
+
+    intro.innerHTML = `
+        <div class="intro-line">
+            <span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span>
+            <span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span>
+            <span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span>
+        </div>
+        <div class="stats">
+            <span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
+            <span>${farmacias.length} farmacias de turno</span>
+        </div>
+    `;
+
+    lista.innerHTML = '';
+    farmacias.forEach((f, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+
+        const telefonoLimpio = limpiarTelefono(f.telefono);
+        const telefonoLink = telefonoLimpio
+            ? `<a href="tel:${telefonoLimpio}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>`
+            : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
+
+        div.innerHTML = `
+            <div class="card-num">${pad(i + 1)}</div>
+            <div class="card-info">
+                <div class="card-name">${capFirst(f.nombre)}</div>
+                <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+            </div>
+            <div class="card-phone">${telefonoLink}</div>
+        `;
+
+        div.onclick = (e) => {
+            if (e.target.closest('.phone-link')) return;
+            const sheet = document.getElementById('mapSheet');
+            document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
+            sheet.classList.add('open');
+            const coords = farmaciasCoords[i];
+            if (coords && mapMobile) {
+                mapMobile.setView(coords, 16);
+                if (markersMobile[i]) markersMobile[i].openPopup();
+            }
+            if (activeCard) activeCard.classList.remove('active');
+            div.classList.add('active');
+            activeCard = div;
+            if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup();
+        };
+        lista.appendChild(div);
+    });
+    agregarMarcadores(farmacias);
+}
+
+// ==================== ACTUALIZACIÓN AUTOMÁTICA (cambio de ciclo a las 9:00 AM) ====================
+function programarActualizacion() {
+    const ahora = formatearFechaGMT3();
+    let proxima = new Date(ahora);
+    proxima.setHours(9, 0, 0, 0);
+    if (ahora >= proxima) proxima.setDate(proxima.getDate() + 1);
+    setTimeout(() => {
+        mostrarFarmacias();
+        programarActualizacion();
+    }, proxima - ahora);
+}
+
+// ==================== CIERRE DE LA HOJA DEL MAPA MÓVIL ====================
+document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
+
+// ==================== FUNCIONALIDAD "VER TODAS LAS FARMACIAS" ====================
+let modoTodas = false;
+let farmaciasOriginales = null;
+
+// Muestra todas las farmacias (sin repetir) y oculta el mapa desktop para que la lista ocupe todo el ancho
 function mostrarTodasLasFarmacias() {
     if (modoTodas) return;
     modoTodas = true;
@@ -199,7 +502,7 @@ function mostrarTodasLasFarmacias() {
         layout.style.display = 'block';
     }
 
-    // Obtener todas las farmacias sin repetir
+    // Obtener todas las farmacias sin repetir (por nombre+direccion)
     const farmaciasUnicas = new Map();
     for (const grupo in ciclosData) {
         for (const f of ciclosData[grupo]) {
@@ -221,7 +524,7 @@ function mostrarTodasLasFarmacias() {
         </div>
     `;
 
-    // Actualizar lista
+    // Actualizar lista (solo nombre y dirección, sin teléfono)
     const listaDiv = document.getElementById('lista');
     listaDiv.innerHTML = '';
     todas.forEach((f, i) => {
@@ -243,7 +546,7 @@ function mostrarTodasLasFarmacias() {
         listaDiv.appendChild(div);
     });
 
-    // Actualizar mapa con todas las farmacias (el mapa desktop está oculto, pero igual se actualiza por si vuelve)
+    // Actualizar mapa con todas las farmacias (aunque esté oculto, se actualiza por si vuelve)
     limpiarMarcadores();
     agregarMarcadores(todas);
 
@@ -253,6 +556,8 @@ function mostrarTodasLasFarmacias() {
     btn.classList.remove('btn-todas');
     btn.classList.add('btn-volver');
 }
+
+// Vuelve al modo normal (turno actual) y restaura el mapa desktop
 function volverATurno() {
     if (!modoTodas) return;
     modoTodas = false;
@@ -285,30 +590,68 @@ function volverATurno() {
     btn.classList.remove('btn-volver');
     btn.classList.add('btn-todas');
 }
-function initTheme(){
-    const savedTheme=localStorage.getItem('theme');
-    const savedMode=localStorage.getItem('modoAutomatico');
-    if(savedTheme&&savedMode==='false'){
-        modoAutomatico=false;
+
+// Evento del botón Ver todas / Volver
+document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
+    if (modoTodas) volverATurno();
+    else mostrarTodasLasFarmacias();
+});
+
+// ==================== TEMA AUTOMÁTICO POR HORARIO + TOGGLE MANUAL ====================
+let modoAutomatico = true;
+
+function aplicarTema(tema) {
+    const sw = document.getElementById('theme-switch');
+    const label = document.getElementById('theme-label');
+    if (tema === 'light') {
+        document.body.classList.add('light');
+        document.body.classList.remove('dark');
+        if (sw) sw.classList.add('active');
+        if (label) label.textContent = 'tema claro';
+    } else {
+        document.body.classList.add('dark');
+        document.body.classList.remove('light');
+        if (sw) sw.classList.remove('active');
+        if (label) label.textContent = 'tema oscuro';
+    }
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const savedMode = localStorage.getItem('modoAutomatico');
+    
+    // Si hay una preferencia manual guardada, usarla
+    if (savedTheme && savedMode === 'false') {
+        modoAutomatico = false;
         aplicarTema(savedTheme);
         return;
     }
-    modoAutomatico=true;
-    const ahora=formatearFechaGMT3();
-    const hora=ahora.getHours();
-    const esDia=(hora>=8&&hora<20);
-    const temaInicial=esDia?'light':'dark';
+    
+    // Si no, usar horario: de 8:00 a 20:00 = claro, resto oscuro
+    modoAutomatico = true;
+    const ahora = formatearFechaGMT3();
+    const hora = ahora.getHours();
+    const esDia = (hora >= 8 && hora < 20);
+    const temaInicial = esDia ? 'light' : 'dark';
     aplicarTema(temaInicial);
 }
-document.getElementById('theme-switch').onclick=()=>{
-    modoAutomatico=false;
-    const esClaroActual=document.body.classList.contains('light');
-    const nuevoTema=esClaroActual?'dark':'light';
+
+// Evento del toggle (cambio manual de tema)
+document.getElementById('theme-switch').onclick = () => {
+    modoAutomatico = false;
+    const esClaroActual = document.body.classList.contains('light');
+    const nuevoTema = esClaroActual ? 'dark' : 'light';
     aplicarTema(nuevoTema);
-    localStorage.setItem('theme',nuevoTema);
-    localStorage.setItem('modoAutomatico','false');
+    localStorage.setItem('theme', nuevoTema);
+    localStorage.setItem('modoAutomatico', 'false');
 };
-(async()=>{initTheme();await cargarDatos();programarActualizacion();})();
+
+// ==================== INICIALIZACIÓN PRINCIPAL ====================
+(async () => {
+    initTheme();          // Inicializar tema (automático o guardado)
+    await cargarDatos();  // Cargar JSON y mostrar farmacias
+    programarActualizacion(); // Programar cambio de ciclo para las 9:00 AM
+})();
 </script>
 </body>
 </html>
