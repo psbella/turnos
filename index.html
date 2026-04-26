@@ -150,7 +150,15 @@ const CONFIG={HORA_CAMBIO:9,ZONA_HORARIA:'America/Argentina/Buenos_Aires',RUTA_J
 let ciclosData={},mapDesktop=null,mapMobile=null,activeCard=null,markersDesktop=[],markersMobile=[],farmaciasCoords=[];
 const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 26, 9, 0, 0); // 26 de abril 9:00
 function pad(n){return String(n).padStart(2,'0');}
-function formatearFechaGMT3(){const a=new Date(),o={timeZone:CONFIG.ZONA_HORARIA};return new Date(a.toLocaleString('en-US',o));}
+function formatearFechaGMT3() {
+    // Si hay una fecha forzada, usarla
+    if (window.fechaForzada) {
+        return new Date(window.fechaForzada);
+    }
+    const ahora = new Date();
+    const opciones = { timeZone: CONFIG.ZONA_HORARIA };
+    return new Date(ahora.toLocaleString("en-US", opciones));
+}
 function labelFecha(d){const di=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],me=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`;}
 function capFirst(s){return s?s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()):'';}
 function limpiarTelefono(t){return(!t||t==='nan'||t==='NaN'||t==='null')?'':t.replace(/\s/g,'');}
