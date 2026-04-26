@@ -986,11 +986,19 @@
           </div>
         `;
         div.onclick = () => {
-          if (f.lat && f.lng) {
-            mapDesktop.setView([f.lat, f.lng], 16);
-            if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
-          }
-        };
+    if (f.lat && f.lng) {
+        mapDesktop.setView([f.lat, f.lng], 16);
+        if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
+        
+        // 👇 DESPLAZAR SUAVEMENTE HASTA EL MAPA
+        if (window.innerWidth >= 768) {
+            const mapContainer = document.querySelector('.col-map');
+            if (mapContainer) {
+                mapContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
+};
         listaDiv.appendChild(div);
       });
 
