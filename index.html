@@ -49,7 +49,7 @@
     .cross::after{width:32px;height:12px;left:0;top:10px}
     .app-title{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--text);letter-spacing:1px}
     .subtitle{font-size:14px;color:#7d8590;margin-left:44px;letter-spacing:1px}
-    .btn-todas,.btn-volver{background:var(--surface);border:1px solid var(--border);border-radius:30px;padding:6px 12px;cursor:pointer;font-size:12px;color:var(--accent);transition:all .2s;margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:500}
+    .btn-todas,.btn-volver{background:var(--surface);border:1px solid var(--border);border-radius:30px;padding:6px 14px;cursor:pointer;font-size:12px;color:var(--accent);transition:all .2s;display:inline-flex;align-items:center;gap:6px;font-weight:500}
     .btn-todas:hover,.btn-volver:hover{background:var(--accent-dim);transform:scale(1.02);border-color:var(--accent)}
     .theme-switch-wrapper{margin-left:12px;text-align:center}
     .theme-switch{width:64px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:30px;position:relative;cursor:pointer;transition:all .3s;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 6px;box-sizing:border-box}
@@ -91,7 +91,24 @@
     .footer a:hover{text-decoration:underline}
     .gmaps-link{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 0;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;transition:opacity .2s}
     .gmaps-link:hover{opacity:0.8;text-decoration:underline}
-    @media (max-width:768px){.card{flex-wrap:wrap;gap:8px}.card-num{min-width:28px;font-size:18px}.card-info{flex:1;min-width:0}.card-name{font-size:14px;word-break:break-word}.card-address{font-size:11px;white-space:normal;word-break:break-word}.card-phone{font-size:11px;white-space:nowrap}.intro{font-size:14px;padding:12px}.stats{font-size:13px}.map-sheet-header{padding:12px;font-size:14px}#map-mobile{height:280px}.footer p{font-size:11px}}
+    @media (max-width:768px){
+      .header-top{flex-wrap:wrap;justify-content:space-between;align-items:center;row-gap:8px}
+      .cross{order:1}
+      .app-title{order:2;flex:1;font-size:22px}
+      .theme-switch-wrapper{order:3}
+      .btn-todas,.btn-volver{order:4;margin-left:auto;margin-right:0;margin-top:0}
+      .card{flex-wrap:wrap;gap:8px}
+      .card-num{min-width:28px;font-size:18px}
+      .card-info{flex:1;min-width:0}
+      .card-name{font-size:14px;word-break:break-word}
+      .card-address{font-size:11px;white-space:normal;word-break:break-word}
+      .card-phone{font-size:11px;white-space:nowrap}
+      .intro{font-size:14px;padding:12px}
+      .stats{font-size:13px}
+      .map-sheet-header{padding:12px;font-size:14px}
+      #map-mobile{height:280px}
+      .footer p{font-size:11px}
+    }
   </style>
 </head>
 <body class="dark">
@@ -100,7 +117,6 @@
     <div class="header-top">
       <div class="cross"></div>
       <div class="app-title">Farmacias de Turno</div>
-      <button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button>
       <div class="theme-switch-wrapper">
         <div class="theme-switch" id="theme-switch">
           <span class="theme-icon sun"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M12 1.5V3.5M12 20.5V22.5M1.5 12H3.5M20.5 12H22.5M4.3 4.3L5.7 5.7M18.3 18.3L19.7 19.7M19.7 4.3L18.3 5.7M5.7 18.3L4.3 19.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
@@ -111,6 +127,9 @@
       </div>
     </div>
     <div class="subtitle">CIUDAD DE MAR DEL PLATA</div>
+    <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
+      <button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button>
+    </div>
   </div>
 </header>
 <div class="layout">
