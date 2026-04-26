@@ -903,25 +903,30 @@
         `;
 
         div.onclick = (e) => {
-          if (e.target.closest('.phone-link')) return;
-          const sheet = document.getElementById('mapSheet');
-          document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
-          sheet.classList.add('open');
-          const coords = farmaciasCoords[i];
-          if (coords && mapMobile) {
-            mapMobile.setView(coords, 16);
-            if (markersMobile[i]) markersMobile[i].openPopup();
-          }
-          if (activeCard) activeCard.classList.remove('active');
-          div.classList.add('active');
-          activeCard = div;
-          if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup();
-        };
-        lista.appendChild(div);
-      });
-      agregarMarcadores(farmacias);
+    if (e.target.closest('.phone-link')) return;
+    const sheet = document.getElementById('mapSheet');
+    document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
+    sheet.classList.add('open');
+    const coords = farmaciasCoords[i];
+    if (coords && mapMobile) {
+        mapMobile.setView(coords, 16);
+        if (markersMobile[i]) markersMobile[i].openPopup();
     }
-
+    if (activeCard) activeCard.classList.remove('active');
+    div.classList.add('active');
+    activeCard = div;
+    if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup();
+    
+    // Scroll suave hasta el mapa en desktop
+    if (window.innerWidth >= 768) {
+        const mapContainer = document.querySelector('.col-map');
+        if (mapContainer) {
+            const rect = mapContainer.getBoundingClientRect();
+            const scrollTop = window.pageYOffset + rect.top - 80;
+            window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+        }
+    }
+};
     // ==================== ACTUALIZACIÓN AUTOMÁTICA ====================
     function programarActualizacion() {
       const ahora = formatearFechaGMT3();
