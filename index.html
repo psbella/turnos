@@ -107,6 +107,41 @@
       #map-mobile-sheet{height:280px}
       .footer p{font-size:11px}
     }
+  /* ===== NUEVAS REGLAS PARA ANCHO CONSISTENTE ===== */
+    .col-list {
+      min-width: 280px;
+      width: 100%;
+    }
+
+    #lista, .intro {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Estilos fijos para el botón Ver todas / Volver */
+    .btn-todas, .btn-volver {
+      width: auto;
+      min-width: 110px;
+      white-space: nowrap;
+    }
+
+    /* Ajuste para desktop */
+    @media (min-width: 768px) {
+      .btn-todas, .btn-volver {
+        width: auto !important;
+        min-width: 120px;
+      }
+    }
+
+    /* Ajuste para mobile */
+    @media (max-width: 768px) {
+      .btn-todas, .btn-volver {
+        width: auto;
+        min-width: unset;
+        white-space: normal;
+        padding: 8px 16px;
+      }
+    }
   </style>
 </head>
 <body class="dark">
@@ -166,9 +201,104 @@ function mostrarFarmacias(){const ciclo=obtenerCicloActual(),farmacias=ciclosDat
 function programarActualizacion(){const a=formatearFechaGMT3();let p=new Date(a);p.setHours(9,0,0,0);if(a>=p)p.setDate(p.getDate()+1);setTimeout(()=>{mostrarFarmacias();programarActualizacion();},p-a);}
 document.getElementById('closeSheet').onclick=()=>document.getElementById('mapSheet').classList.remove('open');
 let modoTodas=false,farmaciasOriginales=null;
-function mostrarTodasLasFarmacias(){if(modoTodas)return;modoTodas=true;farmaciasOriginales={lista:document.getElementById('lista').innerHTML,intro:document.getElementById('intro').innerHTML};const farmaciasUnicas=new Map();for(const grupo in ciclosData){for(const f of ciclosData[grupo]){const key=`${f.nombre}|${f.direccion}`;if(!farmaciasUnicas.has(key))farmaciasUnicas.set(key,f);}}const todas=Array.from(farmaciasUnicas.values());document.getElementById('intro').innerHTML=`<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;const lista=document.getElementById('lista');lista.innerHTML='';todas.forEach((f,i)=>{const div=document.createElement('div');div.className='card';div.innerHTML=`<div class="card-num">${i+1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;div.onclick=()=>{if(f.lat&&f.lng){mapDesktop.setView([f.lat,f.lng],16);mapMobile.setView([f.lat,f.lng],16);}};lista.appendChild(div);});limpiarMarcadores();agregarMarcadores(todas);const btn=document.getElementById('btnTodasFarmacias');btn.textContent='↺ Volver';btn.classList.remove('btn-todas');btn.classList.add('btn-volver');}
-function volverATurno(){if(!modoTodas)return;modoTodas=false;document.getElementById('lista').innerHTML=farmaciasOriginales.lista;document.getElementById('intro').innerHTML=farmaciasOriginales.intro;mostrarFarmacias();const btn=document.getElementById('btnTodasFarmacias');btn.textContent='📍 Ver todas';btn.classList.remove('btn-volver');btn.classList.add('btn-todas');}
-document.getElementById('btnTodasFarmacias').addEventListener('click',()=>{if(modoTodas)volverATurno();else mostrarTodasLasFarmacias();});
+function mostrarTodasLasFarmacias() {
+    if (modoTodas) return;
+    modoTodas = true;
+
+    // Guardar estado original
+    farmaciasOriginales = {
+        lista: document.getElementById('lista').innerHTML,
+        intro: document.getElementById('intro').innerHTML,
+        width: document.querySelector('.col-list').style.width
+    };
+
+    // Asegurar que la columna de la lista mantenga el ancho
+    const colList = document.querySelector('.col-list');
+    if (colList) {
+        colList.style.width = '100%';
+    }
+
+    // Obtener todas las farmacias sin repetir
+    const farmaciasUnicas = new Map();
+    for (const grupo in ciclosData) {
+        for (const f of ciclosData[grupo]) {
+            const key = `${f.nombre}|${f.direccion}`;
+            if (!farmaciasUnicas.has(key)) {
+                farmaciasUnicas.set(key, f);
+            }
+        }
+    }
+    const todas = Array.from(farmaciasUnicas.values());
+
+    // Actualizar encabezado
+    const introDiv = document.getElementById('intro');
+    introDiv.innerHTML = `
+        <div class="intro-line">
+            <span class="icon-intro">📍</span>
+            <span>Todas las farmacias de Mar del Plata</span>
+        </div>
+        <div class="stats">
+            <span>🏪 ${todas.length} farmacias únicas</span>
+        </div>
+    `;
+
+    // Actualizar lista
+    const listaDiv = document.getElementById('lista');
+    listaDiv.innerHTML = '';
+    todas.forEach((f, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+            <div class="card-num">${i + 1}</div>
+            <div class="card-info">
+                <div class="card-name">${capFirst(f.nombre)}</div>
+                <div class="card-address">📍 ${f.direccion}</div>
+            </div>
+        `;
+        div.onclick = () => {
+            if (f.lat && f.lng) {
+                mapDesktop.setView([f.lat, f.lng], 16);
+                mapMobile.setView([f.lat, f.lng], 16);
+            }
+        };
+        listaDiv.appendChild(div);
+    });
+
+    // Actualizar mapa con todas las farmacias
+    limpiarMarcadores();
+    agregarMarcadores(todas);
+
+    // Cambiar texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '↺ Volver';
+    btn.classList.remove('btn-todas');
+    btn.classList.add('btn-volver');
+}
+function volverATurno() {
+    if (!modoTodas) return;
+    modoTodas = false;
+
+    // Restaurar la lista y el intro originales
+    document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
+    document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
+
+    // Restaurar el ancho de la columna
+    const colList = document.querySelector('.col-list');
+    if (colList && farmaciasOriginales.width !== undefined) {
+        colList.style.width = farmaciasOriginales.width;
+    } else if (colList) {
+        colList.style.width = '';
+    }
+
+    // Recargar las farmacias del turno actual
+    mostrarFarmacias();
+
+    // Restaurar el texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '📍 Ver todas';
+    btn.classList.remove('btn-volver');
+    btn.classList.add('btn-todas');
+}
 // ==================== TEMA AUTOMÁTICO POR HORARIO + TOGGLE MANUAL ====================
 let modoAutomatico = true;
 function aplicarTema(tema) {
