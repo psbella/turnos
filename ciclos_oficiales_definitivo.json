@@ -151,7 +151,7 @@
     { "nombre": "SAN JOSE", "direccion": "PUAN 1712", "telefono": "4840213", "lat": -38.0655852, "lng": -57.5477515 },
     { "nombre": "SZPYRNAL SCS", "direccion": "RODRIGUEZ PEÑA 3695", "telefono": "4763940", "lat": -38.0073981, "lng": -57.5687521 },
     { "nombre": "TROZZI", "direccion": "PERALTA RAMOS 1701", "telefono": "2233008488", "lat": -38.0305863, "lng": -57.5853834 },
-    { "nombre": "VIDELA", "direccion": "18 262 CHAPADMALAL", "telefono": "2233545778", "lat": -38.0489983, "lng": -57.5938164 },
+    { "nombre": "VIDELA", "direccion": "18 262 CHAPADMALAL", "telefono": "2233545778", "lat": -38.03445180299243, "lng": -57.714510484874964 },
     { "nombre": "VITA", "direccion": "TEODORO BRONZINI 210", "telefono": "2235033528", "lat": -37.9712356, "lng": -57.5693342 }
   ],
   "13": [
@@ -159,7 +159,7 @@
     { "nombre": "DEL AGUILA", "direccion": "LURO 4610", "telefono": "4721830", "lat": -37.988433, "lng": -57.5666545 },
     { "nombre": "FARMACIA SUR SCS", "direccion": "COLON 5398", "telefono": "4748777", "lat": -37.9893403, "lng": -57.5784351 },
     { "nombre": "GARCIA CASABAL", "direccion": "LURO 9615", "telefono": "4871651", "lat": -37.9710562, "lng": -57.5529327 },
-    { "nombre": "JARDIN DEL BOSQUE", "direccion": "MARIO BRAVO 2674", "telefono": "2235244020", "lat": -38.0366016, "lng": -57.6029856 },
+    { "nombre": "JARDIN DEL BOSQUE", "direccion": "MARIO BRAVO 2674", "telefono": "2235244020", "lat": -38.06590864824641, "lng": -57.564388225083896 },
     { "nombre": "JULIO RIADIGOS", "direccion": "CASTELLI 1311", "telefono": "4518537", "lat": -38.0154187, "lng": -57.5418369 },
     { "nombre": "MITRE", "direccion": "COLON 2690", "telefono": "2235410471", "lat": -38.0032018, "lng": -57.5511151 },
     { "nombre": "OSCAR GARCIA", "direccion": "PERALTA RAMOS 1099", "telefono": "4817471", "lat": -38.0262893, "lng": -57.5802107 },
