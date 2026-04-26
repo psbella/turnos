@@ -37,34 +37,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 
   <style>
-        /* ========== FORZAR ANCHO DEL MAPA EN MODO VER TODAS ========== */
-    /* Asegura que el grid siempre tenga dos columnas del mismo ancho */
-    .layout {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      gap: 28px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 24px 60px;
-    }
-
-    /* La columna de la lista puede encogerse pero no desbordar */
-    .col-list {
-      min-width: 0;
-      overflow-x: auto;
-    }
-
-    /* La columna del mapa debe tener un ancho mínimo */
-    .col-map {
-      min-width: 400px;
-      width: 100%;
-    }
-
-    /* El mapa ocupa todo el ancho de su contenedor */
-    #map-desktop {
-      width: 100% !important;
-      height: 500px;
-    }
     /* ========== RESET Y VARIABLES ========== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -288,29 +260,26 @@
       margin: 0 auto;
       padding: 24px 24px 60px;
       flex: 1;
+      width: 100%;
     }
 
-    /* Grid para desktop: dos columnas del mismo ancho */
+    /* Grid para desktop: dos columnas del mismo ancho (forzado) */
     @media (min-width: 768px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-  }
-  
-  .col-map {
-    min-width: 400px;
-    width: 100%;
-  }
-  
-  #map-desktop {
-    width: 100%;
-    height: 500px;
-  }
-}
+      .layout {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 28px;
+      }
+    }
 
     .col-list {
       min-width: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .col-map {
+      min-width: 400px;
       width: 100%;
     }
 
@@ -320,14 +289,8 @@
       box-sizing: border-box;
     }
 
-    /* Forzar que el mapa mantenga su ancho incluso en "Ver todas" */
-    .col-map {
-      width: 100%;
-      min-width: 0;
-    }
-
     #map-desktop {
-      width: 100%;
+      width: 100% !important;
       height: 500px;
       border-radius: var(--radius);
       overflow: hidden;
@@ -728,57 +691,48 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
   <script>
     // ==================== CONFIGURACIÓN INICIAL ====================
-    // Configuración global de la aplicación
     const CONFIG = {
-      HORA_CAMBIO: 9,                                   // El cambio de ciclo ocurre a las 9:00 AM
-      ZONA_HORARIA: 'America/Argentina/Buenos_Aires',   // Zona horaria GMT-3
-      RUTA_JSON: 'ciclos_oficiales_definitivo.json'     // Archivo JSON con los datos de farmacias
+      HORA_CAMBIO: 9,
+      ZONA_HORARIA: 'America/Argentina/Buenos_Aires',
+      RUTA_JSON: 'ciclos_oficiales_definitivo.json'
     };
 
     // ==================== VARIABLES GLOBALES ====================
-    let ciclosData = {};          // Datos cargados del JSON
-    let mapDesktop = null;        // Mapa para escritorio
-    let mapMobile = null;         // Mapa para móvil (dentro de la hoja deslizable)
-    let activeCard = null;        // Tarjeta activa en la lista (para resaltar)
-    let markersDesktop = [];      // Lista de marcadores del mapa desktop
-    let markersMobile = [];       // Lista de marcadores del mapa mobile
-    let farmaciasCoords = [];     // Coordenadas de las farmacias del ciclo actual
+    let ciclosData = {};
+    let mapDesktop = null;
+    let mapMobile = null;
+    let activeCard = null;
+    let markersDesktop = [];
+    let markersMobile = [];
+    let farmaciasCoords = [];
 
-    // Fecha de inicio del ciclo 1 (ajustada para que coincida con el calendario oficial)
-    const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0); // 25 de marzo 9:00 GMT-3
+    const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0);
 
     // ==================== FUNCIONES AUXILIARES ====================
-    // Agrega cero a la izquierda (ej: 1 -> 01)
     function pad(n) {
       return String(n).padStart(2, '0');
     }
 
-    // Obtiene la fecha actual en GMT-3 (zona horaria de Argentina)
     function formatearFechaGMT3() {
       const ahora = new Date();
       const opciones = { timeZone: CONFIG.ZONA_HORARIA };
       return new Date(ahora.toLocaleString('en-US', opciones));
     }
 
-    // Formatea una fecha para mostrarla en el encabezado (ej: "domingo 26 de abril de 2026")
     function labelFecha(d) {
       const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
       const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
       return `${dias[d.getDay()]} ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
     }
 
-    // Capitaliza la primera letra de cada palabra
     function capFirst(s) {
       return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : '';
     }
 
-    // Limpia el formato de los teléfonos para el enlace "tel:"
     function limpiarTelefono(t) {
       return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, '');
     }
 
-    // ==================== CÁLCULO DEL CICLO ACTUAL ====================
-    // Calcula el número de ciclo (1 al 16) según la fecha actual y la fecha de inicio
     function obtenerCicloActual() {
       const fechaActual = formatearFechaGMT3();
       const diferenciaMs = fechaActual - FECHA_INICIO_CICLO_1;
@@ -788,8 +742,7 @@
       return ciclo;
     }
 
-    // ==================== ICONO DEL MAPA (PIN SVG) ====================
-    // Marcador circular verde con cruz blanca
+    // ==================== ICONO DEL MAPA ====================
     const pharmacyIcon = L.divIcon({
       className: 'custom-pharmacy-icon',
       html: `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -797,7 +750,7 @@
               <path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
              </svg>`,
       iconSize: [34, 34],
-      popupAnchor: [0, -17]   // Ancla del popup (centrado arriba del marcador)
+      popupAnchor: [0, -17]
     });
 
     // ==================== CARGA DEL JSON ====================
@@ -807,7 +760,7 @@
         const response = await fetch(CONFIG.RUTA_JSON);
         if (!response.ok) throw new Error('HTTP ' + response.status);
         ciclosData = await response.json();
-        mostrarFarmacias();      // Una vez cargado, mostrar las farmacias
+        mostrarFarmacias();
       } catch (e) {
         console.error(e);
         intro.innerHTML = '⚠️ Error al cargar datos';
@@ -831,7 +784,6 @@
       }
     }
 
-    // Limpia todos los marcadores de los mapas (desktop y mobile)
     function limpiarMarcadores() {
       markersDesktop.forEach(m => mapDesktop.removeLayer(m));
       markersMobile.forEach(m => mapMobile.removeLayer(m));
@@ -840,11 +792,10 @@
       farmaciasCoords = [];
     }
 
-    // ==================== AGREGAR MARCADORES AL MAPA ====================
+    // ==================== AGREGAR MARCADORES ====================
     function agregarMarcadores(farmacias) {
-      initMaps();               // Asegurar que los mapas estén inicializados
-      limpiarMarcadores();      // Limpiar marcadores anteriores
-
+      initMaps();
+      limpiarMarcadores();
       const desktopBounds = L.latLngBounds();
       const mobileBounds = L.latLngBounds();
 
@@ -852,14 +803,12 @@
         const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
         farmaciasCoords[i] = coords;
 
-        // Ícono de teléfono (SVG)
         const telefonoLimpio = limpiarTelefono(f.telefono);
         const telefonoIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
         const telefonoLink = telefonoLimpio
           ? `<br><a href="tel:${telefonoLimpio}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${telefonoIcon} ${f.telefono}</a>`
           : '<br>📞 Sin teléfono';
 
-        // Enlace a Google Maps
         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
         const popupContent = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${telefonoLink}<br>
           <a href="${mapsUrl}" target="_blank" class="gmaps-link">
@@ -871,7 +820,6 @@
           </a>`;
 
         if (coords) {
-          // Crear marcadores en ambos mapas (desktop y mobile-sheet)
           const markerDesktop = L.marker(coords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent);
           const markerMobile = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent);
           markersDesktop.push(markerDesktop);
@@ -879,7 +827,6 @@
           desktopBounds.extend(coords);
           mobileBounds.extend(coords);
         } else {
-          // Si no hay coordenadas, usar punto central (fallback)
           const fallback = [-38.0055, -57.5426];
           const markerDesktop = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent + '<br><small>📍 Ubicación aproximada</small>');
           const markerMobile = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent + '<br><small>📍 Ubicación aproximada</small>');
@@ -890,7 +837,6 @@
         }
       });
 
-      // Ajustar zoom para ver todos los marcadores (solo la primera vez)
       if (farmacias.length > 0) {
         if (!mapDesktop._initialZoom) {
           mapDesktop.fitBounds(desktopBounds);
@@ -904,36 +850,31 @@
     }
 
     // ==================== ÍCONOS SVG PARA LA LISTA ====================
-    // Ícono de ubicación (junto a la dirección)
     function getLocationIcon() {
       return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`;
     }
 
-    // Ícono de teléfono (junto al número en la lista)
     function getPhoneIcon() {
       return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
     }
 
     // ==================== MOSTRAR LISTA DE FARMACIAS (TURNO ACTUAL) ====================
     function mostrarFarmacias() {
-      const ciclo = obtenerCicloActual();                // Obtener ciclo actual (1-16)
-      const farmacias = ciclosData[ciclo] || [];         // Farmacias de ese ciclo
-      const fecha = formatearFechaGMT3();                 // Fecha actual en GMT-3
+      const ciclo = obtenerCicloActual();
+      const farmacias = ciclosData[ciclo] || [];
+      const fecha = formatearFechaGMT3();
       const intro = document.getElementById('intro');
       const lista = document.getElementById('lista');
 
-      // Si no hay farmacias para el ciclo actual, mostrar mensaje
       if (!farmacias.length) {
         intro.innerHTML = `<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`;
         lista.innerHTML = '<div class="card">Sin farmacias registradas</div>';
         return;
       }
 
-      // Calcular fecha de fin del turno (hasta las 9 del día siguiente)
       const fechaFin = new Date(fecha);
       fechaFin.setDate(fechaFin.getDate() + 1);
 
-      // Actualizar encabezado con la fecha y cantidad de farmacias
       intro.innerHTML = `
         <div class="intro-line">
           <span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span>
@@ -946,7 +887,6 @@
         </div>
       `;
 
-      // Generar lista de tarjetas
       lista.innerHTML = '';
       farmacias.forEach((f, i) => {
         const div = document.createElement('div');
@@ -966,16 +906,15 @@
           <div class="card-phone">${telefonoLink}</div>
         `;
 
-        // Evento al hacer clic en la tarjeta: abre hoja con mapa centrado en la farmacia
         div.onclick = (e) => {
-          if (e.target.closest('.phone-link')) return;  // Si es el teléfono, no abrir mapa
+          if (e.target.closest('.phone-link')) return;
           const sheet = document.getElementById('mapSheet');
           document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
-          sheet.classList.add('open');                    // Abrir hoja deslizable
+          sheet.classList.add('open');
           const coords = farmaciasCoords[i];
           if (coords && mapMobile) {
-            mapMobile.setView(coords, 16);                // Centrar mapa en la farmacia
-            if (markersMobile[i]) markersMobile[i].openPopup();  // Mostrar popup
+            mapMobile.setView(coords, 16);
+            if (markersMobile[i]) markersMobile[i].openPopup();
           }
           if (activeCard) activeCard.classList.remove('active');
           div.classList.add('active');
@@ -984,69 +923,45 @@
         };
         lista.appendChild(div);
       });
-
-      // Agregar marcadores al mapa (desktop y mobile)
       agregarMarcadores(farmacias);
     }
 
-    // ==================== ACTUALIZACIÓN AUTOMÁTICA (cambio de ciclo a las 9:00 AM) ====================
+    // ==================== ACTUALIZACIÓN AUTOMÁTICA ====================
     function programarActualizacion() {
       const ahora = formatearFechaGMT3();
       let proxima = new Date(ahora);
-      proxima.setHours(9, 0, 0, 0);        // Próximo cambio a las 9:00 AM
+      proxima.setHours(9, 0, 0, 0);
       if (ahora >= proxima) proxima.setDate(proxima.getDate() + 1);
       setTimeout(() => {
-        mostrarFarmacias();                 // Recargar farmacias
-        programarActualizacion();           // Volver a programar
+        mostrarFarmacias();
+        programarActualizacion();
       }, proxima - ahora);
     }
 
-    // ==================== CIERRE DE LA HOJA DEL MAPA MÓVIL ====================
     document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
-    // ==================== FUNCIONALIDAD "VER TODAS LAS FARMACIAS" ====================
+    // ==================== VER TODAS LAS FARMACIAS ====================
     let modoTodas = false;
     let farmaciasOriginales = null;
 
-    // Muestra todas las farmacias (sin repetir) en la lista y en el mapa
     function mostrarTodasLasFarmacias() {
-      function mostrarTodasLasFarmacias() {
-    if (modoTodas) return;
-    modoTodas = true;
+      if (modoTodas) return;
+      modoTodas = true;
 
-    // FORZAR EL LAYOUT PARA QUE EL MAPA NO SE ACHIQUE
-    const layout = document.querySelector('.layout');
-    if (layout) {
+      // FORZAR EL LAYOUT PARA QUE EL MAPA NO SE ACHIQUE
+      const layout = document.querySelector('.layout');
+      if (layout) {
         layout.style.display = 'grid';
         layout.style.gridTemplateColumns = '1fr 1fr';
         layout.style.gap = '28px';
-    }
+        layout.style.width = '100%';
+      }
 
-    // Guardar estado original
-    farmaciasOriginales = {
-        lista: document.getElementById('lista').innerHTML,
-        intro: document.getElementById('intro').innerHTML
-    };
-
-    // ... resto del código igual
-}
-    if (modoTodas) return;
-    modoTodas = true;
-
-    // Forzar que el layout mantenga el grid
-    const layout = document.querySelector('.layout');
-    if (layout) {
-        layout.style.display = 'grid';
-        layout.style.gridTemplateColumns = '1fr 1fr';
-    }
-
-      // Guardar estado original (para poder volver)
       farmaciasOriginales = {
         lista: document.getElementById('lista').innerHTML,
         intro: document.getElementById('intro').innerHTML
       };
 
-      // Obtener todas las farmacias sin repetir (por nombre + dirección)
       const farmaciasUnicas = new Map();
       for (const grupo in ciclosData) {
         for (const f of ciclosData[grupo]) {
@@ -1056,7 +971,6 @@
       }
       const todas = Array.from(farmaciasUnicas.values());
 
-      // Actualizar encabezado
       document.getElementById('intro').innerHTML = `
         <div class="intro-line">
           <span class="icon-intro">📍</span>
@@ -1067,7 +981,6 @@
         </div>
       `;
 
-      // Actualizar lista (sin teléfono, solo nombre y dirección)
       const listaDiv = document.getElementById('lista');
       listaDiv.innerHTML = '';
       todas.forEach((f, i) => {
@@ -1089,49 +1002,49 @@
         listaDiv.appendChild(div);
       });
 
-      // Actualizar el mapa con todas las farmacias
       limpiarMarcadores();
       agregarMarcadores(todas);
 
-      // Cambiar el texto del botón
       const btn = document.getElementById('btnTodasFarmacias');
       btn.textContent = '↺ Volver';
       btn.classList.remove('btn-todas');
       btn.classList.add('btn-volver');
     }
 
-    // Vuelve al modo normal (turno actual)
     function volverATurno() {
       if (!modoTodas) return;
       modoTodas = false;
 
-      // Restaurar la lista y el intro originales
+      const layout = document.querySelector('.layout');
+      if (layout) {
+        layout.style.display = '';
+        layout.style.gridTemplateColumns = '';
+        layout.style.gap = '';
+        layout.style.width = '';
+      }
+
       document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
       document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
 
-      // Recargar las farmacias del turno actual
       const ciclo = obtenerCicloActual();
       const farmaciasTurno = ciclosData[ciclo] || [];
       limpiarMarcadores();
       agregarMarcadores(farmaciasTurno);
 
-      // Restaurar el texto del botón
       const btn = document.getElementById('btnTodasFarmacias');
       btn.textContent = '📍 Ver todas';
       btn.classList.remove('btn-volver');
       btn.classList.add('btn-todas');
     }
 
-    // Evento del botón "Ver todas / Volver"
     document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
       if (modoTodas) volverATurno();
       else mostrarTodasLasFarmacias();
     });
 
-    // ==================== TEMA AUTOMÁTICO POR HORARIO + TOGGLE MANUAL ====================
-    let modoAutomatico = true;   // Indica si el tema se elige automáticamente por horario
+    // ==================== TEMA CLARO/OSCURO ====================
+    let modoAutomatico = true;
 
-    // Aplica un tema específico (light o dark)
     function aplicarTema(tema) {
       const sw = document.getElementById('theme-switch');
       const label = document.getElementById('theme-label');
@@ -1148,19 +1061,16 @@
       }
     }
 
-    // Inicializa el tema según hora del día o preferencia guardada
     function initTheme() {
       const savedTheme = localStorage.getItem('theme');
       const savedMode = localStorage.getItem('modoAutomatico');
 
-      // Si hay preferencia manual guardada, usarla
       if (savedTheme && savedMode === 'false') {
         modoAutomatico = false;
         aplicarTema(savedTheme);
         return;
       }
 
-      // Si no, usar horario: de 8:00 a 20:00 = claro, resto oscuro
       modoAutomatico = true;
       const ahora = formatearFechaGMT3();
       const hora = ahora.getHours();
@@ -1169,7 +1079,6 @@
       aplicarTema(temaInicial);
     }
 
-    // Evento del toggle (cambio manual de tema)
     document.getElementById('theme-switch').onclick = () => {
       modoAutomatico = false;
       const esClaroActual = document.body.classList.contains('light');
@@ -1179,11 +1088,11 @@
       localStorage.setItem('modoAutomatico', 'false');
     };
 
-    // ==================== INICIALIZACIÓN PRINCIPAL ====================
+    // ==================== INICIALIZACIÓN ====================
     (async () => {
-      initTheme();                // Cargar tema (automático o manual)
-      await cargarDatos();       // Cargar JSON y mostrar farmacias
-      programarActualizacion();   // Programar cambio de ciclo para las 9:00 AM
+      initTheme();
+      await cargarDatos();
+      programarActualizacion();
     })();
   </script>
 </body>
