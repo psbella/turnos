@@ -21,6 +21,11 @@ Source: Colegio de Farmacéuticos de General Pueyrredon
 Type: Datos públicos (farmacias de turno)
 Update: Rotación automática por ciclos
 
+/* DISCLAIMER */
+Proyecto independiente · No afiliado oficialmente al Colegio de Farmacéuticos de General Pueyrredon.
+Los datos se publican con fines exclusivamente informativos a partir de fuentes públicas.
+Para información oficial, consultar directamente al Colegio de Farmacéuticos de General Pueyrredon.
+
 /* THANKS */
 A la comunidad open source
 OpenStreetMap contributors
