@@ -3,7 +3,7 @@ const urls = [
   '/turnos/',
   '/turnos/index.html',
   '/turnos/manifest.json',
-  '/turnos/ciclos_final.json'
+  '/turnos/ciclos_final_definitivo.json'
 ];
 
 self.addEventListener('install', e => {
