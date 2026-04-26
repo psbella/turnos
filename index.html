@@ -964,90 +964,104 @@
 
     // Muestra todas las farmacias (sin repetir) en la lista y en el mapa
     function mostrarTodasLasFarmacias() {
-      if (modoTodas) return;
-      modoTodas = true;
+    if (modoTodas) return;
+    modoTodas = true;
 
-      // Guardar estado original (para poder volver)
-      farmaciasOriginales = {
+    // Guardar estado original
+    farmaciasOriginales = {
         lista: document.getElementById('lista').innerHTML,
         intro: document.getElementById('intro').innerHTML
-      };
+    };
 
-      // Obtener todas las farmacias sin repetir (por nombre + dirección)
-      const farmaciasUnicas = new Map();
-      for (const grupo in ciclosData) {
+    // FORZAR que el grid mantenga el mismo diseño (evitar que se achique el mapa)
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = 'grid';
+        layout.style.gridTemplateColumns = '1fr 1fr';
+    }
+
+    // Obtener todas las farmacias sin repetir
+    const farmaciasUnicas = new Map();
+    for (const grupo in ciclosData) {
         for (const f of ciclosData[grupo]) {
-          const key = `${f.nombre}|${f.direccion}`;
-          if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+            const key = `${f.nombre}|${f.direccion}`;
+            if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
         }
-      }
-      const todas = Array.from(farmaciasUnicas.values());
+    }
+    const todas = Array.from(farmaciasUnicas.values());
 
-      // Actualizar encabezado
-      document.getElementById('intro').innerHTML = `
+    // Actualizar encabezado
+    const introDiv = document.getElementById('intro');
+    introDiv.innerHTML = `
         <div class="intro-line">
-          <span class="icon-intro">📍</span>
-          <span>Todas las farmacias de Mar del Plata</span>
+            <span class="icon-intro">📍</span>
+            <span>Todas las farmacias de Mar del Plata</span>
         </div>
         <div class="stats">
-          <span>🏪 ${todas.length} farmacias únicas</span>
+            <span>🏪 ${todas.length} farmacias únicas</span>
         </div>
-      `;
+    `;
 
-      // Actualizar lista (sin teléfono, solo nombre y dirección)
-      const listaDiv = document.getElementById('lista');
-      listaDiv.innerHTML = '';
-      todas.forEach((f, i) => {
+    // Actualizar lista
+    const listaDiv = document.getElementById('lista');
+    listaDiv.innerHTML = '';
+    todas.forEach((f, i) => {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
-          <div class="card-num">${i + 1}</div>
-          <div class="card-info">
-            <div class="card-name">${capFirst(f.nombre)}</div>
-            <div class="card-address">📍 ${f.direccion}</div>
-          </div>
+            <div class="card-num">${i + 1}</div>
+            <div class="card-info">
+                <div class="card-name">${capFirst(f.nombre)}</div>
+                <div class="card-address">📍 ${f.direccion}</div>
+            </div>
         `;
         div.onclick = () => {
-          if (f.lat && f.lng) {
-            mapDesktop.setView([f.lat, f.lng], 16);
-            if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
-          }
+            if (f.lat && f.lng) {
+                mapDesktop.setView([f.lat, f.lng], 16);
+                if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
+            }
         };
         listaDiv.appendChild(div);
-      });
+    });
 
-      // Actualizar el mapa con todas las farmacias
-      limpiarMarcadores();
-      agregarMarcadores(todas);
+    // Actualizar mapa con todas las farmacias
+    limpiarMarcadores();
+    agregarMarcadores(todas);
 
-      // Cambiar el texto del botón
-      const btn = document.getElementById('btnTodasFarmacias');
-      btn.textContent = '↺ Volver';
-      btn.classList.remove('btn-todas');
-      btn.classList.add('btn-volver');
-    }
-
+    // Cambiar el texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '↺ Volver';
+    btn.classList.remove('btn-todas');
+    btn.classList.add('btn-volver');
+}
     // Vuelve al modo normal (turno actual)
     function volverATurno() {
-      if (!modoTodas) return;
-      modoTodas = false;
+    if (!modoTodas) return;
+    modoTodas = false;
 
-      // Restaurar la lista y el intro originales
-      document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
-      document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
+    // Restaurar la lista y el intro originales
+    document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
+    document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
 
-      // Recargar las farmacias del turno actual
-      const ciclo = obtenerCicloActual();
-      const farmaciasTurno = ciclosData[ciclo] || [];
-      limpiarMarcadores();
-      agregarMarcadores(farmaciasTurno);
-
-      // Restaurar el texto del botón
-      const btn = document.getElementById('btnTodasFarmacias');
-      btn.textContent = '📍 Ver todas';
-      btn.classList.remove('btn-volver');
-      btn.classList.add('btn-todas');
+    // Restaurar el grid sin forzar (dejar que el CSS decida)
+    const layout = document.querySelector('.layout');
+    if (layout) {
+        layout.style.display = '';
+        layout.style.gridTemplateColumns = '';
     }
+
+    // Recargar las farmacias del turno actual
+    const ciclo = obtenerCicloActual();
+    const farmaciasTurno = ciclosData[ciclo] || [];
+    limpiarMarcadores();
+    agregarMarcadores(farmaciasTurno);
+
+    // Restaurar el texto del botón
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = '📍 Ver todas';
+    btn.classList.remove('btn-volver');
+    btn.classList.add('btn-todas');
+}
 
     // Evento del botón "Ver todas / Volver"
     document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
