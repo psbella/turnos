@@ -1,4 +1,3 @@
-```json
 {
   "1": [
     { "nombre": "BAUZA", "direccion": "SARMIENTO 2599", "telefono": "2234511243", "lat": -38.0115813, "lng": -57.5428163 },
@@ -197,7 +196,7 @@
     { "nombre": "BADAMAR SCS", "direccion": "COLON 1399", "telefono": "2234515104", "lat": -38.0095162, "lng": -57.5378622 },
     { "nombre": "BUSTOS", "direccion": "MATHEU 3673", "telefono": "2234724031", "lat": -38.0106399, "lng": -57.5711313 },
     { "nombre": "DEL INTERZONAL", "direccion": "JUAN B. JUSTO 6404", "telefono": "2235599679", "lat": -37.9977205, "lng": -57.599484 },
-    { "nombre": "DEL INTERZONAL", "direccion": "JUAN B. JUSTO 6404", "telefono": "2235599679", "lat": -37.9977205, "lng": -57.599484 },
+    
     { "nombre": "EL GROSELLAR", "direccion": "JOSE MANUEL ESTRADA 5610", "telefono": "2234562065", "lat": -37.9529455, "lng": -57.5522631 },
     { "nombre": "MAR DEL GOMEZ S.C.S.", "direccion": "JUAN B. JUSTO 2278", "telefono": "2234827037", "lat": -38.00066, "lng": -57.59506 },
     { "nombre": "MARTI", "direccion": "TEODORO BRONZINI 597", "telefono": "2235023596", "lat": -37.9740518, "lng": -57.5719354 },
@@ -208,4 +207,3 @@
     { "nombre": "PREVILEY KAI SCS", "direccion": "FORTUNATO DE LA PLAZA 5120", "telefono": "2233541521", "lat": -38.0240168, "lng": -57.5921893 }
   ]
 }
-```
