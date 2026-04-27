@@ -1,6 +1,6 @@
 /* TEAM */
 Developer: Pablo Bella
-Role: Diseño, desarrollo y mantenimiento
+Role: Diseño, desarrollo, mantenimiento
 Location: Mar del Plata, Buenos Aires, Argentina
 Contact: pablo.s.bella@gmail.com
 
@@ -15,16 +15,32 @@ Frontend: HTML5, CSS3, JavaScript (Vanilla)
 Maps: Leaflet + OpenStreetMap
 Geocoding: Nominatim (OpenStreetMap)
 Hosting: GitHub Pages
+Automatización: Script propio (sin tocar servidores ajenos)
 
 /* DATA */
-Source: Colegio de Farmacéuticos de General Pueyrredon
-Type: Datos públicos (farmacias de turno)
-Update: Rotación automática por ciclos
+Source: Colegio de Farmacéuticos de General Pueyrredon (público)
+Method: Copia manual + lógica de rotación deducida
+Update: Automática (el script sabe qué toca cada día)
 
 /* DISCLAIMER */
-Proyecto independiente · No afiliado oficialmente al Colegio de Farmacéuticos de General Pueyrredon.
-Los datos se publican con fines exclusivamente informativos a partir de fuentes públicas.
-Para información oficial, consultar directamente al Colegio de Farmacéuticos de General Pueyrredon.
+Este sitio es un proyecto independiente, sin afiliación,
+patrocinio o respaldo oficial del Colegio de Farmacéuticos
+de General Pueyrredon.
+
+Los datos sobre farmacias de turno provienen de fuentes
+de acceso público. Este proyecto no realiza scraping
+automático ni consultas a los servidores del Colegio.
+
+La información se presenta con fines exclusivamente
+informativos. Si bien se busca mantenerla actualizada,
+se recomienda verificar los datos directamente con el Colegio o con la farmacia correspondiente.
+
+Este sitio no vende productos, no promueve consumo,
+no recopila datos personales y no tiene fines comerciales.
+
+La app fue desarrollada de forma independiente.
+Su existencia no implica competencia ni reemplazo
+de los canales oficiales.
 
 /* THANKS */
 A la comunidad open source
@@ -34,3 +50,5 @@ A la ballena azul <3
 
 /* LICENSE */
 Uso informativo, sin fines comerciales
+
+/* EL TÍTULO NO HACE EL CÓDIGO. LAS GANAS, SÍ. */
