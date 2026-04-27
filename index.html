@@ -1,201 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Farmacias de Turno MDP",
-  "description": "Aplicación web que muestra las farmacias de turno en Mar del Plata, con dirección, teléfono y mapa interactivo.",
-  "url": "https://farmaciasmdp.com.ar/",
-  "applicationCategory": "HealthApplication",
-  "operatingSystem": "Web",
-  "author": {
-    "@type": "Person",
-    "name": "Pablo Bella",
-    "email": "pablo.s.bella@gmail.com"
-  },
-  "provider": {
-    "@type": "Organization",
-    "name": "Proyecto independiente"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "ARS"
-  },
-  "featureList": "Mapa interactivo, geolocalización, modo oscuro, actualización automática de turnos"
-}
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0d1117">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Farmacias MDP">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
 
-<!-- SEO y Redes Sociales -->
-<title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
-<meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección 📍, teléfono 📞 y mapa interactivo. Turno vigente desde las 9hs. ¡Consultá ahora!" />
-<meta name="robots" content="index, follow">
+  <title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
+  <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección 📍, teléfono 📞 y mapa interactivo. Turno vigente desde las 9hs. ¡Consultá ahora!" />
+  <meta name="robots" content="index, follow">
 
-<!-- Open Graph / WhatsApp -->
-<meta property="og:title" content="Farmacias de turno hoy en Mar del Plata" />
-<meta property="og:description" content="Turno farmacéutico actualizado. Dirección, teléfono y mapa interactivo." />
-<meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png" />
-<meta property="og:url" content="https://farmaciasmdp.com.ar" />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="es_AR" />
+  <!-- Open Graph / WhatsApp -->
+  <meta property="og:title" content="Farmacias de turno hoy en Mar del Plata" />
+  <meta property="og:description" content="Turno farmacéutico actualizado. Dirección, teléfono y mapa interactivo." />
+  <meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png" />
+  <meta property="og:url" content="https://farmaciasmdp.com.ar" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata" />
-<meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa." />
-<meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata" />
+  <meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa." />
+  <meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png" />
 
-<!-- Canonical -->
-<link rel="canonical" href="https://farmaciasmdp.com.ar/" />
+  <link rel="canonical" href="https://farmaciasmdp.com.ar/" />
 
-<!-- Schema.org -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Farmacias de Turno MDP",
-  "description": "Aplicación web que muestra las farmacias de turno en Mar del Plata, con dirección, teléfono y mapa interactivo.",
-  "url": "https://farmaciasmdp.com.ar/",
-  "applicationCategory": "HealthApplication",
-  "operatingSystem": "Web",
-  "author": {
-    "@type": "Person",
-    "name": "Pablo Bella",
-    "email": "pablo.s.bella@gmail.com"
-  },
-  "provider": {
-    "@type": "Organization",
-    "name": "Proyecto independiente"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "ARS"
-  },
-  "featureList": "Mapa interactivo, geolocalización, modo oscuro, actualización automática de turnos"
-}
-</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Farmacias de Turno MDP",
+    "description": "Aplicación web que muestra las farmacias de turno en Mar del Plata, con dirección, teléfono y mapa interactivo.",
+    "url": "https://farmaciasmdp.com.ar/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "author": {
+      "@type": "Person",
+      "name": "Pablo Bella",
+      "email": "pablo.s.bella@gmail.com"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "Proyecto independiente"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "ARS"
+    },
+    "featureList": "Mapa interactivo, geolocalización, modo oscuro, actualización automática de turnos"
+  }
+  </script>
 
-<!-- Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="
-default-src 'self';
-script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
-font-src 'self' https://fonts.gstatic.com;
-img-src 'self' data: https://*.tile.openstreetmap.org;
-connect-src 'self' https://nominatim.openstreetmap.org https://cdnjs.cloudflare.com;
-frame-src 'none';
-object-src 'none';
-base-uri 'self';
-form-action 'self';
-">
-  <!-- Anti-caché -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-
-  <!-- Favicon cruz verde -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='0' width='12' height='32' fill='%233fb950'/%3E%3Crect x='0' y='10' width='32' height='12' fill='%233fb950'/%3E%3C/svg%3E">
+  <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: https://*.tile.openstreetmap.org;
+  connect-src 'self' https://nominatim.openstreetmap.org https://cdnjs.cloudflare.com;
+  frame-src 'none';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  ">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-
-  <style>
-    /* Tus estilos (no se modifican) */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg-dark: #0d1117; --surface-dark: #161b22; --text-dark: #e6edf3; --border-dark: rgba(255,255,255,0.08);
-      --bg-light: #f6f8fa; --surface-light: #ffffff; --text-light: #1f2328; --border-light: rgba(0,0,0,0.1);
-      --accent: #3fb950; --accent-dim: rgba(63,185,80,0.12); --radius: 14px;
-    }
-    body { font-family: 'Nunito', sans-serif; min-height: 100dvh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
-    body * { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
-    body.dark { --bg: var(--bg-dark); --surface: var(--surface-dark); --text: var(--text-dark); --border: rgba(255,255,255,0.08); background: var(--bg-dark); color: var(--text-dark); }
-    body.light { --bg: var(--bg-light); --surface: var(--surface-light); --text: var(--text-light); --border: rgba(0,0,0,0.1); background: var(--bg-light); color: var(--text-light); }
-    header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); backdrop-filter: blur(10px); z-index: 10; }
-    .header-inner { max-width: 1100px; margin: 0 auto; padding: 18px 24px; display: flex; flex-direction: column; gap: 4px; }
-    .header-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .cross { width: 32px; height: 32px; position: relative; flex-shrink: 0; }
-    .cross::before, .cross::after { content: ''; position: absolute; background: var(--accent); border-radius: 3px; }
-    .cross::before { width: 12px; height: 32px; left: 10px; top: 0; }
-    .cross::after { width: 32px; height: 12px; left: 0; top: 10px; }
-    .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 27px; color: var(--text); letter-spacing: 1px; }
-    .subtitle { font-size: 14px; color: #7d8590; margin-left: 44px; letter-spacing: 1px; }
-    .theme-switch-wrapper { margin-left: 12px; text-align: center; }
-    .theme-switch { width: 64px; height: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 30px; position: relative; cursor: pointer; transition: all 0.3s; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; box-sizing: border-box; }
-    .theme-icon { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; pointer-events: none; z-index: 1; }
-    .theme-icon svg { width: 14px; height: 14px; stroke: var(--accent); color: var(--accent); }
-    .theme-slider { width: 22px; height: 22px; background: var(--accent); border-radius: 50%; position: absolute; top: 2px; left: 3px; transition: transform 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
-    .theme-switch.active .theme-slider { transform: translateX(34px); }
-    .theme-label { font-size: 10px; color: #7d8590; margin-top: 5px; text-transform: lowercase; }
-    .btn-todas, .btn-volver { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 8px 20px; cursor: pointer; font-size: 14px; color: var(--accent); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; margin: 0 auto; }
-    .btn-todas:hover, .btn-volver:hover { background: var(--accent-dim); transform: scale(1.02); border-color: var(--accent); }
-    .btn-volver-flotante { position: absolute; top: 10px; right: 10px; z-index: 1000; background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 8px 16px; cursor: pointer; font-size: 13px; color: var(--accent); transition: all 0.2s; display: flex; align-items: center; gap: 8px; font-weight: 500; box-shadow: 0 2px 8px rgba(0,0,0,0.2); backdrop-filter: blur(4px); }
-    .btn-volver-flotante:hover { background: var(--accent-dim); transform: scale(1.02); border-color: var(--accent); }
-    .layout { max-width: 1100px; margin: 0 auto; padding: 24px 24px 60px; flex: 1; width: 100%; }
-    @media (min-width: 768px) { .layout { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 28px; } }
-    .col-list { min-width: 0; width: 100%; overflow-x: hidden; }
-    .col-map { min-width: 400px; width: 100%; position: relative; }
-    #lista, .intro { width: 100%; box-sizing: border-box; }
-    #map-desktop { width: 100% !important; height: 500px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: #1a1f2a; }
-    .intro { font-size: 16px; color: var(--text); margin-bottom: 20px; padding: 16px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
-    .intro-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .intro strong { color: var(--accent); font-weight: 700; }
-    .stats { font-size: 14px; color: #7d8590; display: flex; align-items: center; gap: 8px; }
-    .icon-intro, .icon-stats, .icon-location, .icon-phone, .icon-data, .icon-dev { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; }
-    .icon-intro svg, .icon-stats svg, .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg { width: 18px; height: 18px; }
-    .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 12px; cursor: pointer; transition: all 0.2s; }
-    body.light .card:hover { background: #f0f2f5; }
-    body.dark .card:hover { background: #1a1f2a; }
-    .card.active { border-color: var(--accent); background: var(--accent-dim); }
-    .card-num { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--accent); opacity: 0.7; min-width: 32px; }
-    .card-info { flex: 1; }
-    .card-name { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
-    .card-address { font-size: 12px; color: var(--text); opacity: 0.85; display: flex; align-items: center; gap: 6px; word-break: break-word; }
-    .card-phone { font-size: 12px; text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 6px; white-space: nowrap; }
-    .phone-link { color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-    .col-map { display: none; }
-    @media (min-width: 768px) { .col-map { display: block; position: sticky; top: 90px; } }
-    .map-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); border-radius: 20px 20px 0 0; transform: translateY(100%); transition: transform 0.3s ease; z-index: 20; }
-    .map-sheet.open { transform: translateY(0); }
-    .map-sheet-header { padding: 16px; font-weight: 700; text-align: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .map-sheet-close { background: none; border: none; color: #7d8590; font-size: 24px; cursor: pointer; padding: 0 8px; }
-    #map-mobile-sheet { height: 350px; width: 100%; background: #1a1f2a; }
-    .footer { max-width: 1100px; margin: 0 auto; padding: 24px; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: #7d8590; }
-    .footer p { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
-    .footer a { color: var(--accent); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-    .gmaps-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 4px 0; color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 500; transition: opacity 0.2s; }
-    .gmaps-link:hover { opacity: 0.8; text-decoration: underline; }
-    @media (max-width: 768px) {
-      .header-top { flex-wrap: wrap; justify-content: space-between; align-items: center; row-gap: 8px; }
-      .cross { order: 1; }
-      .app-title { order: 2; flex: 1; font-size: 22px; }
-      .theme-switch-wrapper { order: 3; }
-      .card { flex-wrap: wrap; gap: 8px; }
-      .card-num { min-width: 28px; font-size: 18px; }
-      .card-info { flex: 1; min-width: 0; }
-      .card-name { font-size: 14px; word-break: break-word; }
-      .card-address { font-size: 11px; white-space: normal; word-break: break-word; }
-      .card-phone { font-size: 11px; white-space: nowrap; }
-      .intro { font-size: 14px; padding: 12px; }
-      .stats { font-size: 13px; }
-      .map-sheet-header { padding: 12px; font-size: 14px; }
-      #map-mobile-sheet { height: 280px; }
-      .footer p { font-size: 11px; }
-    }
-  </style>
 </head>
 
 <body class="dark">
