@@ -9,4 +9,4 @@ Disallow: /ciclos_oficiales_definitivo.json
 Disallow: /sitemap.xml
 Disallow: /*.json$
 
-Sitemap: https://psbella.github.io/turnos/sitemap.xml
+Sitemap: https://farmaciasmdp.com.ar/sitemap.xml
