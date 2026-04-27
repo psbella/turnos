@@ -172,6 +172,7 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
   <script>
     const CONFIG = { HORA_CAMBIO: 9, ZONA_HORARIA: 'America/Argentina/Buenos_Aires', RUTA_JSON: 'ciclos_oficiales_definitivo.json' };
     let ciclosData = {}, mapDesktop = null, mapMobile = null, activeCard = null, markersDesktop = [], markersMobile = [], farmaciasCoords = [];
@@ -203,21 +204,21 @@
         const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
         const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
         const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
-        if (c) { 
-          const mD = L.marker(c, { icon: pharmacyIcon, ariaLabel: `Ver farmacia ${f.nombre} en el mapa` }).addTo(mapDesktop).bindPopup(pop); 
-          const mM = L.marker(c, { icon: pharmacyIcon, ariaLabel: `Ver farmacia ${f.nombre} en el mapa` }).addTo(mapMobile).bindPopup(pop); 
-          markersDesktop.push(mD); 
-          markersMobile.push(mM); 
-          dB.extend(c); 
-          mB.extend(c); 
-        } else { 
-          const fb = [-38.0055, -57.5426]; 
-          const mD = L.marker(fb, { icon: pharmacyIcon, ariaLabel: `Ubicación aproximada de ${f.nombre}` }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); 
-          const mM = L.marker(fb, { icon: pharmacyIcon, ariaLabel: `Ubicación aproximada de ${f.nombre}` }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); 
-          markersDesktop.push(mD); 
-          markersMobile.push(mM); 
-          dB.extend(fb); 
-          mB.extend(fb); 
+        if (c) {
+          const mD = L.marker(c, { icon: pharmacyIcon, ariaLabel: `Ver farmacia ${f.nombre} en el mapa` }).addTo(mapDesktop).bindPopup(pop);
+          const mM = L.marker(c, { icon: pharmacyIcon, ariaLabel: `Ver farmacia ${f.nombre} en el mapa` }).addTo(mapMobile).bindPopup(pop);
+          markersDesktop.push(mD);
+          markersMobile.push(mM);
+          dB.extend(c);
+          mB.extend(c);
+        } else {
+          const fb = [-38.0055, -57.5426];
+          const mD = L.marker(fb, { icon: pharmacyIcon, ariaLabel: `Ubicación aproximada de ${f.nombre}` }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
+          const mM = L.marker(fb, { icon: pharmacyIcon, ariaLabel: `Ubicación aproximada de ${f.nombre}` }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
+          markersDesktop.push(mD);
+          markersMobile.push(mM);
+          dB.extend(fb);
+          mB.extend(fb);
         }
       });
       if (farmacias.length > 0) { if (!mapDesktop._initialZoom) { mapDesktop.fitBounds(dB); mapDesktop._initialZoom = true; } if (!mapMobile._initialZoom) { mapMobile.fitBounds(mB); mapMobile._initialZoom = true; } }
