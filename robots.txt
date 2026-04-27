@@ -1,12 +1,6 @@
 User-agent: *
-Allow: /$
-Allow: /privacidad.html$
-Allow: /humans.txt$
-Allow: /manifest.json$
-Disallow: /googleeb5f2a5a1869d15b.html
-Disallow: /sw.js
+Allow: /
+
 Disallow: /ciclos_oficiales_definitivo.json
-Disallow: /sitemap.xml
-Disallow: /*.json$
 
 Sitemap: https://farmaciasmdp.com.ar/sitemap.xml
