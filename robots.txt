@@ -1,6 +1,12 @@
 User-agent: *
 Allow: /
 
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
 Disallow: /ciclos_oficiales_definitivo.json
 
 Sitemap: https://farmaciasmdp.com.ar/sitemap.xml
