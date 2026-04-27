@@ -9,25 +9,120 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
   <title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
-  <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección 📍, teléfono 📞 y mapa interactivo." />
+  <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección, teléfono y mapa interactivo.">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Farmacias de turno hoy en Mar del Plata" />
-  <meta property="og:description" content="Turno farmacéutico actualizado. Dirección, teléfono y mapa interactivo." />
-  <meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png" />
-  <meta property="og:url" content="https://farmaciasmdp.com.ar" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="es_AR" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata" />
-  <meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa." />
-  <meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png" />
-  <link rel="canonical" href="https://farmaciasmdp.com.ar/" />
-  <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "WebApplication", "name": "Farmacias de Turno MDP", "description": "Aplicación web que muestra las farmacias de turno en Mar del Plata.", "url": "https://farmaciasmdp.com.ar/", "applicationCategory": "HealthApplication", "operatingSystem": "Web", "author": { "@type": "Person", "name": "Pablo Bella" }, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" } }</script>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org https://cdnjs.cloudflare.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta property="og:title" content="Farmacias de turno hoy en Mar del Plata">
+  <meta property="og:description" content="Turno farmacéutico actualizado. Dirección, teléfono y mapa interactivo.">
+  <meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png">
+  <meta property="og:url" content="https://farmaciasmdp.com.ar">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata">
+  <meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa.">
+  <meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png">
+  <link rel="canonical" href="https://farmaciasmdp.com.ar/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Farmacias de Turno MDP",
+    "description": "Aplicación web que muestra las farmacias de turno en Mar del Plata.",
+    "url": "https://farmaciasmdp.com.ar/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "author": { "@type": "Person", "name": "Pablo Bella" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-dark: #0d1117; --surface-dark: #161b22; --text-dark: #e6edf3; --border-dark: rgba(255,255,255,0.08);
+      --bg-light: #f6f8fa; --surface-light: #ffffff; --text-light: #1f2328; --border-light: rgba(0,0,0,0.1);
+      --accent: #3fb950; --accent-dim: rgba(63,185,80,0.12); --radius: 14px;
+    }
+    body { font-family: 'Nunito', sans-serif; min-height: 100dvh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
+    body * { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+    body.dark { --bg: var(--bg-dark); --surface: var(--surface-dark); --text: var(--text-dark); --border: rgba(255,255,255,0.08); background: var(--bg-dark); color: var(--text-dark); }
+    body.light { --bg: var(--bg-light); --surface: var(--surface-light); --text: var(--text-light); --border: rgba(0,0,0,0.1); background: var(--bg-light); color: var(--text-light); }
+    header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); backdrop-filter: blur(10px); z-index: 10; }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 18px 24px; display: flex; flex-direction: column; gap: 4px; }
+    .header-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .cross { width: 32px; height: 32px; position: relative; flex-shrink: 0; }
+    .cross::before, .cross::after { content: ''; position: absolute; background: var(--accent); border-radius: 3px; }
+    .cross::before { width: 12px; height: 32px; left: 10px; top: 0; }
+    .cross::after { width: 32px; height: 12px; left: 0; top: 10px; }
+    .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 27px; color: var(--text); letter-spacing: 1px; }
+    .subtitle { font-size: 14px; color: #7d8590; margin-left: 44px; letter-spacing: 1px; }
+    .theme-switch-wrapper { margin-left: 12px; text-align: center; }
+    .theme-switch { width: 64px; height: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 30px; position: relative; cursor: pointer; transition: all 0.3s; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; box-sizing: border-box; }
+    .theme-icon { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; pointer-events: none; z-index: 1; }
+    .theme-icon svg { width: 14px; height: 14px; stroke: var(--accent); color: var(--accent); }
+    .theme-slider { width: 22px; height: 22px; background: var(--accent); border-radius: 50%; position: absolute; top: 2px; left: 3px; transition: transform 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+    .theme-switch.active .theme-slider { transform: translateX(34px); }
+    .theme-label { font-size: 10px; color: #7d8590; margin-top: 5px; text-transform: lowercase; }
+    .btn-todas, .btn-volver { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 8px 20px; cursor: pointer; font-size: 14px; color: var(--accent); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; margin: 0 auto; }
+    .btn-todas:hover, .btn-volver:hover { background: var(--accent-dim); transform: scale(1.02); border-color: var(--accent); }
+    .btn-volver-flotante { position: absolute; top: 10px; right: 10px; z-index: 1000; background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 8px 16px; cursor: pointer; font-size: 13px; color: var(--accent); transition: all 0.2s; display: flex; align-items: center; gap: 8px; font-weight: 500; box-shadow: 0 2px 8px rgba(0,0,0,0.2); backdrop-filter: blur(4px); }
+    .btn-volver-flotante:hover { background: var(--accent-dim); transform: scale(1.02); border-color: var(--accent); }
+    .layout { max-width: 1100px; margin: 0 auto; padding: 24px 24px 60px; flex: 1; width: 100%; }
+    @media (min-width: 768px) { .layout { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 28px; } }
+    .col-list { min-width: 0; width: 100%; overflow-x: hidden; }
+    .col-map { min-width: 400px; width: 100%; position: relative; }
+    #lista, .intro { width: 100%; box-sizing: border-box; }
+    #map-desktop { width: 100% !important; height: 500px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: #1a1f2a; }
+    .intro { font-size: 16px; color: var(--text); margin-bottom: 20px; padding: 16px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
+    .intro-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .intro strong { color: var(--accent); font-weight: 700; }
+    .stats { font-size: 14px; color: #7d8590; display: flex; align-items: center; gap: 8px; }
+    .icon-intro, .icon-stats, .icon-location, .icon-phone, .icon-data, .icon-dev { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; }
+    .icon-intro svg, .icon-stats svg, .icon-location svg, .icon-phone svg, .icon-data svg, .icon-dev svg { width: 18px; height: 18px; }
+    .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 12px; cursor: pointer; transition: all 0.2s; }
+    body.light .card:hover { background: #f0f2f5; }
+    body.dark .card:hover { background: #1a1f2a; }
+    .card.active { border-color: var(--accent); background: var(--accent-dim); }
+    .card-num { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--accent); opacity: 0.7; min-width: 32px; }
+    .card-info { flex: 1; }
+    .card-name { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+    .card-address { font-size: 12px; color: var(--text); opacity: 0.85; display: flex; align-items: center; gap: 6px; word-break: break-word; }
+    .card-phone { font-size: 12px; text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 6px; white-space: nowrap; }
+    .phone-link { color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+    .col-map { display: none; }
+    @media (min-width: 768px) { .col-map { display: block; position: sticky; top: 90px; } }
+    .map-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); border-radius: 20px 20px 0 0; transform: translateY(100%); transition: transform 0.3s ease; z-index: 20; }
+    .map-sheet.open { transform: translateY(0); }
+    .map-sheet-header { padding: 16px; font-weight: 700; text-align: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .map-sheet-close { background: none; border: none; color: #7d8590; font-size: 24px; cursor: pointer; padding: 0 8px; }
+    #map-mobile-sheet { height: 350px; width: 100%; background: #1a1f2a; }
+    .footer { max-width: 1100px; margin: 0 auto; padding: 24px; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: #7d8590; }
+    .footer p { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .gmaps-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 4px 0; color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 500; transition: opacity 0.2s; }
+    .gmaps-link:hover { opacity: 0.8; text-decoration: underline; }
+    @media (max-width: 768px) {
+      .header-top { flex-wrap: wrap; justify-content: space-between; align-items: center; row-gap: 8px; }
+      .cross { order: 1; }
+      .app-title { order: 2; flex: 1; font-size: 22px; }
+      .theme-switch-wrapper { order: 3; }
+      .card { flex-wrap: wrap; gap: 8px; }
+      .card-num { min-width: 28px; font-size: 18px; }
+      .card-info { flex: 1; min-width: 0; }
+      .card-name { font-size: 14px; word-break: break-word; }
+      .card-address { font-size: 11px; white-space: normal; word-break: break-word; }
+      .card-phone { font-size: 11px; white-space: nowrap; }
+      .intro { font-size: 14px; padding: 12px; }
+      .stats { font-size: 13px; }
+      .map-sheet-header { padding: 12px; font-size: 14px; }
+      #map-mobile-sheet { height: 280px; }
+      .footer p { font-size: 11px; }
+    }
+  </style>
 </head>
 <body class="dark">
   <header>
@@ -46,59 +141,144 @@
       </div>
       <div class="subtitle">CIUDAD DE MAR DEL PLATA</div>
     </div>
-                                           </header>
-                                           <div class="layout">
-  <div class="col-list">
-    <div class="intro" id="intro"><h1 style="font-size: 1.4rem; margin-bottom: 8px;">Farmacias de turno en Mar del Plata</h1><span>Cargando datos...</span></div>
-    <div id="lista"></div>
-    <div style="display: flex; justify-content: center; margin-top: 24px;">
-      <button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button>
+  </header>
+
+  <div class="layout">
+    <div class="col-list">
+      <div class="intro" id="intro"><h1 style="font-size: 1.4rem; margin-bottom: 8px;">Farmacias de turno en Mar del Plata</h1><span>Cargando datos...</span></div>
+      <div id="lista"></div>
+      <div style="display: flex; justify-content: center; margin-top: 24px;"><button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button></div>
     </div>
+    <div class="col-map"><button id="btnVolverFlotante" class="btn-volver-flotante" style="display: none;">↺ Volver a turno</button><div id="map-desktop"></div></div>
   </div>
-  <div class="col-map">
-    <button id="btnVolverFlotante" class="btn-volver-flotante" style="display: none;">↺ Volver a turno</button>
-    <div id="map-desktop"></div>
-  </div>
-</div>
 
-<div class="map-sheet" id="mapSheet">
-  <div class="map-sheet-header"><span id="sheetName"></span><button class="map-sheet-close" id="closeSheet">✕</button></div>
-  <div id="map-mobile-sheet"></div>
-</div>
+  <div class="map-sheet" id="mapSheet"><div class="map-sheet-header"><span id="sheetName"></span><button class="map-sheet-close" id="closeSheet">✕</button></div><div id="map-mobile-sheet"></div></div>
 
-<footer class="footer">
-  <p><span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="var(--accent)"/></svg></span><span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span></p>
-  <p><span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="var(--accent)"/></svg></span><span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span></p>
-  <p style="font-size:11px;margin-top:8px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap"><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> <span>·</span> <a href="privacidad.html" target="_blank">Política de Privacidad</a> <span>·</span> <span>© 2026 Farmacias de Turno MDP</span></p>
-</footer>
+  <footer class="footer">
+    <p><span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="var(--accent)"/></svg></span><span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span></p>
+    <p><span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="var(--accent)"/></svg></span><span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span></p>
+    <p style="font-size:11px;margin-top:8px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap"><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> <span>·</span> <a href="privacidad.html" target="_blank">Política de Privacidad</a> <span>·</span> <span>© 2026 Farmacias de Turno MDP</span></p>
+  </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<script>
-  const CONFIG = { HORA_CAMBIO: 9, ZONA_HORARIA: 'America/Argentina/Buenos_Aires', RUTA_JSON: 'ciclos_oficiales_definitivo.json' };
-  let ciclosData = {}, mapDesktop = null, mapMobile = null, activeCard = null, markersDesktop = [], markersMobile = [], farmaciasCoords = [];
-  const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0);
-  let modoTodas = false, farmaciasOriginales = null, modoAutomatico = true;
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script>
+    const CONFIG = { HORA_CAMBIO: 9, ZONA_HORARIA: 'America/Argentina/Buenos_Aires', RUTA_JSON: 'ciclos_oficiales_definitivo.json' };
+    let ciclosData = {}, mapDesktop = null, mapMobile = null, activeCard = null, markersDesktop = [], markersMobile = [], farmaciasCoords = [];
+    const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0);
+    let modoTodas = false, farmaciasOriginales = null, modoAutomatico = true;
 
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function formatearFechaGMT3() { const a = new Date(), o = { timeZone: CONFIG.ZONA_HORARIA }; return new Date(a.toLocaleString('en-US', o)); }
-  function labelFecha(d) { const di = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'], me = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`; }
-  function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
-  function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
-  function obtenerCicloActual() { const f = formatearFechaGMT3(), d = Math.floor((f - FECHA_INICIO_CICLO_1) / 86400000); let c = (d % 16) + 1; if (c <= 0) c = 1; return c; }
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function formatearFechaGMT3() { const a = new Date(), o = { timeZone: CONFIG.ZONA_HORARIA }; return new Date(a.toLocaleString('en-US', o)); }
+    function labelFecha(d) { const di = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'], me = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`; }
+    function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
+    function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
+    function obtenerCicloActual() { const f = formatearFechaGMT3(), d = Math.floor((f - FECHA_INICIO_CICLO_1) / 86400000); let c = (d % 16) + 1; if (c <= 0) c = 1; return c; }
 
-  const pharmacyIcon = L.divIcon({ className: 'custom-pharmacy-icon', html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>', iconSize: [34, 34], popupAnchor: [0, -17] });
+    const pharmacyIcon = L.divIcon({ className: 'custom-pharmacy-icon', html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>', iconSize: [34, 34], popupAnchor: [0, -17] });
 
-  async function cargarDatos() { const i = document.getElementById('intro'); try { const r = await fetch(CONFIG.RUTA_JSON); if (!r.ok) throw new Error('HTTP ' + r.status); ciclosData = await r.json(); mostrarFarmacias(); } catch(e) { console.error(e); i.innerHTML = '⚠️ Error al cargar datos'; document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>'; } }
-      function initMaps() { if (!mapDesktop) { mapDesktop = L.map('map-desktop').setView([-38.0055, -57.5426], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapDesktop); } if (!mapMobile) { mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapMobile); } }
+    async function cargarDatos() { const i = document.getElementById('intro'); try { const r = await fetch(CONFIG.RUTA_JSON); if (!r.ok) throw new Error('HTTP ' + r.status); ciclosData = await r.json(); mostrarFarmacias(); } catch(e) { console.error(e); i.innerHTML = '⚠️ Error al cargar datos'; document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>'; } }
+
+    function initMaps() { if (!mapDesktop) { mapDesktop = L.map('map-desktop').setView([-38.0055, -57.5426], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapDesktop); } if (!mapMobile) { mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapMobile); } }
     function limpiarMarcadores() { markersDesktop.forEach(m => mapDesktop.removeLayer(m)); markersMobile.forEach(m => mapMobile.removeLayer(m)); markersDesktop = []; markersMobile = []; farmaciasCoords = []; }
-    function agregarMarcadores(farmacias) { initMaps(); limpiarMarcadores(); const dB = L.latLngBounds(), mB = L.latLngBounds(); farmacias.forEach((f, i) => { const c = f.lat && f.lng ? [f.lat, f.lng] : null; farmaciasCoords[i] = c; const tClean = limpiarTelefono(f.telefono); const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`; const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono'; const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`; const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`; if (c) { const mD = L.marker(c, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop); const mM = L.marker(c, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop); markersDesktop.push(mD); markersMobile.push(mM); dB.extend(c); mB.extend(c); } else { const fb = [-38.0055, -57.5426]; const mD = L.marker(fb, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); const mM = L.marker(fb, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); markersDesktop.push(mD); markersMobile.push(mM); dB.extend(fb); mB.extend(fb); } }); if (farmacias.length > 0) { if (!mapDesktop._initialZoom) { mapDesktop.fitBounds(dB); mapDesktop._initialZoom = true; } if (!mapMobile._initialZoom) { mapMobile.fitBounds(mB); mapMobile._initialZoom = true; } } }
+
+    function agregarMarcadores(farmacias) {
+      initMaps(); limpiarMarcadores();
+      const dB = L.latLngBounds(), mB = L.latLngBounds();
+      farmacias.forEach((f, i) => {
+        const c = f.lat && f.lng ? [f.lat, f.lng] : null;
+        farmaciasCoords[i] = c;
+        const tClean = limpiarTelefono(f.telefono);
+        const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
+        const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
+        const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
+        const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
+        if (c) { const mD = L.marker(c, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop); const mM = L.marker(c, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop); markersDesktop.push(mD); markersMobile.push(mM); dB.extend(c); mB.extend(c); }
+        else { const fb = [-38.0055, -57.5426]; const mD = L.marker(fb, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); const mM = L.marker(fb, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); markersDesktop.push(mD); markersMobile.push(mM); dB.extend(fb); mB.extend(fb); }
+      });
+      if (farmacias.length > 0) { if (!mapDesktop._initialZoom) { mapDesktop.fitBounds(dB); mapDesktop._initialZoom = true; } if (!mapMobile._initialZoom) { mapMobile.fitBounds(mB); mapMobile._initialZoom = true; } }
+    }
+
     function getLocationIcon() { return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`; }
     function getPhoneIcon() { return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`; }
-    function mostrarFarmacias() { const ciclo = obtenerCicloActual(); const farmacias = ciclosData[ciclo] || []; const fecha = formatearFechaGMT3(); const intro = document.getElementById('intro'); const lista = document.getElementById('lista'); if (!farmacias.length) { intro.innerHTML = `<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`; lista.innerHTML = '<div class="card">Sin farmacias registradas</div>'; return; } const fechaFin = new Date(fecha); fechaFin.setDate(fechaFin.getDate() + 1); intro.innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`; lista.innerHTML = ''; farmacias.forEach((f, i) => { const div = document.createElement('div'); div.className = 'card'; const tClean = limpiarTelefono(f.telefono); const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`; div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`; div.onclick = (e) => { if (e.target.closest('.phone-link')) return; const sheet = document.getElementById('mapSheet'); document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`; sheet.classList.add('open'); const c = farmaciasCoords[i]; if (c && mapMobile) { mapMobile.setView(c, 16); if (markersMobile[i]) markersMobile[i].openPopup(); } if (activeCard) activeCard.classList.remove('active'); div.classList.add('active'); activeCard = div; if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup(); if (window.innerWidth >= 768) { setTimeout(() => { const mapElement = document.getElementById('map-desktop'); if (mapElement) { const yOffset = -80; const y = mapElement.getBoundingClientRect().top + window.pageYOffset + yOffset; window.scrollTo({ top: y, behavior: 'smooth' }); } }, 150); } }; lista.appendChild(div); }); agregarMarcadores(farmacias); const fechaActual = new Date().toLocaleDateString('es-AR'); const tituloDinamico = `${farmacias.length} farmacias de turno hoy en Mar del Plata · ${fechaActual}`; const titleElement = document.getElementById('page-title'); if (titleElement) titleElement.innerText = tituloDinamico; }
+
+    function mostrarFarmacias() {
+      const ciclo = obtenerCicloActual();
+      const farmacias = ciclosData[ciclo] || [];
+      const fecha = formatearFechaGMT3();
+      const intro = document.getElementById('intro');
+      const lista = document.getElementById('lista');
+      if (!farmacias.length) { intro.innerHTML = `<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`; lista.innerHTML = '<div class="card">Sin farmacias registradas</div>'; return; }
+      const fechaFin = new Date(fecha); fechaFin.setDate(fechaFin.getDate() + 1);
+      intro.innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;
+      lista.innerHTML = '';
+      farmacias.forEach((f, i) => {
+        const div = document.createElement('div'); div.className = 'card';
+        const tClean = limpiarTelefono(f.telefono);
+        const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
+        div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
+        div.onclick = (e) => {
+          if (e.target.closest('.phone-link')) return;
+          const sheet = document.getElementById('mapSheet');
+          document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
+          sheet.classList.add('open');
+          const c = farmaciasCoords[i];
+          if (c && mapMobile) { mapMobile.setView(c, 16); if (markersMobile[i]) markersMobile[i].openPopup(); }
+          if (activeCard) activeCard.classList.remove('active');
+          div.classList.add('active'); activeCard = div;
+          if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup();
+          if (window.innerWidth >= 768) {
+            setTimeout(() => {
+              const mapElement = document.getElementById('map-desktop');
+              if (mapElement) {
+                const yOffset = -80;
+                const y = mapElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }, 150);
+          }
+        };
+        lista.appendChild(div);
+      });
+      agregarMarcadores(farmacias);
+      const fechaActual = new Date().toLocaleDateString('es-AR');
+      const tituloDinamico = `${farmacias.length} farmacias de turno hoy en Mar del Plata · ${fechaActual}`;
+      const titleElement = document.getElementById('page-title');
+      if (titleElement) titleElement.innerText = tituloDinamico;
+    }
     function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
     document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
-    function mostrarTodasLasFarmacias() { if (modoTodas) return; modoTodas = true; const layout = document.querySelector('.layout'); if (layout) { layout.style.display = 'grid'; layout.style.gridTemplateColumns = '1fr 1fr'; layout.style.gap = '28px'; layout.style.width = '100%'; } farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML }; const farmaciasUnicas = new Map(); for (const grupo in ciclosData) { for (const f of ciclosData[grupo]) { const key = `${f.nombre}|${f.direccion}`; if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f); } } const todas = Array.from(farmaciasUnicas.values()); document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`; const listaDiv = document.getElementById('lista'); listaDiv.innerHTML = ''; todas.forEach((f, i) => { const div = document.createElement('div'); div.className = 'card'; div.innerHTML = `<div class="card-num">${i + 1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`; div.onclick = () => { if (f.lat && f.lng) { mapDesktop.setView([f.lat, f.lng], 16); if (mapMobile) mapMobile.setView([f.lat, f.lng], 16); } }; listaDiv.appendChild(div); }); limpiarMarcadores(); agregarMarcadores(todas); setTimeout(() => { if (mapDesktop) mapDesktop.invalidateSize(); if (mapMobile) mapMobile.invalidateSize(); }, 100); const btn = document.getElementById('btnTodasFarmacias'); btn.textContent = '↺ Volver'; btn.classList.remove('btn-todas'); btn.classList.add('btn-volver'); const btnFlotante = document.getElementById('btnVolverFlotante'); if (btnFlotante) btnFlotante.style.display = 'flex'; }
-    function volverATurno() { if (!modoTodas) return; modoTodas = false; const layout = document.querySelector('.layout'); if (layout) { layout.style.display = ''; layout.style.gridTemplateColumns = ''; layout.style.gap = ''; layout.style.width = ''; } document.getElementById('lista').innerHTML = farmaciasOriginales.lista; document.getElementById('intro').innerHTML = farmaciasOriginales.intro; const ciclo = obtenerCicloActual(); const farmaciasTurno = ciclosData[ciclo] || []; limpiarMarcadores(); agregarMarcadores(farmaciasTurno); const btn = document.getElementById('btnTodasFarmacias'); btn.textContent = '📍 Ver todas'; btn.classList.remove('btn-volver'); btn.classList.add('btn-todas'); const btnFlotante = document.getElementById('btnVolverFlotante'); if (btnFlotante) btnFlotante.style.display = 'none'; }
+    function mostrarTodasLasFarmacias() {
+      if (modoTodas) return; modoTodas = true;
+      const layout = document.querySelector('.layout');
+      if (layout) { layout.style.display = 'grid'; layout.style.gridTemplateColumns = '1fr 1fr'; layout.style.gap = '28px'; layout.style.width = '100%'; }
+      farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
+      const farmaciasUnicas = new Map();
+      for (const grupo in ciclosData) { for (const f of ciclosData[grupo]) { const key = `${f.nombre}|${f.direccion}`; if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f); } }
+      const todas = Array.from(farmaciasUnicas.values());
+      document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
+      const listaDiv = document.getElementById('lista'); listaDiv.innerHTML = '';
+      todas.forEach((f, i) => {
+        const div = document.createElement('div'); div.className = 'card';
+        div.innerHTML = `<div class="card-num">${i + 1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
+        div.onclick = () => { if (f.lat && f.lng) { mapDesktop.setView([f.lat, f.lng], 16); if (mapMobile) mapMobile.setView([f.lat, f.lng], 16); } };
+        listaDiv.appendChild(div);
+      });
+      limpiarMarcadores(); agregarMarcadores(todas);
+      setTimeout(() => { if (mapDesktop) mapDesktop.invalidateSize(); if (mapMobile) mapMobile.invalidateSize(); }, 100);
+      const btn = document.getElementById('btnTodasFarmacias'); btn.textContent = '↺ Volver'; btn.classList.remove('btn-todas'); btn.classList.add('btn-volver');
+      const btnFlotante = document.getElementById('btnVolverFlotante'); if (btnFlotante) btnFlotante.style.display = 'flex';
+    }
+    function volverATurno() {
+      if (!modoTodas) return; modoTodas = false;
+      const layout = document.querySelector('.layout');
+      if (layout) { layout.style.display = ''; layout.style.gridTemplateColumns = ''; layout.style.gap = ''; layout.style.width = ''; }
+      document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
+      document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
+      const ciclo = obtenerCicloActual(); const farmaciasTurno = ciclosData[ciclo] || [];
+      limpiarMarcadores(); agregarMarcadores(farmaciasTurno);
+      const btn = document.getElementById('btnTodasFarmacias'); btn.textContent = '📍 Ver todas'; btn.classList.remove('btn-volver'); btn.classList.add('btn-todas');
+      const btnFlotante = document.getElementById('btnVolverFlotante'); if (btnFlotante) btnFlotante.style.display = 'none';
+    }
     document.getElementById('btnTodasFarmacias').addEventListener('click', () => { if (modoTodas) volverATurno(); else mostrarTodasLasFarmacias(); });
     document.getElementById('btnVolverFlotante').addEventListener('click', () => { if (modoTodas) volverATurno(); });
     function aplicarTema(tema) { const sw = document.getElementById('theme-switch'), l = document.getElementById('theme-label'); if (tema === 'light') { document.body.classList.add('light'); document.body.classList.remove('dark'); if (sw) sw.classList.add('active'); if (l) l.textContent = 'tema claro'; } else { document.body.classList.add('dark'); document.body.classList.remove('light'); if (sw) sw.classList.remove('active'); if (l) l.textContent = 'tema oscuro'; } }
