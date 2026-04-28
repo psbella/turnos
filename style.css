@@ -1,7 +1,330 @@
-/* ==================== BOTONES FLOTANTES MODERNOS ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* Botón Ver todas / Volver (rectangular con texto, abajo izquierda) */
-.btn-todas, .btn-volver {
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #0d1117;
+  color: #c9d1d9;
+  padding-bottom: 80px;
+}
+
+body.light {
+  background: #ffffff;
+  color: #1f2328;
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  background: #0d1117;
+  border-bottom: 1px solid #30363d;
+  z-index: 10;
+}
+
+body.light header {
+  background: #ffffff;
+  border-bottom-color: #d0d7de;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 20px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cross {
+  width: 32px;
+  height: 32px;
+  position: relative;
+}
+
+.cross::before,
+.cross::after {
+  content: '';
+  position: absolute;
+  background: #3fb950;
+  border-radius: 3px;
+}
+
+.cross::before {
+  width: 12px;
+  height: 32px;
+  left: 10px;
+  top: 0;
+}
+
+.cross::after {
+  width: 32px;
+  height: 12px;
+  left: 0;
+  top: 10px;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #7d8590;
+  margin-top: 6px;
+  margin-left: 44px;
+}
+
+/* TEMA SWITCH */
+.theme-switch-wrapper {
+  margin-left: auto;
+  text-align: center;
+}
+
+.theme-switch {
+  width: 52px;
+  height: 26px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+body.light .theme-switch {
+  background: #f0f2f5;
+  border-color: #d0d7de;
+}
+
+.theme-slider {
+  width: 20px;
+  height: 20px;
+  background: #3fb950;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  transition: transform 0.2s;
+}
+
+.theme-switch.active .theme-slider {
+  transform: translateX(24px);
+}
+
+.theme-label {
+  font-size: 10px;
+  color: #7d8590;
+  margin-top: 4px;
+}
+
+/* MAIN */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+.col-map {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .col-map {
+    display: block;
+  }
+}
+
+/* INTRO */
+#intro {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+body.light #intro {
+  background: #ffffff;
+  border-color: #d0d7de;
+}
+
+.intro-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.stats {
+  font-size: 13px;
+  color: #3fb950;
+  background: rgba(63, 185, 80, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* LISTA */
+#lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+body.light .card {
+  background: #ffffff;
+  border-color: #d0d7de;
+}
+
+.card:hover {
+  background: #1a1f2a;
+}
+
+body.light .card:hover {
+  background: #f6f8fa;
+}
+
+.card.active {
+  border-color: #3fb950;
+  background: rgba(63, 185, 80, 0.08);
+}
+
+.card-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3fb950;
+  min-width: 32px;
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-name {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.card-address {
+  font-size: 12px;
+  color: #8b949e;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+body.light .card-address {
+  color: #57606a;
+}
+
+.card-phone {
+  display: flex;
+  align-items: center;
+}
+
+.phone-link {
+  background: rgba(63, 185, 80, 0.12);
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #3fb950;
+  text-decoration: none;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* MAPA ESCRITORIO */
+#map-desktop {
+  width: 100%;
+  height: 500px;
+  border-radius: 16px;
+  border: 1px solid #30363d;
+  overflow: hidden;
+}
+
+body.light #map-desktop {
+  border-color: #d0d7de;
+}
+
+/* SHEET MÓVIL */
+.map-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #161b22;
+  border-top: 1px solid #30363d;
+  border-radius: 20px 20px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+body.light .map-sheet {
+  background: #ffffff;
+  border-top-color: #d0d7de;
+}
+
+.map-sheet.open {
+  transform: translateY(0);
+}
+
+.map-sheet-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #30363d;
+}
+
+.map-sheet-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #8b949e;
+}
+
+#map-mobile-sheet {
+  height: 350px;
+  width: 100%;
+}
+
+/* BOTÓN VER TODAS / VOLVER (flotante izquierda) */
+.btn-todas,
+.btn-volver {
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -10,21 +333,15 @@
   border-radius: 40px;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  text-align: center;
-  line-height: 1.2;
+  z-index: 1000;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .btn-todas {
-  background: var(--accent);
+  background: #3fb950;
   color: white;
 }
 
@@ -45,18 +362,13 @@
   background: rgba(0, 0, 0, 0.85);
 }
 
-/* Tema claro para botón volver */
-.light .btn-volver {
+body.light .btn-volver {
   background: rgba(255, 255, 255, 0.9);
   color: #1f2328;
   border-color: rgba(0, 0, 0, 0.1);
 }
 
-.light .btn-volver:hover {
-  background: white;
-}
-
-/* Botón Ir arriba (circular, abajo derecha) */
+/* BOTÓN IR ARRIBA (flotante derecha) */
 .scroll-top-btn {
   position: fixed;
   bottom: 20px;
@@ -64,7 +376,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--accent);
+  background: #3fb950;
   border: none;
   cursor: pointer;
   display: flex;
@@ -72,9 +384,9 @@
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .scroll-top-btn.visible {
@@ -82,32 +394,38 @@
   visibility: visible;
 }
 
-.scroll-top-btn:hover {
-  transform: scale(1.05);
-  background: #2c974b;
-}
-
 .scroll-top-btn svg {
   width: 24px;
   height: 24px;
   stroke: white;
   stroke-width: 2.5;
-  fill: none;
 }
 
-/* Responsive móvil */
+/* FOOTER */
+.footer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: #7d8590;
+  border-top: 1px solid #30363d;
+}
+
+.footer a {
+  color: #3fb950;
+  text-decoration: none;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .btn-todas, .btn-volver {
     width: 120px;
     height: 44px;
     font-size: 12px;
-    bottom: 20px;
-    left: 16px;
   }
   
   .scroll-top-btn {
-    bottom: 20px;
-    right: 16px;
     width: 44px;
     height: 44px;
   }
@@ -115,5 +433,13 @@
   .scroll-top-btn svg {
     width: 20px;
     height: 20px;
+  }
+  
+  .card {
+    flex-wrap: wrap;
+  }
+  
+  .card-phone {
+    margin-left: auto;
   }
 }
