@@ -121,7 +121,17 @@ function mostrarTodasLasFarmacias() {
   todas.forEach((f, i) => {
     const div = document.createElement('div');
     div.className = 'card';
-    div.innerHTML = `<div class="card-num">${i + 1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
+    
+    // Procesar teléfono igual que en mostrarFarmacias()
+    const tClean = limpiarTelefono(f.telefono);
+    const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
+    
+    div.innerHTML = `<div class="card-num">${i + 1}</div>
+      <div class="card-info">
+        <div class="card-name">${capFirst(f.nombre)}</div>
+        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+      </div>
+      <div class="card-phone">${tLink}</div>`;
     
     // Capturar los datos de la farmacia para el onclick
     const farmaciaActual = f;
