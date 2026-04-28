@@ -94,32 +94,15 @@ function mostrarFarmacias() {
 function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
-// ==================== VER TODAS LAS FARMACIAS ====================
+// ==================== VER TODAS LAS FARMACIAS (VERSIÓN SIMPLIFICADA) ====================
 function mostrarTodasLasFarmacias() {
   if (modoTodas) return;
   modoTodas = true;
 
-  // Agregar clase al body para que el CSS tome el control en móvil
-  document.body.classList.add('modo-todas');
-
-  const mainElement = document.querySelector('main');
-  if (mainElement) {
-    if (window.innerWidth >= 768) {
-      mainElement.style.display = 'grid';
-      mainElement.style.gridTemplateColumns = '1fr 1fr';
-      mainElement.style.gap = '28px';
-      mainElement.style.width = '100%';
-    } else {
-      // En móvil forzamos bloque para que no se aplique grid
-      mainElement.style.display = 'block';
-      mainElement.style.gridTemplateColumns = '';
-      mainElement.style.gap = '';
-      mainElement.style.width = '100%';
-    }
-  }
-
+  // Guardar estado original
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
+  // Obtener farmacias únicas
   const farmaciasUnicas = new Map();
   for (const grupo in ciclosData) {
     for (const f of ciclosData[grupo]) {
@@ -129,8 +112,10 @@ function mostrarTodasLasFarmacias() {
   }
   const todas = Array.from(farmaciasUnicas.values());
 
+  // Actualizar intro
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
 
+  // Generar lista de tarjetas
   const listaDiv = document.getElementById('lista');
   listaDiv.innerHTML = '';
   todas.forEach((f, i) => {
@@ -139,13 +124,14 @@ function mostrarTodasLasFarmacias() {
     div.innerHTML = `<div class="card-num">${i + 1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
     div.onclick = () => {
       if (f.lat && f.lng) {
-        mapDesktop.setView([f.lat, f.lng], 16);
+        if (mapDesktop) mapDesktop.setView([f.lat, f.lng], 16);
         if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
       }
     };
     listaDiv.appendChild(div);
   });
 
+  // Actualizar mapa
   limpiarMarcadores();
   agregarMarcadores(todas);
   setTimeout(() => {
@@ -153,6 +139,7 @@ function mostrarTodasLasFarmacias() {
     if (mapMobile) mapMobile.invalidateSize();
   }, 100);
 
+  // Cambiar botones
   const btn = document.getElementById('btnTodasFarmacias');
   btn.textContent = '↺ Volver';
   btn.classList.remove('btn-todas');
@@ -166,25 +153,21 @@ function volverATurno() {
   if (!modoTodas) return;
   modoTodas = false;
 
-  // Remover clase del body
-  document.body.classList.remove('modo-todas');
-
-  const mainElement = document.querySelector('main');
-  if (mainElement) {
-    mainElement.style.display = '';
-    mainElement.style.gridTemplateColumns = '';
-    mainElement.style.gap = '';
-    mainElement.style.width = '';
-  }
-
+  // Restaurar lista e intro
   document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
   document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
 
+  // Restaurar mapa al turno actual
   const ciclo = obtenerCicloActual();
   const farmaciasTurno = ciclosData[ciclo] || [];
   limpiarMarcadores();
   agregarMarcadores(farmaciasTurno);
+  setTimeout(() => {
+    if (mapDesktop) mapDesktop.invalidateSize();
+    if (mapMobile) mapMobile.invalidateSize();
+  }, 100);
 
+  // Cambiar botones
   const btn = document.getElementById('btnTodasFarmacias');
   btn.textContent = '📍 Ver todas';
   btn.classList.remove('btn-volver');
