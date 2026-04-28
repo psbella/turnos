@@ -32,7 +32,6 @@ function obtenerCicloActual() {
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
   let fechaActual = new Date(ahora);
   
-  // Ajustar a las 9 AM para comparar días
   if (fechaActual.getHours() < 9) {
     fechaActual.setDate(fechaActual.getDate() - 1);
   }
@@ -48,7 +47,20 @@ function obtenerCicloActual() {
 const pharmacyIcon = L.divIcon({ className: 'custom-pharmacy-icon', html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>', iconSize: [34, 34], popupAnchor: [0, -17] });
 
 // ==================== CARGA DE DATOS ====================
-async function cargarDatos() { const i = document.getElementById('intro'); try { const r = await fetch(CONFIG.RUTA_JSON); if (!r.ok) throw new Error('HTTP ' + r.status); ciclosData = await r.json(); mostrarFarmacias(); } catch(e) { console.error(e); i.innerHTML = '<span>⚠️ Error al cargar datos</span>'; document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>'; } }
+async function cargarDatos() { 
+  const intro = document.getElementById('intro');
+  intro.innerHTML = '<span>Cargando datos...</span>';
+  try { 
+    const r = await fetch(CONFIG.RUTA_JSON + '?t=' + Date.now()); 
+    if (!r.ok) throw new Error('HTTP ' + r.status); 
+    ciclosData = await r.json(); 
+    mostrarFarmacias(); 
+  } catch(e) { 
+    console.error(e); 
+    intro.innerHTML = '<span>⚠️ Error al cargar datos</span>'; 
+    document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>'; 
+  } 
+}
 
 // ==================== MAPAS ====================
 function initMaps() { if (!mapDesktop) { mapDesktop = L.map('map-desktop').setView([-38.0055, -57.5426], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapDesktop); } if (!mapMobile) { mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapMobile); } }
@@ -133,18 +145,15 @@ function mostrarTodasLasFarmacias() {
 
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
 
-  // Inicializar mapas y limpiar
   initMaps();
   limpiarMarcadores();
   
-  // Arrays para esta vista
   const markersDesktopTodas = [];
   const markersMobileTodas = [];
   const coordsTodas = [];
   const boundsDesktop = L.latLngBounds();
   const boundsMobile = L.latLngBounds();
   
-  // Crear marcadores para todas las farmacias
   todas.forEach((f, idx) => {
     const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
     coordsTodas[idx] = coords;
@@ -177,7 +186,6 @@ function mostrarTodasLasFarmacias() {
     if (mapMobile) mapMobile.invalidateSize();
   }, 100);
 
-  // Generar lista de tarjetas
   const listaDiv = document.getElementById('lista');
   listaDiv.innerHTML = '';
   todas.forEach((f, i) => {
@@ -198,19 +206,16 @@ function mostrarTodasLasFarmacias() {
     const indiceActual = i;
     
     div.onclick = () => {
-      // Abrir sheet móvil
       const sheet = document.getElementById('mapSheet');
       document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
       sheet.classList.add('open');
       
-      // Centrar mapa móvil y abrir popup
       const coordsMovil = coordsTodas[indiceActual];
       if (coordsMovil && mapMobile) {
         mapMobile.setView(coordsMovil, 16);
         if (markersMobileTodas[indiceActual]) markersMobileTodas[indiceActual].openPopup();
       }
       
-      // Centrar mapa escritorio y abrir popup
       const coordsDesktop = farmaciaActual.lat && farmaciaActual.lng ? [farmaciaActual.lat, farmaciaActual.lng] : null;
       if (coordsDesktop && mapDesktop) {
         mapDesktop.setView(coordsDesktop, 16);
@@ -225,7 +230,6 @@ function mostrarTodasLasFarmacias() {
     listaDiv.appendChild(div);
   });
 
-  // Guardar referencias para volver
   window.markersDesktopTodas = markersDesktopTodas;
   window.markersMobileTodas = markersMobileTodas;
   window.coordsTodas = coordsTodas;
