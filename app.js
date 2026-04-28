@@ -94,7 +94,7 @@ function mostrarFarmacias() {
 function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
-// ==================== VER TODAS LAS FARMACIAS (VERSIÓN SIMPLIFICADA) ====================
+// ==================== VER TODAS LAS FARMACIAS ====================
 function mostrarTodasLasFarmacias() {
   if (modoTodas) return;
   modoTodas = true;
@@ -122,22 +122,79 @@ function mostrarTodasLasFarmacias() {
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `<div class="card-num">${i + 1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
+    
+    // Capturar los datos de la farmacia para el onclick
+    const farmaciaActual = f;
+    const indiceActual = i;
+    
     div.onclick = () => {
-      if (f.lat && f.lng) {
-        if (mapDesktop) mapDesktop.setView([f.lat, f.lng], 16);
-        if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
+      // Asegurar que el mapa móvil existe y tiene los marcadores
+      if (!mapMobile) {
+        // Crear mapa móvil si no existe
+        mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap'
+        }).addTo(mapMobile);
+        
+        // Agregar marcadores móviles para todas las farmacias
+        todas.forEach((ff, idx) => {
+          const coords = ff.lat && ff.lng ? [ff.lat, ff.lng] : null;
+          if (coords) {
+            const marker = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile);
+            // Guardar marcador para abrir popup después
+            if (!window.markersMovilesTodas) window.markersMovilesTodas = [];
+            window.markersMovilesTodas[idx] = marker;
+          }
+        });
+      } else {
+        mapMobile.invalidateSize();
+      }
+      
+      // Abrir el sheet
+      const sheet = document.getElementById('mapSheet');
+      document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
+      sheet.classList.add('open');
+      
+      // Centrar en la farmacia seleccionada
+      const coords = farmaciaActual.lat && farmaciaActual.lng ? [farmaciaActual.lat, farmaciaActual.lng] : null;
+      if (coords && mapMobile) {
+        setTimeout(() => {
+          mapMobile.setView(coords, 16);
+          if (window.markersMovilesTodas && window.markersMovilesTodas[indiceActual]) {
+            window.markersMovilesTodas[indiceActual].openPopup();
+          }
+        }, 200);
+      }
+      
+      // Manejar tarjeta activa
+      if (activeCard) activeCard.classList.remove('active');
+      div.classList.add('active');
+      activeCard = div;
+      
+      // Mapa de escritorio (si existe)
+      if (mapDesktop && farmaciaActual.lat && farmaciaActual.lng) {
+        mapDesktop.setView([farmaciaActual.lat, farmaciaActual.lng], 16);
       }
     };
+    
     listaDiv.appendChild(div);
   });
 
-  // Actualizar mapa
+  // Actualizar mapa con todas las farmacias (escritorio)
   limpiarMarcadores();
   agregarMarcadores(todas);
+  
   setTimeout(() => {
-    if (mapDesktop) mapDesktop.invalidateSize();
+    if (mapDesktop) {
+      mapDesktop.invalidateSize();
+      const coordsValidas = todas.filter(f => f.lat && f.lng).map(f => [f.lat, f.lng]);
+      if (coordsValidas.length > 0) {
+        const bounds = L.latLngBounds(coordsValidas);
+        mapDesktop.fitBounds(bounds);
+      }
+    }
     if (mapMobile) mapMobile.invalidateSize();
-  }, 100);
+  }, 150);
 
   // Cambiar botones
   const btn = document.getElementById('btnTodasFarmacias');
@@ -152,6 +209,11 @@ function mostrarTodasLasFarmacias() {
 function volverATurno() {
   if (!modoTodas) return;
   modoTodas = false;
+
+  // Limpiar marcadores móviles temporales si existen
+  if (window.markersMovilesTodas) {
+    window.markersMovilesTodas = null;
+  }
 
   // Restaurar lista e intro
   document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
