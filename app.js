@@ -234,7 +234,7 @@ function mostrarTodasLasFarmacias() {
   window.coordsTodas = coordsTodas;
 
   const btn = document.getElementById('btnTodasFarmacias');
-  btn.textContent = '↺ Volver a turnos';
+  btn.textContent = 'Volver a turnos';
   btn.classList.remove('btn-todas');
   btn.classList.add('btn-volver');
 }
@@ -265,7 +265,7 @@ function volverATurno() {
   }, 100);
 
   const btn = document.getElementById('btnTodasFarmacias');
-  btn.textContent = '📍 Ver todas';
+  btn.textContent = 'Ver todas';
   btn.classList.remove('btn-volver');
   btn.classList.add('btn-todas');
 }
