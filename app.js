@@ -128,26 +128,24 @@ function mostrarTodasLasFarmacias() {
     const indiceActual = i;
     
     div.onclick = () => {
-      // Asegurar que el mapa móvil existe y tiene los marcadores
+      // Asegurar que el mapa móvil existe
       if (!mapMobile) {
-        // Crear mapa móvil si no existe
         mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap'
         }).addTo(mapMobile);
-        
-        // Agregar marcadores móviles para todas las farmacias
+      }
+      
+      // Asegurar que los marcadores móviles existen para todas las farmacias (solo la primera vez)
+      if (!window.markersMovilesTodas) {
+        window.markersMovilesTodas = [];
         todas.forEach((ff, idx) => {
           const coords = ff.lat && ff.lng ? [ff.lat, ff.lng] : null;
           if (coords) {
             const marker = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile);
-            // Guardar marcador para abrir popup después
-            if (!window.markersMovilesTodas) window.markersMovilesTodas = [];
             window.markersMovilesTodas[idx] = marker;
           }
         });
-      } else {
-        mapMobile.invalidateSize();
       }
       
       // Abrir el sheet
@@ -171,7 +169,7 @@ function mostrarTodasLasFarmacias() {
       div.classList.add('active');
       activeCard = div;
       
-      // Mapa de escritorio (si existe)
+      // Mapa de escritorio
       if (mapDesktop && farmaciaActual.lat && farmaciaActual.lng) {
         mapDesktop.setView([farmaciaActual.lat, farmaciaActual.lng], 16);
       }
@@ -193,7 +191,6 @@ function mostrarTodasLasFarmacias() {
         mapDesktop.fitBounds(bounds);
       }
     }
-    if (mapMobile) mapMobile.invalidateSize();
   }, 150);
 
   // Cambiar botones
@@ -210,8 +207,13 @@ function volverATurno() {
   if (!modoTodas) return;
   modoTodas = false;
 
-  // Limpiar marcadores móviles temporales si existen
+  // Limpiar marcadores móviles temporales
   if (window.markersMovilesTodas) {
+    if (mapMobile) {
+      window.markersMovilesTodas.forEach(m => {
+        if (m) mapMobile.removeLayer(m);
+      });
+    }
     window.markersMovilesTodas = null;
   }
 
