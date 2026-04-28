@@ -1,495 +1,119 @@
-/* ==================== VARIABLES Y RESET ==================== */
-:root {
-  --bg-dark: #0d1117;
-  --surface-dark: #161b22;
-  --text-dark: #e6edf3;
-  --border-dark: rgba(255,255,255,0.08);
-  --bg-light: #f6f8fa;
-  --surface-light: #ffffff;
-  --text-light: #1f2328;
-  --border-light: rgba(0,0,0,0.1);
-  --accent: #3fb950;
-  --accent-dim: rgba(63,185,80,0.12);
-  --radius: 14px;
-}
+/* ==================== BOTONES FLOTANTES MODERNOS ==================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Nunito', sans-serif;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.dark {
-  --bg: var(--bg-dark);
-  --surface: var(--surface-dark);
-  --text: var(--text-dark);
-  --border: rgba(255,255,255,0.08);
-  background: var(--bg-dark);
-  color: var(--text-dark);
-}
-
-body.light {
-  --bg: var(--bg-light);
-  --surface: var(--surface-light);
-  --text: var(--text-light);
-  --border: rgba(0,0,0,0.1);
-  background: var(--bg-light);
-  color: var(--text-light);
-}
-
-/* ==================== HEADER TIPO TARJETA ==================== */
-header {
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  backdrop-filter: blur(10px);
-  z-index: 10;
-}
-
-.header-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 18px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.cross {
-  width: 32px;
-  height: 32px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.cross::before,
-.cross::after {
-  content: '';
-  position: absolute;
-  background: var(--accent);
-  border-radius: 3px;
-}
-
-.cross::before {
-  width: 12px;
-  height: 32px;
-  left: 10px;
-  top: 0;
-}
-
-.cross::after {
-  width: 32px;
-  height: 12px;
-  left: 0;
-  top: 10px;
-}
-
-.app-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 27px;
-  color: var(--text);
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-size: 14px;
-  color: #7d8590;
-  margin-left: 44px;
-  letter-spacing: 1px;
-}
-
-/* ==================== TEMA SWITCH ==================== */
-.theme-switch-wrapper {
-  margin-left: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.theme-switch {
-  width: 64px;
-  height: 28px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6px;
-}
-
-.theme-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.theme-icon svg {
-  width: 14px;
-  height: 14px;
-  stroke: var(--accent);
-}
-
-.theme-slider {
-  width: 22px;
-  height: 22px;
-  background: var(--accent);
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 3px;
-  transition: transform 0.3s ease;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-
-.theme-switch.active .theme-slider {
-  transform: translateX(34px);
-}
-
-.theme-label {
-  font-size: 10px;
-  color: #7d8590;
-  text-transform: lowercase;
-}
-
-/* ==================== MAIN y GRID ==================== */
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px 24px 60px;
-  flex: 1;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  main {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 28px;
-  }
-}
-
-.col-list {
-  min-width: 0;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.col-map {
-  min-width: 300px;
-  width: 100%;
-  position: relative;
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .col-map {
-    display: block;
-    position: sticky;
-    top: 90px;
-  }
-}
-
-/* ==================== INTRO ==================== */
-.intro {
-  font-size: 16px;
-  color: var(--text);
-  margin-bottom: 20px;
-  padding: 16px;
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.intro-line {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.intro strong {
-  color: var(--accent);
-}
-
-.stats {
-  font-size: 14px;
-  color: #7d8590;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ==================== MAPA ESCRITORIO ==================== */
-#map-desktop {
-  width: 100% !important;
-  height: 500px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: #1a1f2a;
-}
-
-/* ==================== SHEET MÓVIL ==================== */
-.map-sheet {
+/* Botón Ver todas / Volver (rectangular con texto, abajo izquierda) */
+.btn-todas, .btn-volver {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-radius: 20px 20px 0 0;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  z-index: 20;
-}
-
-.map-sheet.open {
-  transform: translateY(0);
-}
-
-.map-sheet-header {
-  padding: 16px;
-  font-weight: 700;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.map-sheet-close {
-  background: none;
+  bottom: 20px;
+  left: 20px;
+  width: 140px;
+  height: 48px;
+  border-radius: 40px;
   border: none;
-  color: #7d8590;
-  font-size: 24px;
   cursor: pointer;
-  padding: 0 8px;
-}
-
-#map-mobile-sheet {
-  height: 350px;
-  width: 100%;
-  background: #1a1f2a;
-}
-
-/* ==================== LISTA DE FARMACIAS ==================== */
-#lista {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 14px 16px;
-  display: flex;
-  gap: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-body.light .card:hover {
-  background: #f0f2f5;
-}
-
-body.dark .card:hover {
-  background: #1a1f2a;
-}
-
-.card.active {
-  border-color: var(--accent);
-  background: var(--accent-dim);
-}
-
-.card-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  min-width: 32px;
-  color: var(--accent);
-}
-
-.card-info {
-  flex: 1;
-}
-
-.card-name {
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-
-.card-address {
-  font-size: 12px;
-  color: var(--text);
-  opacity: 0.85;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  word-break: break-word;
-}
-
-.card-phone {
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-  white-space: nowrap;
-}
-
-.phone-link {
-  color: var(--accent);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent-dim);
-  padding: 5px 10px;
-  border-radius: 20px;
-  transition: all 0.2s;
-}
-
-.phone-link:hover {
-  transform: scale(1.02);
-}
-
-/* ==================== BOTONES FLOTANTES ==================== */
-.btn-todas,
-.btn-volver {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  padding: 8px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  color: var(--accent);
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 500;
-}
-
-.btn-todas:hover,
-.btn-volver:hover {
-  background: var(--accent-dim);
-  transform: scale(1.02);
-  border-color: var(--accent);
-}
-
-/* ==================== FOOTER ==================== */
-.footer {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 13px;
-  color: #7d8590;
-}
-
-.footer p {
-  margin: 8px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  z-index: 1000;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
 }
 
-.footer a {
-  color: var(--accent);
-  text-decoration: underline;
+.btn-todas {
+  background: var(--accent);
+  color: white;
 }
 
-/* ==================== RESPONSIVE ==================== */
+.btn-todas:hover {
+  transform: translateY(-2px);
+  background: #2c974b;
+}
+
+.btn-volver {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-volver:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Tema claro para botón volver */
+.light .btn-volver {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2328;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.light .btn-volver:hover {
+  background: white;
+}
+
+/* Botón Ir arriba (circular, abajo derecha) */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  transform: scale(1.05);
+  background: #2c974b;
+}
+
+.scroll-top-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+/* Responsive móvil */
 @media (max-width: 768px) {
-  .header-top {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  .btn-todas, .btn-volver {
+    width: 120px;
+    height: 44px;
+    font-size: 12px;
+    bottom: 20px;
+    left: 16px;
   }
   
-  .cross {
-    order: 1;
+  .scroll-top-btn {
+    bottom: 20px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
   }
   
-  .app-title {
-    order: 2;
-    flex: 1;
-    font-size: 22px;
-  }
-  
-  .theme-switch-wrapper {
-    order: 3;
-    margin-left: 0;
-  }
-  
-  .subtitle {
-    margin-left: 0;
-    text-align: center;
-  }
-  
-  .card {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .card-num {
-    min-width: 28px;
-    font-size: 18px;
-  }
-  
-  .card-name {
-    font-size: 14px;
-  }
-  
-  .card-address {
-    font-size: 11px;
-    white-space: normal;
-  }
-  
-  .card-phone {
-    white-space: normal;
-  }
-  
-  .intro {
-    font-size: 14px;
-    padding: 12px;
-  }
-  
-  #map-mobile-sheet {
-    height: 280px;
+  .scroll-top-btn svg {
+    width: 20px;
+    height: 20px;
   }
 }
