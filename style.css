@@ -153,6 +153,7 @@ main {
 
 /* INTRO */
 #intro {
+#intro {
   background: #161b22;
   border: 1px solid #30363d;
   border-radius: 16px;
@@ -168,9 +169,11 @@ body.light #intro {
 .intro-line {
   display: flex;
   align-items: center;
+  justify-content: center;  /* Centrar la primera línea */
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 .stats {
@@ -182,6 +185,9 @@ body.light #intro {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  width: fit-content;
+  margin: 0;               /* ← Quitar el margen automático */
+  justify-content: flex-start; /* Alinear a la izquierda */
 }
 
 /* LISTA */
