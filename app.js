@@ -94,38 +94,103 @@ function mostrarFarmacias() {
 function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
+// ==================== VER TODAS LAS FARMACIAS ====================
 function mostrarTodasLasFarmacias() {
-  if (modoTodas) return; modoTodas = true;
-  const layout = document.querySelector('main');
-  if (layout) { layout.style.display = 'grid'; layout.style.gridTemplateColumns = '1fr 1fr'; layout.style.gap = '28px'; layout.style.width = '100%'; }
+  if (modoTodas) return;
+  modoTodas = true;
+
+  // Agregar clase al body para que el CSS tome el control en móvil
+  document.body.classList.add('modo-todas');
+
+  const mainElement = document.querySelector('main');
+  if (mainElement) {
+    if (window.innerWidth >= 768) {
+      mainElement.style.display = 'grid';
+      mainElement.style.gridTemplateColumns = '1fr 1fr';
+      mainElement.style.gap = '28px';
+      mainElement.style.width = '100%';
+    } else {
+      // En móvil forzamos bloque para que no se aplique grid
+      mainElement.style.display = 'block';
+      mainElement.style.gridTemplateColumns = '';
+      mainElement.style.gap = '';
+      mainElement.style.width = '100%';
+    }
+  }
+
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
+
   const farmaciasUnicas = new Map();
-  for (const grupo in ciclosData) { for (const f of ciclosData[grupo]) { const key = `${f.nombre}|${f.direccion}`; if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f); } }
+  for (const grupo in ciclosData) {
+    for (const f of ciclosData[grupo]) {
+      const key = `${f.nombre}|${f.direccion}`;
+      if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+    }
+  }
   const todas = Array.from(farmaciasUnicas.values());
+
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
-  const listaDiv = document.getElementById('lista'); listaDiv.innerHTML = '';
+
+  const listaDiv = document.getElementById('lista');
+  listaDiv.innerHTML = '';
   todas.forEach((f, i) => {
-    const div = document.createElement('div'); div.className = 'card';
+    const div = document.createElement('div');
+    div.className = 'card';
     div.innerHTML = `<div class="card-num">${i + 1}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">📍 ${f.direccion}</div></div>`;
-    div.onclick = () => { if (f.lat && f.lng) { mapDesktop.setView([f.lat, f.lng], 16); if (mapMobile) mapMobile.setView([f.lat, f.lng], 16); } };
+    div.onclick = () => {
+      if (f.lat && f.lng) {
+        mapDesktop.setView([f.lat, f.lng], 16);
+        if (mapMobile) mapMobile.setView([f.lat, f.lng], 16);
+      }
+    };
     listaDiv.appendChild(div);
   });
-  limpiarMarcadores(); agregarMarcadores(todas);
-  setTimeout(() => { if (mapDesktop) mapDesktop.invalidateSize(); if (mapMobile) mapMobile.invalidateSize(); }, 100);
-  const btn = document.getElementById('btnTodasFarmacias'); btn.textContent = '↺ Volver'; btn.classList.remove('btn-todas'); btn.classList.add('btn-volver');
-  const btnFlotante = document.getElementById('btnVolverFlotante'); if (btnFlotante) btnFlotante.style.display = 'flex';
+
+  limpiarMarcadores();
+  agregarMarcadores(todas);
+  setTimeout(() => {
+    if (mapDesktop) mapDesktop.invalidateSize();
+    if (mapMobile) mapMobile.invalidateSize();
+  }, 100);
+
+  const btn = document.getElementById('btnTodasFarmacias');
+  btn.textContent = '↺ Volver';
+  btn.classList.remove('btn-todas');
+  btn.classList.add('btn-volver');
+  const btnFlotante = document.getElementById('btnVolverFlotante');
+  if (btnFlotante) btnFlotante.style.display = 'flex';
 }
 
+// ==================== VOLVER AL TURNO ACTUAL ====================
 function volverATurno() {
-  if (!modoTodas) return; modoTodas = false;
-  const layout = document.querySelector('main');
-  if (layout) { layout.style.display = ''; layout.style.gridTemplateColumns = ''; layout.style.gap = ''; layout.style.width = ''; }
+  if (!modoTodas) return;
+  modoTodas = false;
+
+  // Remover clase del body
+  document.body.classList.remove('modo-todas');
+
+  const mainElement = document.querySelector('main');
+  if (mainElement) {
+    mainElement.style.display = '';
+    mainElement.style.gridTemplateColumns = '';
+    mainElement.style.gap = '';
+    mainElement.style.width = '';
+  }
+
   document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
   document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
-  const ciclo = obtenerCicloActual(); const farmaciasTurno = ciclosData[ciclo] || [];
-  limpiarMarcadores(); agregarMarcadores(farmaciasTurno);
-  const btn = document.getElementById('btnTodasFarmacias'); btn.textContent = '📍 Ver todas'; btn.classList.remove('btn-volver'); btn.classList.add('btn-todas');
-  const btnFlotante = document.getElementById('btnVolverFlotante'); if (btnFlotante) btnFlotante.style.display = 'none';
+
+  const ciclo = obtenerCicloActual();
+  const farmaciasTurno = ciclosData[ciclo] || [];
+  limpiarMarcadores();
+  agregarMarcadores(farmaciasTurno);
+
+  const btn = document.getElementById('btnTodasFarmacias');
+  btn.textContent = '📍 Ver todas';
+  btn.classList.remove('btn-volver');
+  btn.classList.add('btn-todas');
+  const btnFlotante = document.getElementById('btnVolverFlotante');
+  if (btnFlotante) btnFlotante.style.display = 'none';
 }
 
 document.getElementById('btnTodasFarmacias').addEventListener('click', () => { if (modoTodas) volverATurno(); else mostrarTodasLasFarmacias(); });
