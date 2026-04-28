@@ -164,44 +164,129 @@ function mostrarTodasLasFarmacias() {
       sheet.classList.add('open');
       
       // Centrar en la farmacia seleccionada
-      const coords = farmaciaActual.lat && farmaciaActual.lng ? [farmaciaActual.lat, farmaciaActual.lng] : null;
+function mostrarTodasLasFarmacias() {
+  if (modoTodas) return;
+  modoTodas = true;
+
+  // Guardar estado original
+  farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
+
+  // Obtener farmacias únicas
+  const farmaciasUnicas = new Map();
+  for (const grupo in ciclosData) {
+    for (const f of ciclosData[grupo]) {
+      const key = `${f.nombre}|${f.direccion}`;
+      if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+    }
+  }
+  const todas = Array.from(farmaciasUnicas.values());
+
+  // Actualizar intro
+  document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
+
+  // === LIMPIAR MAPAS Y RECREAR MARCADORES PARA "VER TODAS" ===
+  initMaps();
+  limpiarMarcadores();
+  
+  // Nuevos arrays para los marcadores de "Ver todas"
+  const markersDesktopTodas = [];
+  const markersMobileTodas = [];
+  const coordsTodas = [];
+  
+  const dB = L.latLngBounds();
+  const mB = L.latLngBounds();
+  
+  todas.forEach((f, idx) => {
+    const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
+    coordsTodas[idx] = coords;
+    
+    // Popup igual al de la función original
+    const tClean = limpiarTelefono(f.telefono);
+    const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
+    const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
+    const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
+    const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
+    
+    if (coords) {
+      const mD = L.marker(coords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop);
+      const mM = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop);
+      markersDesktopTodas.push(mD);
+      markersMobileTodas.push(mM);
+      dB.extend(coords);
+      mB.extend(coords);
+    } else {
+      const fallback = [-38.0055, -57.5426];
+      const mD = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
+      const mM = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
+      markersDesktopTodas.push(mD);
+      markersMobileTodas.push(mM);
+      dB.extend(fallback);
+      mB.extend(fallback);
+    }
+  });
+  
+  if (todas.length > 0) {
+    mapDesktop.fitBounds(dB);
+    mapMobile.fitBounds(mB);
+    mapDesktop._initialZoom = true;
+    mapMobile._initialZoom = true;
+  }
+  
+  setTimeout(() => {
+    if (mapDesktop) mapDesktop.invalidateSize();
+    if (mapMobile) mapMobile.invalidateSize();
+  }, 100);
+
+  // Generar lista de tarjetas
+  const listaDiv = document.getElementById('lista');
+  listaDiv.innerHTML = '';
+  todas.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    
+    const tClean = limpiarTelefono(f.telefono);
+    const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
+    
+    div.innerHTML = `<div class="card-num">${i + 1}</div>
+      <div class="card-info">
+        <div class="card-name">${capFirst(f.nombre)}</div>
+        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+      </div>
+      <div class="card-phone">${tLink}</div>`;
+    
+    const farmaciaActual = f;
+    const indiceActual = i;
+    
+    div.onclick = () => {
+      const sheet = document.getElementById('mapSheet');
+      document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
+      sheet.classList.add('open');
+      
+      const coords = coordsTodas[indiceActual];
       if (coords && mapMobile) {
         setTimeout(() => {
           mapMobile.setView(coords, 16);
-          if (window.markersMovilesTodas && window.markersMovilesTodas[indiceActual]) {
-            window.markersMovilesTodas[indiceActual].openPopup();
-          }
+          if (markersMobileTodas[indiceActual]) markersMobileTodas[indiceActual].openPopup();
         }, 200);
       }
       
-      // Manejar tarjeta activa
       if (activeCard) activeCard.classList.remove('active');
       div.classList.add('active');
       activeCard = div;
       
-      // Mapa de escritorio
-      if (mapDesktop && farmaciaActual.lat && farmaciaActual.lng) {
-        mapDesktop.setView([farmaciaActual.lat, farmaciaActual.lng], 16);
+      if (mapDesktop && coords) {
+        mapDesktop.setView(coords, 16);
+        if (markersDesktopTodas[indiceActual]) markersDesktopTodas[indiceActual].openPopup();
       }
     };
     
     listaDiv.appendChild(div);
   });
 
-  // Actualizar mapa con todas las farmacias (escritorio)
-  limpiarMarcadores();
-  agregarMarcadores(todas);
-  
-  setTimeout(() => {
-    if (mapDesktop) {
-      mapDesktop.invalidateSize();
-      const coordsValidas = todas.filter(f => f.lat && f.lng).map(f => [f.lat, f.lng]);
-      if (coordsValidas.length > 0) {
-        const bounds = L.latLngBounds(coordsValidas);
-        mapDesktop.fitBounds(bounds);
-      }
-    }
-  }, 150);
+  // Guardar referencias para volver atrás
+  window.markersDesktopTodas = markersDesktopTodas;
+  window.markersMobileTodas = markersMobileTodas;
+  window.coordsTodas = coordsTodas;
 
   // Cambiar botones
   const btn = document.getElementById('btnTodasFarmacias');
