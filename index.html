@@ -3,26 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0d1117">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
-  <title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
-  <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección, teléfono y mapa interactivo.">
-  <meta name="robots" content="index, follow">
-  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icon-16.png">
-  <link rel="apple-touch-icon" href="/icon-512.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <title>Farmacias de turno · Mar del Plata</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark">
+<body>
   <header>
     <div class="header-inner">
       <div class="header-top">
@@ -30,9 +15,7 @@
         <div class="app-title">Farmacias de Turno</div>
         <div class="theme-switch-wrapper">
           <div class="theme-switch" id="theme-switch">
-            <span class="theme-icon sun"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5V3.5M12 20.5V22.5M1.5 12H3.5M20.5 12H22.5M4.3 4.3L5.7 5.7M18.3 18.3L19.7 19.7M19.7 4.3L18.3 5.7M5.7 18.3L4.3 19.7"/></svg></span>
             <div class="theme-slider"></div>
-            <span class="theme-icon moon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3.5a9 9 0 1 0 10 10z"/></svg></span>
           </div>
           <div class="theme-label" id="theme-label">tema oscuro</div>
         </div>
@@ -43,7 +26,7 @@
 
   <main>
     <div class="col-list">
-      <div class="intro" id="intro"><span>Cargando datos...</span></div>
+      <div id="intro"></div>
       <div id="lista"></div>
     </div>
     <div class="col-map">
@@ -59,17 +42,15 @@
     <div id="map-mobile-sheet"></div>
   </div>
 
-  <!-- BOTONES FLOTANTES MODERNOS (sin duplicados) -->
   <button id="btnTodasFarmacias" class="btn-todas">Ver todas</button>
-  <!-- El botón de ir arriba se crea con JavaScript (no va en HTML) -->
 
   <footer class="footer">
-    <p>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></p>
-    <p>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com">Pablo Bella</a> con 💚</p>
-    <p><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> · <a href="privacidad.html" target="_blank">Política de Privacidad</a> · © 2026 Farmacias de Turno MDP</p>
+    <p>Datos: Colegio de Farmacéuticos de Gral. Pueyrredon</p>
+    <p>Desarrollado por Pablo Bella</p>
+    <p><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> · <a href="privacidad.html">Política de Privacidad</a></p>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
