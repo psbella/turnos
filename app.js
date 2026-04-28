@@ -234,11 +234,9 @@ function mostrarTodasLasFarmacias() {
   window.coordsTodas = coordsTodas;
 
   const btn = document.getElementById('btnTodasFarmacias');
-btn.textContent = '↺ Volver a turnos';
-btn.classList.remove('btn-todas');
-btn.classList.add('btn-volver');
-  const btnFlotante = document.getElementById('btnVolverFlotante');
-  if (btnFlotante) btnFlotante.style.display = 'none';
+  btn.textContent = '↺ Volver a turnos';
+  btn.classList.remove('btn-todas');
+  btn.classList.add('btn-volver');
 }
 
 // ==================== VOLVER AL TURNO ACTUAL ====================
@@ -267,15 +265,12 @@ function volverATurno() {
   }, 100);
 
   const btn = document.getElementById('btnTodasFarmacias');
-  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3"/></svg>`;
+  btn.textContent = '📍 Ver todas';
   btn.classList.remove('btn-volver');
   btn.classList.add('btn-todas');
-  const btnFlotante = document.getElementById('btnVolverFlotante');
-  if (btnFlotante) btnFlotante.style.display = 'none';
 }
 
 document.getElementById('btnTodasFarmacias').addEventListener('click', () => { if (modoTodas) volverATurno(); else mostrarTodasLasFarmacias(); });
-document.getElementById('btnVolverFlotante').addEventListener('click', () => { if (modoTodas) volverATurno(); });
 
 // ==================== TEMAS ====================
 function aplicarTema(tema) { const sw = document.getElementById('theme-switch'), l = document.getElementById('theme-label'); if (tema === 'light') { document.body.classList.add('light'); document.body.classList.remove('dark'); if (sw) sw.classList.add('active'); if (l) l.textContent = 'tema claro'; } else { document.body.classList.add('dark'); document.body.classList.remove('light'); if (sw) sw.classList.remove('active'); if (l) l.textContent = 'tema oscuro'; } }
