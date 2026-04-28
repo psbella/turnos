@@ -11,7 +11,7 @@ window.addEventListener('offline', () => {
   if (intro && !document.querySelector('.offline-alert')) {
     const alertDiv = document.createElement('div');
     alertDiv.className = 'offline-alert';
-    alertDiv.innerHTML = '📡 Sin conexión. Los datos pueden no estar actualizados.';
+    alertDiv.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f85149" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Sin conexión. Los datos pueden no estar actualizados.`;
     intro.prepend(alertDiv);
   }
 });
@@ -23,7 +23,6 @@ function labelFecha(d) { const di = ['domingo','lunes','martes','miércoles','ju
 function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
 function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
 
-// CORREGIDO: Cambio de turno a las 9 AM
 function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
   const totalCiclos = Object.keys(ciclosData).length;
@@ -57,7 +56,7 @@ async function cargarDatos() {
     mostrarFarmacias(); 
   } catch(e) { 
     console.error(e); 
-    intro.innerHTML = '<span>⚠️ Error al cargar datos</span>'; 
+    intro.innerHTML = '<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f85149" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="#f85149"/></svg> Error al cargar datos</span>'; 
     document.getElementById('lista').innerHTML = '<div class="card">No se pudieron cargar las farmacias</div>'; 
   } 
 }
@@ -96,7 +95,7 @@ function mostrarFarmacias() {
   const fecha = formatearFechaGMT3();
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
-  if (!farmacias.length) { intro.innerHTML = `<span>⚠️ No hay datos para hoy</span><div class="stats">📅 ${labelFecha(fecha)}</div>`; lista.innerHTML = '<div class="card">Sin farmacias registradas</div>'; return; }
+  if (!farmacias.length) { intro.innerHTML = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg> No hay datos para hoy</span><div class="stats"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${labelFecha(fecha)}</div>`; lista.innerHTML = '<div class="card">Sin farmacias registradas</div>'; return; }
   const fechaFin = new Date(fecha); fechaFin.setDate(fechaFin.getDate() + 1);
   intro.innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;
   lista.innerHTML = '';
@@ -127,7 +126,7 @@ function mostrarFarmacias() {
 function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
-// ==================== VER TODAS LAS FARMACIAS (CORREGIDO) ====================
+// ==================== VER TODAS LAS FARMACIAS ====================
 function mostrarTodasLasFarmacias() {
   if (modoTodas) return;
   modoTodas = true;
@@ -143,7 +142,7 @@ function mostrarTodasLasFarmacias() {
   }
   const todas = Array.from(farmaciasUnicas.values());
 
-  document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
+  document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ${todas.length} farmacias únicas</span></div>`;
 
   initMaps();
   limpiarMarcadores();
@@ -235,11 +234,11 @@ function mostrarTodasLasFarmacias() {
   window.coordsTodas = coordsTodas;
 
   const btn = document.getElementById('btnTodasFarmacias');
-  btn.textContent = '↺ Volver';
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3"/></svg>`;
   btn.classList.remove('btn-todas');
   btn.classList.add('btn-volver');
   const btnFlotante = document.getElementById('btnVolverFlotante');
-  if (btnFlotante) btnFlotante.style.display = 'flex';
+  if (btnFlotante) btnFlotante.style.display = 'none';
 }
 
 // ==================== VOLVER AL TURNO ACTUAL ====================
@@ -268,7 +267,7 @@ function volverATurno() {
   }, 100);
 
   const btn = document.getElementById('btnTodasFarmacias');
-  btn.textContent = '📍 Ver todas';
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3"/></svg>`;
   btn.classList.remove('btn-volver');
   btn.classList.add('btn-todas');
   const btnFlotante = document.getElementById('btnVolverFlotante');
@@ -288,7 +287,7 @@ function agregarBotonIrArriba() {
   if (!document.querySelector('.scroll-top-btn')) {
     const btn = document.createElement('button');
     btn.className = 'scroll-top-btn';
-    btn.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>`;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 4v16M12 4l-4 4M12 4l4 4"/></svg>`;
     btn.setAttribute('aria-label', 'Ir arriba');
     document.body.appendChild(btn);
     
