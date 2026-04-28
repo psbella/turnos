@@ -103,6 +103,60 @@ body.light .card-num { color: #3fb950; }
 @media (max-width: 768px) {
   body.modo-todas main {
     display: block !important;
+    /* ===== ARREGLO TELÉFONOS ===== */
+.card-phone {
+  display: block;
+  flex-shrink: 0;
+  margin-left: 12px;
+  min-width: 100px;
+  text-align: right;
+}
+
+.phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(63, 185, 80, 0.12);
+  padding: 5px 10px;
+  border-radius: 24px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Tema claro */
+.light .phone-link {
+  background: rgba(44, 151, 75, 0.1);
+}
+
+.phone-link:hover {
+  background: rgba(63, 185, 80, 0.25);
+  transform: scale(1.02);
+}
+
+/* Icono SVG dentro del link */
+.phone-link svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Si el teléfono es muy largo, se adapta */
+@media (max-width: 560px) {
+  .card-phone {
+    min-width: auto;
+  }
+  .phone-link {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+  }
+}
   }
   body.modo-todas .col-list {
     width: 100% !important;
