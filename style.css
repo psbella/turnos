@@ -232,3 +232,126 @@ body.light .card-num { color: #3fb950; }
     height: 20px;
   }
 }
+
+/* ===== BOTONES FLOTANTES ===== */
+
+/* Botón Ver todas / Volver (izquierda) */
+.btn-todas, .btn-volver {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-todas {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-todas:hover {
+  transform: scale(1.05);
+  background: var(--accent-hover, #2c974b);
+}
+
+.btn-volver {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-volver:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Tema claro */
+.light .btn-volver {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2328;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.light .btn-volver:hover {
+  background: white;
+}
+
+/* Íconos dentro de los botones */
+.btn-todas svg, .btn-volver svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Botón Ir arriba (derecha) */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  transform: scale(1.05);
+  background: var(--accent-hover, #2c974b);
+}
+
+.scroll-top-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+  .btn-todas, .btn-volver, .scroll-top-btn {
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+  }
+  .btn-todas svg, .btn-volver svg, .scroll-top-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ===== SVG ALERTAS ===== */
+.offline-alert svg,
+.intro span svg,
+.stats svg {
+  margin-right: 6px;
+  vertical-align: middle;
+}
