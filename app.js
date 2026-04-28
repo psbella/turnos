@@ -22,7 +22,28 @@ function formatearFechaGMT3() { const a = new Date(), o = { timeZone: CONFIG.ZON
 function labelFecha(d) { const di = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'], me = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`; }
 function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
 function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
-function obtenerCicloActual() { const f = formatearFechaGMT3(), d = Math.floor((f - FECHA_INICIO_CICLO_1) / 86400000); const totalCiclos = Object.keys(ciclosData).length; let c = (d % totalCiclos) + 1; if (c <= 0) c = 1; return c; }
+
+// CORREGIDO: Cambio de turno a las 9 AM
+function obtenerCicloActual() {
+  const ahora = formatearFechaGMT3();
+  const totalCiclos = Object.keys(ciclosData).length;
+  if (totalCiclos === 0) return 1;
+  
+  let fechaBase = new Date(FECHA_INICIO_CICLO_1);
+  let fechaActual = new Date(ahora);
+  
+  // Ajustar a las 9 AM para comparar días
+  if (fechaActual.getHours() < 9) {
+    fechaActual.setDate(fechaActual.getDate() - 1);
+  }
+  fechaBase.setHours(9, 0, 0, 0);
+  fechaActual.setHours(9, 0, 0, 0);
+  
+  const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
+  let ciclo = (diffDias % totalCiclos) + 1;
+  if (ciclo <= 0) ciclo = 1;
+  return ciclo;
+}
 
 const pharmacyIcon = L.divIcon({ className: 'custom-pharmacy-icon', html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>', iconSize: [34, 34], popupAnchor: [0, -17] });
 
@@ -94,15 +115,13 @@ function mostrarFarmacias() {
 function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
-// ==================== VER TODAS LAS FARMACIAS ====================
+// ==================== VER TODAS LAS FARMACIAS (CORREGIDO) ====================
 function mostrarTodasLasFarmacias() {
   if (modoTodas) return;
   modoTodas = true;
 
-  // Guardar estado original
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
-  // Obtener farmacias únicas
   const farmaciasUnicas = new Map();
   for (const grupo in ciclosData) {
     for (const f of ciclosData[grupo]) {
@@ -112,124 +131,45 @@ function mostrarTodasLasFarmacias() {
   }
   const todas = Array.from(farmaciasUnicas.values());
 
-  // Actualizar intro
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
 
-  // Generar lista de tarjetas
-  const listaDiv = document.getElementById('lista');
-  listaDiv.innerHTML = '';
-  todas.forEach((f, i) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    
-    // Procesar teléfono igual que en mostrarFarmacias()
-    const tClean = limpiarTelefono(f.telefono);
-    const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
-    
-    div.innerHTML = `<div class="card-num">${i + 1}</div>
-      <div class="card-info">
-        <div class="card-name">${capFirst(f.nombre)}</div>
-        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
-      </div>
-      <div class="card-phone">${tLink}</div>`;
-    
-    // Capturar los datos de la farmacia para el onclick
-    const farmaciaActual = f;
-    const indiceActual = i;
-    
-    div.onclick = () => {
-      // Asegurar que el mapa móvil existe
-      if (!mapMobile) {
-        mapMobile = L.map('map-mobile-sheet').setView([-38.0055, -57.5426], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap'
-        }).addTo(mapMobile);
-      }
-      
-      // Asegurar que los marcadores móviles existen para todas las farmacias (solo la primera vez)
-      if (!window.markersMovilesTodas) {
-        window.markersMovilesTodas = [];
-        todas.forEach((ff, idx) => {
-          const coords = ff.lat && ff.lng ? [ff.lat, ff.lng] : null;
-          if (coords) {
-            const marker = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile);
-            window.markersMovilesTodas[idx] = marker;
-          }
-        });
-      }
-      
-      // Abrir el sheet
-      const sheet = document.getElementById('mapSheet');
-      document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
-      sheet.classList.add('open');
-      
-      // Centrar en la farmacia seleccionada
-function mostrarTodasLasFarmacias() {
-  if (modoTodas) return;
-  modoTodas = true;
-
-  // Guardar estado original
-  farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
-
-  // Obtener farmacias únicas
-  const farmaciasUnicas = new Map();
-  for (const grupo in ciclosData) {
-    for (const f of ciclosData[grupo]) {
-      const key = `${f.nombre}|${f.direccion}`;
-      if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
-    }
-  }
-  const todas = Array.from(farmaciasUnicas.values());
-
-  // Actualizar intro
-  document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro">📍</span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span>🏪 ${todas.length} farmacias únicas</span></div>`;
-
-  // === LIMPIAR MAPAS Y RECREAR MARCADORES PARA "VER TODAS" ===
+  // Inicializar mapas y limpiar
   initMaps();
   limpiarMarcadores();
   
-  // Nuevos arrays para los marcadores de "Ver todas"
+  // Arrays para esta vista
   const markersDesktopTodas = [];
   const markersMobileTodas = [];
   const coordsTodas = [];
+  const boundsDesktop = L.latLngBounds();
+  const boundsMobile = L.latLngBounds();
   
-  const dB = L.latLngBounds();
-  const mB = L.latLngBounds();
-  
+  // Crear marcadores para todas las farmacias
   todas.forEach((f, idx) => {
     const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
     coordsTodas[idx] = coords;
     
-    // Popup igual al de la función original
     const tClean = limpiarTelefono(f.telefono);
     const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
     const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
     const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
     const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
     
-    if (coords) {
-      const mD = L.marker(coords, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop);
-      const mM = L.marker(coords, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop);
-      markersDesktopTodas.push(mD);
-      markersMobileTodas.push(mM);
-      dB.extend(coords);
-      mB.extend(coords);
-    } else {
-      const fallback = [-38.0055, -57.5426];
-      const mD = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
-      const mM = L.marker(fallback, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
-      markersDesktopTodas.push(mD);
-      markersMobileTodas.push(mM);
-      dB.extend(fallback);
-      mB.extend(fallback);
-    }
+    const fallback = [-38.0055, -57.5426];
+    const markerPos = coords || fallback;
+    const popupContent = coords ? pop : pop + '<br><small>📍 Ubicación aproximada</small>';
+    
+    const mD = L.marker(markerPos, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent);
+    const mM = L.marker(markerPos, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent);
+    markersDesktopTodas.push(mD);
+    markersMobileTodas.push(mM);
+    boundsDesktop.extend(markerPos);
+    boundsMobile.extend(markerPos);
   });
   
   if (todas.length > 0) {
-    mapDesktop.fitBounds(dB);
-    mapMobile.fitBounds(mB);
-    mapDesktop._initialZoom = true;
-    mapMobile._initialZoom = true;
+    mapDesktop.fitBounds(boundsDesktop);
+    mapMobile.fitBounds(boundsMobile);
   }
   
   setTimeout(() => {
@@ -258,37 +198,38 @@ function mostrarTodasLasFarmacias() {
     const indiceActual = i;
     
     div.onclick = () => {
+      // Abrir sheet móvil
       const sheet = document.getElementById('mapSheet');
       document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
       sheet.classList.add('open');
       
-      const coords = coordsTodas[indiceActual];
-      if (coords && mapMobile) {
-        setTimeout(() => {
-          mapMobile.setView(coords, 16);
-          if (markersMobileTodas[indiceActual]) markersMobileTodas[indiceActual].openPopup();
-        }, 200);
+      // Centrar mapa móvil y abrir popup
+      const coordsMovil = coordsTodas[indiceActual];
+      if (coordsMovil && mapMobile) {
+        mapMobile.setView(coordsMovil, 16);
+        if (markersMobileTodas[indiceActual]) markersMobileTodas[indiceActual].openPopup();
+      }
+      
+      // Centrar mapa escritorio y abrir popup
+      const coordsDesktop = farmaciaActual.lat && farmaciaActual.lng ? [farmaciaActual.lat, farmaciaActual.lng] : null;
+      if (coordsDesktop && mapDesktop) {
+        mapDesktop.setView(coordsDesktop, 16);
+        if (markersDesktopTodas[indiceActual]) markersDesktopTodas[indiceActual].openPopup();
       }
       
       if (activeCard) activeCard.classList.remove('active');
       div.classList.add('active');
       activeCard = div;
-      
-      if (mapDesktop && coords) {
-        mapDesktop.setView(coords, 16);
-        if (markersDesktopTodas[indiceActual]) markersDesktopTodas[indiceActual].openPopup();
-      }
     };
     
     listaDiv.appendChild(div);
   });
 
-  // Guardar referencias para volver atrás
+  // Guardar referencias para volver
   window.markersDesktopTodas = markersDesktopTodas;
   window.markersMobileTodas = markersMobileTodas;
   window.coordsTodas = coordsTodas;
 
-  // Cambiar botones
   const btn = document.getElementById('btnTodasFarmacias');
   btn.textContent = '↺ Volver';
   btn.classList.remove('btn-todas');
@@ -302,21 +243,17 @@ function volverATurno() {
   if (!modoTodas) return;
   modoTodas = false;
 
-  // Limpiar marcadores móviles temporales
-  if (window.markersMovilesTodas) {
-    if (mapMobile) {
-      window.markersMovilesTodas.forEach(m => {
-        if (m) mapMobile.removeLayer(m);
-      });
-    }
-    window.markersMovilesTodas = null;
+  if (window.markersDesktopTodas) {
+    window.markersDesktopTodas.forEach(m => { if (m && mapDesktop) mapDesktop.removeLayer(m); });
+    window.markersMobileTodas.forEach(m => { if (m && mapMobile) mapMobile.removeLayer(m); });
+    window.markersDesktopTodas = null;
+    window.markersMobileTodas = null;
+    window.coordsTodas = null;
   }
 
-  // Restaurar lista e intro
   document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
   document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
 
-  // Restaurar mapa al turno actual
   const ciclo = obtenerCicloActual();
   const farmaciasTurno = ciclosData[ciclo] || [];
   limpiarMarcadores();
@@ -326,7 +263,6 @@ function volverATurno() {
     if (mapMobile) mapMobile.invalidateSize();
   }, 100);
 
-  // Cambiar botones
   const btn = document.getElementById('btnTodasFarmacias');
   btn.textContent = '📍 Ver todas';
   btn.classList.remove('btn-volver');
@@ -338,7 +274,28 @@ function volverATurno() {
 document.getElementById('btnTodasFarmacias').addEventListener('click', () => { if (modoTodas) volverATurno(); else mostrarTodasLasFarmacias(); });
 document.getElementById('btnVolverFlotante').addEventListener('click', () => { if (modoTodas) volverATurno(); });
 
+// ==================== TEMAS ====================
 function aplicarTema(tema) { const sw = document.getElementById('theme-switch'), l = document.getElementById('theme-label'); if (tema === 'light') { document.body.classList.add('light'); document.body.classList.remove('dark'); if (sw) sw.classList.add('active'); if (l) l.textContent = 'tema claro'; } else { document.body.classList.add('dark'); document.body.classList.remove('light'); if (sw) sw.classList.remove('active'); if (l) l.textContent = 'tema oscuro'; } }
 function initTheme() { const savedTheme = localStorage.getItem('theme'), savedMode = localStorage.getItem('modoAutomatico'); if (savedTheme && savedMode === 'false') { modoAutomatico = false; aplicarTema(savedTheme); return; } modoAutomatico = true; const ahora = formatearFechaGMT3(); const hora = ahora.getHours(); const esDia = (hora >= 8 && hora < 20); aplicarTema(esDia ? 'light' : 'dark'); }
 document.getElementById('theme-switch').onclick = () => { modoAutomatico = false; const esClaroActual = document.body.classList.contains('light'); aplicarTema(esClaroActual ? 'dark' : 'light'); localStorage.setItem('theme', esClaroActual ? 'dark' : 'light'); localStorage.setItem('modoAutomatico', 'false'); };
-(async () => { initTheme(); await cargarDatos(); programarActualizacion(); })();
+
+// ==================== BOTÓN IR ARRIBA ====================
+function agregarBotonIrArriba() {
+  if (!document.querySelector('.scroll-top-btn')) {
+    const btn = document.createElement('button');
+    btn.className = 'scroll-top-btn';
+    btn.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>`;
+    btn.setAttribute('aria-label', 'Ir arriba');
+    document.body.appendChild(btn);
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    });
+    
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+}
+
+// ==================== INICIO ====================
+(async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
