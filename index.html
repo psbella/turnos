@@ -11,17 +11,6 @@
   <title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
   <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección, teléfono y mapa interactivo.">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Farmacias de turno hoy en Mar del Plata">
-  <meta property="og:description" content="Turno farmacéutico actualizado. Dirección, teléfono y mapa interactivo.">
-  <meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png">
-  <meta property="og:url" content="https://farmaciasmdp.com.ar">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_AR">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata">
-  <meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa.">
-  <meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png">
-  <link rel="canonical" href="https://farmaciasmdp.com.ar/">
   <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
@@ -56,9 +45,6 @@
     <div class="col-list">
       <div class="intro" id="intro"><span>Cargando datos...</span></div>
       <div id="lista"></div>
-      <div style="display: flex; justify-content: center; margin-top: 24px;">
-        <button id="btnTodasFarmacias" class="btn-todas">Ver todas</button>
-      </div>
     </div>
     <div class="col-map">
       <div id="map-desktop"></div>
@@ -72,6 +58,10 @@
     </div>
     <div id="map-mobile-sheet"></div>
   </div>
+
+  <!-- BOTONES FLOTANTES MODERNOS (sin duplicados) -->
+  <button id="btnTodasFarmacias" class="btn-todas">Ver todas</button>
+  <!-- El botón de ir arriba se crea con JavaScript (no va en HTML) -->
 
   <footer class="footer">
     <p>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></p>
