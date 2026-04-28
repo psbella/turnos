@@ -105,26 +105,34 @@ function mostrarFarmacias() {
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
     div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
     div.onclick = (e) => {
-      if (e.target.closest('.phone-link')) return;
-      const sheet = document.getElementById('mapSheet');
-      document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
-      sheet.classList.add('open');
-      const c = farmaciasCoords[i];
-      if (c && mapMobile) { mapMobile.setView(c, 16); if (markersMobile[i]) markersMobile[i].openPopup(); }
-      if (activeCard) activeCard.classList.remove('active');
-      div.classList.add('active'); activeCard = div;
-      if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup();
-      if (window.innerWidth >= 768) {
-        setTimeout(() => {
-          const mapElement = document.getElementById('map-desktop');
-          if (mapElement) {
-            const yOffset = -80;
-            const y = mapElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-        }, 150);
+  if (e.target.closest('.phone-link')) return;
+  const sheet = document.getElementById('mapSheet');
+  document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
+  sheet.classList.add('open');
+  const c = farmaciasCoords[i];
+  if (c && mapMobile) { 
+    mapMobile.setView(c, 16); 
+    if (markersMobile[i]) markersMobile[i].openPopup(); 
+  }
+  if (activeCard) activeCard.classList.remove('active');
+  div.classList.add('active'); 
+  activeCard = div;
+  if (mapDesktop && markersDesktop[i]) {
+    markersDesktop[i].openPopup();
+    if (c) mapDesktop.setView(c, 16);
+  }
+  // Scroll suave al mapa en escritorio (opcional)
+  if (window.innerWidth >= 768 && mapDesktop) {
+    setTimeout(() => {
+      const mapElement = document.getElementById('map-desktop');
+      if (mapElement) {
+        const yOffset = -80;
+        const y = mapElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
-    };
+    }, 150);
+  }
+};
     lista.appendChild(div);
   });
   agregarMarcadores(farmacias);
