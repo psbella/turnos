@@ -1,95 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384773741296777"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0d1117">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
-  <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección, teléfono y mapa interactivo.">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Farmacias de turno hoy en Mar del Plata">
-  <meta property="og:description" content="Turno farmacéutico actualizado. Dirección, teléfono y mapa interactivo.">
-  <meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png">
-  <meta property="og:url" content="https://farmaciasmdp.com.ar">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_AR">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata">
-  <meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa.">
-  <meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png">
-  <link rel="canonical" href="https://farmaciasmdp.com.ar/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Farmacias de Turno MDP",
-    "description": "Aplicación web que muestra las farmacias de turno en Mar del Plata.",
-    "url": "https://farmaciasmdp.com.ar/",
-    "applicationCategory": "HealthApplication",
-    "operatingSystem": "Web",
-    "author": { "@type": "Person", "name": "Pablo Bella" },
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
-  }
-  </script>
-  <link rel="icon" type="image/png" sizes="96x96" href="icon-96.png">
-<link rel="icon" type="image/png" sizes="48x48" href="icon-48.png">
-<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
-<link rel="apple-touch-icon" href="icon-512.png">
-<link rel="shortcut icon" href="icon-32.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <meta name="description" content="Consultá las farmacias de turno en Mar del Plata. Actualización diaria a las 9 AM.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
+  <title>Farmacias de turno · Mar del Plata</title>
 </head>
-<body class="dark">
+<body>
   <header>
-    <div class="header-inner">
-      <div class="header-top">
-        <div class="cross" aria-label="Cruz verde, símbolo de farmacia"></div>
-        <div class="app-title">Farmacias de Turno</div>
-        <div class="theme-switch-wrapper">
-          <div class="theme-switch" id="theme-switch">
-            <span class="theme-icon sun"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M12 1.5V3.5M12 20.5V22.5M1.5 12H3.5M20.5 12H22.5M4.3 4.3L5.7 5.7M18.3 18.3L19.7 19.7M19.7 4.3L18.3 5.7M5.7 18.3L4.3 19.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
-            <div class="theme-slider"></div>
-            <span class="theme-icon moon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3.5a9 9 0 1 0 10 10z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-          <div class="theme-label" id="theme-label">tema oscuro</div>
-        </div>
-      </div>
-      <div class="subtitle">CIUDAD DE MAR DEL PLATA</div>
+    <h1>💊 Farmacias de turno</h1>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span id="theme-label" style="font-size: 12px;">tema oscuro</span>
+      <button id="theme-switch" aria-label="Cambiar tema"></button>
     </div>
   </header>
 
   <main>
-    <div class="col-list">
-      <div class="intro" id="intro">
-        <div class="spinner"></div>
-        <span>Cargando datos...</span>
-      </div>
-      <div id="lista"></div>
-      <div style="display: flex; justify-content: center; margin-top: 24px;"><button id="btnTodasFarmacias" class="btn-todas">📍 Ver todas</button></div>
-    </div>
-    <div class="col-map"><button id="btnVolverFlotante" class="btn-volver-flotante" style="display: none;">↺ Volver a turno</button><div id="map-desktop"></div></div>
+    <div id="intro"></div>
+    <div id="lista"></div>
+    <div id="map-desktop"></div>
   </main>
 
-  <div class="map-sheet" id="mapSheet"><div class="map-sheet-header"><span id="sheetName"></span><button class="map-sheet-close" id="closeSheet">✕</button></div><div id="map-mobile-sheet"></div></div>
+  <div id="mapSheet">
+    <div class="sheet-header">
+      <span id="sheetName"></span>
+      <button id="closeSheet" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="map-mobile-sheet"></div>
+  </div>
 
-  <footer class="footer">
-    <p><span class="icon-data"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6zm2-4h12v2H6V2zm16 8H2v12h20V10zm-2 10H4v-8h16v8z" fill="var(--accent)"/></svg></span><span>Datos: <a href="http://colfarmamdp.com.ar/" target="_blank">Colegio de Farmacéuticos de Gral. Pueyrredon</a></span></p>
-    <p><span class="icon-dev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6L2 12L8 18L9.5 16.5L5 12L9.5 7.5L8 6ZM16 6L14.5 7.5L19 12L14.5 16.5L16 18L22 12L16 6Z" fill="var(--accent)"/></svg></span><span>Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Consulta%20sobre%20Farmacias%20de%20Turno%20MDP">Pablo Bella</a> con 💚</span></p>
-    <p style="font-size:11px;margin-top:8px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap"><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> <span>·</span> <a href="privacidad.html" target="_blank">Política de Privacidad</a> <span>·</span> <span>© 2026 Farmacias de Turno MDP</span></p>
-  </footer>
+  <button id="btnTodasFarmacias" class="btn-todas">Ver todas</button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
