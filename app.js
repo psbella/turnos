@@ -234,9 +234,9 @@ function mostrarTodasLasFarmacias() {
   window.coordsTodas = coordsTodas;
 
   const btn = document.getElementById('btnTodasFarmacias');
-  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3"/></svg>`;
-  btn.classList.remove('btn-todas');
-  btn.classList.add('btn-volver');
+btn.textContent = '↺ Volver a turnos';
+btn.classList.remove('btn-todas');
+btn.classList.add('btn-volver');
   const btnFlotante = document.getElementById('btnVolverFlotante');
   if (btnFlotante) btnFlotante.style.display = 'none';
 }
