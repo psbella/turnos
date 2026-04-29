@@ -84,6 +84,11 @@ header {
   border-radius: 3px;
 }
 
+.code-symbol {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .cross::before {
   width: 12px;
   height: 32px;
