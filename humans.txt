@@ -1,54 +1,44 @@
 /* TEAM */
-Developer: Pablo Bella
-Role: Diseño, desarrollo, mantenimiento
-Location: Mar del Plata, Buenos Aires, Argentina
-Contact: pablo.s.bella@gmail.com
+  Developer: Pablo Bella
+  Role: Diseño, desarrollo, mantenimiento
+  Location: Mar del Plata, Buenos Aires, Argentina
+  Contact: pablo.s.bella@gmail.com
 
 /* SITE */
-Name: Farmacias de Turno MDP
-URL: https://psbella.github.io/turnos/
-Description: Aplicación web para consultar farmacias de turno en Mar del Plata
-Status: Activa
+  Name: Farmacias de Turno MDP
+  URL: https://psbella.github.io/turnos/
+  Description: Aplicación web para consultar farmacias de turno en Mar del Plata
+  Status: Activa
+  Primera versión: Abril 2026
+  Última actualización: 2026-04-29
+  Idioma: Español (Argentina)
+  Licencia: CC BY-NC 4.0
 
 /* TECH */
-Frontend: HTML5, CSS3, JavaScript (Vanilla)
-Maps: Leaflet + OpenStreetMap
-Geocoding: Nominatim (OpenStreetMap)
-Hosting: GitHub Pages
-Automatización: Script propio (sin tocar servidores ajenos)
+  Frontend: HTML5, CSS3, JavaScript (ES6)
+  Mapas: Leaflet.js + OpenStreetMap
+  PWA: Service Worker, Web App Manifest
+  Iconos: SVG nativos
+  Fuentes: Google Fonts (Bebas Neue, Nunito)
+  Control de versiones: Git + GitHub
+  Hosting: GitHub Pages + dominio propio
+  IDE: Phoenix Code / VS Code
+  Automatización: Script propio (sin tocar servidores ajenos)
 
 /* DATA */
-Source: Colegio de Farmacéuticos de General Pueyrredon (público)
-Method: Copia manual + lógica de rotación deducida
-Update: Automática (el script sabe qué toca cada día)
+  Source: Colegio de Farmacéuticos de General Pueyrredon (público)
+  Method: Copia manual + lógica de rotación deducida
+  Update: Automática (el script sabe qué toca cada día)
+  Verificación: Con personal farmacéutico local
 
-/* DISCLAIMER */
-Este sitio es un proyecto independiente, sin afiliación,
-patrocinio o respaldo oficial del Colegio de Farmacéuticos
-de General Pueyrredon.
+  La información se presenta con fines exclusivamente informativos. 
+  Si bien se busca mantenerla actualizada, se recomienda verificar los datos 
+  directamente con la farmacia correspondiente.
 
-Los datos sobre farmacias de turno provienen de fuentes
-de acceso público. Este proyecto no realiza scraping
-automático ni consultas a los servidores del Colegio.
+  Este sitio no vende productos, no promueve consumo, no recopila datos personales 
+  y no tiene fines comerciales.
 
-La información se presenta con fines exclusivamente
-informativos. Si bien se busca mantenerla actualizada,
-se recomienda verificar los datos directamente con el Colegio o con la farmacia correspondiente.
-
-Este sitio no vende productos, no promueve consumo,
-no recopila datos personales y no tiene fines comerciales.
-
-La app fue desarrollada de forma independiente.
-Su existencia no implica competencia ni reemplazo
-de los canales oficiales.
-
-/* THANKS */
-A la comunidad open source
-OpenStreetMap contributors
-Leaflet.js
-A la ballena azul <3
-
-/* LICENSE */
-Uso informativo, sin fines comerciales
+  La app fue desarrollada de forma independiente. Su existencia no implica competencia 
+  ni reemplazo de los canales oficiales.
 
 /* EL TÍTULO NO HACE EL CÓDIGO. LAS GANAS, SÍ. */
