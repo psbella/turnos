@@ -52,5 +52,21 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
+  <!-- Botón flotante de instalación (solo para Android/Chrome) -->
+<button id="btnInstalar" class="btn-instalar" style="display: none;">📲 Instalar app</button>
+
+<!-- Modal de instrucciones para iPhone -->
+<div id="iosModal" class="ios-modal" style="display: none;">
+  <div class="ios-modal-content">
+    <span class="ios-modal-close" id="closeIosModal">&times;</span>
+    <p>📱 Instalá esta app en tu iPhone:</p>
+    <ol>
+      <li>Tocá el ícono <strong>Compartir</strong> <span class="share-icon">⎙</span> (cuadrito con flecha)</li>
+      <li>Deslizá hacia abajo y tocá <strong>"Agregar a pantalla de inicio"</strong></li>
+      <li>Tocá <strong>"Agregar"</strong> en la esquina superior derecha</li>
+    </ol>
+    <button id="entendidoBtn" class="entendido-btn">Entendido</button>
+  </div>
+</div>
 </body>
 </html>
