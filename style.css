@@ -1,4 +1,18 @@
-/* ==================== RESET Y VARIABLES ==================== */
+/* ==================== VARIABLES Y RESET ==================== */
+:root {
+  --bg-dark: #0d1117;
+  --surface-dark: #161b22;
+  --text-dark: #e6edf3;
+  --border-dark: rgba(255,255,255,0.08);
+  --bg-light: #f6f8fa;
+  --surface-light: #ffffff;
+  --text-light: #1f2328;
+  --border-light: rgba(0,0,0,0.1);
+  --accent: #3fb950;
+  --accent-dim: rgba(63,185,80,0.12);
+  --radius: 14px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,29 +20,40 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  background: #0d1117;
-  color: #c9d1d9;
+  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
   padding-bottom: 80px;
 }
 
+body.dark {
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --text: var(--text-dark);
+  --border: rgba(255,255,255,0.08);
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
 body.light {
-  background: #f6f8fa;
-  color: #1f2328;
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --text: var(--text-light);
+  --border: rgba(0,0,0,0.1);
+  background: var(--bg-light);
+  color: var(--text-light);
 }
 
 /* ==================== HEADER ==================== */
 header {
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: #0d1117;
-  border-bottom: 1px solid #30363d;
+  background: var(--bg);
+  backdrop-filter: blur(10px);
   z-index: 10;
-}
-
-body.light header {
-  background: #ffffff;
-  border-bottom-color: #d0d7de;
 }
 
 .header-inner {
@@ -48,12 +73,14 @@ body.light header {
   width: 32px;
   height: 32px;
   position: relative;
+  flex-shrink: 0;
 }
 
-.cross::before, .cross::after {
+.cross::before,
+.cross::after {
   content: '';
   position: absolute;
-  background: #3fb950;
+  background: var(--accent);
   border-radius: 3px;
 }
 
@@ -72,8 +99,17 @@ body.light header {
 }
 
 .app-title {
+  font-family: 'Bebas Neue', 'Nunito', sans-serif;
   font-size: 24px;
-  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-title svg {
+  stroke: var(--accent);
 }
 
 .subtitle {
@@ -86,27 +122,26 @@ body.light header {
 .theme-switch-wrapper {
   margin-left: auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .theme-switch {
   width: 52px;
   height: 26px;
-  background: #161b22;
-  border: 1px solid #30363d;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 30px;
   position: relative;
   cursor: pointer;
 }
 
-body.light .theme-switch {
-  background: #f0f2f5;
-  border-color: #d0d7de;
-}
-
 .theme-slider {
   width: 20px;
   height: 20px;
-  background: #3fb950;
+  background: var(--accent);
   border-radius: 50%;
   position: absolute;
   top: 2px;
@@ -121,7 +156,6 @@ body.light .theme-switch {
 .theme-label {
   font-size: 10px;
   color: #7d8590;
-  margin-top: 4px;
 }
 
 /* ==================== MAIN ==================== */
@@ -151,16 +185,11 @@ main {
 
 /* ==================== INTRO ==================== */
 #intro {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 16px;
   margin-bottom: 20px;
-}
-
-body.light #intro {
-  background: #ffffff;
-  border-color: #d0d7de;
 }
 
 .intro-line {
@@ -175,8 +204,8 @@ body.light #intro {
 
 .stats {
   font-size: 13px;
-  color: #3fb950;
-  background: rgba(63, 185, 80, 0.1);
+  color: var(--accent);
+  background: var(--accent-dim);
   padding: 4px 10px;
   border-radius: 20px;
   display: inline-flex;
@@ -184,7 +213,7 @@ body.light #intro {
   gap: 6px;
 }
 
-/* ==================== LISTA DE FARMACIAS (FORZADO) ==================== */
+/* ==================== LISTA ==================== */
 #lista {
   display: flex;
   flex-direction: column;
@@ -192,19 +221,14 @@ body.light #intro {
 }
 
 .card {
-  background: #161b22 !important;
-  border: 1px solid #30363d !important;
-  border-radius: 16px !important;
-  padding: 14px !important;
-  display: flex !important;
-  gap: 12px !important;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
   cursor: pointer;
   transition: all 0.2s;
-}
-
-body.light .card {
-  background: #ffffff !important;
-  border-color: #d0d7de !important;
 }
 
 .card:hover {
@@ -212,15 +236,17 @@ body.light .card {
 }
 
 .card.active {
-  border-color: #3fb950 !important;
-  background: rgba(63, 185, 80, 0.08) !important;
+  border-color: var(--accent);
+  background: var(--accent-dim);
 }
 
 .card-num {
-  font-size: 20px;
+  font-family: 'Bebas Neue', monospace;
+  font-size: 22px;
   font-weight: 700;
-  color: #3fb950;
-  min-width: 32px;
+  color: var(--accent);
+  min-width: 36px;
+  text-align: center;
 }
 
 .card-info {
@@ -229,19 +255,16 @@ body.light .card {
 
 .card-name {
   font-weight: 700;
+  font-size: 16px;
   margin-bottom: 4px;
 }
 
 .card-address {
   font-size: 12px;
-  color: #8b949e;
+  color: #7d8590;
   display: flex;
   align-items: center;
-  gap: 4px;
-}
-
-body.light .card-address {
-  color: #57606a;
+  gap: 6px;
 }
 
 .card-phone {
@@ -250,15 +273,15 @@ body.light .card-address {
 }
 
 .phone-link {
-  background: rgba(63, 185, 80, 0.12);
+  background: var(--accent-dim);
   padding: 5px 10px;
   border-radius: 20px;
-  color: #3fb950;
+  color: var(--accent);
   text-decoration: none;
   font-size: 12px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 /* ==================== MAPAS ==================== */
@@ -266,7 +289,7 @@ body.light .card-address {
   width: 100%;
   height: 500px;
   border-radius: 16px;
-  border: 1px solid #30363d;
+  border: 1px solid var(--border);
   overflow: hidden;
 }
 
@@ -275,8 +298,8 @@ body.light .card-address {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #161b22;
-  border-top: 1px solid #30363d;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
   border-radius: 20px 20px 0 0;
   transform: translateY(100%);
   transition: transform 0.3s;
@@ -292,15 +315,25 @@ body.light .card-address {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #30363d;
+  border-bottom: 1px solid var(--border);
 }
 
 .map-sheet-close {
   background: none;
   border: none;
-  font-size: 24px;
   cursor: pointer;
-  color: #8b949e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-sheet-close svg {
+  stroke: #7d8590;
+  transition: stroke 0.2s;
+}
+
+.map-sheet-close:hover svg {
+  stroke: var(--accent);
 }
 
 #map-mobile-sheet {
@@ -323,11 +356,17 @@ body.light .card-address {
   z-index: 1000;
   transition: all 0.2s;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Nunito', sans-serif;
 }
 
 .btn-todas {
-  background: #3fb950;
+  background: var(--accent);
   color: white;
+}
+
+.btn-todas:hover {
+  transform: translateY(-2px);
+  background: #2c974b;
 }
 
 .btn-volver {
@@ -335,6 +374,11 @@ body.light .card-address {
   backdrop-filter: blur(8px);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-volver:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .light .btn-volver {
@@ -350,7 +394,7 @@ body.light .card-address {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #3fb950;
+  background: var(--accent);
   border: none;
   cursor: pointer;
   display: flex;
@@ -375,35 +419,7 @@ body.light .card-address {
   stroke-width: 2.5;
 }
 
-/* ==================== FOOTER ==================== */
-.footer {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-  text-align: center;
-  font-size: 12px;
-  color: #7d8590;
-  border-top: 1px solid #30363d;
-}
-
-.footer a {
-  color: #3fb950;
-  text-decoration: none;
-}
-
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
-  .btn-todas, .btn-volver {
-    width: 120px;
-    height: 44px;
-    font-size: 12px;
-  }
-  
-  .scroll-top-btn {
-    width: 44px;
-    height: 44px;
-  }
-  /* ==================== BOTÓN INSTALAR ==================== */
+/* ==================== BOTÓN INSTALAR ==================== */
 .btn-instalar {
   position: fixed;
   bottom: 20px;
@@ -412,7 +428,7 @@ body.light .card-address {
   background: var(--accent);
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 40px;
   font-size: 14px;
   font-weight: 600;
@@ -420,14 +436,22 @@ body.light .card-address {
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'Nunito', sans-serif;
+}
+
+.btn-instalar svg {
+  stroke: white;
 }
 
 .btn-instalar:hover {
   transform: translateX(-50%) scale(1.02);
   background: #2c974b;
 }
-/* ==================== MODAL PARA IPHONE ==================== */
+
+/* ==================== MODAL iOS ==================== */
 .ios-modal {
   position: fixed;
   top: 0;
@@ -449,13 +473,30 @@ body.light .card-address {
   max-width: 300px;
   text-align: center;
   border: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.ios-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  display: flex;
+}
+
+.ios-modal-close svg {
+  stroke: #7d8590;
+  width: 18px;
+  height: 18px;
 }
 
 .ios-modal-content p {
-  margin-bottom: 16px;
+  margin: 16px 0;
   font-weight: 600;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .ios-modal-content ol {
@@ -469,19 +510,6 @@ body.light .card-address {
   margin: 12px 0;
 }
 
-.share-icon {
-  display: inline-block;
-  font-size: 18px;
-  margin: 0 4px;
-}
-
-.ios-modal-close {
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-  color: #7d8590;
-}
-
 .entendido-btn {
   background: var(--accent);
   color: white;
@@ -492,15 +520,43 @@ body.light .card-address {
   font-weight: 600;
   cursor: pointer;
   margin-top: 16px;
+  width: 100%;
 }
 
+/* ==================== FOOTER ==================== */
+.footer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: #7d8590;
+  border-top: 1px solid var(--border);
+}
+
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
+  .btn-todas, .btn-volver {
+    width: 120px;
+    height: 44px;
+    font-size: 12px;
+  }
+  
+  .scroll-top-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
   .btn-instalar {
     bottom: 80px;
-    padding: 10px 20px;
-    font-size: 13px;
+    font-size: 12px;
+    padding: 8px 16px;
   }
-}
   
   .card {
     flex-wrap: wrap;
@@ -509,4 +565,4 @@ body.light .card-address {
   .card-phone {
     margin-left: auto;
   }
-  }
+}
