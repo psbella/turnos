@@ -3,16 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Farmacias de turno · Mar del Plata</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Farmacias MDP">
+  <title id="page-title">Farmacias de turno en Mar del Plata · Cargando...</title>
+  <meta name="description" content="Farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección, teléfono y mapa interactivo.">
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icon-16.png">
+  <link rel="apple-touch-icon" href="/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark">
   <header>
     <div class="header-inner">
       <div class="header-top">
         <div class="cross"></div>
-        <div class="app-title">Farmacias de Turno</div>
+        <div class="app-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="4" ry="4"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+            <line x1="12" y1="9" x2="12" y2="15"/>
+          </svg>
+          Farmacias de Turno
+        </div>
         <div class="theme-switch-wrapper">
           <div class="theme-switch" id="theme-switch">
             <div class="theme-slider"></div>
@@ -37,36 +58,59 @@
   <div class="map-sheet" id="mapSheet">
     <div class="map-sheet-header">
       <span id="sheetName"></span>
-      <button class="map-sheet-close" id="closeSheet">✕</button>
+      <button class="map-sheet-close" id="closeSheet">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
     </div>
     <div id="map-mobile-sheet"></div>
   </div>
 
   <button id="btnTodasFarmacias" class="btn-todas">Ver todas</button>
 
+  <!-- Botón instalación -->
+  <button id="btnInstalar" class="btn-instalar" style="display: none;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+      <line x1="12" y1="18" x2="12.01" y2="18"/>
+    </svg>
+    Instalar app
+  </button>
+
+  <!-- Modal iOS -->
+  <div id="iosModal" class="ios-modal" style="display: none;">
+    <div class="ios-modal-content">
+      <span class="ios-modal-close" id="closeIosModal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </span>
+      <p>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+          <line x1="12" y1="18" x2="12.01" y2="18"/>
+        </svg>
+        Instalá esta app en tu iPhone:
+      </p>
+      <ol>
+        <li>Tocá el ícono <strong>Compartir</strong> <span class="share-icon">⎙</span></li>
+        <li>Deslizá hacia abajo y tocá <strong>"Agregar a pantalla de inicio"</strong></li>
+        <li>Tocá <strong>"Agregar"</strong> en la esquina superior derecha</li>
+      </ol>
+      <button id="entendidoBtn" class="entendido-btn">Entendido</button>
+    </div>
+  </div>
+
   <footer class="footer">
     <p>Datos: Colegio de Farmacéuticos de Gral. Pueyrredon</p>
     <p>Desarrollado por Pablo Bella</p>
-    <p><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> · <a href="privacidad.html">Política de Privacidad</a></p>
+    <p><a href="privacidad.html">Política de Privacidad</a> · © 2026</p>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
-  <!-- Botón flotante de instalación (solo para Android/Chrome) -->
-<button id="btnInstalar" class="btn-instalar" style="display: none;">📲 Instalar app</button>
-
-<!-- Modal de instrucciones para iPhone -->
-<div id="iosModal" class="ios-modal" style="display: none;">
-  <div class="ios-modal-content">
-    <span class="ios-modal-close" id="closeIosModal">&times;</span>
-    <p>📱 Instalá esta app en tu iPhone:</p>
-    <ol>
-      <li>Tocá el ícono <strong>Compartir</strong> <span class="share-icon">⎙</span> (cuadrito con flecha)</li>
-      <li>Deslizá hacia abajo y tocá <strong>"Agregar a pantalla de inicio"</strong></li>
-      <li>Tocá <strong>"Agregar"</strong> en la esquina superior derecha</li>
-    </ol>
-    <button id="entendidoBtn" class="entendido-btn">Entendido</button>
-  </div>
-</div>
 </body>
 </html>
