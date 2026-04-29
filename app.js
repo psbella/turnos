@@ -343,6 +343,89 @@ function agregarBotonIrArriba() {
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 }
+// ==================== INSTALACIÓN PWA ====================
+let deferredPrompt = null;
+const btnInstalar = document.getElementById('btnInstalar');
+const iosModal = document.getElementById('iosModal');
+const closeIosModal = document.getElementById('closeIosModal');
+const entendidoBtn = document.getElementById('entendidoBtn');
 
+// Detectar si es iOS Safari
+function isIOS() {
+  const ua = navigator.userAgent;
+  return /iPad|iPhone|iPod/.test(ua) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+// Detectar si ya está instalada
+function isInstalled() {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+         ('standalone' in navigator && navigator.standalone === true);
+}
+
+// Mostrar instrucciones para iOS
+function showIOSInstructions() {
+  const dismissed = localStorage.getItem('pwa-install-dismissed');
+  if (!dismissed && !isInstalled() && isIOS()) {
+    setTimeout(() => {
+      iosModal.style.display = 'flex';
+    }, 3000);
+  }
+}
+
+// Cerrar modal iOS
+function closeIOSModal() {
+  iosModal.style.display = 'none';
+  localStorage.setItem('pwa-install-dismissed', 'true');
+  // Opcional: volver a mostrar después de 30 días
+  setTimeout(() => {
+    localStorage.removeItem('pwa-install-dismissed');
+  }, 30 * 24 * 60 * 60 * 1000);
+}
+
+// Evento para Android/Chrome
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Mostrar el botón de instalación
+  if (btnInstalar) {
+    btnInstalar.style.display = 'flex';
+  }
+});
+
+// Instalar desde el botón
+if (btnInstalar) {
+  btnInstalar.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Instalación: ${outcome}`);
+      deferredPrompt = null;
+      btnInstalar.style.display = 'none';
+    } else if (isIOS()) {
+      showIOSInstructions();
+    } else {
+      alert('Para instalar, tocá el menú ⋮ y seleccioná "Instalar aplicación"');
+    }
+  });
+}
+
+// Cerrar modal iOS
+if (closeIosModal) closeIosModal.onclick = closeIOSModal;
+if (entendidoBtn) entendidoBtn.onclick = closeIOSModal;
+
+// Mostrar instrucciones iOS después de instalar
+if (isIOS() && !isInstalled()) {
+  const dismissed = localStorage.getItem('pwa-install-dismissed');
+  if (!dismissed) {
+    setTimeout(showIOSInstructions, 3000);
+  }
+}
+
+// Ocultar botón si ya está instalado
+if (isInstalled() && btnInstalar) {
+  btnInstalar.style.display = 'none';
+}
 // ==================== INICIO ====================
 (async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
