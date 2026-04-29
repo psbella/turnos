@@ -404,4 +404,4 @@ if (isInstalled() && btnInstalar) {
 }
 
 // ==================== INICIO ====================
-(async () => { initTheme(); await carg
+(async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
