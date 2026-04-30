@@ -143,6 +143,7 @@ function mostrarTodasLasFarmacias() {
 
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
+  // 1. Obtener todas las farmacias únicas
   const farmaciasUnicas = new Map();
   for (const grupo in ciclosData) {
     for (const f of ciclosData[grupo]) {
@@ -151,8 +152,33 @@ function mostrarTodasLasFarmacias() {
     }
   }
   const todas = Array.from(farmaciasUnicas.values());
-  todas.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
+  // 2. Obtener las farmacias de turno HOY
+  const ciclo = obtenerCicloActual();
+  const farmaciasHoy = ciclosData[ciclo] || [];
+  const nombresHoy = new Set(farmaciasHoy.map(f => `${f.nombre}|${f.direccion}`));
+
+  // 3. Separar: destacadas (turno hoy) vs normales
+  const destacadas = [];
+  const normales = [];
+
+  todas.forEach(f => {
+    const key = `${f.nombre}|${f.direccion}`;
+    if (nombresHoy.has(key)) {
+      destacadas.push(f);
+    } else {
+      normales.push(f);
+    }
+  });
+
+  // 4. Ordenar alfabéticamente dentro de cada grupo
+  destacadas.sort((a, b) => a.nombre.localeCompare(b.nombre));
+  normales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+  // 5. Unir: primero destacadas, después normales
+  const todasOrdenadas = [...destacadas, ...normales];
+
+  // 6. Actualizar intro
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ${todas.length} farmacias únicas</span></div>`;
 
   initMaps();
@@ -164,7 +190,7 @@ function mostrarTodasLasFarmacias() {
   const boundsDesktop = L.latLngBounds();
   const boundsMobile = L.latLngBounds();
 
-  todas.forEach((f, idx) => {
+  todasOrdenadas.forEach((f, idx) => {
     const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
     coordsTodas[idx] = coords;
 
@@ -186,7 +212,7 @@ function mostrarTodasLasFarmacias() {
     boundsMobile.extend(markerPos);
   });
 
-  if (todas.length > 0) {
+  if (todasOrdenadas.length > 0) {
     mapDesktop.fitBounds(boundsDesktop);
     mapMobile.fitBounds(boundsMobile);
   }
@@ -198,16 +224,21 @@ function mostrarTodasLasFarmacias() {
 
   const listaDiv = document.getElementById('lista');
   listaDiv.innerHTML = '';
-  todas.forEach((f, i) => {
+  todasOrdenadas.forEach((f, i) => {
     const div = document.createElement('div');
     div.className = 'card';
 
     const tClean = limpiarTelefono(f.telefono);
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
 
+    // Verificar si esta farmacia está de turno hoy (círculo + texto)
+    const key = `${f.nombre}|${f.direccion}`;
+    const esDeTurnoHoy = nombresHoy.has(key);
+    const badgeHtml = esDeTurnoHoy ? '<span class="badge-hoy"><span class="circulo"></span> Hoy de turno</span>' : '';
+
     div.innerHTML = `<div class="card-num">${i + 1}</div>
       <div class="card-info">
-        <div class="card-name">${capFirst(f.nombre)}</div>
+        <div class="card-name">${capFirst(f.nombre)} ${badgeHtml}</div>
         <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
       </div>
       <div class="card-phone">${tLink}</div>`;
