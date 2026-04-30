@@ -237,11 +237,12 @@ function mostrarTodasLasFarmacias() {
     const badgeHtml = esDeTurnoHoy ? '<span class="badge-hoy"><span class="circulo"></span> Hoy de turno</span>' : '';
 
     div.innerHTML = `<div class="card-num">${i + 1}</div>
-      <div class="card-info">
-        <div class="card-name">${capFirst(f.nombre)} ${badgeHtml}</div>
-        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
-      </div>
-      <div class="card-phone">${tLink}</div>`;
+  <div class="card-info">
+    <div class="card-name">${capFirst(f.nombre)}</div>
+    <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+    ${badgeHtml ? `<div class="card-badge">${badgeHtml}</div>` : ''}
+  </div>
+  <div class="card-phone">${tLink}</div>`;
 
     const farmaciaActual = f;
     const indiceActual = i;
