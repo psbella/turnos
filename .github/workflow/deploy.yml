@@ -12,11 +12,13 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true  # ← Esto ayuda a evitar artefactos duplicados
 
 jobs:
-  # UN SOLO JOB que construye
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,16 +30,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'  # Sube toda la raíz del repositorio
-  
-  # UN SOLO JOB que despliega
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+          path: '.'
+      
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4  # ← USA v4, NO v5
+        uses: actions/deploy-pages@v4  # ← v4, no v5
