@@ -5,6 +5,7 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+# Permiso para escribir en la rama gh-pages
 permissions:
   contents: write
 
@@ -12,14 +13,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout código
+        uses: actions/checkout@v4
       
-      - name: Deploy to GitHub Pages
+      - name: Desplegar a GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          force_orphan: true
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com
-          commit_message: "Deploy: ${{ github.event.head_commit.message }}"
+          publish_dir: ./          # Tu código está en la raíz
+          force_orphan: true       # Limpia la rama gh-pages en cada deploy
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
