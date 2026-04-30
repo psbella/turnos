@@ -49,9 +49,28 @@ async function cargarDatos() {
   const intro = document.getElementById('intro');
   intro.innerHTML = '<span>Cargando datos...</span>';
   try { 
-    const r = await fetch(CONFIG.RUTA_JSON + '?t=' + Date.now()); 
-    if (!r.ok) throw new Error('HTTP ' + r.status); 
-    ciclosData = await r.json(); 
+    // 👇 CAMBIÁ ESTA URL por la de tu Worker
+    const response = await fetch('https://farmacias-mdp-app.pablo-s-bella.workers.dev/', {
+      headers: {
+        'X-API-Key': '768b7837-342a-4b60-9630-2a8aa12876e3'  // 👈 la clave que pusiste en el Worker
+      }
+    });
+    
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Error de autenticación');
+      }
+      throw new Error('HTTP ' + response.status);
+    }
+    
+    const data = await response.json();
+    
+    // El Worker nos devuelve las farmacias
+    // Adaptamos los datos para que el resto de la app funcione
+    ciclosData = {
+      1: data.farmacias || []
+    };
+    
     mostrarFarmacias(); 
   } catch(e) { 
     console.error(e); 
