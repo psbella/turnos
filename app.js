@@ -424,3 +424,16 @@ if (isInstalled() && btnInstalar) {
 
 // ==================== INICIO ====================
 (async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
+
+// ==================== REGISTRO SERVICE WORKER ====================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('SW registrado:', registration);
+      })
+      .catch(error => {
+        console.error('Error al registrar SW:', error);
+      });
+  });
+}
