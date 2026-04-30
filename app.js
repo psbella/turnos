@@ -1,5 +1,11 @@
 // ==================== CONFIGURACIÓN ====================
-const CONFIG = { HORA_CAMBIO: 9, ZONA_HORARIA: 'America/Argentina/Buenos_Aires', RUTA_JSON: 'ciclos_oficiales_definitivo.json' };
+const CONFIG = { 
+  HORA_CAMBIO: 9, 
+  ZONA_HORARIA: 'America/Argentina/Buenos_Aires', 
+  WORKER_URL: 'https://farmacias-mdp-worker.workers.dev',
+  API_KEY: '768b7837-342a-4b60-9630-2a8aa12876e3'
+};
+
 let ciclosData = {}, mapDesktop = null, mapMobile = null, activeCard = null, markersDesktop = [], markersMobile = [], farmaciasCoords = [];
 const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0);
 let modoTodas = false, farmaciasOriginales = null, modoAutomatico = true;
@@ -20,22 +26,23 @@ window.addEventListener('offline', () => {
 function pad(n) { return String(n).padStart(2, '0'); }
 function formatearFechaGMT3() { const a = new Date(), o = { timeZone: CONFIG.ZONA_HORARIA }; return new Date(a.toLocaleString('en-US', o)); }
 function labelFecha(d) { const di = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'], me = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`; }
+function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
 function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
 
 function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
   const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
-
+  
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
   let fechaActual = new Date(ahora);
-
+  
   if (fechaActual.getHours() < 9) {
     fechaActual.setDate(fechaActual.getDate() - 1);
   }
   fechaBase.setHours(9, 0, 0, 0);
   fechaActual.setHours(9, 0, 0, 0);
-
+  
   const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
   let ciclo = (diffDias % totalCiclos) + 1;
   if (ciclo <= 0) ciclo = 1;
@@ -49,28 +56,15 @@ async function cargarDatos() {
   const intro = document.getElementById('intro');
   intro.innerHTML = '<span>Cargando datos...</span>';
   try { 
-    // 👇 CAMBIÁ ESTA URL por la de tu Worker
-    const response = await fetch('https://farmacias-mdp-app.pablo-s-bella.workers.dev/', {
-      headers: {
-        'X-API-Key': '768b7837-342a-4b60-9630-2a8aa12876e3'  // 👈 la clave que pusiste en el Worker
-      }
+    const response = await fetch(`${CONFIG.WORKER_URL}`, {
+      headers: { 'X-API-Key': CONFIG.API_KEY }
     });
     
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error('Error de autenticación');
-      }
-      throw new Error('HTTP ' + response.status);
-    }
+    if (!response.ok) throw new Error('Error al cargar datos');
     
     const data = await response.json();
-    
-    // El Worker nos devuelve las farmacias
-    // Adaptamos los datos para que el resto de la app funcione
-    ciclosData = {
-      1: data.farmacias || []
-    };
-    
+    // El Worker devuelve { ciclo, farmacias, total, fecha }
+    ciclosData = { [data.ciclo]: data.farmacias };
     mostrarFarmacias(); 
   } catch(e) { 
     console.error(e); 
@@ -93,7 +87,7 @@ function agregarMarcadores(farmacias) {
     const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
     const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
     const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
-    const pop = `<b>${f.nombre}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
+    const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
     if (c) { const mD = L.marker(c, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop); const mM = L.marker(c, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop); markersDesktop.push(mD); markersMobile.push(mM); dB.extend(c); mB.extend(c); }
     else { const fb = [-38.0055, -57.5426]; const mD = L.marker(fb, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); const mM = L.marker(fb, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>'); markersDesktop.push(mD); markersMobile.push(mM); dB.extend(fb); mB.extend(fb); }
   });
@@ -121,11 +115,11 @@ function mostrarFarmacias() {
     const div = document.createElement('div'); div.className = 'card';
     const tClean = limpiarTelefono(f.telefono);
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
-    div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${f.nombre}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
+    div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
     div.onclick = (e) => {
       if (e.target.closest('.phone-link')) return;
       const sheet = document.getElementById('mapSheet');
-      document.getElementById('sheetName').innerHTML = `${f.nombre}<br><small style="font-size:12px">${f.direccion}</small>`;
+      document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
       sheet.classList.add('open');
       const c = farmaciasCoords[i];
       if (c && mapMobile) { mapMobile.setView(c, 16); if (markersMobile[i]) markersMobile[i].openPopup(); }
@@ -155,117 +149,134 @@ function programarActualizacion() { const a = formatearFechaGMT3(); let p = new 
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
 // ==================== VER TODAS LAS FARMACIAS ====================
-function mostrarTodasLasFarmacias() {
+async function mostrarTodasLasFarmacias() {
   if (modoTodas) return;
   modoTodas = true;
 
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
-  const farmaciasUnicas = new Map();
-  for (const grupo in ciclosData) {
-    for (const f of ciclosData[grupo]) {
-      const key = `${f.nombre}|${f.direccion}`;
-      if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+  // Consultar TODOS los ciclos al Worker
+  try {
+    const response = await fetch(`${CONFIG.WORKER_URL}?all=true`, {
+      headers: { 'X-API-Key': CONFIG.API_KEY }
+    });
+    
+    if (!response.ok) throw new Error('Error al cargar todos los datos');
+    
+    const ciclosCompletos = await response.json();
+    
+    // Obtener farmacias únicas de todos los ciclos
+    const farmaciasUnicas = new Map();
+    for (const grupo in ciclosCompletos) {
+      for (const f of ciclosCompletos[grupo]) {
+        const key = `${f.nombre}|${f.direccion}`;
+        if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+      }
     }
+    const todas = Array.from(farmaciasUnicas.values());
+    todas.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+    document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ${todas.length} farmacias únicas</span></div>`;
+
+    initMaps();
+    limpiarMarcadores();
+
+    const markersDesktopTodas = [];
+    const markersMobileTodas = [];
+    const coordsTodas = [];
+    const boundsDesktop = L.latLngBounds();
+    const boundsMobile = L.latLngBounds();
+
+    todas.forEach((f, idx) => {
+      const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
+      coordsTodas[idx] = coords;
+
+      const tClean = limpiarTelefono(f.telefono);
+      const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
+      const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
+      const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
+      const pop = `<b>${capFirst(f.nombre)}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
+
+      const fallback = [-38.0055, -57.5426];
+      const markerPos = coords || fallback;
+      const popupContent = coords ? pop : pop + '<br><small>📍 Ubicación aproximada</small>';
+
+      const mD = L.marker(markerPos, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent);
+      const mM = L.marker(markerPos, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent);
+      markersDesktopTodas.push(mD);
+      markersMobileTodas.push(mM);
+      boundsDesktop.extend(markerPos);
+      boundsMobile.extend(markerPos);
+    });
+
+    if (todas.length > 0) {
+      mapDesktop.fitBounds(boundsDesktop);
+      mapMobile.fitBounds(boundsMobile);
+    }
+
+    setTimeout(() => {
+      if (mapDesktop) mapDesktop.invalidateSize();
+      if (mapMobile) mapMobile.invalidateSize();
+    }, 100);
+
+    const listaDiv = document.getElementById('lista');
+    listaDiv.innerHTML = '';
+    todas.forEach((f, i) => {
+      const div = document.createElement('div');
+      div.className = 'card';
+
+      const tClean = limpiarTelefono(f.telefono);
+      const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
+
+      div.innerHTML = `<div class="card-num">${i + 1}</div>
+        <div class="card-info">
+          <div class="card-name">${capFirst(f.nombre)}</div>
+          <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+        </div>
+        <div class="card-phone">${tLink}</div>`;
+
+      const farmaciaActual = f;
+      const indiceActual = i;
+
+      div.onclick = () => {
+        const sheet = document.getElementById('mapSheet');
+        document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
+        sheet.classList.add('open');
+
+        const coordsMovil = coordsTodas[indiceActual];
+        if (coordsMovil && mapMobile) {
+          mapMobile.setView(coordsMovil, 16);
+          if (markersMobileTodas[indiceActual]) markersMobileTodas[indiceActual].openPopup();
+        }
+
+        const coordsDesktop = farmaciaActual.lat && farmaciaActual.lng ? [farmaciaActual.lat, farmaciaActual.lng] : null;
+        if (coordsDesktop && mapDesktop) {
+          mapDesktop.setView(coordsDesktop, 16);
+          if (markersDesktopTodas[indiceActual]) markersDesktopTodas[indiceActual].openPopup();
+        }
+
+        if (activeCard) activeCard.classList.remove('active');
+        div.classList.add('active');
+        activeCard = div;
+      };
+
+      listaDiv.appendChild(div);
+    });
+
+    window.markersDesktopTodas = markersDesktopTodas;
+    window.markersMobileTodas = markersMobileTodas;
+    window.coordsTodas = coordsTodas;
+
+    const btn = document.getElementById('btnTodasFarmacias');
+    btn.textContent = 'Volver a turnos';
+    btn.classList.remove('btn-todas');
+    btn.classList.add('btn-volver');
+    
+  } catch (error) {
+    console.error(error);
+    alert('Error al cargar todas las farmacias');
+    volverATurno();
   }
-  const todas = Array.from(farmaciasUnicas.values());
-todas.sort((a, b) => a.nombre.localeCompare(b.nombre));
-
-  document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ${todas.length} farmacias únicas</span></div>`;
-
-  initMaps();
-  limpiarMarcadores();
-
-  const markersDesktopTodas = [];
-  const markersMobileTodas = [];
-  const coordsTodas = [];
-  const boundsDesktop = L.latLngBounds();
-  const boundsMobile = L.latLngBounds();
-
-  todas.forEach((f, idx) => {
-    const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
-    coordsTodas[idx] = coords;
-
-    const tClean = limpiarTelefono(f.telefono);
-    const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
-    const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
-    const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
-    const pop = `<b>${f.nombre}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
-
-    const fallback = [-38.0055, -57.5426];
-    const markerPos = coords || fallback;
-    const popupContent = coords ? pop : pop + '<br><small>📍 Ubicación aproximada</small>';
-
-    const mD = L.marker(markerPos, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(popupContent);
-    const mM = L.marker(markerPos, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(popupContent);
-    markersDesktopTodas.push(mD);
-    markersMobileTodas.push(mM);
-    boundsDesktop.extend(markerPos);
-    boundsMobile.extend(markerPos);
-  });
-
-  if (todas.length > 0) {
-    mapDesktop.fitBounds(boundsDesktop);
-    mapMobile.fitBounds(boundsMobile);
-  }
-
-  setTimeout(() => {
-    if (mapDesktop) mapDesktop.invalidateSize();
-    if (mapMobile) mapMobile.invalidateSize();
-  }, 100);
-
-  const listaDiv = document.getElementById('lista');
-  listaDiv.innerHTML = '';
-  todas.forEach((f, i) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-
-    const tClean = limpiarTelefono(f.telefono);
-    const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
-
-    div.innerHTML = `<div class="card-num">${i + 1}</div>
-      <div class="card-info">
-        <div class="card-name">${f.nombre}</div>
-        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
-      </div>
-      <div class="card-phone">${tLink}</div>`;
-
-    const farmaciaActual = f;
-    const indiceActual = i;
-
-    div.onclick = () => {
-      const sheet = document.getElementById('mapSheet');
-      document.getElementById('sheetName').innerHTML = `${farmaciaActual.nombre}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
-      sheet.classList.add('open');
-
-      const coordsMovil = coordsTodas[indiceActual];
-      if (coordsMovil && mapMobile) {
-        mapMobile.setView(coordsMovil, 16);
-        if (markersMobileTodas[indiceActual]) markersMobileTodas[indiceActual].openPopup();
-      }
-
-      const coordsDesktop = farmaciaActual.lat && farmaciaActual.lng ? [farmaciaActual.lat, farmaciaActual.lng] : null;
-      if (coordsDesktop && mapDesktop) {
-        mapDesktop.setView(coordsDesktop, 16);
-        if (markersDesktopTodas[indiceActual]) markersDesktopTodas[indiceActual].openPopup();
-      }
-
-      if (activeCard) activeCard.classList.remove('active');
-      div.classList.add('active');
-      activeCard = div;
-    };
-
-    listaDiv.appendChild(div);
-  });
-
-  window.markersDesktopTodas = markersDesktopTodas;
-  window.markersMobileTodas = markersMobileTodas;
-  window.coordsTodas = coordsTodas;
-
-  const btn = document.getElementById('btnTodasFarmacias');
-  btn.textContent = 'Volver a turnos';
-  btn.classList.remove('btn-todas');
-  btn.classList.add('btn-volver');
 }
 
 // ==================== VOLVER AL TURNO ACTUAL ====================
@@ -424,16 +435,3 @@ if (isInstalled() && btnInstalar) {
 
 // ==================== INICIO ====================
 (async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
-
-// ==================== REGISTRO SERVICE WORKER ====================
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('SW registrado:', registration);
-      })
-      .catch(error => {
-        console.error('Error al registrar SW:', error);
-      });
-  });
-}
