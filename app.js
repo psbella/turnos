@@ -371,7 +371,6 @@ function closeIOSModal() {
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
   deferredPrompt = e;
   if (btnInstalar) btnInstalar.style.display = 'flex';
 });
