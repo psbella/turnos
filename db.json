@@ -61,7 +61,7 @@
     { "nombre": "DEL PUERTO TEJEDOR", "direccion": "TEJEDOR 581", "telefono": "2234713066", "lat": -37.9690869, "lng": -57.5561915 }
   ],
   "6": [
-    { "nombre": "PUEYREDON JBJ", "direccion": "JUAN B. JUSTO 3200", "telefono": "2235648000", "lat": -38.019141, "lng": -57.571212 },
+    { "nombre": "PUEYREDON JBJ", "direccion": "JUAN B. JUSTO 3200", "telefono": "2235648000", "lat": -38.01916470557256, "lng": -57.571823403759765 },
     { "nombre": "ARANDA", "direccion": "LIBERTAD 5579", "telefono": "2234750052", "lat": -37.9784996, "lng": -57.5721728 },
     { "nombre": "BOSQUE GRANDE", "direccion": "VERTIZ 9162", "telefono": "2236008877", "lat": -38.0095643, "lng": -57.6046053 },
     { "nombre": "PIZZOLO VERTIZ", "direccion": "VERTIZ 4282", "telefono": "2235314718", "lat": -38.0420059, "lng": -57.5615828 },
