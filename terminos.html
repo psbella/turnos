@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Términos y Condiciones · Farmacias de Turno MDP</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      font-family: system-ui, 'Segoe UI', 'Nunito', sans-serif;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--surface-dark);
+      border-radius: 20px;
+      border: 1px solid var(--border-dark);
+      padding: 30px;
+    }
+    body.light .container {
+      background: var(--surface-light);
+      border-color: var(--border-light);
+    }
+    h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    h2 {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin: 24px 0 12px 0;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-dark);
+      margin: 24px 0;
+    }
+    body.light hr {
+      border-top-color: var(--border-light);
+    }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 13px;
+      color: #7d8590;
+    }
+    .badge {
+      background: rgba(63, 185, 80, 0.12);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">📄 Versión 1.0 · 1 de mayo de 2026</div>
+  <h1>Términos y Condiciones</h1>
+
+  <h2>1. Fuente de los datos</h2>
+  <p>La información sobre qué farmacia está de turno cada día se basa en la <strong>rotación oficial</strong> establecida por el <strong>Colegio de Farmacéuticos de Gral. Pueyrredon</strong>. La lógica de rotación fue reconstruida manualmente a partir del análisis de los ciclos históricos, tomando como referencia el sitio web del Colegio (<a href="http://colfarmamdp.com.ar/" target="_blank">colfarmamdp.com.ar</a>) y validada con personal farmacéutico local.</p>
+  <p>La aplicación utiliza <strong>cálculos matemáticos</strong> para determinar qué grupo de farmacias corresponde a cada fecha, sin consultar activamente los servidores del Colegio ni realizar scraping.</p>
+
+  <h2>2. Limitaciones de los datos originales</h2>
+  <p>Los datos de ubicación (coordenadas geográficas) y algunos datos de contacto fueron extraídos del sitio web del Colegio y de su servicio de mapas asociado. Se detectaron imprecisiones en múltiples casos, por lo que:</p>
+  <ul>
+    <li>Las coordenadas fueron <strong>corregidas manualmente</strong> en base a observación directa sobre el mapa.</li>
+    <li>No se garantiza que la ubicación de todas las farmacias sea 100% exacta.</li>
+    <li>Se recomienda verificar la dirección antes de acudir a una farmacia.</li>
+  </ul>
+
+  <h2>3. Un sitio pensado para la claridad</h2>
+  <p>Este sitio prioriza la legibilidad y la experiencia del usuario: sin publicidad invasiva, sin menús confusos, con información clara, botones grandes y diseño responsive.</p>
+
+  <h2>4. Exactitud de los datos</h2>
+  <p>Si bien se hace el mayor esfuerzo posible por mantener los datos actualizados, la información puede no ser 100% exacta en todo momento.</p>
+
+  <h2>5. Naturaleza del proyecto</h2>
+  <p>Este sitio es <strong>independiente</strong>, no está patrocinado ni avalado oficialmente por el Colegio de Farmacéuticos.</p>
+
+  <h2>6. Responsabilidad</h2>
+  <p>El desarrollador no se hace responsable por inconvenientes derivados del uso de la información.</p>
+
+  <h2>7. Publicidad</h2>
+  <p>La aplicación puede mostrar publicidad de terceros (Google AdSense) y eventualmente espacios promocionales de farmacias o laboratorios.</p>
+
+  <h2>8. Modificaciones</h2>
+  <p>Estos términos pueden actualizarse en cualquier momento. El uso continuado implica la aceptación de los cambios.</p>
+
+  <h2>9. Contacto y colaboración</h2>
+  <p>Si sos responsable de una farmacia que figura (o debería figurar) en la app, podés comunicarte para:</p>
+  <ul>
+    <li>Agregar tu farmacia al sistema de turnos</li>
+    <li>Modificar datos existentes (dirección, teléfono, coordenadas, nombre de fantasía)</li>
+    <li>Corregir errores de ubicación</li>
+  </ul>
+  <p>📧 <a href="mailto:pablo.s.bella@gmail.com">pablo.s.bella@gmail.com</a></p>
+
+  <hr>
+  <div class="footer">
+    <a href="/">← Volver a la aplicación</a><br><br>
+    <span style="font-size: 11px;">Farmacias de Turno MDP · Mar del Plata · CC BY-NC 4.0</span>
+  </div>
+</div>
+
+<script>
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light');
+  } else if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.classList.add(prefersDark ? 'dark' : 'light');
+  }
+</script>
+</body>
+</html>
