@@ -9,28 +9,9 @@
   --text-light: #1f2328;
   --border-light: rgba(0,0,0,0.1);
   --accent: #3fb950;
+  --accent-dim: rgba(63,185,80,0.12);
   --muted: #7d8590;
   --radius: 14px;
-}
-
-body {
-  background: var(--bg-dark);
-  color: var(--text-dark);
-}
-
-body.light {
-  background: var(--bg-light);
-  color: var(--text-light);
-}
-
-body.light .container {
-  background: var(--surface-light);
-  border-color: var(--border-light);
-}
-
-body.light h2, 
-body.light a {
-  color: #2c974b;
 }
 
 * {
@@ -104,11 +85,6 @@ header {
   border-radius: 3px;
 }
 
-.code-symbol {
-  color: var(--accent);
-  font-weight: 600;
-}
-
 .cross::before {
   width: 12px;
   height: 32px;
@@ -142,7 +118,7 @@ header {
 .subtitle {
   font-size: 16px;
   color: #a3a7ac;
-  margin-left: 32px;
+  margin-left: 44px;
 }
 
 /* ==================== TEMA SWITCH ==================== */
@@ -225,7 +201,6 @@ main {
   }
 }
 
-/* Asegurar que el sheet móvil no se muestre en escritorio */
 @media (min-width: 768px) {
   .map-sheet {
     display: none !important;
@@ -262,7 +237,7 @@ main {
   gap: 6px;
 }
 
-/* ==================== LISTA ==================== */
+/* ==================== TARJETAS ==================== */
 #lista {
   display: flex;
   flex-direction: column;
@@ -273,7 +248,7 @@ main {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 14px;
+  padding: 12px;
   display: flex;
   gap: 12px;
   cursor: pointer;
@@ -290,30 +265,38 @@ main {
 }
 
 .card-num {
-  font-family: 'Bebas Neue', monospace;
-  font-size: 22px;
   font-weight: 700;
+  font-size: 1.2rem;
   color: var(--accent);
-  min-width: 36px;
+  min-width: 32px;
   text-align: center;
+  padding-top: 2px;
 }
 
 .card-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .card-name {
   font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 4px;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .card-address {
-  font-size: 12px;
-  color: #7d8590;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
+}
+
+.card-badge {
+  margin-top: 4px;
 }
 
 .card-phone {
@@ -321,16 +304,42 @@ main {
   align-items: center;
 }
 
-.phone-link {
-  background: var(--accent-dim);
-  padding: 5px 10px;
-  border-radius: 20px;
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 12px;
+/* ==================== BADGE "HOY DE TURNO" ==================== */
+.badge-hoy-inline {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: var(--accent-dim);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.badge-hoy-inline .circulo {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 /* ==================== MAPAS ==================== */
@@ -399,6 +408,7 @@ main {
   height: 500px !important;
   width: 518px !important;
 }
+
 /* ==================== BOTONES FLOTANTES ==================== */
 .btn-todas, .btn-volver {
   position: fixed;
@@ -597,6 +607,11 @@ main {
   text-decoration: none;
 }
 
+.code-symbol {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
   .btn-todas, .btn-volver {
@@ -604,108 +619,40 @@ main {
     height: 44px;
     font-size: 12px;
   }
-  
+
   .scroll-top-btn {
     width: 44px;
     height: 44px;
   }
-  
+
   .btn-instalar {
     bottom: 80px;
     font-size: 12px;
     padding: 8px 16px;
   }
-  
+
   .card {
     flex-wrap: wrap;
   }
-  
+
   .card-phone {
     margin-left: auto;
   }
 }
 
-/* ==================== TARJETA CON GRID (FINAL) ==================== */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 12px;
-  display: grid;
-  grid-template-columns: 32px 1fr auto;
-  gap: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  align-items: start;
-}
-
-.card-num {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--accent);
-  text-align: center;
-  padding-top: 2px;
-  grid-row: span 3;
-}
-
-.card-icon-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding-top: 4px;
-}
-
-.card-icon-col .icon-location {
-  display: block;
-}
-
-.card-badge-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  grid-column: 2 / 3;
-  grid-row: 1 / 4;
-}
-
-.card-name {
-  font-weight: 700;
-  font-size: 0.95rem;
-  line-height: 1.4;
-}
-
-.card-address-text {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-.badge-hoy-inline {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(63, 185, 80, 0.12);
+/* ==================== BADGE VERSIÓN ==================== */
+.badge {
+  background: var(--accent-dim);
   padding: 2px 8px;
   border-radius: 20px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  color: #3fb950;
-  white-space: nowrap;
+  color: var(--accent);
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
-.card-phone {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding-top: 2px;
-}
-
+/* ==================== TELÉFONO Y ENLACES ==================== */
 .phone-link {
   background: var(--accent-dim);
   padding: 5px 10px;
@@ -716,34 +663,50 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  line-height: 1.4;
+  transition: all 0.2s;
 }
 
-/* Responsive para móviles */
-@media (max-width: 560px) {
-  .card-address-line {
-    flex-wrap: wrap;
-  }
-  .badge-hoy-inline {
-    margin-left: 24px;
-    margin-top: 4px;
-  }
+.phone-link:hover {
+  background: rgba(63, 185, 80, 0.2);
+  transform: scale(1.02);
 }
 
-/* Badge versión */
-.badge {
-  background: rgba(63, 185, 80, 0.12);
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--accent);
+/* ==================== ICONOS SVG ==================== */
+.icon-location svg,
+.icon-phone svg,
+.icon-intro svg,
+.icon-stats svg {
+  width: 14px;
+  height: 14px;
   display: inline-block;
-  margin-bottom: 20px;
+  vertical-align: middle;
 }
 
-/* Símbolo de código */
-.code-symbol {
+/* ==================== OFFLINE ALERT ==================== */
+.offline-alert {
+  background: rgba(248, 81, 73, 0.1);
+  border: 1px solid #f85149;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f85149;
+}
+
+/* ==================== GOOGLE MAPS LINK ==================== */
+.gmaps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 11px;
   color: var(--accent);
-  font-weight: 600;
+  text-decoration: none;
+}
+
+.gmaps-link:hover {
+  text-decoration: underline;
 }
