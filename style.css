@@ -690,20 +690,22 @@ main {
   justify-content: flex-end;
 }
 
-/* ==================== BADGE "HOY DE TURNO" ==================== */
-.badge-hoy {
+/* Badge "Hoy de turno" - versión inline (al lado de la dirección) */
+.badge-hoy-inline {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: rgba(63, 185, 80, 0.12);
-  padding: 2px 10px;
+  padding: 2px 8px;
   border-radius: 20px;
   font-size: 10px;
   font-weight: 500;
   color: #3fb950;
+  margin-left: 8px;
+  white-space: nowrap;
 }
 
-.badge-hoy .circulo {
+.badge-hoy-inline .circulo {
   display: inline-block;
   width: 8px;
   height: 8px;
@@ -724,5 +726,16 @@ main {
   100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(63, 185, 80, 0);
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 560px) {
+  .card-address-line {
+    flex-wrap: wrap;
+  }
+  .badge-hoy-inline {
+    margin-left: 24px;
+    margin-top: 4px;
   }
 }
