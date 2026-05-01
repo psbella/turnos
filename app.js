@@ -166,7 +166,7 @@ function mostrarFarmacias() {
     
     const tClean = limpiarTelefono(f.telefono);
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
-    div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
+    div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${f.nombre}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
     
     const activarTarjeta = (e) => {
       if (e.target.closest('.phone-link')) return;
@@ -320,7 +320,7 @@ function mostrarTodasLasFarmacias() {
 
     div.innerHTML = `<div class="card-num">${i + 1}</div>
   <div class="card-content">
-    <div class="card-name">${capFirst(f.nombre)}</div>
+    <div class="card-name">${f.nombre}</div>
     <div class="card-address-line">
       <span class="card-address-icon">${getLocationIcon()}</span>
       <span class="card-address-text">${f.direccion}</span>
