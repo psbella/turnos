@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrador - Ajustar coordenadas de farmacias</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #3fb950;
+    }
+    .map-container {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+    }
+    #map {
+      height: 70vh;
+      border-radius: 16px;
+      border: 1px solid #30363d;
+    }
+    .sidebar {
+      background: #161b22;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid #30363d;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .farmacia-info {
+      background: #0d1117;
+      padding: 12px;
+      border-radius: 12px;
+    }
+    .farmacia-info h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #3fb950;
+    }
+    .farmacia-info p {
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #7d8590;
+    }
+    .coord-input {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .coord-input input {
+      flex: 1;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #e6edf3;
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+    button {
+      background: #3fb950;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    button:hover {
+      background: #2c974b;
+      transform: translateY(-1px);
+    }
+    .btn-download {
+      background: #1f6feb;
+    }
+    .btn-download:hover {
+      background: #1a5bc4;
+    }
+    .status {
+      font-size: 12px;
+      padding: 8px;
+      border-radius: 8px;
+      background: #0d1117;
+      text-align: center;
+    }
+    .status.success {
+      color: #3fb950;
+    }
+    .select-farmacia {
+      width: 100%;
+      padding: 8px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #e6edf3;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+    hr {
+      border-color: #30363d;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✏️ Administrador de coordenadas</h1>
+  <p style="margin-bottom: 20px; font-size: 14px; color: #7d8590;">
+    Arrastrá los pines para ajustar la ubicación de cada farmacia. Guardá los cambios y descargá el JSON actualizado.
+  </p>
+
+  <div class="map-container">
+    <div id="map"></div>
+    <div class="sidebar">
+      <div class="farmacia-info">
+        <h3>📍 Farmacia seleccionada</h3>
+        <p id="nombre-seleccionado">-</p>
+        <p id="direccion-seleccionada">-</p>
+        <div class="coord-input">
+          <input type="text" id="lat-input" placeholder="Latitud" readonly>
+          <input type="text" id="lng-input" placeholder="Longitud" readonly>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size: 12px; color: #7d8590;">Buscar farmacia:</label>
+        <select id="select-farmacia" class="select-farmacia">
+          <option value="">-- Seleccionar farmacia --</option>
+        </select>
+      </div>
+
+      <button id="btn-centrar">🎯 Centrar en seleccionada</button>
+      <hr>
+      <button id="btn-download" class="btn-download">💾 Descargar JSON actualizado</button>
+      <div id="status" class="status">✅ Listo para editar</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Variables globales
+  let map;
+  let markers = {}; // { "nombre|direccion": { marker, data, index } }
+  let allFarmacias = [];
+  let currentMarker = null;
+
+  // Cargar el JSON local
+  async function cargarFarmacias() {
+    try {
+      const response = await fetch('db.json');
+      const ciclosData = await response.json();
+
+      // Extraer farmacias únicas de todos los ciclos
+      const farmaciasUnicas = new Map();
+      for (const grupo in ciclosData) {
+        for (const f of ciclosData[grupo]) {
+          const key = `${f.nombre}|${f.direccion}`;
+          if (!farmaciasUnicas.has(key)) {
+            farmaciasUnicas.set(key, { ...f });
+          }
+        }
+      }
+      allFarmacias = Array.from(farmaciasUnicas.values());
+      allFarmacias.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+      // Llenar el select
+      const select = document.getElementById('select-farmacia');
+      allFarmacias.forEach((f, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        option.textContent = `${f.nombre} - ${f.direccion}`;
+        select.appendChild(option);
+      });
+
+      return allFarmacias;
+    } catch (error) {
+      console.error('Error al cargar:', error);
+      document.getElementById('status').innerHTML = '❌ Error al cargar db.json';
+      return [];
+    }
+  }
+
+  // Inicializar mapa
+  function initMap() {
+    map = L.map('map').setView([-38.0055, -57.5426], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+  }
+
+  // Agregar marcadores arrastrables
+  function addDraggableMarkers(farmacias) {
+    const icono = L.divIcon({
+      className: 'custom-pharmacy-icon',
+      html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>',
+      iconSize: [34, 34],
+      popupAnchor: [0, -17]
+    });
+
+    farmacias.forEach((f, idx) => {
+      const key = `${f.nombre}|${f.direccion}`;
+      const lat = f.lat;
+      const lng = f.lng;
+      const position = (lat && lng) ? [lat, lng] : [-38.0055, -57.5426];
+      const tieneCoords = lat && lng;
+
+      const marker = L.marker(position, {
+        draggable: true,
+        icon: icono
+      }).addTo(map);
+
+      // Popup con información
+      marker.bindPopup(`
+        <b>${f.nombre}</b><br>
+        ${f.direccion}<br>
+        <small style="color: #3fb950;">📌 Arrastrá este marcador para ajustar la ubicación</small>
+      `);
+
+      // Evento de arrastre
+      marker.on('dragend', function(e) {
+        const newPos = marker.getLatLng();
+        const newLat = newPos.lat;
+        const newLng = newPos.lng;
+
+        // Actualizar los datos de la farmacia
+        f.lat = newLat;
+        f.lng = newLng;
+
+        // Actualizar inputs si es la marcador seleccionado
+        if (currentMarker === marker) {
+          document.getElementById('lat-input').value = newLat.toFixed(6);
+          document.getElementById('lng-input').value = newLng.toFixed(6);
+        }
+
+        // Mostrar feedback
+        const status = document.getElementById('status');
+        status.innerHTML = `✅ ${f.nombre} actualizada: ${newLat.toFixed(6)}, ${newLng.toFixed(6)}`;
+        status.style.color = '#3fb950';
+        setTimeout(() => {
+          status.innerHTML = '✅ Listo para editar';
+        }, 2000);
+      });
+
+      // Click en marcador
+      marker.on('click', () => {
+        selectFarmacia(marker, f);
+      });
+
+      markers[key] = { marker, data: f, index: idx };
+    });
+  }
+
+  function selectFarmacia(marker, farmacia) {
+    // Remover resaltado anterior
+    if (currentMarker) {
+      currentMarker.setOpacity(1);
+    }
+    currentMarker = marker;
+    marker.setOpacity(0.8); // Resaltar
+
+    document.getElementById('nombre-seleccionado').innerHTML = `<strong>${farmacia.nombre}</strong>`;
+    document.getElementById('direccion-seleccionada').innerHTML = farmacia.direccion;
+    document.getElementById('lat-input').value = farmacia.lat ? farmacia.lat.toFixed(6) : '';
+    document.getElementById('lng-input').value = farmacia.lng ? farmacia.lng.toFixed(6) : '';
+
+    // Centrar en el marcador
+    map.setView([farmacia.lat || -38.0055, farmacia.lng || -57.5426], 15);
+    marker.openPopup();
+  }
+
+  // Centrar desde el select
+  function setupSelectListener() {
+    const select = document.getElementById('select-farmacia');
+    select.addEventListener('change', () => {
+      const idx = select.value;
+      if (idx === '') return;
+
+      const farmacia = allFarmacias[idx];
+      const key = `${farmacia.nombre}|${farmacia.direccion}`;
+      const markerData = markers[key];
+      if (markerData) {
+        selectFarmacia(markerData.marker, farmacia);
+      }
+    });
+  }
+
+  // Descargar JSON actualizado (estructura completa con todos los ciclos)
+  async function downloadUpdatedJSON() {
+    try {
+      // Cargar el JSON original completo
+      const response = await fetch('db.json');
+      const ciclosData = await response.json();
+
+      // Crear un mapa de farmacias actualizadas por su clave única
+      const updatedMap = new Map();
+      for (const f of allFarmacias) {
+        const key = `${f.nombre}|${f.direccion}`;
+        updatedMap.set(key, { lat: f.lat, lng: f.lng });
+      }
+
+      // Actualizar todas las ocurrencias en todos los ciclos
+      for (const grupo in ciclosData) {
+        for (const farmacia of ciclosData[grupo]) {
+          const key = `${farmacia.nombre}|${farmacia.direccion}`;
+          if (updatedMap.has(key)) {
+            const newCoords = updatedMap.get(key);
+            farmacia.lat = newCoords.lat;
+            farmacia.lng = newCoords.lng;
+          }
+        }
+      }
+
+      // Descargar archivo
+      const jsonStr = JSON.stringify(ciclosData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'db.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      document.getElementById('status').innerHTML = '✅ JSON descargado. Reemplazá tu db.json con este archivo.';
+      document.getElementById('status').style.color = '#3fb950';
+    } catch (error) {
+      console.error(error);
+      document.getElementById('status').innerHTML = '❌ Error al generar el JSON';
+    }
+  }
+
+  // Botones
+  document.getElementById('btn-centrar').addEventListener('click', () => {
+    if (currentMarker) {
+      const pos = currentMarker.getLatLng();
+      map.setView(pos, 16);
+    }
+  });
+
+  document.getElementById('btn-download').addEventListener('click', downloadUpdatedJSON);
+
+  // Iniciar
+  async function init() {
+    initMap();
+    const farmacias = await cargarFarmacias();
+    if (farmacias.length > 0) {
+      addDraggableMarkers(farmacias);
+      setupSelectListener();
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
