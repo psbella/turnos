@@ -172,6 +172,14 @@ main {
   padding: 20px;
 }
 
+.col-map {
+  display: none;
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  z-index: 5;
+}
+
 /* Escritorio: mapa en columna, sheet oculto */
 @media (min-width: 768px) {
   .col-map {
