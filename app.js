@@ -105,10 +105,37 @@ function mostrarFarmacias() {
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
     div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
     div.onclick = (e) => {
-      if (e.target.closest('.phone-link')) return;
-      const sheet = document.getElementById('mapSheet');
-      document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
-      sheet.classList.add('open');
+  if (e.target.closest('.phone-link')) return;
+  
+  const esEscritorio = window.innerWidth >= 768;
+  
+  if (esEscritorio) {
+    // En PC: centrar el mapa de escritorio y abrir popup
+    const c = farmaciasCoords[i];
+    if (mapDesktop && markersDesktop[i]) {
+      markersDesktop[i].openPopup();
+      if (c) mapDesktop.setView(c, 16);
+    }
+  } else {
+    // En celular: abrir el sheet móvil
+    const sheet = document.getElementById('mapSheet');
+    document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
+    sheet.classList.add('open');
+    const c = farmaciasCoords[i];
+    if (c && mapMobile) { 
+      mapMobile.setView(c, 16); 
+      if (markersMobile[i]) markersMobile[i].openPopup(); 
+    }
+  }
+  
+  if (activeCard) activeCard.classList.remove('active');
+  div.classList.add('active'); 
+  activeCard = div;
+  
+  if (window.innerWidth >= 768 && mapDesktop && markersDesktop[i]) {
+    markersDesktop[i].openPopup();
+  }
+};
       const c = farmaciasCoords[i];
       if (c && mapMobile) { mapMobile.setView(c, 16); if (markersMobile[i]) markersMobile[i].openPopup(); }
       if (activeCard) activeCard.classList.remove('active');
