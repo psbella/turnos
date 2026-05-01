@@ -140,6 +140,7 @@ document.getElementById('closeSheet').onclick = () => document.getElementById('m
 function mostrarTodasLasFarmacias() {
   if (modoTodas) return;
   modoTodas = true;
+  document.body.classList.add('modo-todas');
 
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
@@ -289,6 +290,7 @@ function mostrarTodasLasFarmacias() {
 function volverATurno() {
   if (!modoTodas) return;
   modoTodas = false;
+  document.body.classList.remove('modo-todas');
 
   if (window.markersDesktopTodas) {
     window.markersDesktopTodas.forEach(m => { if (m && mapDesktop) mapDesktop.removeLayer(m); });
