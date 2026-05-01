@@ -173,10 +173,8 @@ main {
 }
 
 @media (min-width: 768px) {
-  main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+  .map-sheet {
+    display: none;
   }
 }
 
