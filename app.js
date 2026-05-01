@@ -138,7 +138,7 @@ function agregarMarcadores(farmacias) {
 function getLocationIcon() { return `<span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span>`; }
 function getPhoneIcon() { return `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`; }
 
-// ==================== MOSTRAR FARMACIAS CON ACCESIBILIDAD ====================
+// ==================== MOSTRAR FARMACIAS ====================
 function mostrarFarmacias() {
   const ciclo = obtenerCicloActual();
   const farmacias = ciclosData[ciclo] || [];
@@ -369,8 +369,159 @@ function mostrarTodasLasFarmacias() {
 
 // ==================== VOLVER AL TURNO ACTUAL ====================
 function volverATurno() {
-  // ... (Esta función se mantiene igual, la tienes completa en tu archivo)
+  if (!modoTodas) return;
+  modoTodas = false;
+  document.body.classList.remove('modo-todas');
+
+  if (window.markersDesktopTodas) {
+    window.markersDesktopTodas.forEach(m => { if (m && mapDesktop) mapDesktop.removeLayer(m); });
+    window.markersMobileTodas.forEach(m => { if (m && mapMobile) mapMobile.removeLayer(m); });
+    window.markersDesktopTodas = null;
+    window.markersMobileTodas = null;
+    window.coordsTodas = null;
+  }
+
+  document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
+  document.getElementById('intro').innerHTML = farmaciasOriginales.intro;
+
+  const ciclo = obtenerCicloActual();
+  const farmaciasTurno = ciclosData[ciclo] || [];
+  limpiarMarcadores();
+  agregarMarcadores(farmaciasTurno);
+  setTimeout(() => {
+    if (mapDesktop) mapDesktop.invalidateSize();
+    if (mapMobile) mapMobile.invalidateSize();
+  }, 100);
+
+  const btn = document.getElementById('btnTodasFarmacias');
+  btn.textContent = 'Ver todas';
+  btn.classList.remove('btn-volver');
+  btn.classList.add('btn-todas');
 }
 
-// ... (El resto de tu código: listeners, temas, botón ir arriba, instalación PWA) ...
-// Asegúrate de que el resto de tu código (temas, instalación, etc.) esté presente después de estas funciones.
+document.getElementById('btnTodasFarmacias').addEventListener('click', () => { if (modoTodas) volverATurno(); else mostrarTodasLasFarmacias(); });
+
+// ==================== TEMAS ====================
+function aplicarTema(tema) { 
+  const sw = document.getElementById('theme-switch'), l = document.getElementById('theme-label'); 
+  if (tema === 'light') { 
+    document.body.classList.add('light'); 
+    document.body.classList.remove('dark'); 
+    if (sw) sw.classList.add('active'); 
+    if (l) l.textContent = 'tema claro'; 
+  } else { 
+    document.body.classList.add('dark'); 
+    document.body.classList.remove('light'); 
+    if (sw) sw.classList.remove('active'); 
+    if (l) l.textContent = 'tema oscuro'; 
+  } 
+}
+
+function initTheme() { 
+  const savedTheme = localStorage.getItem('theme'), savedMode = localStorage.getItem('modoAutomatico'); 
+  if (savedTheme && savedMode === 'false') { 
+    modoAutomatico = false; 
+    aplicarTema(savedTheme); 
+    return; 
+  } 
+  modoAutomatico = true; 
+  const ahora = formatearFechaGMT3(); 
+  const hora = ahora.getHours(); 
+  const esDia = (hora >= 8 && hora < 20); 
+  aplicarTema(esDia ? 'light' : 'dark'); 
+}
+
+document.getElementById('theme-switch').onclick = () => { 
+  modoAutomatico = false; 
+  const esClaroActual = document.body.classList.contains('light'); 
+  aplicarTema(esClaroActual ? 'dark' : 'light'); 
+  localStorage.setItem('theme', esClaroActual ? 'dark' : 'light'); 
+  localStorage.setItem('modoAutomatico', 'false'); 
+};
+
+// ==================== BOTÓN IR ARRIBA ====================
+function agregarBotonIrArriba() {
+  if (!document.querySelector('.scroll-top-btn')) {
+    const btn = document.createElement('button');
+    btn.className = 'scroll-top-btn';
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 4v16M12 4l-4 4M12 4l4 4"/></svg>`;
+    btn.setAttribute('aria-label', 'Ir arriba');
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    });
+
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+}
+
+// ==================== INSTALACIÓN PWA ====================
+let deferredPrompt = null;
+const btnInstalar = document.getElementById('btnInstalar');
+const iosModal = document.getElementById('iosModal');
+const closeIosModal = document.getElementById('closeIosModal');
+const entendidoBtn = document.getElementById('entendidoBtn');
+
+function isIOS() {
+  const ua = navigator.userAgent;
+  return /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function isInstalled() {
+  return window.matchMedia('(display-mode: standalone)').matches || ('standalone' in navigator && navigator.standalone === true);
+}
+
+function showIOSInstructions() {
+  const dismissed = localStorage.getItem('pwa-install-dismissed');
+  if (!dismissed && !isInstalled() && isIOS()) {
+    setTimeout(() => {
+      if (iosModal) iosModal.style.display = 'flex';
+    }, 3000);
+  }
+}
+
+function closeIOSModal() {
+  if (iosModal) iosModal.style.display = 'none';
+  localStorage.setItem('pwa-install-dismissed', 'true');
+  setTimeout(() => {
+    localStorage.removeItem('pwa-install-dismissed');
+  }, 30 * 24 * 60 * 60 * 1000);
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  deferredPrompt = e;
+  if (btnInstalar) btnInstalar.style.display = 'flex';
+});
+
+if (btnInstalar) {
+  btnInstalar.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Instalación: ${outcome}`);
+      deferredPrompt = null;
+      btnInstalar.style.display = 'none';
+    } else if (isIOS()) {
+      showIOSInstructions();
+    } else {
+      alert('Para instalar, tocá el menú ⋮ y seleccioná "Instalar aplicación"');
+    }
+  });
+}
+
+if (closeIosModal) closeIosModal.onclick = closeIOSModal;
+if (entendidoBtn) entendidoBtn.onclick = closeIOSModal;
+
+if (isIOS() && !isInstalled()) {
+  const dismissed = localStorage.getItem('pwa-install-dismissed');
+  if (!dismissed) setTimeout(showIOSInstructions, 3000);
+}
+
+if (isInstalled() && btnInstalar) {
+  btnInstalar.style.display = 'none';
+}
+
+// ==================== INICIO ====================
+(async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
