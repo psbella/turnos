@@ -10,7 +10,7 @@
   Description: Aplicación web para consultar farmacias de turno en Mar del Plata
   Status: Activa
   Primera versión: Abril 2026
-  Última actualización: 2026-04-29
+  Última actualización: 2026-05-01
   Idioma: Español (Argentina)
   Licencia: CC BY-NC 4.0
 
