@@ -70,6 +70,10 @@
       display: inline-block;
       margin-bottom: 20px;
     }
+    .code-symbol {
+      color: var(--accent);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -89,36 +93,48 @@
     <li>Se recomienda verificar la dirección antes de acudir a una farmacia.</li>
   </ul>
 
-  <h2>3. Un sitio pensado para la claridad</h2>
+  <h2>3. Farmacias fuera del circuito de turnos</h2>
+  <p>La sección "Ver todas" incluye también farmacias mutuales, gremiales, cadenas (como Farmacity) y otros establecimientos que <strong>no pertenecen al sistema de turnos oficial del Colegio de Farmacéuticos</strong>. Estos fueron agregados manualmente a modo de directorio complementario.</p>
+  <p>Estas farmacias:</p>
+  <ul>
+    <li>No aparecen en la sección principal ("turno vigente").</li>
+    <li>No tienen el badge "Hoy de turno" en la lista de "Ver todas".</li>
+    <li>Su inclusión no implica que estén adheridas al sistema oficial del Colegio.</li>
+  </ul>
+  <p>La información de estas farmacias (dirección, teléfono, coordenadas) fue recopilada de fuentes públicas y puede contener errores. Se agradece cualquier corrección a través del contacto del desarrollador.</p>
+
+  <h2>4. Un sitio pensado para la claridad</h2>
   <p>Este sitio prioriza la legibilidad y la experiencia del usuario: sin publicidad invasiva, sin menús confusos, con información clara, botones grandes y diseño responsive.</p>
 
-  <h2>4. Exactitud de los datos</h2>
+  <h2>5. Exactitud de los datos</h2>
   <p>Si bien se hace el mayor esfuerzo posible por mantener los datos actualizados, la información puede no ser 100% exacta en todo momento.</p>
 
-  <h2>5. Naturaleza del proyecto</h2>
+  <h2>6. Naturaleza del proyecto</h2>
   <p>Este sitio es <strong>independiente</strong>, no está patrocinado ni avalado oficialmente por el Colegio de Farmacéuticos.</p>
 
-  <h2>6. Responsabilidad</h2>
+  <h2>7. Responsabilidad</h2>
   <p>El desarrollador no se hace responsable por inconvenientes derivados del uso de la información.</p>
 
-  <h2>7. Publicidad</h2>
+  <h2>8. Publicidad</h2>
   <p>La aplicación puede mostrar publicidad de terceros (Google AdSense) y eventualmente espacios promocionales de farmacias o laboratorios.</p>
 
-  <h2>8. Modificaciones</h2>
+  <h2>9. Modificaciones</h2>
   <p>Estos términos pueden actualizarse en cualquier momento. El uso continuado implica la aceptación de los cambios.</p>
 
-  <h2>9. Contacto y colaboración</h2>
-<p>Si sos responsable de una farmacia, podés <a href="mailto:pablo.s.bella@gmail.com">escribirme</a> para agregar o modificar datos.</p>  <ul>
+  <h2>10. Contacto y colaboración</h2>
+  <p>Si sos responsable de una farmacia, podés <a href="mailto:pablo.s.bella@gmail.com">escribirme</a> para agregar o modificar datos.</p>
+  <ul>
     <li>Agregar tu farmacia al sistema de turnos</li>
     <li>Modificar datos existentes (dirección, teléfono, coordenadas, nombre de fantasía)</li>
     <li>Corregir errores de ubicación</li>
   </ul>
+
   <hr>
-  <hr>
-<div style="text-align: center; margin: 30px 0 20px;">
+
+  <div style="text-align: center; margin: 30px 0 20px;">
     <a href="/" class="btn-volver-app">← Volver a la aplicación</a>
   </div>
-  
+
   <footer class="footer">
     <p><span class="code-symbol">&lt;/&gt;</span> Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Web%20Farmacias">Pablo Bella</a> con 💚</p>
     <p>
@@ -127,6 +143,7 @@
       <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
     </p>
   </footer>
+</div>
 
 <script>
   const savedTheme = localStorage.getItem('theme');
