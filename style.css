@@ -681,7 +681,7 @@ main {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-left: 24;  /* ← IMPORTANTE: lo sacamos de la columna del ícono */
+  margin-left: 24px;
 }
 
 .card-phone {
