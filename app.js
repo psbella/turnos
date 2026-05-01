@@ -89,17 +89,17 @@ function agregarMarcadores(farmacias) {
   initMaps(); 
   limpiarMarcadores();
   const dB = L.latLngBounds(), mB = L.latLngBounds();
-  
+
   farmacias.forEach((f, i) => {
     const c = f.lat && f.lng ? [f.lat, f.lng] : null;
     farmaciasCoords[i] = c;
-    
+
     const tClean = limpiarTelefono(f.telefono);
     const tIcon = `<span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span>`;
     const tLink = tClean ? `<br><a href="tel:${tClean}" style="color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:4px;">${tIcon} ${f.telefono}</a>` : '<br>📞 Sin teléfono';
     const gUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.direccion + ', Mar del Plata')}`;
     const pop = `<b>${f.nombre}</b><br>${f.direccion}<br>${tLink}<br><a href="${gUrl}" target="_blank" class="gmaps-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="var(--bg)"/></svg>Google Maps</a>`;
-    
+
     if (c) { 
       const mD = L.marker(c, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop); 
       const mM = L.marker(c, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop); 
@@ -117,7 +117,7 @@ function agregarMarcadores(farmacias) {
       mB.extend(fb); 
     }
   });
-  
+
   if (farmacias.length > 0) { 
     if (!mapDesktop._initialZoom) { 
       mapDesktop.fitBounds(dB); 
@@ -128,7 +128,7 @@ function agregarMarcadores(farmacias) {
       mapMobile._initialZoom = true; 
     } 
   }
-  
+
   setTimeout(() => {
     if (mapDesktop) mapDesktop.invalidateSize();
     if (mapMobile) mapMobile.invalidateSize();
@@ -145,29 +145,35 @@ function mostrarFarmacias() {
   const fecha = formatearFechaGMT3();
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
-  
+
   if (!farmacias.length) { 
     intro.innerHTML = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg> No hay datos para hoy</span><div class="stats"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${labelFecha(fecha)}</div>`; 
     lista.innerHTML = '<div class="card">Sin farmacias registradas</div>'; 
     return; 
   }
-  
+
   const fechaFin = new Date(fecha); 
   fechaFin.setDate(fechaFin.getDate() + 1);
   intro.innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg></span><span>Turno vigente · <strong>${labelFecha(fecha)}</strong></span><span style="font-size:12px;color:#7d8590;">(hasta las 9 del ${labelFecha(fechaFin)})</span></div><div class="stats"><span class="icon-stats"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L10 17L20 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span>${farmacias.length} farmacias de turno</span></div>`;
   lista.innerHTML = '';
-  
+
   farmacias.forEach((f, i) => {
     const div = document.createElement('div'); 
     div.className = 'card';
     div.setAttribute('role', 'button');
     div.setAttribute('tabindex', '0');
     div.setAttribute('aria-label', `Ver detalles de ${f.nombre}`);
-    
+
     const tClean = limpiarTelefono(f.telefono);
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
-    div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${f.nombre}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
     
+    div.innerHTML = `<div class="card-num">${pad(i + 1)}</div>
+      <div class="card-info">
+        <div class="card-name">${f.nombre}</div>
+        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+      </div>
+      <div class="card-phone">${tLink}</div>`;
+
     const activarTarjeta = (e) => {
       if (e.target.closest('.phone-link')) return;
 
@@ -202,7 +208,7 @@ function mostrarFarmacias() {
       div.classList.add('active'); 
       activeCard = div;
     };
-    
+
     div.onclick = activarTarjeta;
     div.onkeydown = (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -210,10 +216,10 @@ function mostrarFarmacias() {
         activarTarjeta(e);
       }
     };
-    
+
     lista.appendChild(div);
   });
-  
+
   agregarMarcadores(farmacias);
   const fechaActual = new Date().toLocaleDateString('es-AR');
   const tituloDinamico = `${farmacias.length} farmacias de turno hoy en Mar del Plata · ${fechaActual}`;
@@ -233,12 +239,24 @@ function mostrarTodasLasFarmacias() {
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
   const farmaciasUnicas = new Map();
-  for (const grupo in ciclosData) {
-    for (const f of ciclosData[grupo]) {
+
+  for (let i = 1; i <= 16; i++) {
+    const grupo = i.toString();
+    if (ciclosData[grupo]) {
+      for (const f of ciclosData[grupo]) {
+        const key = `${f.nombre}|${f.direccion}`;
+        if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
+      }
+    }
+  }
+
+  if (ciclosData["farmacias_extra"]) {
+    for (const f of ciclosData["farmacias_extra"]) {
       const key = `${f.nombre}|${f.direccion}`;
       if (!farmaciasUnicas.has(key)) farmaciasUnicas.set(key, f);
     }
   }
+
   const todas = Array.from(farmaciasUnicas.values());
 
   const ciclo = obtenerCicloActual();
@@ -319,13 +337,10 @@ function mostrarTodasLasFarmacias() {
     const badgeHtml = esDeTurnoHoy ? '<span class="badge-hoy-inline"><span class="circulo"></span> Hoy de turno</span>' : '';
 
     div.innerHTML = `<div class="card-num">${i + 1}</div>
-      <div class="card-content">
+      <div class="card-info">
         <div class="card-name">${f.nombre}</div>
-        <div class="card-address-line">
-          <span class="card-address-icon">${getLocationIcon()}</span>
-          <span class="card-address-text">${f.direccion}</span>
-          ${badgeHtml}
-        </div>
+        <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+        ${badgeHtml ? `<div class="card-badge">${badgeHtml}</div>` : ''}
       </div>
       <div class="card-phone">${tLink}</div>`;
 
@@ -334,7 +349,7 @@ function mostrarTodasLasFarmacias() {
 
     div.onclick = () => {
       const sheet = document.getElementById('mapSheet');
-      document.getElementById('sheetName').innerHTML = `${capFirst(farmaciaActual.nombre)}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
+      document.getElementById('sheetName').innerHTML = `${farmaciaActual.nombre}<br><small style="font-size:12px">${farmaciaActual.direccion}</small>`;
       sheet.classList.add('open');
 
       const coordsMovil = coordsTodas[indiceActual];
