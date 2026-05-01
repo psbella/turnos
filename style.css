@@ -348,6 +348,15 @@ main {
   width: 100%;
 }
 
+/* Mapa en modo "Ver todas" - tamaño fijo */
+.modo-todas .col-map {
+  min-width: 518px !important;
+}
+
+.modo-todas #map-desktop {
+  height: 500px !important;
+  width: 518px !important;
+}
 /* ==================== BOTONES FLOTANTES ==================== */
 .btn-todas, .btn-volver {
   position: fixed;
