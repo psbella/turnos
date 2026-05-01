@@ -324,8 +324,8 @@ function mostrarTodasLasFarmacias() {
     <div class="card-address-line">
       <span class="card-address-icon">${getLocationIcon()}</span>
       <span class="card-address-text">${f.direccion}</span>
+      ${badgeHtml ? `<span class="badge-hoy-inline"><span class="circulo"></span> Hoy de turno</span>` : ''}
     </div>
-    ${badgeHtml ? `<div class="card-badge-line">${badgeHtml}</div>` : ''}
   </div>
   <div class="card-phone">${tLink}</div>`;
 
