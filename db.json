@@ -81,7 +81,7 @@
     },
     {
       "nombre": "GILARDONI",
-      "direccion": "CALLE 0 Y CALLE 817, CHAPADMALAL",
+      "direccion": "0 Y 817 CHAPADMALAL",
       "telefono": "2291510527",
       "lat": -38.205652,
       "lng": -57.696127
@@ -252,11 +252,11 @@
       "lng": -57.53892
     },
     {
-      "nombre": "M.R.L. FARMACIA",
+      "nombre": "RIADIGOS CONSTITUCION",
       "direccion": "CONSTITUCION 4793",
       "telefono": "2234713000",
-      "lat": -37.9666176,
-      "lng": -57.5512231
+      "lat": -37.966618,
+      "lng": -57.551223
     },
     {
       "nombre": "MITRE",
@@ -396,11 +396,11 @@
       "lng": -57.561654
     },
     {
-      "nombre": "SOCIAL LURO",
+      "nombre": "BAUZA LURO",
       "direccion": "LURO 3499",
       "telefono": "2234730287",
-      "lat": -37.994007,
-      "lng": -57.55515
+      "lat": -37.993935,
+      "lng": -57.555136
     },
     {
       "nombre": "EL GROSELLAR TEJEDOR",
@@ -464,7 +464,7 @@
       "nombre": "FARM.CONSTITUCION LASSALLE",
       "direccion": "CONSTITUCION 6995",
       "telefono": "2234716464",
-      "lat": -37.9554172,
+      "lat": -37.955417,
       "lng": -57.573378
     },
     {
@@ -599,8 +599,8 @@
       "nombre": "VARA",
       "direccion": "DIAGONAL ESTADOS UNIDOS 779",
       "telefono": "2235808030",
-      "lat": -38.091045,
-      "lng": -57.561488
+      "lat": -38.091041,
+      "lng": -57.561407
     }
   ],
   "9": [
@@ -733,11 +733,11 @@
       "lng": -57.555548
     },
     {
-      "nombre": "PINOS DE ANCHORENA",
+      "nombre": "CONSTITUCION",
       "direccion": "CONSTITUCION 6039",
       "telefono": "2234793333",
-      "lat": -37.9601837,
-      "lng": -57.5639647
+      "lat": -37.960153,
+      "lng": -57.563633
     },
     {
       "nombre": "POUSSET",
@@ -829,8 +829,8 @@
       "nombre": "SENA",
       "direccion": "PATRICIO PERALTA RAMOS 3987",
       "telefono": "2234510422",
-      "lat": -37.9975862,
-      "lng": -57.5493965
+      "lat": -38.016578,
+      "lng": -57.530229
     },
     {
       "nombre": "TELLERIA",
@@ -863,7 +863,7 @@
       "lng": -57.586389
     },
     {
-      "nombre": "PREVILEY V",
+      "nombre": "PREVILEY SAN MARTIN",
       "direccion": "SAN MARTIN 5521",
       "telefono": "2233413929",
       "lat": -37.984403,
@@ -920,10 +920,10 @@
     },
     {
       "nombre": "VIDELA",
-      "direccion": "18 262 CHAPADMALAL",
+      "direccion": "515 E/ 5 Y 7 ESTACION CHAPADMALAL",
       "telefono": "2233545778",
-      "lat": -38.03445180299243,
-      "lng": -57.714510484874964
+      "lat": -38.034452,
+      "lng": -57.71451
     },
     {
       "nombre": "VITA",
