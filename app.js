@@ -27,16 +27,16 @@ function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
   const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
-  
+
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
   let fechaActual = new Date(ahora);
-  
+
   if (fechaActual.getHours() < 9) {
     fechaActual.setDate(fechaActual.getDate() - 1);
   }
   fechaBase.setHours(9, 0, 0, 0);
   fechaActual.setHours(9, 0, 0, 0);
-  
+
   const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
   let ciclo = (diffDias % totalCiclos) + 1;
   if (ciclo <= 0) ciclo = 1;
@@ -153,44 +153,20 @@ function mostrarFarmacias() {
     const tClean = limpiarTelefono(f.telefono);
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
     div.innerHTML = `<div class="card-num">${pad(i + 1)}</div><div class="card-info"><div class="card-name">${capFirst(f.nombre)}</div><div class="card-address">${getLocationIcon()} ${f.direccion}</div></div><div class="card-phone">${tLink}</div>`;
+    
     div.onclick = (e) => {
-  if (e.target.closest('.phone-link')) return;
-  
-  const esEscritorio = window.innerWidth >= 768;
-  
-  if (esEscritorio) {
-    // En PC: centrar el mapa de escritorio y abrir popup
-    const c = farmaciasCoords[i];
-    if (mapDesktop && markersDesktop[i]) {
-      markersDesktop[i].openPopup();
-      if (c) mapDesktop.setView(c, 16);
-    }
-  } else {
-    // En celular: abrir el sheet móvil
-    const sheet = document.getElementById('mapSheet');
-    document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
-    sheet.classList.add('open');
-    const c = farmaciasCoords[i];
-    if (c && mapMobile) { 
-      mapMobile.setView(c, 16); 
-      if (markersMobile[i]) markersMobile[i].openPopup(); 
-    }
-  }
-  
-  if (activeCard) activeCard.classList.remove('active');
-  div.classList.add('active'); 
-  activeCard = div;
-  
-  if (window.innerWidth >= 768 && mapDesktop && markersDesktop[i]) {
-    markersDesktop[i].openPopup();
-  }
-};
-      const c = farmaciasCoords[i];
-      if (c && mapMobile) { mapMobile.setView(c, 16); if (markersMobile[i]) markersMobile[i].openPopup(); }
-      if (activeCard) activeCard.classList.remove('active');
-      div.classList.add('active'); activeCard = div;
-      if (mapDesktop && markersDesktop[i]) markersDesktop[i].openPopup();
-      if (window.innerWidth >= 768) {
+      if (e.target.closest('.phone-link')) return;
+
+      const esEscritorio = window.innerWidth >= 768;
+
+      if (esEscritorio) {
+        // En PC: centrar el mapa de escritorio y abrir popup
+        const c = farmaciasCoords[i];
+        if (mapDesktop && markersDesktop[i]) {
+          markersDesktop[i].openPopup();
+          if (c) mapDesktop.setView(c, 16);
+        }
+        // Scroll suave al mapa
         setTimeout(() => {
           const mapElement = document.getElementById('map-desktop');
           if (mapElement) {
@@ -199,8 +175,23 @@ function mostrarFarmacias() {
             window.scrollTo({ top: y, behavior: 'smooth' });
           }
         }, 150);
+      } else {
+        // En celular: abrir el sheet móvil
+        const sheet = document.getElementById('mapSheet');
+        document.getElementById('sheetName').innerHTML = `${capFirst(f.nombre)}<br><small style="font-size:12px">${f.direccion}</small>`;
+        sheet.classList.add('open');
+        const c = farmaciasCoords[i];
+        if (c && mapMobile) { 
+          mapMobile.setView(c, 16); 
+          if (markersMobile[i]) markersMobile[i].openPopup(); 
+        }
       }
+
+      if (activeCard) activeCard.classList.remove('active');
+      div.classList.add('active'); 
+      activeCard = div;
     };
+    
     lista.appendChild(div);
   });
   agregarMarcadores(farmacias);
@@ -209,6 +200,7 @@ function mostrarFarmacias() {
   const titleElement = document.getElementById('page-title');
   if (titleElement) titleElement.innerText = tituloDinamico;
 }
+
 function programarActualizacion() { const a = formatearFechaGMT3(); let p = new Date(a); p.setHours(9, 0, 0, 0); if (a >= p) p.setDate(p.getDate() + 1); setTimeout(() => { mostrarFarmacias(); programarActualizacion(); }, p - a); }
 document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
@@ -220,7 +212,6 @@ function mostrarTodasLasFarmacias() {
 
   farmaciasOriginales = { lista: document.getElementById('lista').innerHTML, intro: document.getElementById('intro').innerHTML };
 
-  // 1. Obtener todas las farmacias únicas
   const farmaciasUnicas = new Map();
   for (const grupo in ciclosData) {
     for (const f of ciclosData[grupo]) {
@@ -230,12 +221,10 @@ function mostrarTodasLasFarmacias() {
   }
   const todas = Array.from(farmaciasUnicas.values());
 
-  // 2. Obtener las farmacias de turno HOY
   const ciclo = obtenerCicloActual();
   const farmaciasHoy = ciclosData[ciclo] || [];
   const nombresHoy = new Set(farmaciasHoy.map(f => `${f.nombre}|${f.direccion}`));
 
-  // 3. Separar: destacadas (turno hoy) vs normales
   const destacadas = [];
   const normales = [];
 
@@ -248,14 +237,11 @@ function mostrarTodasLasFarmacias() {
     }
   });
 
-  // 4. Ordenar alfabéticamente dentro de cada grupo
   destacadas.sort((a, b) => a.nombre.localeCompare(b.nombre));
   normales.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
-  // 5. Unir: primero destacadas, después normales
   const todasOrdenadas = [...destacadas, ...normales];
 
-  // 6. Actualizar intro
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ${todas.length} farmacias únicas</span></div>`;
 
   initMaps();
@@ -308,21 +294,20 @@ function mostrarTodasLasFarmacias() {
     const tClean = limpiarTelefono(f.telefono);
     const tLink = tClean ? `<a href="tel:${tClean}" class="phone-link" onclick="event.stopPropagation();">${getPhoneIcon()} ${f.telefono}</a>` : `<span class="phone-link">${getPhoneIcon()} Sin teléfono</span>`;
 
-    // Verificar si esta farmacia está de turno hoy (círculo + texto)
     const key = `${f.nombre}|${f.direccion}`;
     const esDeTurnoHoy = nombresHoy.has(key);
     const badgeHtml = esDeTurnoHoy ? '<span class="badge-hoy"><span class="circulo"></span> Hoy de turno</span>' : '';
 
     div.innerHTML = `<div class="card-num">${i + 1}</div>
-  <div class="card-content">
-    <div class="card-name">${capFirst(f.nombre)}</div>
-    <div class="card-address-line">
-      <span class="card-address-icon">${getLocationIcon()}</span>
-      <span class="card-address-text">${f.direccion}</span>
-    </div>
-    ${badgeHtml ? `<div class="card-badge-line">${badgeHtml}</div>` : ''}
-  </div>
-  <div class="card-phone">${tLink}</div>`;
+      <div class="card-content">
+        <div class="card-name">${capFirst(f.nombre)}</div>
+        <div class="card-address-line">
+          <span class="card-address-icon">${getLocationIcon()}</span>
+          <span class="card-address-text">${f.direccion}</span>
+        </div>
+        ${badgeHtml ? `<div class="card-badge-line">${badgeHtml}</div>` : ''}
+      </div>
+      <div class="card-phone">${tLink}</div>`;
 
     const farmaciaActual = f;
     const indiceActual = i;
@@ -411,6 +396,7 @@ function aplicarTema(tema) {
     if (l) l.textContent = 'tema oscuro'; 
   } 
 }
+
 function initTheme() { 
   const savedTheme = localStorage.getItem('theme'), savedMode = localStorage.getItem('modoAutomatico'); 
   if (savedTheme && savedMode === 'false') { 
@@ -424,6 +410,7 @@ function initTheme() {
   const esDia = (hora >= 8 && hora < 20); 
   aplicarTema(esDia ? 'light' : 'dark'); 
 }
+
 document.getElementById('theme-switch').onclick = () => { 
   modoAutomatico = false; 
   const esClaroActual = document.body.classList.contains('light'); 
