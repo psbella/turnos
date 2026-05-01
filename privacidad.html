@@ -6,31 +6,49 @@
   <title>Política de Privacidad · Farmacias de Turno MDP</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root {
-      --bg: #0d1117;
-      --surface: #161b22;
+      --bg-dark: #0d1117;
+      --surface-dark: #161b22;
+      --text-dark: #e6edf3;
+      --border-dark: rgba(255,255,255,0.08);
+      --bg-light: #f6f8fa;
+      --surface-light: #ffffff;
+      --text-light: #1f2328;
+      --border-light: rgba(0,0,0,0.1);
       --accent: #3fb950;
-      --text: #e6edf3;
+      --accent-light: #2c974b;
       --muted: #7d8590;
-      --border: rgba(255,255,255,0.08);
       --radius: 14px;
     }
 
     body {
       font-family: system-ui, 'Segoe UI', 'Nunito', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg-dark);
+      color: var(--text-dark);
       padding: 40px 20px;
       line-height: 1.6;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
     .container {
       max-width: 800px;
       margin: 0 auto;
-      background: var(--surface);
+      background: var(--surface-dark);
       padding: 30px;
       border-radius: var(--radius);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-dark);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    body.light .container {
+      background: var(--surface-light);
+      border-color: var(--border-light);
     }
 
     h1 {
@@ -46,9 +64,17 @@
       margin-bottom: 12px;
     }
 
+    body.light h2 {
+      color: var(--accent-light);
+    }
+
     a {
       color: var(--accent);
       text-decoration: none;
+    }
+
+    body.light a {
+      color: var(--accent-light);
     }
 
     a:hover {
@@ -57,8 +83,12 @@
 
     hr {
       border: none;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-dark);
       margin: 24px 0;
+    }
+
+    body.light hr {
+      border-top-color: var(--border-light);
     }
 
     .footer {
@@ -136,25 +166,26 @@
       <a href="https://farmaciasmdp.com.ar/">← Volver a la aplicación</a>
     </div>
   </div>
+
   <script>
-  // Detectar tema guardado en localStorage
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
-  if (savedTheme === 'light') {
-    document.body.classList.add('light');
-    document.body.classList.remove('dark');
-  } else if (savedTheme === 'dark') {
-    document.body.classList.add('dark');
-    document.body.classList.remove('light');
-  } else {
-    // Si no hay tema guardado, usar preferencia del sistema
-    if (prefersDark) {
-      document.body.classList.add('dark');
-    } else {
+    // Detectar tema guardado o preferencia del sistema
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'light') {
       document.body.classList.add('light');
+      document.body.classList.remove('dark');
+    } else if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
+    } else {
+      // Si no hay tema guardado, usar preferencia del sistema
+      if (prefersDark) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.add('light');
+      }
     }
-  }
-</script>
+  </script>
 </body>
 </html>
