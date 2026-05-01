@@ -9,8 +9,28 @@
   --text-light: #1f2328;
   --border-light: rgba(0,0,0,0.1);
   --accent: #3fb950;
-  --accent-dim: rgba(63,185,80,0.12);
+  --muted: #7d8590;
   --radius: 14px;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+body.light {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.light .container {
+  background: var(--surface-light);
+  border-color: var(--border-light);
+}
+
+body.light h2, 
+body.light a {
+  color: #2c974b;
 }
 
 * {
