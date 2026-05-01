@@ -186,6 +186,21 @@ header {
 }
 
 /* ==================== MAIN ==================== */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Grid para escritorio (dos columnas) */
+@media (min-width: 768px) {
+  main {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 28px;
+  }
+}
+
 /* Mapa fijo en escritorio */
 .col-map {
   display: none;
@@ -203,6 +218,16 @@ header {
 
 @media (max-width: 767px) {
   .col-map {
+    display: none !important;
+  }
+  .map-sheet {
+    display: block;
+  }
+}
+
+/* Asegurar que el sheet móvil no se muestre en escritorio */
+@media (min-width: 768px) {
+  .map-sheet {
     display: none !important;
   }
 }
