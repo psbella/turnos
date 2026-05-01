@@ -36,9 +36,6 @@
       border: 1px solid #30363d;
       padding: 20px;
     }
-    .farmacia-info {
-      margin-bottom: 20px;
-    }
     .campo {
       margin-bottom: 15px;
     }
@@ -57,16 +54,11 @@
       border-radius: 8px;
       font-size: 14px;
     }
-    .campo textarea {
-      resize: vertical;
-    }
     .coordenadas {
       background: #0d1117;
       padding: 12px;
       border-radius: 12px;
       margin: 15px 0;
-      font-family: monospace;
-      font-size: 12px;
       display: flex;
       gap: 10px;
     }
@@ -93,17 +85,9 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.2s;
     }
     button:hover {
       background: #2c974b;
-      transform: translateY(-1px);
-    }
-    .btn-corregir {
-      background: #f0883e;
-    }
-    .btn-corregir:hover {
-      background: #e06b1f;
     }
     .btn-descargar {
       background: #1f6feb;
@@ -115,12 +99,6 @@
       margin-top: 15px;
       text-align: center;
       font-size: 13px;
-    }
-    .estado.correcta {
-      color: #3fb950;
-    }
-    .estado.corregida {
-      color: #f0883e;
     }
     #map {
       height: 500px;
@@ -147,7 +125,6 @@
       padding: 2px 8px;
       border-radius: 20px;
       font-size: 11px;
-      font-weight: bold;
       margin-left: 10px;
     }
     @media (max-width: 768px) {
@@ -159,11 +136,10 @@
 </head>
 <body>
 <script>
-  // ==================== PROTECCIÓN CON CONTRASEÑA ====================
   const PASSWORD = 'pasteldepapasconpasasdeuva';
-  const userInput = prompt('🔐 Ingrese la contraseña de administrador:');
+  const userInput = prompt('🔐 Contraseña de administrador:');
   if (userInput !== PASSWORD) {
-    document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#0d1117; color:#e6edf3;"><div style="text-align:center;"><h1>⛔ Acceso denegado</h1><p>No tenés permiso para ver esta página.</p></div></div>';
+    document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh;"><div style="text-align:center;"><h1>⛔ Acceso denegado</h1><p>Contraseña incorrecta.</p></div></div>';
     throw new Error('Acceso denegado');
   }
 </script>
@@ -175,56 +151,29 @@
   </div>
 
   <div class="grid">
-    <!-- Columna izquierda: datos editables -->
     <div class="panel">
-      <div class="farmacia-info">
-        <h2 id="farm-nombre">Cargando... <span class="badge" id="contador">0/0</span></h2>
-      </div>
-
-      <div class="campo">
-        <label>🏷️ Nombre</label>
-        <input type="text" id="input-nombre" class="edit-field">
-      </div>
-
-      <div class="campo">
-        <label>📍 Dirección</label>
-        <textarea id="input-direccion" rows="2" class="edit-field"></textarea>
-      </div>
-
-      <div class="campo">
-        <label>📞 Teléfono</label>
-        <input type="text" id="input-telefono" class="edit-field">
-      </div>
-
-      <div class="coordenadas">
-        <input type="text" id="input-lat" placeholder="Latitud" class="edit-field">
-        <input type="text" id="input-lng" placeholder="Longitud" class="edit-field">
-      </div>
-
+      <h2 id="farm-nombre">Cargando... <span class="badge" id="contador">0/0</span></h2>
+      <div class="campo"><label>🏷️ Nombre</label><input type="text" id="input-nombre"></div>
+      <div class="campo"><label>📍 Dirección</label><textarea id="input-direccion" rows="2"></textarea></div>
+      <div class="campo"><label>📞 Teléfono</label><input type="text" id="input-telefono"></div>
+      <div class="coordenadas"><input type="text" id="input-lat" placeholder="Latitud"><input type="text" id="input-lng" placeholder="Longitud"></div>
       <div class="buttons">
-        <button id="btn-correcta" class="btn-correcta">✅ Guardar y siguiente</button>
-        <button id="btn-anterior" class="btn-anterior">⏪ Anterior</button>
+        <button id="btn-correcta">✅ Guardar y siguiente</button>
+        <button id="btn-anterior">⏪ Anterior</button>
         <button id="btn-descargar" class="btn-descargar">💾 Descargar JSON</button>
       </div>
-
-      <div id="estado" class="estado">📍 Editá los campos o mové el pin en el mapa</div>
+      <div id="estado" class="estado">📝 Editá los campos o arrastrá el pin</div>
     </div>
-
-    <!-- Columna derecha: mapa -->
-    <div class="panel" style="padding: 0; overflow: hidden;">
-      <div id="map"></div>
-    </div>
+    <div class="panel" style="padding:0"><div id="map"></div></div>
   </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // ==================== DATOS ====================
   let todasFarmacias = [];
   let currentIndex = 0;
   let currentMarker = null;
   let map = null;
-  let cambiosPendientes = false;
 
   const pharmacyIcon = L.divIcon({
     className: 'custom-pharmacy-icon',
@@ -233,7 +182,6 @@
     popupAnchor: [0, -17]
   });
 
-  // ==================== CARGAR DATOS ====================
   async function cargarFarmacias() {
     const res = await fetch('db.json');
     const ciclosData = await res.json();
@@ -241,7 +189,16 @@
     for (const grupo in ciclosData) {
       for (const f of ciclosData[grupo]) {
         const key = `${f.nombre}|${f.direccion}`;
-        if (!unicas.has(key)) unicas.set(key, { ...f });
+        if (!unicas.has(key)) {
+          unicas.set(key, {
+            nombre: f.nombre,
+            direccion: f.direccion,
+            telefono: f.telefono,
+            lat: f.lat,
+            lng: f.lng,
+            keyOriginal: key
+          });
+        }
       }
     }
     todasFarmacias = Array.from(unicas.values());
@@ -250,90 +207,62 @@
     mostrarFarmacia(0);
   }
 
-  // ==================== MOSTRAR FARMACIA ====================
   function mostrarFarmacia(index) {
-    if (!todasFarmacias.length || index < 0 || index >= todasFarmacias.length) return;
     const f = todasFarmacias[index];
-    
+    if (!f) return;
     document.getElementById('input-nombre').value = f.nombre || '';
     document.getElementById('input-direccion').value = f.direccion || '';
     document.getElementById('input-telefono').value = f.telefono || '';
     document.getElementById('input-lat').value = f.lat ? f.lat.toFixed(6) : '';
     document.getElementById('input-lng').value = f.lng ? f.lng.toFixed(6) : '';
     document.getElementById('farm-nombre').innerHTML = `${f.nombre || '?'} <span class="badge">${index+1}/${todasFarmacias.length}</span>`;
-    
-    document.getElementById('estado').innerHTML = '✏️ Editá los campos o mové el pin en el mapa';
-    document.getElementById('estado').className = 'estado';
-    
     actualizarMapa(f);
   }
 
-  // ==================== ACTUALIZAR MAPA ====================
-  function actualizarMapa(farmacia) {
+  function actualizarMapa(f) {
     if (!map) {
       map = L.map('map').setView([-38.0055, -57.5426], 12);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-      }).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
     }
-
     if (currentMarker) map.removeLayer(currentMarker);
-
     const lat = parseFloat(document.getElementById('input-lat').value);
     const lng = parseFloat(document.getElementById('input-lng').value);
-    const tieneCoords = !isNaN(lat) && !isNaN(lng);
-    const pos = tieneCoords ? [lat, lng] : [-38.0055, -57.5426];
-
+    const pos = (!isNaN(lat) && !isNaN(lng)) ? [lat, lng] : [-38.0055, -57.5426];
     currentMarker = L.marker(pos, { draggable: true, icon: pharmacyIcon }).addTo(map);
-    
     currentMarker.on('dragend', () => {
       const newPos = currentMarker.getLatLng();
       document.getElementById('input-lat').value = newPos.lat.toFixed(6);
       document.getElementById('input-lng').value = newPos.lng.toFixed(6);
       actualizarFarmaciaDesdeCampos();
     });
-
     map.setView(pos, 16);
-    currentMarker.bindPopup(`<b>${farmacia.nombre}</b><br>${farmacia.direccion}`).openPopup();
+    currentMarker.bindPopup(`<b>${f.nombre}</b><br>${f.direccion}`).openPopup();
   }
 
-  // ==================== ACTUALIZAR OBJETO DESDE CAMPOS ====================
   function actualizarFarmaciaDesdeCampos() {
     const f = todasFarmacias[currentIndex];
-    const nombreNuevo = document.getElementById('input-nombre').value.trim();
-    const direccionNueva = document.getElementById('input-direccion').value.trim();
-    const telefonoNuevo = document.getElementById('input-telefono').value.trim();
-    const latNuevo = parseFloat(document.getElementById('input-lat').value);
-    const lngNuevo = parseFloat(document.getElementById('input-lng').value);
-
-    let cambios = false;
-    if (nombreNuevo !== f.nombre) { f.nombre = nombreNuevo; cambios = true; }
-    if (direccionNueva !== f.direccion) { f.direccion = direccionNueva; cambios = true; }
-    if (telefonoNuevo !== f.telefono) { f.telefono = telefonoNuevo; cambios = true; }
-    if (!isNaN(latNuevo) && latNuevo !== f.lat) { f.lat = latNuevo; cambios = true; }
-    if (!isNaN(lngNuevo) && lngNuevo !== f.lng) { f.lng = lngNuevo; cambios = true; }
-
-    if (cambios) {
-      cambiosPendientes = true;
-      document.getElementById('estado').innerHTML = '✅ Cambios guardados localmente. Presioná "Descargar JSON" para obtener el archivo.';
-      document.getElementById('estado').className = 'estado correcta';
-    }
+    f.nombre = document.getElementById('input-nombre').value.trim();
+    f.direccion = document.getElementById('input-direccion').value.trim();
+    f.telefono = document.getElementById('input-telefono').value.trim();
+    const lat = parseFloat(document.getElementById('input-lat').value);
+    const lng = parseFloat(document.getElementById('input-lng').value);
+    if (!isNaN(lat)) f.lat = lat;
+    if (!isNaN(lng)) f.lng = lng;
+    document.getElementById('estado').innerHTML = '✅ Cambios guardados localmente. Descargá el JSON al final.';
+    document.getElementById('estado').style.color = '#3fb950';
   }
 
-  // ==================== SIGUIENTE ====================
   function siguiente() {
     actualizarFarmaciaDesdeCampos();
     if (currentIndex + 1 < todasFarmacias.length) {
       currentIndex++;
       mostrarFarmacia(currentIndex);
+      actualizarProgreso();
     } else {
-      document.getElementById('estado').innerHTML = '🎉 ¡Todas las farmacias revisadas! Descargá el JSON final.';
-      document.getElementById('estado').className = 'estado correcta';
+      document.getElementById('estado').innerHTML = '🎉 Terminaste! Descargá el JSON.';
     }
-    actualizarProgreso();
   }
 
-  // ==================== ANTERIOR ====================
   function anterior() {
     actualizarFarmaciaDesdeCampos();
     if (currentIndex - 1 >= 0) {
@@ -343,35 +272,21 @@
     }
   }
 
-  // ==================== DESCARGAR JSON ====================
   async function descargarJSON() {
     actualizarFarmaciaDesdeCampos();
-    
     const res = await fetch('db.json');
     const ciclosData = await res.json();
-
-    const mapaCoords = new Map();
-    for (const f of todasFarmacias) {
-      const key = `${f.nombre}|${f.direccion}`;
-      mapaCoords.set(key, { 
-        nombre: f.nombre,
-        direccion: f.direccion,
-        telefono: f.telefono,
-        lat: f.lat, 
-        lng: f.lng 
-      });
-    }
 
     for (const grupo in ciclosData) {
       for (const farmacia of ciclosData[grupo]) {
         const key = `${farmacia.nombre}|${farmacia.direccion}`;
-        if (mapaCoords.has(key)) {
-          const datos = mapaCoords.get(key);
-          farmacia.nombre = datos.nombre;
-          farmacia.direccion = datos.direccion;
-          farmacia.telefono = datos.telefono;
-          farmacia.lat = datos.lat;
-          farmacia.lng = datos.lng;
+        const encontrada = todasFarmacias.find(f => f.keyOriginal === key);
+        if (encontrada) {
+          farmacia.nombre = encontrada.nombre;
+          farmacia.direccion = encontrada.direccion;
+          farmacia.telefono = encontrada.telefono;
+          farmacia.lat = encontrada.lat;
+          farmacia.lng = encontrada.lng;
         }
       }
     }
@@ -386,39 +301,31 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-
-    cambiosPendientes = false;
-    document.getElementById('estado').innerHTML = '✅ JSON descargado. Reemplazá tu db.json con este archivo.';
+    document.getElementById('estado').innerHTML = '✅ JSON descargado. Reemplazá tu db.json.';
   }
 
   function actualizarProgreso() {
-    const porcentaje = ((currentIndex) / todasFarmacias.length) * 100;
+    const porcentaje = (currentIndex / todasFarmacias.length) * 100;
     document.getElementById('progress-bar').style.width = `${porcentaje}%`;
   }
 
-  function bindInputEvents() {
+  function bindEvents() {
+    document.getElementById('btn-correcta').addEventListener('click', siguiente);
+    document.getElementById('btn-anterior').addEventListener('click', anterior);
+    document.getElementById('btn-descargar').addEventListener('click', descargarJSON);
     const campos = ['input-nombre', 'input-direccion', 'input-telefono', 'input-lat', 'input-lng'];
     campos.forEach(id => {
       document.getElementById(id).addEventListener('input', () => {
         actualizarFarmaciaDesdeCampos();
         const lat = parseFloat(document.getElementById('input-lat').value);
         const lng = parseFloat(document.getElementById('input-lng').value);
-        if (!isNaN(lat) && !isNaN(lng) && currentMarker) {
-          currentMarker.setLatLng([lat, lng]);
-          map.setView([lat, lng], 16);
-        }
+        if (!isNaN(lat) && !isNaN(lng) && currentMarker) currentMarker.setLatLng([lat, lng]);
       });
     });
   }
 
-  // ==================== EVENTOS ====================
-  document.getElementById('btn-correcta').addEventListener('click', siguiente);
-  document.getElementById('btn-anterior').addEventListener('click', anterior);
-  document.getElementById('btn-descargar').addEventListener('click', descargarJSON);
-
-  // ==================== INICIAR ====================
   cargarFarmacias();
-  bindInputEvents();
+  bindEvents();
 </script>
 </body>
 </html>
