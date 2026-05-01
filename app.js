@@ -239,7 +239,9 @@ function mostrarTodasLasFarmacias() {
     div.innerHTML = `<div class="card-num">${i + 1}</div>
   <div class="card-info">
     <div class="card-name">${capFirst(f.nombre)}</div>
-    <div class="card-address">${getLocationIcon()} ${f.direccion}</div>
+    <div class="card-address-line">
+      ${getLocationIcon()} <span class="card-address-text">${f.direccion}</span>
+    </div>
     ${badgeHtml ? `<div class="card-badge">${badgeHtml}</div>` : ''}
   </div>
   <div class="card-phone">${tLink}</div>`;
