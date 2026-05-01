@@ -574,20 +574,13 @@ main {
   }
 }
 
-/* Badge "Hoy de turno" - alineado con el ícono */
-.card-address-line {
+/* ==================== BADGE "HOY DE TURNO" ==================== */
+.card-badge-line {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px;
-}
-
-.card-address-text {
-  flex: 1;
-}
-
-.card-badge {
-  margin-left: 20px;  /* mismo margen que tiene el ícono (14px + 6px gap) */
-  margin-top: 2px;
+  margin-left: 24px;  /* Ajustá este valor hasta que quede alineado con el ícono */
+  margin-top: 4px;
 }
 
 .badge-hoy {
