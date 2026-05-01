@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - Corregir farmacias (todo editable)</title>
+  <title>Admin - Corrector de farmacias</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     * {
@@ -158,6 +158,16 @@
   </style>
 </head>
 <body>
+<script>
+  // ==================== PROTECCIÓN CON CONTRASEÑA ====================
+  const PASSWORD = 'pasteldepapasconpasasdeuva';
+  const userInput = prompt('🔐 Ingrese la contraseña de administrador:');
+  if (userInput !== PASSWORD) {
+    document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#0d1117; color:#e6edf3;"><div style="text-align:center;"><h1>⛔ Acceso denegado</h1><p>No tenés permiso para ver esta página.</p></div></div>';
+    throw new Error('Acceso denegado');
+  }
+</script>
+
 <div class="container">
   <h1>✏️ Editor completo de farmacias</h1>
   <div class="progress">
@@ -245,7 +255,6 @@
     if (!todasFarmacias.length || index < 0 || index >= todasFarmacias.length) return;
     const f = todasFarmacias[index];
     
-    // Actualizar campos
     document.getElementById('input-nombre').value = f.nombre || '';
     document.getElementById('input-direccion').value = f.direccion || '';
     document.getElementById('input-telefono').value = f.telefono || '';
@@ -387,7 +396,6 @@
     document.getElementById('progress-bar').style.width = `${porcentaje}%`;
   }
 
-  // Escuchar cambios en los campos
   function bindInputEvents() {
     const campos = ['input-nombre', 'input-direccion', 'input-telefono', 'input-lat', 'input-lng'];
     campos.forEach(id => {
