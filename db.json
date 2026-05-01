@@ -4,43 +4,43 @@
       "nombre": "BAUZA SARMIENTO",
       "direccion": "SARMIENTO 2599",
       "telefono": "2234511243",
-      "lat": -38.0115813,
-      "lng": -57.5428163
+      "lat": -38.011581,
+      "lng": -57.542816
     },
     {
       "nombre": "DEL CUETO",
       "direccion": "12 DE OCTUBRE 5054",
       "telefono": "2234809713",
-      "lat": -38.0315841,
-      "lng": -57.5617076
+      "lat": -38.031584,
+      "lng": -57.561708
     },
     {
       "nombre": "NUEVA CORDOBA",
       "direccion": "CORDOBA 4546",
       "telefono": "2234941294",
-      "lat": -38.0222089,
-      "lng": -57.5652821
+      "lat": -38.022209,
+      "lng": -57.565282
     },
     {
       "nombre": "OCCI",
       "direccion": "TEJEDOR 298",
       "telefono": "2234728768",
-      "lat": -37.9711924,
-      "lng": -57.5583845
+      "lat": -37.971192,
+      "lng": -57.558385
     },
     {
       "nombre": "FRASSON",
       "direccion": "ARTURO ALIO 1195",
       "telefono": "2234787253",
-      "lat": -37.9708143,
-      "lng": -57.5919148
+      "lat": -37.971145,
+      "lng": -57.592252
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "MOLINA",
@@ -53,15 +53,15 @@
       "nombre": "PIZZOLO",
       "direccion": "FORTUNATO DE LA PLAZA 3658",
       "telefono": "2236703020",
-      "lat": -38.0240168,
-      "lng": -57.5921893
+      "lat": -38.051492,
+      "lng": -57.56277
     },
     {
       "nombre": "PREVILEY P. RAMOS",
       "direccion": "PERALTA RAMOS 2413",
       "telefono": "2235064692",
-      "lat": -38.035399742171116,
-      "lng": -57.59129226207734
+      "lat": -38.0354,
+      "lng": -57.591292
     }
   ],
   "2": [
@@ -69,77 +69,77 @@
       "nombre": "CORAL",
       "direccion": "INDEPENDENCIA 874",
       "telefono": "2234743111",
-      "lat": -37.9896524,
-      "lng": -57.5473864
+      "lat": -37.989652,
+      "lng": -57.547386
     },
     {
       "nombre": "DOMINGUEZ LAY",
       "direccion": "CARLOS TEJEDOR 3627",
       "telefono": "2234548666",
-      "lat": -37.9447726,
-      "lng": -57.5366776
+      "lat": -37.944684,
+      "lng": -57.536983
     },
     {
       "nombre": "GILARDONI",
       "direccion": "CALLE 0 Y CALLE 817, CHAPADMALAL",
       "telefono": "2291510527",
-      "lat": -38.205651816424975,
-      "lng": -57.696127063540224
+      "lat": -38.205652,
+      "lng": -57.696127
     },
     {
       "nombre": "ITALIANA",
       "direccion": "20 de SEPTIEMBRE 1678",
       "telefono": "2234730178",
-      "lat": -37.9941475,
-      "lng": -57.5567449
+      "lat": -37.994147,
+      "lng": -57.556745
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "SUR COLON",
       "direccion": "COLON 4986",
       "telefono": "2234727980",
-      "lat": -37.9914879,
-      "lng": -57.5741281
+      "lat": -37.991488,
+      "lng": -57.574128
     },
     {
       "nombre": "DEL PUERTO LURO",
       "direccion": "LURO 5802",
       "telefono": "2234783056",
-      "lat": -37.9823676,
+      "lat": -37.982368,
       "lng": -57.578826
     },
     {
       "nombre": "PAZ",
       "direccion": "TALCAHUANO 793",
       "telefono": "2234823985",
-      "lat": -38.0282159,
-      "lng": -57.5724288
+      "lat": -38.028216,
+      "lng": -57.572429
     },
     {
       "nombre": "BAUZA GÜEMES",
       "direccion": "GÜEMES 3185",
       "telefono": "2234518563",
-      "lat": -38.0177513,
-      "lng": -57.54356
+      "lat": -38.017834,
+      "lng": -57.54364
     },
     {
       "nombre": "RIADIGOS CONSTITUCION",
       "direccion": "CONSTITUCION 7508",
       "telefono": "2234712727",
-      "lat": -37.961802,
-      "lng": -57.5467823
+      "lat": -37.952734,
+      "lng": -57.578997
     },
     {
       "nombre": "VIDA",
       "direccion": "CONSTITUCION 5232",
       "telefono": "2234790101",
-      "lat": -37.9644575,
+      "lat": -37.964458,
       "lng": -57.556156
     }
   ],
@@ -148,22 +148,22 @@
       "nombre": "BADANEZ",
       "direccion": "SAN MARTIN 2149",
       "telefono": "2235510731",
-      "lat": -38.0017219,
-      "lng": -57.5422496
+      "lat": -38.001722,
+      "lng": -57.54225
     },
     {
       "nombre": "CASTORINA",
       "direccion": "FORTUNATO DE LA PLAZA 2657",
       "telefono": "2235736459",
-      "lat": -38.05776981214138,
-      "lng": -57.55377404499346
+      "lat": -38.057824,
+      "lng": -57.553972
     },
     {
       "nombre": "DANTE",
       "direccion": "MORENO 3602",
       "telefono": "2234943337",
-      "lat": -37.9967438,
-      "lng": -57.5591433
+      "lat": -37.996744,
+      "lng": -57.559143
     },
     {
       "nombre": "PALKIN FALUCHO",
@@ -176,8 +176,8 @@
       "nombre": "LA PERLA",
       "direccion": "ESPAÑA 1003",
       "telefono": "2235065049",
-      "lat": -37.9891797,
-      "lng": -57.5516655
+      "lat": -37.98918,
+      "lng": -57.551665
     },
     {
       "nombre": "DEL PUERTO INDEPENDENCIA",
@@ -190,29 +190,29 @@
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "BAUZA M. BRAVO",
       "direccion": "MARIO BRAVO 3504",
       "telefono": "2235798821",
-      "lat": -38.0605518,
-      "lng": -57.5714546
+      "lat": -38.060501,
+      "lng": -57.57175
     },
     {
       "nombre": "PUEYRREDON JBJ",
       "direccion": "JUAN B. JUSTO 1846",
       "telefono": "2234894040",
-      "lat": -38.02823770207518,
-      "lng": -57.55912184715271
+      "lat": -38.028238,
+      "lng": -57.559122
     },
     {
       "nombre": "SACK",
       "direccion": "ALBERTI 6567",
       "telefono": "2235993771",
       "lat": -37.986453,
-      "lng": -57.5925114
+      "lng": -57.592511
     }
   ],
   "4": [
@@ -220,29 +220,29 @@
       "nombre": "DEL BARRIO",
       "direccion": "JARA 3290",
       "telefono": "2234755685",
-      "lat": -37.9998812,
-      "lng": -57.5811586
+      "lat": -37.999881,
+      "lng": -57.581159
     },
     {
       "nombre": "ELBEY Y FARINA",
       "direccion": "COLON 7279",
       "telefono": "2234702524",
-      "lat": -37.9796525,
-      "lng": -57.5970067
+      "lat": -37.979627,
+      "lng": -57.597021
     },
     {
       "nombre": "FRONTINI",
       "direccion": "12 DE OCTUBRE 5362",
       "telefono": "2234820421",
-      "lat": -38.0293353,
-      "lng": -57.5647213
+      "lat": -38.029335,
+      "lng": -57.564721
     },
     {
       "nombre": "SUR",
       "direccion": "MARIO BRAVO 502",
       "telefono": "2236185741",
-      "lat": -38.080397429177125,
-      "lng": -57.545799070821715
+      "lat": -38.080397,
+      "lng": -57.545799
     },
     {
       "nombre": "RIADIGOS GÜEMES",
@@ -262,22 +262,22 @@
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "MOBILIA",
       "direccion": "PRESIDENTE PERON 10419 BATAN",
       "telefono": "2236344967",
-      "lat": -38.007110559678104,
-      "lng": -57.71559646563051
+      "lat": -38.007111,
+      "lng": -57.715596
     },
     {
       "nombre": "LUJAN",
       "direccion": "FORTUNATO DE LA PLAZA 6992",
       "telefono": "2233465521",
-      "lat": -38.0240168,
-      "lng": -57.5921893
+      "lat": -38.03142,
+      "lng": -57.589409
     },
     {
       "nombre": "PALKIN INDEPENDENCIA",
@@ -290,8 +290,8 @@
       "nombre": "SAN JUAN",
       "direccion": "BELGRANO 4250",
       "telefono": "2234725920",
-      "lat": -37.9926957,
-      "lng": -57.5648588
+      "lat": -37.992696,
+      "lng": -57.564859
     }
   ],
   "5": [
@@ -300,14 +300,14 @@
       "direccion": "JARA 1842",
       "telefono": "2235847235",
       "lat": -37.988439,
-      "lng": -57.5718729
+      "lng": -57.571873
     },
     {
       "nombre": "GUEVARA",
       "direccion": "SAN JUAN 381",
       "telefono": "2234732109",
-      "lat": -37.9805174,
-      "lng": -57.5544806
+      "lat": -37.980517,
+      "lng": -57.554481
     },
     {
       "nombre": "EDISON II",
@@ -320,8 +320,8 @@
       "nombre": "MALEN",
       "direccion": "CATAMARCA 3201",
       "telefono": "2234732646",
-      "lat": -38.0089513,
-      "lng": -57.5617587
+      "lat": -38.008951,
+      "lng": -57.561759
     },
     {
       "nombre": "PUEYRREDON JBJ II",
@@ -334,36 +334,36 @@
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "DEL PUERTO 12 DE OCTUBRE",
       "direccion": "12 DE OCTUBRE 3185",
       "telefono": "2234895735",
-      "lat": -38.0436051,
-      "lng": -57.5453247
+      "lat": -38.043605,
+      "lng": -57.545325
     },
     {
       "nombre": "PHARMARURAL",
       "direccion": "RUTA NACIONAL 226 KM 16.5, EL COYUNCO",
       "telefono": "2233540982",
-      "lat": -37.914035455861445,
-      "lng": -57.74386664377539
+      "lat": -37.914035,
+      "lng": -57.743867
     },
     {
       "nombre": "SOICH P. RAMOS",
       "direccion": "JACINTO PERALTA RAMOS 2101",
       "telefono": "2236910038",
-      "lat": -38.03336735953027,
-      "lng": -57.58881926536561
+      "lat": -38.033367,
+      "lng": -57.588819
     },
     {
       "nombre": "DEL PUERTO TEJEDOR",
       "direccion": "TEJEDOR 581",
       "telefono": "2234713066",
-      "lat": -37.9690869,
-      "lng": -57.5561915
+      "lat": -37.96925,
+      "lng": -57.556821
     }
   ],
   "6": [
@@ -371,29 +371,29 @@
       "nombre": "PUEYREDON JBJ",
       "direccion": "JUAN B. JUSTO 3200",
       "telefono": "2235648000",
-      "lat": -38.01916470557256,
-      "lng": -57.571823403759765
+      "lat": -38.019237,
+      "lng": -57.571857
     },
     {
       "nombre": "ARANDA",
       "direccion": "LIBERTAD 5579",
       "telefono": "2234750052",
-      "lat": -37.9784996,
-      "lng": -57.5721728
+      "lat": -37.9785,
+      "lng": -57.572173
     },
     {
       "nombre": "BOSQUE GRANDE",
       "direccion": "VERTIZ 9162",
       "telefono": "2236008877",
-      "lat": -38.0095643,
-      "lng": -57.6046053
+      "lat": -38.009564,
+      "lng": -57.604605
     },
     {
       "nombre": "PIZZOLO VERTIZ",
       "direccion": "VERTIZ 4282",
       "telefono": "2235314718",
-      "lat": -38.0420059,
-      "lng": -57.5615828
+      "lat": -38.041927,
+      "lng": -57.561654
     },
     {
       "nombre": "SOCIAL LURO",
@@ -406,29 +406,29 @@
       "nombre": "EL GROSELLAR TEJEDOR",
       "direccion": "CARLOS TEJEDOR 2618",
       "telefono": "2233123880",
-      "lat": -37.9525845,
-      "lng": -57.5433028
+      "lat": -37.952658,
+      "lng": -57.54305
     },
     {
       "nombre": "PUEYRREDON LAS HERAS",
       "direccion": "LAS HERAS 3010",
       "telefono": "2234939265",
-      "lat": -38.0145619,
-      "lng": -57.5463672
+      "lat": -38.014562,
+      "lng": -57.546367
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "CONSTITUCION",
       "direccion": "CONSTITUCION 6679",
       "telefono": "2234567991",
-      "lat": -37.9570142,
-      "lng": -57.5702233
+      "lat": -37.956926,
+      "lng": -57.570183
     },
     {
       "nombre": "SERI",
@@ -450,14 +450,14 @@
       "nombre": "ABALLAY",
       "direccion": "PERALTA RAMOS 821",
       "telefono": "2234815223",
-      "lat": -38.0245296,
-      "lng": -57.5781011
+      "lat": -38.024532,
+      "lng": -57.578192
     },
     {
       "nombre": "PREVILEY LURO",
       "direccion": "LURO 3804",
       "telefono": "2235767649",
-      "lat": -37.9924714,
+      "lat": -37.992471,
       "lng": -57.558681
     },
     {
@@ -471,22 +471,22 @@
       "nombre": "SE.AD.HE",
       "direccion": "JUAN B. JUSTO 5402",
       "telefono": "2236933753",
-      "lat": -38.00422005670396,
-      "lng": -57.590889930725105
+      "lat": -38.00422,
+      "lng": -57.59089
     },
     {
       "nombre": "PREVILEY 12 DE OCTUBRE",
       "direccion": "12 DE OCTUBRE 3792",
       "telefono": "2235449668",
-      "lat": -38.0397895,
-      "lng": -57.5508151
+      "lat": -38.039789,
+      "lng": -57.550815
     },
     {
       "nombre": "GRIMALDI",
       "direccion": "RODRIGUEZ PEÑA 1289",
       "telefono": "2233450267",
-      "lat": -38.019609,
-      "lng": -57.5445884
+      "lat": -38.019549,
+      "lng": -57.544659
     },
     {
       "nombre": "SUR COLON II",
@@ -499,15 +499,15 @@
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "RIADIGOS SICILIA",
       "direccion": "SICILIA 1474",
       "telefono": "2234840713",
-      "lat": -38.0532431,
-      "lng": -57.569103
+      "lat": -38.069396,
+      "lng": -57.547932
     },
     {
       "nombre": "RIQUELME",
@@ -520,8 +520,8 @@
       "nombre": "ZINGALE",
       "direccion": "LIBERTAD 7693",
       "telefono": "2235399462",
-      "lat": -37.9676341,
-      "lng": -57.5934032
+      "lat": -37.967634,
+      "lng": -57.593403
     }
   ],
   "8": [
@@ -529,49 +529,49 @@
       "nombre": "AVENIDA",
       "direccion": "LIBERTAD 4490",
       "telefono": "2234735863",
-      "lat": -37.9842489,
-      "lng": -57.5613108
+      "lat": -37.984249,
+      "lng": -57.561311
     },
     {
       "nombre": "COPAL",
       "direccion": "SAN JUAN 2998",
       "telefono": "2236532086",
-      "lat": -38.0016409,
-      "lng": -57.5712472
+      "lat": -38.001641,
+      "lng": -57.571247
     },
     {
       "nombre": "DEL LABRADOR",
       "direccion": "TUCUMAN 2853",
       "telefono": "2234913241",
-      "lat": -38.0116278,
-      "lng": -57.5485422
+      "lat": -38.011628,
+      "lng": -57.548542
     },
     {
       "nombre": "PLAZA",
       "direccion": "CONSTITUCION 5702",
       "telefono": "2234715757",
-      "lat": -37.9620222,
-      "lng": -57.5609167
+      "lat": -37.961705,
+      "lng": -57.560635
     },
     {
       "nombre": "FLORES",
       "direccion": "LURO 6501",
       "telefono": "2234813387",
       "lat": -37.978493,
-      "lng": -57.5854595
+      "lng": -57.585459
     },
     {
       "nombre": "FRESCO",
       "direccion": "CERRITO 1512",
       "telefono": "2236542256",
-      "lat": -38.0414238,
-      "lng": -57.5676474
+      "lat": -38.041424,
+      "lng": -57.567647
     },
     {
       "nombre": "GOMEZ",
       "direccion": "ALVARADO 2318",
       "telefono": "2236260034",
-      "lat": -38.0112762,
+      "lat": -38.011276,
       "lng": -57.552722
     },
     {
@@ -579,14 +579,14 @@
       "direccion": "CHILE 2987",
       "telefono": "2234814382",
       "lat": -37.995371,
-      "lng": -57.5835058
+      "lng": -57.583506
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "PREVILEY TALCAHUANO",
@@ -599,8 +599,8 @@
       "nombre": "VARA",
       "direccion": "DIAGONAL ESTADOS UNIDOS 779",
       "telefono": "2235808030",
-      "lat": -38.0922369,
-      "lng": -57.5543932
+      "lat": -38.091045,
+      "lng": -57.561488
     }
   ],
   "9": [
@@ -608,71 +608,71 @@
       "nombre": "25 DE MAYO",
       "direccion": "25 DE MAYO 3610",
       "telefono": "2236410479",
-      "lat": -37.992646,
-      "lng": -57.5559795
+      "lat": -37.992493,
+      "lng": -57.555678
     },
     {
       "nombre": "FARMARURAL 226",
       "direccion": "RUTA NACIONAL 226 KM 16.5, EL COYUNCO",
       "telefono": "2235464734",
-      "lat": -37.914032556080265,
-      "lng": -57.74386703968049
+      "lat": -37.914033,
+      "lng": -57.743867
     },
     {
       "nombre": "ZUICH",
       "direccion": "ALBERTI 1387",
       "telefono": "2234860599",
-      "lat": -38.0127575,
-      "lng": -57.5405068
+      "lat": -38.012757,
+      "lng": -57.540507
     },
     {
       "nombre": "LISSARRAGUE",
       "direccion": "AYACUCHO 4698",
       "telefono": "2236774797",
-      "lat": -37.9807766,
+      "lat": -37.980777,
       "lng": -57.561358
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "MONTTI",
       "direccion": "TUCUMAN 3392",
       "telefono": "2235015346",
-      "lat": -38.0159045,
-      "lng": -57.5517061
+      "lat": -38.015904,
+      "lng": -57.551706
     },
     {
       "nombre": "RIADIGOS LURO",
       "direccion": "LURO 6900",
       "telefono": "2235401424",
-      "lat": -37.9769789,
-      "lng": -57.5893768
+      "lat": -37.976469,
+      "lng": -57.589431
     },
     {
       "nombre": "DEL PUERTO P. RAMOS",
       "direccion": "PERALTA RAMOS 402",
       "telefono": "2235577707",
-      "lat": -38.0219212,
-      "lng": -57.5746067
+      "lat": -38.021921,
+      "lng": -57.574607
     },
     {
       "nombre": "RODRIGUEZ SUSANA",
       "direccion": "DELLA PAOLERA 2040",
       "telefono": "2236695468",
-      "lat": -37.9450073,
-      "lng": -57.5710867
+      "lat": -37.945124,
+      "lng": -57.570816
     },
     {
       "nombre": "OCCI JBJ",
       "direccion": "JUAN B JUSTO 1302",
       "telefono": "2234809105",
       "lat": -38.031653,
-      "lng": -57.5546193
+      "lng": -57.554619
     }
   ],
   "10": [
@@ -680,50 +680,50 @@
       "nombre": "PIZZOLO MARIO BRAVO",
       "direccion": "MARIO BRAVO 2067",
       "telefono": "2234841484",
-      "lat": -38.06987679292323,
-      "lng": -57.5584765670823
+      "lat": -38.069877,
+      "lng": -57.558477
     },
     {
       "nombre": "AMANCAY",
       "direccion": "11 DE SEPTIEMBRE 3783",
       "telefono": "2234388059",
-      "lat": -37.9892537,
-      "lng": -57.5554878
+      "lat": -37.989254,
+      "lng": -57.555488
     },
     {
       "nombre": "DELLA MAGGIORA",
       "direccion": "COLON 4101",
       "telefono": "2234723587",
-      "lat": -37.995646,
-      "lng": -57.565363
+      "lat": -37.99563,
+      "lng": -57.565345
     },
     {
       "nombre": "FARMALYF",
       "direccion": "INDEPENDENCIA 4117",
       "telefono": "2234726788",
-      "lat": -38.0156641,
+      "lat": -38.015664,
       "lng": -57.56872
     },
     {
       "nombre": "JARDIN DE LA SIERRA",
       "direccion": "ARGENTINA 360",
       "telefono": "2234370421",
-      "lat": -37.942305777916424,
-      "lng": -57.777079231505446
+      "lat": -37.942361,
+      "lng": -57.776847
     },
     {
       "nombre": "JORGE RUIZ",
       "direccion": "JARA 1407",
       "telefono": "2234729609",
-      "lat": -37.9848075,
-      "lng": -57.5693092
+      "lat": -37.984697,
+      "lng": -57.569341
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "MURRAY",
@@ -743,22 +743,22 @@
       "nombre": "POUSSET",
       "direccion": "ALVARADO 6579",
       "telefono": "2234783427",
-      "lat": -37.9896779,
-      "lng": -57.5953825
+      "lat": -37.989678,
+      "lng": -57.595382
     },
     {
       "nombre": "VALENTINI",
       "direccion": "JARA 3993",
       "telefono": "2234744588",
-      "lat": -38.00528492966395,
-      "lng": -57.585922479629524
+      "lat": -38.005315,
+      "lng": -57.585896
     },
     {
       "nombre": "BAUZA ALEM",
       "direccion": "ALEM 3565",
       "telefono": "2234864449",
-      "lat": -38.0264122,
-      "lng": -57.5350699
+      "lat": -38.026412,
+      "lng": -57.53507
     }
   ],
   "11": [
@@ -773,57 +773,57 @@
       "nombre": "CONSTITUCION CANESSA",
       "direccion": "JUAN B. JUSTO 494",
       "telefono": "2234801616",
-      "lat": -38.0370265,
-      "lng": -57.547504
+      "lat": -38.036997,
+      "lng": -57.547535
     },
     {
       "nombre": "COMUFARMA",
       "direccion": "RODRIGUEZ PEÑA 6628",
       "telefono": "2236285899",
-      "lat": -37.9925506,
-      "lng": -57.5984465
+      "lat": -37.993165,
+      "lng": -57.599092
     },
     {
       "nombre": "CUELLO",
       "direccion": "CORONEL SUAREZ 468",
       "telefono": "2233424688",
-      "lat": -37.9729226,
-      "lng": -57.5991623
+      "lat": -37.96297,
+      "lng": -57.591072
     },
     {
       "nombre": "FERRANDO",
       "direccion": "BALCARCE 2899",
       "telefono": "2234916617",
-      "lat": -37.9930589,
-      "lng": -57.5457484
+      "lat": -37.993059,
+      "lng": -57.545748
     },
     {
       "nombre": "GUIDI",
       "direccion": "RIVADAVIA 4466",
       "telefono": "2233044912",
-      "lat": -37.9908711,
-      "lng": -57.5664209
+      "lat": -37.990871,
+      "lng": -57.566421
     },
     {
       "nombre": "LAS HERAS",
       "direccion": "CALABRIA 9131",
       "telefono": "2236283542",
-      "lat": -38.0191258,
+      "lat": -38.019126,
       "lng": -57.615743
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "OLIVERI",
       "direccion": "LURO 4102",
       "telefono": "2235721444",
-      "lat": -37.9910325,
-      "lng": -57.5616329
+      "lat": -37.990925,
+      "lng": -57.561638
     },
     {
       "nombre": "SENA",
@@ -836,15 +836,15 @@
       "nombre": "TELLERIA",
       "direccion": "FORTUNATO DE LA PLAZA 4583",
       "telefono": "2236769086",
-      "lat": -38.04527395977074,
-      "lng": -57.57069856263675
+      "lat": -38.045274,
+      "lng": -57.570699
     },
     {
       "nombre": "VILLEGAS",
       "direccion": "SAN JUAN 15",
       "telefono": "2234739489",
-      "lat": -37.9777587,
-      "lng": -57.5522513
+      "lat": -37.977759,
+      "lng": -57.552251
     }
   ],
   "12": [
@@ -852,71 +852,71 @@
       "nombre": "ABALLAY",
       "direccion": "PERALTA RAMOS 821",
       "telefono": "2234815223",
-      "lat": -38.0245296,
-      "lng": -57.5781011
+      "lat": -38.024532,
+      "lng": -57.578192
     },
     {
       "nombre": "FORMINI",
       "direccion": "ALVARADO 5699",
       "telefono": "2234724494",
-      "lat": -37.994019340944625,
-      "lng": -57.586389183998115
+      "lat": -37.994019,
+      "lng": -57.586389
     },
     {
       "nombre": "PREVILEY V",
       "direccion": "SAN MARTIN 5521",
       "telefono": "2233413929",
-      "lat": -37.9844031,
-      "lng": -57.5764276
+      "lat": -37.984403,
+      "lng": -57.576428
     },
     {
       "nombre": "RIADIGOS ALEM",
       "direccion": "ALEM 3777",
       "telefono": "2236962133",
-      "lat": -38.0280779,
-      "lng": -57.5363768
+      "lat": -38.028078,
+      "lng": -57.536377
     },
     {
       "nombre": "LIZALDE",
       "direccion": "TEJEDOR 2156",
       "telefono": "2236024116",
-      "lat": -37.9563103,
-      "lng": -57.5463047
+      "lat": -37.95631,
+      "lng": -57.546305
     },
     {
       "nombre": "MELUCCI",
       "direccion": "LIBERTAD 4109",
       "telefono": "2234720605",
-      "lat": -37.985793655195735,
-      "lng": -57.557451015343176
+      "lat": -37.985794,
+      "lng": -57.557451
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "SAN JOSE",
       "direccion": "PUAN 1712",
       "telefono": "2234840213",
-      "lat": -38.0655852,
-      "lng": -57.5477515
+      "lat": -38.065585,
+      "lng": -57.547751
     },
     {
       "nombre": "SZPYRNAL",
       "direccion": "RODRIGUEZ PEÑA 3695",
       "telefono": "2234763940",
-      "lat": -38.0073981,
-      "lng": -57.5687521
+      "lat": -38.007398,
+      "lng": -57.568752
     },
     {
       "nombre": "TROZZI",
       "direccion": "PERALTA RAMOS 1701",
       "telefono": "2233008488",
-      "lat": -38.0305863,
-      "lng": -57.5853834
+      "lat": -38.030494,
+      "lng": -57.585467
     },
     {
       "nombre": "VIDELA",
@@ -929,8 +929,8 @@
       "nombre": "VITA",
       "direccion": "TEODORO BRONZINI 210",
       "telefono": "2235033528",
-      "lat": -37.9712356,
-      "lng": -57.5693342
+      "lat": -37.971236,
+      "lng": -57.569334
     }
   ],
   "13": [
@@ -938,78 +938,78 @@
       "nombre": "BARRIO BELGRANO",
       "direccion": "TRIPULANTES DEL FOURNIER 11012",
       "telefono": "2234653547",
-      "lat": -37.99991249166657,
-      "lng": -57.624114199999994
+      "lat": -37.999912,
+      "lng": -57.624114
     },
     {
       "nombre": "DEL AGUILA",
       "direccion": "LURO 4610",
       "telefono": "2234721830",
       "lat": -37.988433,
-      "lng": -57.5666545
+      "lng": -57.566654
     },
     {
       "nombre": "FARMACIA SUR",
       "direccion": "COLON 5398",
       "telefono": "2234748777",
-      "lat": -37.9893403,
-      "lng": -57.5784351
+      "lat": -37.98934,
+      "lng": -57.578435
     },
     {
       "nombre": "D´ALESSANDRO",
       "direccion": "LURO 9615",
       "telefono": "2234871651",
-      "lat": -37.9710562,
-      "lng": -57.5529327
+      "lat": -37.96272,
+      "lng": -57.616639
     },
     {
       "nombre": "JARDIN DEL BOSQUE",
       "direccion": "MARIO BRAVO 2674",
       "telefono": "2235244020",
-      "lat": -38.06590864824641,
-      "lng": -57.564388225083896
+      "lat": -38.065912,
+      "lng": -57.564325
     },
     {
       "nombre": "RIADIGOS CASTELLI",
       "direccion": "CASTELLI 1311",
       "telefono": "2234518537",
-      "lat": -38.0154187,
-      "lng": -57.5418369
+      "lat": -38.015419,
+      "lng": -57.541837
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "SAN RAFAEL",
       "direccion": "PERALTA RAMOS 1099",
       "telefono": "2234817471",
-      "lat": -38.0262893,
-      "lng": -57.5802107
+      "lat": -38.026264,
+      "lng": -57.580301
     },
     {
       "nombre": "SIMINI",
       "direccion": "CERRITO 285",
       "telefono": "2233530938",
-      "lat": -38.0328269,
-      "lng": -57.5576353
+      "lat": -38.032827,
+      "lng": -57.557635
     },
     {
       "nombre": "PUEYRREDON CORDOBA",
       "direccion": "CORDOBA 3869",
       "telefono": "2234474443",
-      "lat": -38.0166312,
-      "lng": -57.5609935
+      "lat": -38.016631,
+      "lng": -57.560994
     },
     {
       "nombre": "LOPEZ STROBEL",
       "direccion": "STROBEL 5191",
       "telefono": "2234749549",
-      "lat": -37.9709063,
-      "lng": -57.5605575
+      "lat": -37.970882,
+      "lng": -57.560554
     }
   ],
   "14": [
@@ -1017,36 +1017,36 @@
       "nombre": "FRONTINI",
       "direccion": "JARA 42",
       "telefono": "2234711961",
-      "lat": -37.9739867,
+      "lat": -37.973987,
       "lng": -57.560144
     },
     {
       "nombre": "FAILONI",
       "direccion": "FELIX U. CAMET 123",
       "telefono": "2234736352",
-      "lat": -37.9547141,
-      "lng": -57.5378543
+      "lat": -37.979868,
+      "lng": -57.544354
     },
     {
       "nombre": "FLORES PRADO",
       "direccion": "BELTRAN 5688",
       "telefono": "2235313404",
-      "lat": -37.93983243373877,
-      "lng": -57.54584378964953
+      "lat": -37.939942,
+      "lng": -57.545829
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "EDISON",
       "direccion": "EDISON 1175",
       "telefono": "2236701400",
-      "lat": -38.0466786,
-      "lng": -57.5546036
+      "lat": -38.046655,
+      "lng": -57.554643
     },
     {
       "nombre": "OMBRONI",
@@ -1059,36 +1059,36 @@
       "nombre": "PENNISI FORELL",
       "direccion": "FORTUNATO DE LA PLAZA 3237",
       "telefono": "2236266333",
-      "lat": -38.0240168,
-      "lng": -57.5921893
+      "lat": -38.054102,
+      "lng": -57.558886
     },
     {
       "nombre": "PREMEDICA",
       "direccion": "RICARDO BALBIN 2399, BATAN",
       "telefono": "2233777777",
-      "lat": -38.004033917951546,
-      "lng": -57.69905468487615
+      "lat": -38.004038,
+      "lng": -57.699101
     },
     {
       "nombre": "RIADIGOS JBJ",
       "direccion": "JUAN B. JUSTO 2600",
       "telefono": "2234953022",
-      "lat": -38.02273583910533,
-      "lng": -57.5658541917801
+      "lat": -38.022736,
+      "lng": -57.565854
     },
     {
       "nombre": "RODRIGUEZ",
       "direccion": "JARA 2598",
       "telefono": "2235160637",
-      "lat": -38.00583175,
-      "lng": -57.54730439298297
+      "lat": -37.994379,
+      "lng": -57.576653
     },
     {
       "nombre": "BAUZA LURO",
       "direccion": "LURO 3219",
       "telefono": "2234916427",
-      "lat": -37.9953299,
-      "lng": -57.5525393
+      "lat": -37.995296,
+      "lng": -57.552534
     }
   ],
   "15": [
@@ -1096,8 +1096,8 @@
       "nombre": "LOPEZ PEÑA",
       "direccion": "RODRIGUEZ PEÑA 2535",
       "telefono": "2234937823",
-      "lat": -38.0132753,
-      "lng": -57.5572296
+      "lat": -38.013275,
+      "lng": -57.55723
     },
     {
       "nombre": "DEL PUERTO",
@@ -1110,64 +1110,64 @@
       "nombre": "CONSTITUCION LURO",
       "direccion": "LURO 7498",
       "telefono": "2233467859",
-      "lat": -37.9738219,
-      "lng": -57.5955756
+      "lat": -37.973805,
+      "lng": -57.595568
     },
     {
       "nombre": "FEBA",
       "direccion": "COLON 9102",
       "telefono": "2234870670",
-      "lat": -38.0012135,
-      "lng": -57.5546559
+      "lat": -37.970388,
+      "lng": -57.615588
     },
     {
       "nombre": "SANTICH",
       "direccion": "FORTUNATO DE LA PLAZA 6304",
       "telefono": "2235362678",
-      "lat": -38.03394583015854,
-      "lng": -57.58601367473603
+      "lat": -38.033946,
+      "lng": -57.586014
     },
     {
       "nombre": "LOPEZ 25 DE MAYO",
       "direccion": "25 DE MAYO 2999",
       "telefono": "2234951637",
-      "lat": -37.99576,
-      "lng": -57.549381
+      "lat": -37.995698,
+      "lng": -57.549321
     },
     {
       "nombre": "MARQUEZ",
       "direccion": "JARA 936",
       "telefono": "2234758219",
-      "lat": -37.9810971,
-      "lng": -57.5658929
+      "lat": -37.981097,
+      "lng": -57.565893
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "PEREIRA",
       "direccion": "CONSTITUCION 4375",
       "telefono": "2234790001",
-      "lat": -37.9686771,
-      "lng": -57.5471111
+      "lat": -37.968624,
+      "lng": -57.547063
     },
     {
       "nombre": "PIROLA",
       "direccion": "JUAN B. JUSTO 6736",
       "telefono": "2235393277",
-      "lat": -37.9955369,
-      "lng": -57.6024246
+      "lat": -37.995478,
+      "lng": -57.602466
     },
     {
       "nombre": "STECKINGER",
       "direccion": "RODRIGUEZ PEÑA 4727",
       "telefono": "2234721994",
-      "lat": -38.0020921,
-      "lng": -57.5792556
+      "lat": -38.002092,
+      "lng": -57.579256
     }
   ],
   "16": [
@@ -1175,78 +1175,78 @@
       "nombre": "BADAMAR",
       "direccion": "COLON 1399",
       "telefono": "2234515104",
-      "lat": -38.0095162,
-      "lng": -57.5378622
+      "lat": -38.009516,
+      "lng": -57.537862
     },
     {
       "nombre": "BUSTOS",
       "direccion": "MATHEU 3673",
       "telefono": "2234724031",
-      "lat": -38.0106399,
-      "lng": -57.5711313
+      "lat": -38.01064,
+      "lng": -57.571131
     },
     {
       "nombre": "DEL INTERZONAL",
       "direccion": "JUAN B. JUSTO 6404",
       "telefono": "2235599679",
-      "lat": -37.9977205,
-      "lng": -57.599484
+      "lat": -37.997685,
+      "lng": -57.599586
     },
     {
       "nombre": "EL GROSELLAR",
       "direccion": "JOSE MANUEL ESTRADA 5610",
       "telefono": "2234562065",
-      "lat": -37.9529455,
-      "lng": -57.5522631
+      "lat": -37.952945,
+      "lng": -57.552263
     },
     {
       "nombre": "GOMEZ JBJ",
       "direccion": "JUAN B. JUSTO 2278",
       "telefono": "2234827037",
-      "lat": -38.02505589368736,
-      "lng": -57.56322026252747
+      "lat": -38.025153,
+      "lng": -57.563231
     },
     {
       "nombre": "MARTI",
       "direccion": "TEODORO BRONZINI 597",
       "telefono": "2235023596",
-      "lat": -37.9740518,
-      "lng": -57.5719354
+      "lat": -37.974052,
+      "lng": -57.571935
     },
     {
       "nombre": "MEDICI",
       "direccion": "RAWSON 4197",
       "telefono": "2234728758",
-      "lat": -37.9993262,
-      "lng": -57.5693148
+      "lat": -37.999326,
+      "lng": -57.569315
     },
     {
       "nombre": "MITRE",
       "direccion": "COLON 2690",
       "telefono": "2235410471",
-      "lat": -38.0032018,
-      "lng": -57.5511151
+      "lat": -38.002918,
+      "lng": -57.550893
     },
     {
       "nombre": "CECILIA PEREIRA",
       "direccion": "LURO 4824",
       "telefono": "2234760001",
-      "lat": -37.9873869,
-      "lng": -57.5687261
+      "lat": -37.987387,
+      "lng": -57.568726
     },
     {
       "nombre": "PHARMABEACH",
       "direccion": "EDISON 1582",
       "telefono": "2235301393",
-      "lat": -38.0495584,
-      "lng": -57.5577039
+      "lat": -38.049558,
+      "lng": -57.557704
     },
     {
       "nombre": "PREVILEY F. DE LA PLAZA",
       "direccion": "FORTUNATO DE LA PLAZA 5120",
       "telefono": "2233541521",
-      "lat": -38.04191043744267,
-      "lng": -57.57546186447144
+      "lat": -38.04191,
+      "lng": -57.575462
     }
   ]
 }
