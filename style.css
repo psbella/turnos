@@ -574,15 +574,72 @@ main {
   }
 }
 
-/* ==================== BADGE "HOY DE TURNO" ==================== */
+/* ==================== TARJETA CON GRID ==================== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card-num {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--accent);
+  text-align: center;
+  padding-top: 2px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.card-address-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.card-address-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.card-address-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
 .card-badge-line {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-left: 24px;  /* Ajustá este valor hasta que quede alineado con el ícono */
-  margin-top: 4px;
+  margin-left: 0;  /* ← IMPORTANTE: lo sacamos de la columna del ícono */
 }
 
+.card-phone {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ==================== BADGE "HOY DE TURNO" ==================== */
 .badge-hoy {
   display: inline-flex;
   align-items: center;
