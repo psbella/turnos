@@ -42,7 +42,7 @@ function obtenerCicloActual() {
     const diffDias = Math.floor((fechaActual - fechaBaseFinde) / 86400000);
     let cicloSabado = (diffDias % totalCiclos) + 1;
     if (cicloSabado <= 0) cicloSabado = 1;
-    cicloSabado = ((cicloSabado + 5) % totalCiclos) + 1;
+    cicloSabado = ((cicloSabado + 4) % totalCiclos) + 1; 
     if (cicloSabado <= 0) cicloSabado = 1;
     if (diaSemana === 0) {
       let cicloDomingo = cicloSabado + 1;
