@@ -29,10 +29,9 @@ function obtenerCicloActual() {
   if (totalCiclos === 0) return 1;
 
   const diaSemana = ahora.getDay(); // 0=domingo, 1=lunes, 6=sábado
-  const esFinde = (diaSemana === 0 || diaSemana === 6);
   
   // FINES DE SEMANA (sábado y domingo)
-  if (esFinde) {
+  if (diaSemana === 0 || diaSemana === 6) {
     // Fecha base: primer sábado conocido (2/5/2026 = ciclo 7)
     const fechaBaseFinde = new Date(2026, 4, 2, 9, 0, 0);
     let fechaActual = new Date(ahora);
@@ -61,8 +60,9 @@ function obtenerCicloActual() {
     return ciclosSabado;
   }
   
-  // LUNES A VIERNES (ciclo normal)
-  let fechaBase = new Date(FECHA_INICIO_CICLO_1);
+  // LUNES A VIERNES
+  // Fecha base corregida: 22 de marzo de 2026 (para que lunes 4/5 dé ciclo 9)
+  const fechaBase = new Date(2026, 2, 22, 9, 0, 0);
   let fechaActual = new Date(ahora);
   
   if (fechaActual.getHours() < 9) {
