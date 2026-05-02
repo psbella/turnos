@@ -28,21 +28,54 @@ function obtenerCicloActual() {
   const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
 
+  const diaSemana = ahora.getDay(); // 0=domingo, 1=lunes, 6=sábado
+  const esFinde = (diaSemana === 0 || diaSemana === 6);
+  
+  // FINES DE SEMANA (sábado y domingo)
+  if (esFinde) {
+    // Fecha base: primer sábado conocido (2/5/2026 = ciclo 7)
+    const fechaBaseFinde = new Date(2026, 4, 2, 9, 0, 0);
+    let fechaActual = new Date(ahora);
+    
+    // Si es domingo, retrocedemos al sábado
+    if (diaSemana === 0) {
+      fechaActual.setDate(fechaActual.getDate() - 1);
+    }
+    
+    fechaBaseFinde.setHours(9, 0, 0, 0);
+    fechaActual.setHours(9, 0, 0, 0);
+    
+    const diffDias = Math.floor((fechaActual - fechaBaseFinde) / 86400000);
+    let ciclosSabado = (diffDias % totalCiclos) + 1;
+    if (ciclosSabado <= 0) ciclosSabado = 1;
+    
+    // Ajuste para coincidir con la secuencia observada
+    ciclosSabado = ((ciclosSabado + 5) % totalCiclos) + 1;
+    if (ciclosSabado <= 0) ciclosSabado = 1;
+    
+    if (diaSemana === 0) {
+      let ciclosDomingo = ciclosSabado + 1;
+      if (ciclosDomingo > totalCiclos) ciclosDomingo = 1;
+      return ciclosDomingo;
+    }
+    return ciclosSabado;
+  }
+  
+  // LUNES A VIERNES (ciclo normal)
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
   let fechaActual = new Date(ahora);
-
+  
   if (fechaActual.getHours() < 9) {
     fechaActual.setDate(fechaActual.getDate() - 1);
   }
   fechaBase.setHours(9, 0, 0, 0);
   fechaActual.setHours(9, 0, 0, 0);
-
+  
   const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
   let ciclo = (diffDias % totalCiclos) + 1;
   if (ciclo <= 0) ciclo = 1;
   return ciclo;
 }
-
 const pharmacyIcon = L.divIcon({ className: 'custom-pharmacy-icon', html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>', iconSize: [34, 34], popupAnchor: [0, -17] });
 
 // ==================== CARGA DE DATOS ====================
