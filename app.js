@@ -30,8 +30,41 @@ function obtenerCicloActual() {
 
   const diaSemana = ahora.getDay(); // 0=domingo, 1=lunes, 6=sábado
 
-  // FINES DE SEMANA (sábado y domingo)
+    // FINES DE SEMANA (sábado y domingo)
   if (diaSemana === 0 || diaSemana === 6) {
+    // Tabla de ciclos reales para sábados (clave: fecha YYYY-MM-DD)
+    const tablaSabados = {
+      "2026-05-02": 7,
+      "2026-05-09": 14,
+      "2026-05-16": 5,
+      "2026-05-23": 12,
+      "2026-05-30": 3,
+      "2026-06-06": 10,
+      "2026-06-13": 1,
+      "2026-06-20": 8,
+      "2026-06-27": 15,
+      "2026-07-04": 6
+    };
+    
+    // Obtener la fecha del sábado correspondiente
+    let fechaSabado = new Date(ahora);
+    if (diaSemana === 0) {
+      fechaSabado.setDate(ahora.getDate() - 1);
+    }
+    const fechaStr = fechaSabado.toISOString().slice(0,10);
+    
+    // Si la fecha está en la tabla, usar ese ciclo
+    if (tablaSabados[fechaStr]) {
+      const cicloSabado = tablaSabados[fechaStr];
+      if (diaSemana === 0) {
+        let cicloDomingo = cicloSabado + 1;
+        if (cicloDomingo > totalCiclos) cicloDomingo = 1;
+        return cicloDomingo;
+      }
+      return cicloSabado;
+    }
+    
+    // Si no está en la tabla, caer en lógica por defecto (para fechas futuras no previstas)
     const fechaBaseFinde = new Date(2026, 4, 2, 9, 0, 0);
     let fechaActual = new Date(ahora);
     if (diaSemana === 0) {
@@ -42,7 +75,7 @@ function obtenerCicloActual() {
     const diffDias = Math.floor((fechaActual - fechaBaseFinde) / 86400000);
     let cicloSabado = (diffDias % totalCiclos) + 1;
     if (cicloSabado <= 0) cicloSabado = 1;
-    cicloSabado = ((cicloSabado + 4) % totalCiclos) + 1; 
+    cicloSabado = ((cicloSabado + 5) % totalCiclos) + 1;
     if (cicloSabado <= 0) cicloSabado = 1;
     if (diaSemana === 0) {
       let cicloDomingo = cicloSabado + 1;
