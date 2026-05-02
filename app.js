@@ -1,7 +1,7 @@
 // ==================== CONFIGURACIÓN ====================
 const CONFIG = { HORA_CAMBIO: 9, ZONA_HORARIA: 'America/Argentina/Buenos_Aires', RUTA_JSON: 'db.json' };
 let ciclosData = {}, mapDesktop = null, mapMobile = null, activeCard = null, markersDesktop = [], markersMobile = [], farmaciasCoords = [];
-const FECHA_INICIO_CICLO_1 = new Date(2026, 2, 25, 9, 0, 0);
+const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 27, 9, 0, 0); 
 let modoTodas = false, farmaciasOriginales = null, modoAutomatico = true;
 
 // ==================== DETECTAR CONEXIÓN ====================
