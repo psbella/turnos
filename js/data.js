@@ -37,7 +37,7 @@ export async function cargarDatos() {
   const intro = document.getElementById('intro');
   intro.innerHTML = '<span>Cargando datos...</span>';
   try {
-    const r = await fetch(CONFIG.RUTA_JSON + '?t=' + Date.now());
+    const r = await fetch(CONFIG.RUTA_JSON);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     ciclosData = await r.json();
     return true;
