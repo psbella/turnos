@@ -4,6 +4,8 @@
 
 [![Version](https://img.shields.io/badge/version-2.0-blue)](https://github.com/psbella/turnos/releases/tag/v2.0)
 [![stable](https://img.shields.io/badge/stable-✓-brightgreen)](https://github.com/psbella/turnos)
+[![Repo Size](https://img.shields.io/github/repo-size/psbella/turnos)](https://github.com/psbella/turnos)
+[![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)](https://github.com/psbella/turnos)
 [![PWA](https://img.shields.io/badge/PWA-Enabled-5a0fc8)](https://web.dev/progressive-web-apps/)
 [![A11y](https://img.shields.io/badge/Accessibility-WCAG%20AAA-brightgreen)](https://www.w3.org/WAI/WCAG3A/)
 [![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen)](https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Responsive_Design)
