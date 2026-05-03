@@ -67,9 +67,9 @@ export function mostrarFarmacias() {
       const c = farmaciasCoords[i];
 
       if (esEscritorio) {
-        if (window.mapDesktop && window.markersDesktop && window.markersDesktop[i]) {
-          window.markersDesktop[i].openPopup();
-          if (c) window.mapDesktop.setView(c, 16);
+        if (mapDesktop && markersDesktop && markersDesktop[i]) {
+          markersDesktop[i].openPopup();
+          if (c) mapDesktop.setView(c, 16);
         }
         setTimeout(() => {
           const mapElement = document.getElementById('map-desktop');
@@ -83,9 +83,9 @@ export function mostrarFarmacias() {
         const sheet = document.getElementById('mapSheet');
         document.getElementById('sheetName').innerHTML = `${f.nombre}<br><small style="font-size:12px">${f.direccion}</small>`;
         sheet.classList.add('open');
-        if (c && window.mapMobile) {
-          window.mapMobile.setView(c, 16);
-          if (window.markersMobile && window.markersMobile[i]) window.markersMobile[i].openPopup();
+        if (c && mapMobile) {
+          mapMobile.setView(c, 16);
+          if (markersMobile && markersMobile[i]) markersMobile[i].openPopup();
         }
       }
 
@@ -191,8 +191,8 @@ export function mostrarTodasLasFarmacias() {
       sheet.classList.add('open');
 
       const coords = f.lat && f.lng ? [f.lat, f.lng] : null;
-      if (coords && window.mapMobile) {
-        window.mapMobile.setView(coords, 16);
+      if (coords && mapMobile) {
+        mapMobile.setView(coords, 16);
       }
     };
     listaDiv.appendChild(div);
