@@ -98,7 +98,7 @@ Esto asegura que la información funcione siempre, incluso sin conexión a inter
 
 ---
 
-## 🛠️ Instalación y pruebas locales (opcional)
+## 🛠️ Instalación y pruebas locales
 
 Si querés correr el proyecto en tu computadora:
 
