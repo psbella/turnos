@@ -1,4 +1,4 @@
-const CACHE_NAME = 'farmaturnos-v3'; // Cambié la versión para forzar actualización
+const CACHE_NAME = 'farmaturnos-v4';
 const urls = [
   '/',
   '/index.html',
@@ -10,8 +10,8 @@ const urls = [
   '/icon-48.png',
   '/icon-32.png',
   '/icon-16.png',
-  '/privacidad.html'
-  // NOTA: NO cachees ciclos_oficiales_definitivo.json aquí porque cambia diariamente
+  '/privacidad.html',
+  '/terminos.html'
 ];
 
 self.addEventListener('install', (event) => {
@@ -26,32 +26,31 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Estrategia: Cache First para archivos estáticos, Network First para datos
   const url = new URL(event.request.url);
-  
-  // Si es una petición a tu Worker de datos, NO cachees (siempre red)
-  if (url.href.includes('farmacias-mdp-app.pablo-s-bella.workers.dev')) {
-    event.respondWith(fetch(event.request));
+
+  // Para archivos JSON: siempre buscar la versión más nueva (network-first)
+  if (url.pathname.endsWith('.json')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
     return;
   }
-  
-  // Para todo lo demás: intenta caché primero, luego red
+
+  // Para archivos estáticos: primero caché, luego red (cache-first)
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
         return response;
       }
-      return fetch(event.request).then((networkResponse) => {
-        // Solo cacheamos respuestas exitosas y que sean del mismo origen
-        if (networkResponse && networkResponse.status === 200 && 
-            url.origin === location.origin) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-        }
-        return networkResponse;
-      });
+      return fetch(event.request);
     })
   );
 });
@@ -70,5 +69,5 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  event.waitUntil(clients.claim()); // Toma control inmediato
+  event.waitUntil(clients.claim());
 });
