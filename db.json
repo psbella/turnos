@@ -763,6 +763,13 @@
   ],
   "11": [
     {
+    "nombre": "AMANCAY",
+    "direccion": "Independencia 514",
+    "telefono": "2235276015",
+    "lat": -37.986845,
+    "lng": -57.545126
+  },
+    {
       "nombre": "PUEYRREDON TALCAHUANO",
       "direccion": "TALCAHUANO 399",
       "telefono": "2235634110",
