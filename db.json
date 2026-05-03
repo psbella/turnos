@@ -368,7 +368,7 @@
   ],
   "6": [
     {
-      "nombre": "PUEYREDON JBJ",
+      "nombre": "PUEYRREDON JBJ",
       "direccion": "JUAN B. JUSTO 3200",
       "telefono": "2235648000",
       "lat": -38.019237,
@@ -612,13 +612,6 @@
       "lng": -57.555699
     },
     {
-      "nombre": "CARRIZO",
-      "direccion": "RUTA NACIONAL 226 KM 16.5, EL COYUNCO",
-      "telefono": "2235464734",
-      "lat": -38.017014,
-      "lng": -57.532912
-    },
-    {
       "nombre": "ZUICH",
       "direccion": "ALBERTI 1387",
       "telefono": "2234860599",
@@ -684,7 +677,7 @@
       "lng": -57.558477
     },
     {
-      "nombre": "AMANCAY",
+      "nombre": "AMANCAY 11 DE SEPTIEMBRE",
       "direccion": "11 DE SEPTIEMBRE 3783",
       "telefono": "2234388059",
       "lat": -37.989254,
@@ -763,12 +756,12 @@
   ],
   "11": [
     {
-    "nombre": "AMANCAY",
-    "direccion": "Independencia 514",
-    "telefono": "2235276015",
-    "lat": -37.986845,
-    "lng": -57.545126
-  },
+      "nombre": "AMANCAY",
+      "direccion": "Independencia 514",
+      "telefono": "2235276015",
+      "lat": -37.986845,
+      "lng": -57.545126
+    },
     {
       "nombre": "PUEYRREDON TALCAHUANO",
       "direccion": "TALCAHUANO 399",
