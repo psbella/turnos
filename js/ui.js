@@ -1,5 +1,5 @@
 import { ciclosData, farmaciasCoords, obtenerCicloActual, formatearFechaGMT3, limpiarTelefono } from './data.js';
-import { agregarMarcadores, markersDesktop, markersMobile } from './maps.js';
+import { agregarMarcadores, limpiarMarcadores, mapDesktop, mapMobile, markersDesktop, markersMobile } from './maps.js';
 
 let activeCard = null;
 let modoTodas = false;
@@ -162,8 +162,8 @@ export function mostrarTodasLasFarmacias() {
   document.getElementById('intro').innerHTML = `<div class="intro-line"><span class="icon-intro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span><span>Todas las farmacias de Mar del Plata</span></div><div class="stats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ${todas.length} farmacias únicas</span></div>`;
 
   // Recargar mapas con todas las farmacias
-  window.limpiarMarcadores();
-  window.agregarMarcadores(todasOrdenadas);
+  limpiarMarcadores();
+  agregarMarcadores(todasOrdenadas);
 
   const listaDiv = document.getElementById('lista');
   listaDiv.innerHTML = '';
@@ -214,8 +214,8 @@ export function volverATurno() {
 
   const ciclo = obtenerCicloActual();
   const farmaciasTurno = ciclosData[ciclo] || [];
-  window.limpiarMarcadores();
-  window.agregarMarcadores(farmaciasTurno);
+  limpiarMarcadores();
+  agregarMarcadores(farmaciasTurno);
 
   const btn = document.getElementById('btnTodasFarmacias');
   btn.textContent = 'Ver todas';
