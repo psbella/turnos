@@ -1,4 +1,4 @@
-import { farmaciasCoords } from './data.js';
+import { farmaciasCoords, limpiarTelefono } from './data.js';
 import { capFirst } from './ui.js';
 
 let mapDesktop = null;
