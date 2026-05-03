@@ -5,15 +5,17 @@ const urls = [
   '/manifest.json',
   '/style.css',
   '/app.js',
+  '/config.json',
+  '/privacidad.html',
+  '/terminos.html',
   '/icon-512.png',
   '/icon-96.png',
   '/icon-48.png',
   '/icon-32.png',
-  '/icon-16.png',
-  '/privacidad.html',
-  '/terminos.html'
+  '/icon-16.png'
 ];
 
+// Instalación: cachear archivos estáticos
 self.addEventListener('install', (event) => {
   console.log('Service Worker instalado');
   event.waitUntil(
@@ -25,11 +27,12 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
+// Fetch: estrategia según tipo de recurso
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Para archivos JSON: siempre buscar la versión más nueva (network-first)
-  if (url.pathname.endsWith('.json')) {
+  // Para archivos JSON y datos dinámicos: network-first (siempre buscar fresco)
+  if (url.pathname.endsWith('.json') || url.pathname.includes('db.json')) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -44,7 +47,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Para archivos estáticos: primero caché, luego red (cache-first)
+  // Para archivos estáticos: cache-first (rápido, usa caché)
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
@@ -55,6 +58,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+// Activación: limpiar cachés viejas
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activado');
   event.waitUntil(
