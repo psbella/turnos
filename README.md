@@ -2,11 +2,16 @@
 
 **Aplicación web progresiva (PWA) para consultar farmacias de turno en Mar del Plata, Argentina.**
 
+[![Version](https://img.shields.io/badge/version-2.0-blue)](https://github.com/psbella/turnos/releases/tag/v2.0)
+[![stable](https://img.shields.io/badge/stable-✓-brightgreen)](https://github.com/psbella/turnos)
+[![PWA](https://img.shields.io/badge/PWA-Enabled-5a0fc8)](https://web.dev/progressive-web-apps/)
+[![A11y](https://img.shields.io/badge/Accessibility-WCAG%20AAA-brightgreen)](https://www.w3.org/WAI/WCAG3A/)
+[![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen)](https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Responsive_Design)
+[![Mobile First](https://img.shields.io/badge/Mobile%20First-Yes-blue)](https://developer.mozilla.org/es/docs/Web/Progressive_web_apps)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)](https://developer.mozilla.org/es/docs/Web/JavaScript)
 [![Leaflet](https://img.shields.io/badge/Leaflet-199900?logo=leaflet&logoColor=white)](https://leafletjs.com/)
-[![PWA](https://img.shields.io/badge/PWA-Enabled-5a0fc8)](https://web.dev/progressive-web-apps/)
 [![GitHub Pages](https://img.shields.io/badge/Hosting-GitHub%20Pages-blue)](https://pages.github.com/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-DNS-F38020?logo=cloudflare&logoColor=white)](https://cloudflare.com)
 [![Google AdSense](https://img.shields.io/badge/AdSense-4285F4?logo=googleadsense&logoColor=white)](https://adsense.google.com)
@@ -17,7 +22,7 @@
 [![SVG](https://img.shields.io/badge/SVG-FFB13B?logo=svg&logoColor=white)](https://www.w3.org/Graphics/SVG/)
 [![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)](https://git-scm.com/)
 [![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
-
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](https://creativecommons.org/licenses/by-nc/4.0/)
 ---
 
 ## 📱 Demo
