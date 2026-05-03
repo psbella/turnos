@@ -1,7 +1,7 @@
 // ==================== CONFIGURACIÓN ====================
 const CONFIG = { HORA_CAMBIO: 9, ZONA_HORARIA: 'America/Argentina/Buenos_Aires', RUTA_JSON: 'db.json' };
 let ciclosData = {}, mapDesktop = null, mapMobile = null, activeCard = null, markersDesktop = [], markersMobile = [], farmaciasCoords = [];
-const FECHA_INICIO_CICLO_1 = new Date(2026, 3, 26, 9, 0, 0);
+let FECHA_INICIO_CICLO_1 = null; // Se carga desde config.json
 let modoTodas = false, farmaciasOriginales = null, modoAutomatico = true;
 
 // ==================== DETECTAR CONEXIÓN ====================
@@ -22,6 +22,19 @@ function formatearFechaGMT3() { const a = new Date(), o = { timeZone: CONFIG.ZON
 function labelFecha(d) { const di = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'], me = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; return `${di[d.getDay()]} ${d.getDate()} de ${me[d.getMonth()]} de ${d.getFullYear()}`; }
 function capFirst(s) { return s ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : ''; }
 function limpiarTelefono(t) { return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, ''); }
+
+// ==================== CONFIGURACIÓN EXTERNA ====================
+async function cargarConfiguracion() {
+  try {
+    const response = await fetch('config.json');
+    const config = await response.json();
+    FECHA_INICIO_CICLO_1 = new Date(config.FECHA_INICIO_CICLO_1);
+    console.log('Configuración cargada:', FECHA_INICIO_CICLO_1);
+  } catch (error) {
+    console.warn('No se pudo cargar config.json, usando fecha por defecto');
+    FECHA_INICIO_CICLO_1 = new Date(2026, 3, 26, 9, 0, 0);
+  }
+}
 
 function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
@@ -539,4 +552,10 @@ if (isInstalled() && btnInstalar) {
 }
 
 // ==================== INICIO ====================
-(async () => { initTheme(); await cargarDatos(); programarActualizacion(); agregarBotonIrArriba(); })();
+(async () => { 
+  initTheme(); 
+  await cargarConfiguracion();
+  await cargarDatos(); 
+  programarActualizacion(); 
+  agregarBotonIrArriba(); 
+})();
