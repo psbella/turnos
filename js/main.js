@@ -1,14 +1,4 @@
-// Forzar actualización del Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    for (let registration of registrations) {
-      registration.update();
-      // Opcional: desregistrar y volver a registrar
-      // registration.unregister();
-    }
-  });
-}
-import { cargarConfiguracion } from './config.js';
+import { cargarConfiguracion, FECHA_INICIO_CICLO_1 } from './config.js';
 import { cargarDatos, ciclosData, obtenerCicloActual } from './data.js';
 import { initMaps, limpiarMarcadores, agregarMarcadores } from './maps.js';
 import { mostrarFarmacias, mostrarTodasLasFarmacias, volverATurno } from './ui.js';
@@ -44,10 +34,15 @@ function programarActualizacion() {
   }, p - a);
 }
 
-// Exponer globalmente lo que necesita el HTML onclick
-window.modoTodas = false;
-window.volverATurno = volverATurno;
+// Exponer globalmente lo que necesitan otros módulos o la consola
+window.initMaps = initMaps;
+window.limpiarMarcadores = limpiarMarcadores;
+window.agregarMarcadores = agregarMarcadores;
+window.mostrarFarmacias = mostrarFarmacias;
+window.obtenerCicloActual = obtenerCicloActual;
+window.ciclosData = ciclosData;
 window.mostrarTodasLasFarmacias = mostrarTodasLasFarmacias;
+window.volverATurno = volverATurno;
 
 // Inicialización
 (async () => {
@@ -62,16 +57,10 @@ window.mostrarTodasLasFarmacias = mostrarTodasLasFarmacias;
 })();
 
 // Cerrar sheet
-const closeSheetBtn = document.getElementById('closeSheet');
-if (closeSheetBtn) {
-  closeSheetBtn.onclick = () => document.getElementById('mapSheet').classList.remove('open');
-}
+document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
 
 // Botón "Ver todas"
-const btnTodas = document.getElementById('btnTodasFarmacias');
-if (btnTodas) {
-  btnTodas.addEventListener('click', () => {
-    if (window.modoTodas) volverATurno();
-    else mostrarTodasLasFarmacias();
-  });
-}
+document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
+  if (window.modoTodas) volverATurno();
+  else mostrarTodasLasFarmacias();
+});

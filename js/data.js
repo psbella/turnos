@@ -4,13 +4,9 @@ export let ciclosData = {};
 export let farmaciasCoords = [];
 
 export function formatearFechaGMT3() {
-  // Método directo sin toLocaleString - EVITA desfases de 1 día
-  const ahora = new Date();
-  const offsetLocal = ahora.getTimezoneOffset();
-  const offsetGMT3 = 180; // GMT-3 son -3 horas = +180 minutos desde UTC
-  const diffMinutos = -offsetLocal + offsetGMT3;
-  const fechaGMT3 = new Date(ahora.getTime() + diffMinutos * 60000);
-  return fechaGMT3;
+  const a = new Date();
+  const o = { timeZone: CONFIG.ZONA_HORARIA };
+  return new Date(a.toLocaleString('en-US', o));
 }
 
 export function limpiarTelefono(t) {
@@ -22,41 +18,18 @@ export function obtenerCicloActual() {
   const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
 
-  // Hora actual (0-23)
-  const horaActual = ahora.getHours();
-  
-  // Fecha base del ciclo 1 (domingo 26/4/2026 a las 9am)
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
-  fechaBase.setHours(9, 0, 0, 0);
-  
-  // Fecha de inicio del turno actual
-  let inicioTurno = new Date(ahora);
-  
-  // Si la hora actual es ANTES de las 9am, el turno vigente comenzó AYER a las 9am
-  if (horaActual < 9) {
-    inicioTurno.setDate(inicioTurno.getDate() - 1);
+  let fechaActual = new Date(ahora);
+
+  if (fechaActual.getHours() < CONFIG.HORA_CAMBIO) {
+    fechaActual.setDate(fechaActual.getDate() - 1);
   }
-  
-  // Normalizar a las 9am (hora de inicio del turno)
-  inicioTurno.setHours(9, 0, 0, 0);
-  
-  // Calcular cuántos días pasaron desde la fecha base
-  const diffDias = Math.floor((inicioTurno - fechaBase) / 86400000);
-  
-  // El ciclo se define por la cantidad de días desde la base
+  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
+  fechaActual.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
+
+  const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
   let ciclo = (diffDias % totalCiclos) + 1;
-  
-  // Caso borde: asegurar ciclo positivo
   if (ciclo <= 0) ciclo = 1;
-  
-  console.log('📆 Cálculo turno:', {
-    ahora: ahora.toLocaleString(),
-    horaActual,
-    inicioTurno: inicioTurno.toLocaleString(),
-    diffDias,
-    ciclo
-  });
-  
   return ciclo;
 }
 
@@ -64,7 +37,7 @@ export async function cargarDatos() {
   const intro = document.getElementById('intro');
   intro.innerHTML = '<span>Cargando datos...</span>';
   try {
-    const r = await fetch(CONFIG.RUTA_JSON);
+    const r = await fetch(CONFIG.RUTA_JSON + '?t=' + Date.now());
     if (!r.ok) throw new Error('HTTP ' + r.status);
     ciclosData = await r.json();
     return true;
