@@ -1,9 +1,10 @@
-const CACHE_NAME = 'farmaturnos-v6'; // ← Cambiá v5 por v6
+const CACHE_NAME = 'farmaturnos-v4';
 const urls = [
   '/',
   '/index.html',
   '/manifest.json',
   '/style.css',
+  '/app.js',
   '/config.json',
   '/privacidad.html',
   '/terminos.html',
@@ -11,15 +12,7 @@ const urls = [
   '/icon-96.png',
   '/icon-48.png',
   '/icon-32.png',
-  '/icon-16.png',
-  // Módulos JS (v2.0)
-  '/js/main.js',
-  '/js/config.js',
-  '/js/data.js',
-  '/js/maps.js',
-  '/js/ui.js',
-  '/js/theme.js',
-  '/js/install.js'
+  '/icon-16.png'
 ];
 
 // Instalación: cachear archivos estáticos
