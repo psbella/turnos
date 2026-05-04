@@ -4,9 +4,13 @@ export let ciclosData = {};
 export let farmaciasCoords = [];
 
 export function formatearFechaGMT3() {
-  const a = new Date();
-  const o = { timeZone: CONFIG.ZONA_HORARIA };
-  return new Date(a.toLocaleString('en-US', o));
+  // Método directo sin toLocaleString - EVITA desfases de 1 día
+  const ahora = new Date();
+  const offsetLocal = ahora.getTimezoneOffset();
+  const offsetGMT3 = 180; // GMT-3 son -3 horas = +180 minutos desde UTC
+  const diffMinutos = -offsetLocal + offsetGMT3;
+  const fechaGMT3 = new Date(ahora.getTime() + diffMinutos * 60000);
+  return fechaGMT3;
 }
 
 export function limpiarTelefono(t) {
@@ -40,7 +44,6 @@ export function obtenerCicloActual() {
   const diffDias = Math.floor((inicioTurno - fechaBase) / 86400000);
   
   // El ciclo se define por la cantidad de días desde la base
-  // Si son 2 ciclos (A y B): ciclo = (diffDias % 2) + 1
   let ciclo = (diffDias % totalCiclos) + 1;
   
   // Caso borde: asegurar ciclo positivo
@@ -56,6 +59,7 @@ export function obtenerCicloActual() {
   
   return ciclo;
 }
+
 export async function cargarDatos() {
   const intro = document.getElementById('intro');
   intro.innerHTML = '<span>Cargando datos...</span>';
