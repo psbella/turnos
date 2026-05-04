@@ -18,42 +18,44 @@ export function obtenerCicloActual() {
   const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
 
+  // Hora actual (0-23)
   const horaActual = ahora.getHours();
-  const minutosActual = ahora.getMinutes();
   
-  // Fecha base: inicio del ciclo 1 (domingo 26/4 9am)
+  // Fecha base del ciclo 1 (domingo 26/4/2026 a las 9am)
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
   fechaBase.setHours(9, 0, 0, 0);
   
-  // Fecha de referencia para el turno actual
-  let fechaReferencia = new Date(ahora);
+  // Fecha de inicio del turno actual
+  let inicioTurno = new Date(ahora);
   
-  // REGLA CLAVE: Si es antes de las 9am, el turno vigente es el que empezó AYER a las 9am
-  if (horaActual < 9 || (horaActual === 9 && minutosActual === 0)) {
-    fechaReferencia.setDate(fechaReferencia.getDate() - 1);
+  // Si la hora actual es ANTES de las 9am, el turno vigente comenzó AYER a las 9am
+  if (horaActual < 9) {
+    inicioTurno.setDate(inicioTurno.getDate() - 1);
   }
   
-  // Normalizar a las 9am para el cálculo de diferencia
-  fechaReferencia.setHours(9, 0, 0, 0);
+  // Normalizar a las 9am (hora de inicio del turno)
+  inicioTurno.setHours(9, 0, 0, 0);
   
-  // Diferencia en días
-  const diffDias = Math.floor((fechaReferencia - fechaBase) / 86400000);
+  // Calcular cuántos días pasaron desde la fecha base
+  const diffDias = Math.floor((inicioTurno - fechaBase) / 86400000);
   
-  // Ciclo: 1-indexado (ciclo 1 = diffDias 0)
+  // El ciclo se define por la cantidad de días desde la base
+  // Si son 2 ciclos (A y B): ciclo = (diffDias % 2) + 1
   let ciclo = (diffDias % totalCiclos) + 1;
+  
+  // Caso borde: asegurar ciclo positivo
   if (ciclo <= 0) ciclo = 1;
   
-  console.log('🐛 DEBUG turno:', {
-    ahora: ahora.toString(),
+  console.log('📆 Cálculo turno:', {
+    ahora: ahora.toLocaleString(),
     horaActual,
-    fechaReferencia: fechaReferencia.toString(),
+    inicioTurno: inicioTurno.toLocaleString(),
     diffDias,
     ciclo
   });
   
   return ciclo;
 }
-
 export async function cargarDatos() {
   const intro = document.getElementById('intro');
   intro.innerHTML = '<span>Cargando datos...</span>';
