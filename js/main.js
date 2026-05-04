@@ -1,9 +1,15 @@
 import { cargarConfiguracion, FECHA_INICIO_CICLO_1 } from './config.js';
 import { cargarDatos, ciclosData, obtenerCicloActual } from './data.js';
-import { initMaps, limpiarMarcadores, agregarMarcadores } from './maps.js';
+import { initMaps, limpiarMarcadores, agregarMarcadores, mapDesktop, mapMobile, markersDesktop, markersMobile } from './maps.js';
 import { mostrarFarmacias, mostrarTodasLasFarmacias, volverATurno } from './ui.js';
 import { initTheme, setupThemeSwitch } from './theme.js';
 import { setupInstallPWA } from './install.js';
+
+// Exponer mapas y marcadores para ui.js
+window.mapDesktop = mapDesktop;
+window.mapMobile = mapMobile;
+window.markersDesktop = markersDesktop;
+window.markersMobile = markersMobile;
 
 // Función para el botón "Ir arriba"
 function agregarBotonIrArriba() {
