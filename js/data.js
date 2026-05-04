@@ -18,18 +18,39 @@ export function obtenerCicloActual() {
   const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
 
+  const horaActual = ahora.getHours();
+  const minutosActual = ahora.getMinutes();
+  
+  // Fecha base: inicio del ciclo 1 (domingo 26/4 9am)
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
-  let fechaActual = new Date(ahora);
-
-  if (fechaActual.getHours() < CONFIG.HORA_CAMBIO) {
-    fechaActual.setDate(fechaActual.getDate() - 1);
+  fechaBase.setHours(9, 0, 0, 0);
+  
+  // Fecha de referencia para el turno actual
+  let fechaReferencia = new Date(ahora);
+  
+  // REGLA CLAVE: Si es antes de las 9am, el turno vigente es el que empezó AYER a las 9am
+  if (horaActual < 9 || (horaActual === 9 && minutosActual === 0)) {
+    fechaReferencia.setDate(fechaReferencia.getDate() - 1);
   }
-  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
-  fechaActual.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
-
-  const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
+  
+  // Normalizar a las 9am para el cálculo de diferencia
+  fechaReferencia.setHours(9, 0, 0, 0);
+  
+  // Diferencia en días
+  const diffDias = Math.floor((fechaReferencia - fechaBase) / 86400000);
+  
+  // Ciclo: 1-indexado (ciclo 1 = diffDias 0)
   let ciclo = (diffDias % totalCiclos) + 1;
   if (ciclo <= 0) ciclo = 1;
+  
+  console.log('🐛 DEBUG turno:', {
+    ahora: ahora.toString(),
+    horaActual,
+    fechaReferencia: fechaReferencia.toString(),
+    diffDias,
+    ciclo
+  });
+  
   return ciclo;
 }
 
