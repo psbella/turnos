@@ -1,4 +1,4 @@
-const CACHE_NAME = 'farmaturnos-v5';  // Incrementamos versión
+const CACHE_NAME = 'farmaturnos-v6'; // ← Cambiá v5 por v6
 const urls = [
   '/',
   '/index.html',
