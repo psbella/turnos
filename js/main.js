@@ -1,3 +1,13 @@
+// Forzar actualización del Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (let registration of registrations) {
+      registration.update();
+      // Opcional: desregistrar y volver a registrar
+      // registration.unregister();
+    }
+  });
+}
 import { cargarConfiguracion } from './config.js';
 import { cargarDatos, ciclosData, obtenerCicloActual } from './data.js';
 import { initMaps, limpiarMarcadores, agregarMarcadores } from './maps.js';
