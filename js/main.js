@@ -6,10 +6,10 @@ import { initTheme, setupThemeSwitch } from './theme.js';
 import { setupInstallPWA } from './install.js';
 
 // Exponer mapas y marcadores para ui.js
-window.mapDesktop = mapDesktop;
-window.mapMobile = mapMobile;
-window.markersDesktop = markersDesktop;
-window.markersMobile = markersMobile;
+Object.defineProperty(window, 'mapDesktop', { get: () => mapDesktop });
+Object.defineProperty(window, 'mapMobile', { get: () => mapMobile });
+Object.defineProperty(window, 'markersDesktop', { get: () => markersDesktop });
+Object.defineProperty(window, 'markersMobile', { get: () => markersMobile });
 
 // Función para el botón "Ir arriba"
 function agregarBotonIrArriba() {
