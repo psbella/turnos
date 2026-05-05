@@ -9,8 +9,8 @@ let markersMobile = [];
 const pharmacyIcon = L.divIcon({
   className: 'custom-pharmacy-icon',
   html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3fb950" stroke="white" stroke-width="1.5"/><path d="M12 7L12 13M9 10L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>',
-  iconSize: [34, 34],
-  popupAnchor: [0, -17]
+  iconSize: [48, 48],
+  popupAnchor: [0, -24]
 });
 
 export function initMaps() {
@@ -49,6 +49,14 @@ export function agregarMarcadores(farmacias) {
     if (c) {
       const mD = L.marker(c, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop);
       const mM = L.marker(c, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop);
+      if (mD._icon) {
+        mD._icon.setAttribute('aria-label', `Ver ${f.nombre} en el mapa`);
+        mD._icon.setAttribute('title', f.nombre);
+      }
+      if (mM._icon) {
+        mM._icon.setAttribute('aria-label', `Ver ${f.nombre} en el mapa`);
+        mM._icon.setAttribute('title', f.nombre);
+      }
       markersDesktop.push(mD);
       markersMobile.push(mM);
       dB.extend(c);
@@ -57,6 +65,14 @@ export function agregarMarcadores(farmacias) {
       const fb = [-38.0055, -57.5426];
       const mD = L.marker(fb, { icon: pharmacyIcon }).addTo(mapDesktop).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
       const mM = L.marker(fb, { icon: pharmacyIcon }).addTo(mapMobile).bindPopup(pop + '<br><small>📍 Ubicación aproximada</small>');
+      if (mD._icon) {
+        mD._icon.setAttribute('aria-label', `Ver ${f.nombre} en el mapa (ubicación aproximada)`);
+        mD._icon.setAttribute('title', f.nombre);
+      }
+      if (mM._icon) {
+        mM._icon.setAttribute('aria-label', `Ver ${f.nombre} en el mapa (ubicación aproximada)`);
+        mM._icon.setAttribute('title', f.nombre);
+      }
       markersDesktop.push(mD);
       markersMobile.push(mM);
       dB.extend(fb);
@@ -65,11 +81,11 @@ export function agregarMarcadores(farmacias) {
   });
 
   if (farmacias.length > 0) {
-    if (!mapDesktop._initialZoom) {
+    if (mapDesktop && !mapDesktop._initialZoom) {
       mapDesktop.fitBounds(dB);
       mapDesktop._initialZoom = true;
     }
-    if (!mapMobile._initialZoom) {
+    if (mapMobile && !mapMobile._initialZoom) {
       mapMobile.fitBounds(mB);
       mapMobile._initialZoom = true;
     }
