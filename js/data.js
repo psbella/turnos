@@ -9,6 +9,16 @@ export function formatearFechaGMT3() {
   return new Date(a.toLocaleString('en-US', o));
 }
 
+export function formatearFechaTurno() {
+  const ahora = formatearFechaGMT3();
+  const fechaTurno = new Date(ahora);
+  if (ahora.getHours() < CONFIG.HORA_CAMBIO) {
+    fechaTurno.setDate(fechaTurno.getDate() - 1);
+  }
+  fechaTurno.setHours(0, 0, 0, 0);
+  return fechaTurno;
+}
+
 export function limpiarTelefono(t) {
   return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, '');
 }
@@ -18,15 +28,13 @@ export function obtenerCicloActual() {
   const totalCiclos = Object.keys(ciclosData).length || 16;
   if (totalCiclos === 0) return 1;
 
-  const fechaBase = new Date(FECHA_INICIO_CICLO_1);
-  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
-
+  let fechaBase = new Date(FECHA_INICIO_CICLO_1);
   let fechaActual = new Date(ahora);
-  
-  // Si es antes de la hora de cambio, usar el día anterior
-  if (ahora.getHours() < CONFIG.HORA_CAMBIO) {
+
+  if (fechaActual.getHours() < CONFIG.HORA_CAMBIO) {
     fechaActual.setDate(fechaActual.getDate() - 1);
   }
+  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
   fechaActual.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
 
   const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
