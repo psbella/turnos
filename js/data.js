@@ -15,21 +15,23 @@ export function limpiarTelefono(t) {
 
 export function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
-  const totalCiclos = Object.keys(ciclosData).length;
+  const totalCiclos = Object.keys(ciclosData).length || 16;
   if (totalCiclos === 0) return 1;
 
-  let fechaBase = new Date(FECHA_INICIO_CICLO_1);
-  let fechaActual = new Date(ahora);
+  const fechaBase = new Date(FECHA_INICIO_CICLO_1);
+  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
 
-  if (fechaActual.getHours() < CONFIG.HORA_CAMBIO) {
+  let fechaActual = new Date(ahora);
+  
+  // Si es antes de la hora de cambio, usar el día anterior
+  if (ahora.getHours() < CONFIG.HORA_CAMBIO) {
     fechaActual.setDate(fechaActual.getDate() - 1);
   }
-  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
   fechaActual.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
 
   const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
   let ciclo = (diffDias % totalCiclos) + 1;
-  if (ciclo <= 0) ciclo = 1;
+  if (ciclo <= 0) ciclo += totalCiclos;
   return ciclo;
 }
 
