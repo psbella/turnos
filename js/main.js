@@ -5,7 +5,7 @@ import { mostrarFarmacias, mostrarTodasLasFarmacias, volverATurno } from './ui.j
 import { initTheme, setupThemeSwitch } from './theme.js';
 import { setupInstallPWA } from './install.js';
 
-// Exponer mapas y marcadores para ui.js
+// Exponer mapas y marcadores como getters
 Object.defineProperty(window, 'mapDesktop', { get: () => mapDesktop });
 Object.defineProperty(window, 'mapMobile', { get: () => mapMobile });
 Object.defineProperty(window, 'markersDesktop', { get: () => markersDesktop });
@@ -16,7 +16,7 @@ function agregarBotonIrArriba() {
   if (!document.querySelector('.scroll-top-btn')) {
     const btn = document.createElement('button');
     btn.className = 'scroll-top-btn';
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 4v16M12 4l-4 4M12 4l4 4"/></svg>`;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 4v16M12 4l-4 4M12 4l4 4"/></svg>`;
     btn.setAttribute('aria-label', 'Ir arriba');
     document.body.appendChild(btn);
 
@@ -63,10 +63,16 @@ window.volverATurno = volverATurno;
 })();
 
 // Cerrar sheet
-document.getElementById('closeSheet').onclick = () => document.getElementById('mapSheet').classList.remove('open');
+const closeSheetBtn = document.getElementById('closeSheet');
+if (closeSheetBtn) {
+  closeSheetBtn.onclick = () => document.getElementById('mapSheet').classList.remove('open');
+}
 
 // Botón "Ver todas"
-document.getElementById('btnTodasFarmacias').addEventListener('click', () => {
-  if (window.modoTodas) volverATurno();
-  else mostrarTodasLasFarmacias();
-});
+const btnTodas = document.getElementById('btnTodasFarmacias');
+if (btnTodas) {
+  btnTodas.addEventListener('click', () => {
+    if (window.modoTodas) volverATurno();
+    else mostrarTodasLasFarmacias();
+  });
+}
