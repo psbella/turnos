@@ -1,4 +1,4 @@
-import { ciclosData, farmaciasCoords, obtenerCicloActual, formatearFechaGMT3, limpiarTelefono } from './data.js';
+import { ciclosData, farmaciasCoords, obtenerCicloActual, formatearFechaTurno, limpiarTelefono } from './data.js';
 import { agregarMarcadores, limpiarMarcadores, mapDesktop, mapMobile, markersDesktop, markersMobile } from './maps.js';
 
 let activeCard = null;
@@ -28,7 +28,7 @@ export function getPhoneIcon() {
 export function mostrarFarmacias() {
   const ciclo = obtenerCicloActual();
   const farmacias = ciclosData[ciclo] || [];
-  const fecha = formatearFechaGMT3();
+  const fecha = formatearFechaTurno();
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
 
