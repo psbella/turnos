@@ -612,6 +612,57 @@ main {
   font-weight: 600;
 }
 
+/* ==================== FOOTER LINKS ==================== */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin: 12px 0;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.footer-mis-proyectos {
+  margin: 12px 0;
+}
+
+.footer-mis-proyectos a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer-mis-proyectos a:hover {
+  text-decoration: underline;
+}
+
+.footer-copyright {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
   .btn-todas, .btn-volver {
