@@ -662,6 +662,30 @@ main {
   color: var(--muted);
   font-size: 12px;
 }
+.badge-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+body.light .badge-github {
+  color: #1a3d1a;
+  background: rgba(63, 185, 80, 0.15);
+}
+
+.badge-github:hover {
+  background: rgba(63, 185, 80, 0.25);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
