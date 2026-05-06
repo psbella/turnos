@@ -9,23 +9,13 @@ export function formatearFechaGMT3() {
   return new Date(a.toLocaleString('en-US', o));
 }
 
-export function formatearFechaTurno() {
-  const ahora = formatearFechaGMT3();
-  const fechaTurno = new Date(ahora);
-  if (ahora.getHours() < CONFIG.HORA_CAMBIO) {
-    fechaTurno.setDate(fechaTurno.getDate() - 1);
-  }
-  fechaTurno.setHours(0, 0, 0, 0);
-  return fechaTurno;
-}
-
 export function limpiarTelefono(t) {
   return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, '');
 }
 
 export function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
-  const totalCiclos = Object.keys(ciclosData).length || 16;
+  const totalCiclos = Object.keys(ciclosData).length;
   if (totalCiclos === 0) return 1;
 
   let fechaBase = new Date(FECHA_INICIO_CICLO_1);
@@ -39,7 +29,7 @@ export function obtenerCicloActual() {
 
   const diffDias = Math.floor((fechaActual - fechaBase) / 86400000);
   let ciclo = (diffDias % totalCiclos) + 1;
-  if (ciclo <= 0) ciclo += totalCiclos;
+  if (ciclo <= 0) ciclo = 1;
   return ciclo;
 }
 
