@@ -158,16 +158,44 @@
     </div>
   </header>
 
-  <main>
-    <div class="col-list">
-      <div id="intro" aria-live="polite"></div>
-      <div id="lista" aria-live="polite"></div>
-    </div>
-    <div class="col-map">
+      <div class="col-map">
       <div id="map-desktop"></div>
     </div>
-  </main>
 
+    <!-- Contenido estático para rastreadores (Googlebot, AdsBot) -->
+    <div id="static-content" style="display: none;" aria-hidden="true">
+        <h2>Farmacias de Turno en Mar del Plata</h2>
+        <p>Directorio actualizado diariamente de farmacias de turno en Mar del Plata. Consultá qué farmacia está de turno hoy con dirección, teléfono y mapa interactivo. Información basada en la rotación oficial del Colegio de Farmacéuticos de General Pueyrredon.</p>
+        
+        <h3>Farmacias de turno frecuentes</h3>
+        <ul>
+            <li><strong>Farmacia MITRE</strong> - COLON 2690 - Tel: 2235410471</li>
+            <li><strong>Farmacia DEL PUERTO</strong> - 12 DE OCTUBRE 3499 - Tel: 2234800271</li>
+            <li><strong>Farmacia PUEYRREDON</strong> - JUAN B. JUSTO 3200 - Tel: 2235648000</li>
+            <li><strong>Farmacia BAUZA</strong> - LURO 3499 - Tel: 2234730287</li>
+            <li><strong>Farmacia DEL AGUILA</strong> - LURO 4610 - Tel: 2234721830</li>
+            <li><strong>Farmacia AVENIDA</strong> - LIBERTAD 4490 - Tel: 2234735863</li>
+            <li><strong>Farmacia 25 DE MAYO</strong> - 25 DE MAYO 3610 - Tel: 2236410479</li>
+            <li><strong>Farmacia ABALLAY</strong> - PERALTA RAMOS 821 - Tel: 2234815223</li>
+        </ul>
+
+        <h3>Zonas cubiertas</h3>
+        <p>Centro, Puerto, Playa Grande, Constitución, Peralta Ramos, Güemes, Colon, Juan B. Justo, Libertad, Fortunato de la Plaza, Batan, Chapadmalal, El Coyunco.</p>
+
+        <h3>Características del servicio</h3>
+        <ul>
+            <li>Rotación oficial de 16 grupos farmacéuticos</li>
+            <li>Actualización automática diaria a las 9:00 AM</li>
+            <li>Mapa interactivo con ubicación de cada farmacia</li>
+            <li>Disponible sin conexión a internet (PWA)</li>
+            <li>Compatible con celulares, tablets y computadoras</li>
+            <li>Modo claro y oscuro automático</li>
+        </ul>
+
+        <h3>Contacto</h3>
+        <p>Desarrollado por Pablo Bella. Para correcciones o agregar tu farmacia: pablo.s.bella@gmail.com</p>
+    </div>
+</main>
   <div class="map-sheet" id="mapSheet">
     <div class="map-sheet-header">
       <span id="sheetName"></span>
