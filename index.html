@@ -77,11 +77,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css">
-
-<!-- LEAFET JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- LEAFET JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   
   <!-- SCHEMA.ORG (datos estructurados) -->
   <script type="application/ld+json">
@@ -134,8 +134,8 @@
 
   <main>
     <div class="col-list">
-      <div id="intro"></div>
-      <div id="lista"></div>
+      <div id="intro" aria-live="polite"></div>
+      <div id="lista" aria-live="polite"></div>
     </div>
     <div class="col-map">
       <div id="map-desktop"></div>
@@ -146,7 +146,7 @@
     <div class="map-sheet-header">
       <span id="sheetName"></span>
       <button class="map-sheet-close" id="closeSheet" aria-label="Cerrar mapa">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
@@ -159,7 +159,7 @@
 
   <!-- Botón instalación -->
   <button id="btnInstalar" class="btn-instalar" style="display: none;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
       <line x1="12" y1="18" x2="12.01" y2="18"/>
     </svg>
@@ -167,16 +167,16 @@
   </button>
 
   <!-- Modal iOS -->
-  <div id="iosModal" class="ios-modal" style="display: none;">
+  <div id="iosModal" class="ios-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="iosModalTitle">
     <div class="ios-modal-content">
-      <span class="ios-modal-close" id="closeIosModal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <span class="ios-modal-close" id="closeIosModal" aria-label="Cerrar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </span>
-      <p>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <p id="iosModalTitle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
           <line x1="12" y1="18" x2="12.01" y2="18"/>
         </svg>
@@ -191,55 +191,59 @@
     </div>
   </div>
 
+    <footer class="footer">
+    <p><span class="code-symbol">&lt;/&gt;</span> Desarrollado por <a href="mailto:pablo.s.bella@gmail.com?subject=Web%20Farmacias">Pablo Bella</a> con 💚</p>
+    
     <div class="footer-links">
-                    <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4v16h16V4H4z M8 9h8M8 13h6M8 17h4"/>
-                        </svg>
-                        CC BY-NC 4.0
-                    </a>
-                    <a href="privacidad.html">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="9" y1="9" x2="15" y2="15"/>
-                            <line x1="15" y1="9" x2="9" y2="15"/>
-                        </svg>
-                        Política de Privacidad
-                    </a>
-                    <a href="terminos.html">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4v16h16V4H4z M8 9h8M8 13h6M8 17h4"/>
-                        </svg>
-                        Términos y Condiciones
-                    </a>
-                    <a href="mailto:pablo.s.bella@gmail.com?subject=Web%20Precios%20PAMI">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        Contacto
-                    </a>
-                </div>
-                
-                <div class="footer-mis-proyectos">
-                    <a href="https://github.com/psbella?tab=repositories" target="_blank" rel="noopener noreferrer">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                        </svg>
-                        Mis otros proyectos en GitHub
-                    </a>
-                </div>
-                
-                <div class="footer-copyright">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 8v8M8 12h8"/>
-                    </svg>
-                    <span>© 2025 - Buscador de Medicamentos PAMI</span>
-                </div>
-            </div>
-        </footer>
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+                <line x1="8" y1="9" x2="16" y2="9"/>
+                <line x1="8" y1="13" x2="14" y2="13"/>
+                <line x1="8" y1="17" x2="12" y2="17"/>
+            </svg>
+            CC BY-NC 4.0
+        </a>
+        <a href="privacidad.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+            </svg>
+            Política de Privacidad
+        </a>
+        <a href="terminos.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 4v16h16V4H4z M8 9h8M8 13h6M8 17h4"/>
+            </svg>
+            Términos y Condiciones
+        </a>
+        <a href="mailto:pablo.s.bella@gmail.com?subject=Web%20Farmacias">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+                <polyline points="2,6 12,13 22,6"/>
+            </svg>
+            Contacto
+        </a>
     </div>
+    
+    <div class="footer-mis-proyectos">
+        <a href="https://github.com/psbella?tab=repositories" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+            Mis otros proyectos en GitHub
+        </a>
+    </div>
+    
+    <div class="footer-copyright">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4M12 14h.01"/>
+        </svg>
+        <span>© 2026 - Farmacias de Turno MDP</span>
+    </div>
+</footer>
   
 <script type="module" src="js/main.js"></script>
 
