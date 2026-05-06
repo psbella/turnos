@@ -9,6 +9,16 @@ export function formatearFechaGMT3() {
   return new Date(a.toLocaleString('en-US', o));
 }
 
+export function formatearFechaTurno() {
+  const ahora = formatearFechaGMT3();
+  const fechaTurno = new Date(ahora);
+  if (ahora.getHours() < CONFIG.HORA_CAMBIO) {
+    fechaTurno.setDate(fechaTurno.getDate() - 1);
+  }
+  fechaTurno.setHours(0, 0, 0, 0);
+  return fechaTurno;
+}
+
 export function limpiarTelefono(t) {
   return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, '');
 }
