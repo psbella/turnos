@@ -2,7 +2,7 @@ import { ciclosData, farmaciasCoords, obtenerCicloActual, formatearFechaGMT3, li
 import { agregarMarcadores, limpiarMarcadores, mapDesktop, mapMobile, markersDesktop, markersMobile } from './maps.js';
 
 let activeCard = null;
-let modoTodas = false;
+window.modoTodas = false;
 let farmaciasOriginales = null;
 
 export function pad(n) { return String(n).padStart(2, '0'); }
@@ -109,8 +109,8 @@ export function mostrarFarmacias() {
 }
 
 export function mostrarTodasLasFarmacias() {
-  if (modoTodas) return;
-  modoTodas = true;
+  if (window.modoTodas) return;
+  window.modoTodas = true;
   document.body.classList.add('modo-todas');
 
   farmaciasOriginales = {
@@ -211,8 +211,8 @@ export function mostrarTodasLasFarmacias() {
 }
 
 export function volverATurno() {
-  if (!modoTodas) return;
-  modoTodas = false;
+  if (!window.modoTodas) return;
+  window.modoTodas = false;
   document.body.classList.remove('modo-todas');
 
   document.getElementById('lista').innerHTML = farmaciasOriginales.lista;
