@@ -83,8 +83,9 @@
   <!-- LEAFET JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   
-  <!-- SCHEMA.ORG (datos estructurados) -->
-  <script type="application/ld+json">
+<!-- SCHEMA.ORG (datos estructurados) -->
+<script type="application/ld+json">
+[
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -103,8 +104,33 @@
       "price": "0",
       "priceCurrency": "ARS"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://farmaciasmdp.com.ar/",
+    "name": "Farmacias de Turno MDP",
+    "description": "Directorio actualizado de farmacias de turno en Mar del Plata. Consultá qué farmacia está de turno hoy con dirección, teléfono y mapa interactivo.",
+    "url": "https://farmaciasmdp.com.ar/",
+    "telephone": "+542234740039",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mar del Plata",
+      "addressRegion": "Buenos Aires",
+      "addressCountry": "AR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -38.0055,
+      "longitude": -57.5426
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Mar del Plata"
+    }
   }
-  </script>
+]
+</script>
   
   <!-- SITEMAP -->
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
