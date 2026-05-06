@@ -27,7 +27,7 @@ export function getPhoneIcon() {
 
 export function mostrarFarmacias() {
   const ciclo = obtenerCicloActual();
-  const farmacias = ciclosData[ciclo] || [];
+const farmacias = [...(ciclosData[ciclo] || [])].sort((a, b) => a.nombre.localeCompare(b.nombre));
   const fecha = formatearFechaTurno();
   const intro = document.getElementById('intro');
   const lista = document.getElementById('lista');
