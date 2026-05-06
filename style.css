@@ -689,6 +689,14 @@ main {
   .card-phone {
     margin-left: auto;
   }
+  
+  .footer-links {
+    gap: 10px;
+  }
+  
+  .footer-links a {
+    font-size: 11px;
+  }
 }
 
 /* ==================== BADGE VERSIÓN ==================== */
@@ -760,4 +768,18 @@ main {
 
 .gmaps-link:hover {
   text-decoration: underline;
+}
+
+/* ==================== ACCESIBILIDAD: FOCUS VISIBLE ==================== */
+.card:focus-visible,
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.theme-switch:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 30px;
 }
