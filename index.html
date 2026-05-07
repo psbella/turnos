@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384773741296777"
+     crossorigin="anonymous"></script>
   <script>
   // Forzar actualización de Service Worker antiguo
   if ('serviceWorker' in navigator) {
@@ -14,23 +16,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   
-  <!-- TÍTULO (único y descriptivo) -->
   <title>Farmacias de turno en Mar del Plata · Actualizado hoy</title>
   
-  <!-- DESCRIPCIÓN (atractiva, con palabras clave) -->
   <meta name="description" content="Consultá las farmacias de turno HOY en Mar del Plata. Lista actualizada con dirección, teléfono y mapa interactivo. Turno farmacéutico diario.">
   
-  <!-- PALABRAS CLAVE -->
 <meta name="keywords" content="farmacias de turno, Mar del Plata, farmacia turno, turno farmacéutico, farmacia 24 horas, farmacia de urgencia, farmacia abierta, farmacia MDP, turno nocturno">  
-  <!-- AUTOR Y ROBOTS -->
   <meta name="author" content="Pablo Bella">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   
-  <!-- CANONICAL (evita contenido duplicado) -->
   <link rel="canonical" href="https://farmaciasmdp.com.ar/">
   
-  <!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn) -->
   <meta property="og:title" content="Farmacias de turno hoy en Mar del Plata">
   <meta property="og:description" content="Encontrá la farmacia de turno más cercana. Dirección, teléfono y mapa interactivo actualizado todos los días.">
   <meta property="og:image" content="https://farmaciasmdp.com.ar/icon-512.png">
@@ -41,49 +37,40 @@
   <meta property="og:locale" content="es_AR">
   <meta property="og:site_name" content="Farmacias de Turno MDP">
   
-  <!-- TWITTER CARD -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Farmacias de turno hoy en Mar del Plata">
   <meta name="twitter:description" content="Turno farmacéutico actualizado en MDP. Dirección, teléfono y mapa interactivo.">
   <meta name="twitter:image" content="https://farmaciasmdp.com.ar/icon-512.png">
   
-  <!-- GEO LOCALIZACIÓN (para búsquedas locales) -->
   <meta name="geo.region" content="AR-B">
   <meta name="geo.placename" content="Mar del Plata">
   <meta name="geo.position" content="-38.0055;-57.5426">
   <meta name="ICBM" content="-38.0055, -57.5426">
   
-  <!-- PWA / MÓVIL -->
   <meta name="theme-color" content="#0d1117">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Farma MDP">
   
-  <!-- FAVICON E ÍCONOS -->
   <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icon-16.png">
   <link rel="apple-touch-icon" href="/icon-512.png">
   
-  <!-- PRECONEXIONES (mejora velocidad) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   
-  <!-- FUENTES -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   
-  <!-- CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <link rel="stylesheet" href="style.css">
   
-  <!-- LEAFET JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   
-<!-- SCHEMA.ORG (datos estructurados) -->
 <script type="application/ld+json">
 [
   {
@@ -132,7 +119,6 @@
 ]
 </script>
   
-  <!-- SITEMAP -->
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body class="dark">
@@ -158,11 +144,15 @@
     </div>
   </header>
 
-      <div class="col-map">
+  <main>
+    <div class="col-list">
+      <div id="intro" aria-live="polite"></div>
+      <div id="lista" aria-live="polite"></div>
+    </div>
+    <div class="col-map">
       <div id="map-desktop"></div>
     </div>
 
-    <!-- Contenido estático para rastreadores (Googlebot, AdsBot) -->
     <div id="static-content" style="display: none;" aria-hidden="true">
         <h2>Farmacias de Turno en Mar del Plata</h2>
         <p>Directorio actualizado diariamente de farmacias de turno en Mar del Plata. Consultá qué farmacia está de turno hoy con dirección, teléfono y mapa interactivo. Información basada en la rotación oficial del Colegio de Farmacéuticos de General Pueyrredon.</p>
@@ -196,6 +186,7 @@
         <p>Desarrollado por Pablo Bella. Para correcciones o agregar tu farmacia: pablo.s.bella@gmail.com</p>
     </div>
 </main>
+
   <div class="map-sheet" id="mapSheet">
     <div class="map-sheet-header">
       <span id="sheetName"></span>
@@ -211,7 +202,6 @@
 
   <button id="btnTodasFarmacias" class="btn-todas">Ver todas</button>
 
-  <!-- Botón instalación -->
   <button id="btnInstalar" class="btn-instalar" style="display: none;">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
@@ -220,7 +210,6 @@
     Instalar app
   </button>
 
-  <!-- Modal iOS -->
   <div id="iosModal" class="ios-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="iosModalTitle">
     <div class="ios-modal-content">
       <span class="ios-modal-close" id="closeIosModal" aria-label="Cerrar">
