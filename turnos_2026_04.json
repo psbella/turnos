@@ -1,0 +1,404 @@
+{
+  "26/04/2026": [
+    {
+      "nombre": "BAUZA SARMIENTO",
+      "direccion": "SARMIENTO 2599",
+      "telefono": "2234511243",
+      "lat": -38.011581,
+      "lng": -57.542816
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 DE OCTUBRE 5054",
+      "telefono": "2234809713",
+      "lat": -38.031584,
+      "lng": -57.561708
+    },
+    {
+      "nombre": "COLEC. R. 88 P.PERON 9874 BATAN",
+      "direccion": "COLEC. R. 88 P.PERON 9874 BATAN",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "NUEVA CORDOBA",
+      "direccion": "CORDOBA 4546",
+      "telefono": "2234941294",
+      "lat": -38.022209,
+      "lng": -57.565282
+    },
+    {
+      "nombre": "OCCI",
+      "direccion": "TEJEDOR 298",
+      "telefono": "2234728768",
+      "lat": -37.971192,
+      "lng": -57.558385
+    },
+    {
+      "nombre": "FRASSON",
+      "direccion": "ARTURO ALIO 1195",
+      "telefono": "2234787253",
+      "lat": -37.971145,
+      "lng": -57.592252
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "COLON 2690",
+      "telefono": "2235410471",
+      "lat": -38.002918,
+      "lng": -57.550893
+    },
+    {
+      "nombre": "MOLINA",
+      "direccion": "SAN JUAN 1299",
+      "telefono": "2234740039",
+      "lat": -37.98782,
+      "lng": -57.560384
+    },
+    {
+      "nombre": "PIZZOLO",
+      "direccion": "FORTUNATO DE LA PLAZA 3658",
+      "telefono": "2236703020",
+      "lat": -38.051492,
+      "lng": -57.56277
+    },
+    {
+      "nombre": "PREVILEY P. RAMOS",
+      "direccion": "PERALTA RAMOS 2413",
+      "telefono": "2235064692",
+      "lat": -38.0354,
+      "lng": -57.591292
+    }
+  ],
+  "27/04/2026": [
+    {
+      "nombre": "CORAL",
+      "direccion": "INDEPENDENCIA 874",
+      "telefono": "2234743111",
+      "lat": -37.989652,
+      "lng": -57.547386
+    },
+    {
+      "nombre": "DOMINGUEZ LAY",
+      "direccion": "CARLOS TEJEDOR 3627",
+      "telefono": "2234548666",
+      "lat": -37.944684,
+      "lng": -57.536983
+    },
+    {
+      "nombre": "GILARDONI",
+      "direccion": "0 Y 817 CHAPADMALAL",
+      "telefono": "2291510527",
+      "lat": -38.205652,
+      "lng": -57.696127
+    },
+    {
+      "nombre": "ITALIANA",
+      "direccion": "20 de SEPTIEMBRE 1678",
+      "telefono": "2234730178",
+      "lat": -37.994147,
+      "lng": -57.556745
+    },
+    {
+      "nombre": "XX de SEPTIEMBRE 1678",
+      "direccion": "XX de SEPTIEMBRE 1678",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "COLON 2690",
+      "telefono": "2235410471",
+      "lat": -38.002918,
+      "lng": -57.550893
+    },
+    {
+      "nombre": "SUR COLON",
+      "direccion": "COLON 4986",
+      "telefono": "2234727980",
+      "lat": -37.991488,
+      "lng": -57.574128
+    },
+    {
+      "nombre": "DEL PUERTO LURO",
+      "direccion": "LURO 5802",
+      "telefono": "2234783056",
+      "lat": -37.982368,
+      "lng": -57.578826
+    },
+    {
+      "nombre": "PAZ",
+      "direccion": "TALCAHUANO 793",
+      "telefono": "2234823985",
+      "lat": -38.028216,
+      "lng": -57.572429
+    },
+    {
+      "nombre": "BAUZA GÜEMES",
+      "direccion": "GÜEMES 3185",
+      "telefono": "2234518563",
+      "lat": -38.017834,
+      "lng": -57.54364
+    },
+    {
+      "nombre": "RIADIGOS CONSTITUCION",
+      "direccion": "CONSTITUCION 7508",
+      "telefono": "2234712727",
+      "lat": -37.952734,
+      "lng": -57.578997
+    },
+    {
+      "nombre": "VIDA",
+      "direccion": "CONSTITUCION 5232",
+      "telefono": "2234790101",
+      "lat": -37.964458,
+      "lng": -57.556156
+    }
+  ],
+  "28/04/2026": [
+    {
+      "nombre": "BADANEZ",
+      "direccion": "SAN MARTIN 2149",
+      "telefono": "2235510731",
+      "lat": -38.001722,
+      "lng": -57.54225
+    },
+    {
+      "nombre": "CASTORINA",
+      "direccion": "FORTUNATO DE LA PLAZA 2657",
+      "telefono": "2235736459",
+      "lat": -38.057824,
+      "lng": -57.553972
+    },
+    {
+      "nombre": "DANTE",
+      "direccion": "MORENO 3602",
+      "telefono": "2234943337",
+      "lat": -37.996744,
+      "lng": -57.559143
+    },
+    {
+      "nombre": "PALKIN FALUCHO",
+      "direccion": "FALUCHO 1602",
+      "telefono": "2235193304",
+      "lat": -38.010138,
+      "lng": -57.541767
+    },
+    {
+      "nombre": "LA PERLA",
+      "direccion": "ESPAÑA 1003",
+      "telefono": "2235065049",
+      "lat": -37.98918,
+      "lng": -57.551665
+    },
+    {
+      "nombre": "DEL PUERTO INDEPENDENCIA",
+      "direccion": "INDEPENDENCIA 3802",
+      "telefono": "2234755524",
+      "lat": -38.013268,
+      "lng": -57.566507
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "COLON 2690",
+      "telefono": "2235410471",
+      "lat": -38.002918,
+      "lng": -57.550893
+    },
+    {
+      "nombre": "BAUZA M. BRAVO",
+      "direccion": "MARIO BRAVO 3504",
+      "telefono": "2235798821",
+      "lat": -38.060501,
+      "lng": -57.57175
+    },
+    {
+      "nombre": "PUEYRREDON JBJ",
+      "direccion": "JUAN B. JUSTO 1846",
+      "telefono": "2234894040",
+      "lat": -38.028238,
+      "lng": -57.559122
+    },
+    {
+      "nombre": "SACK",
+      "direccion": "ALBERTI 6567",
+      "telefono": "2235993771",
+      "lat": -37.986453,
+      "lng": -57.592511
+    },
+    {
+      "nombre": "AV LIBERTAD 5302",
+      "direccion": "AV LIBERTAD 5302",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "29/04/2026": [
+    {
+      "nombre": "DEL BARRIO",
+      "direccion": "JARA 3290",
+      "telefono": "2234755685",
+      "lat": -37.999881,
+      "lng": -57.581159
+    },
+    {
+      "nombre": "ELBEY Y FARINA",
+      "direccion": "COLON 7279",
+      "telefono": "2234702524",
+      "lat": -37.979627,
+      "lng": -57.597021
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 DE OCTUBRE 5054",
+      "telefono": "2234809713",
+      "lat": -38.031584,
+      "lng": -57.561708
+    },
+    {
+      "nombre": "SUR",
+      "direccion": "MARIO BRAVO 502",
+      "telefono": "2236185741",
+      "lat": -38.080397,
+      "lng": -57.545799
+    },
+    {
+      "nombre": "MOLINA",
+      "direccion": "SAN JUAN 1299",
+      "telefono": "2234740039",
+      "lat": -37.98782,
+      "lng": -57.560384
+    },
+    {
+      "nombre": "RIADIGOS CONSTITUCION",
+      "direccion": "CONSTITUCION 4793",
+      "telefono": "2234713000",
+      "lat": -37.966618,
+      "lng": -57.551223
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "COLON 2690",
+      "telefono": "2235410471",
+      "lat": -38.002918,
+      "lng": -57.550893
+    },
+    {
+      "nombre": "MOBILIA",
+      "direccion": "PRESIDENTE PERON 10419 BATAN",
+      "telefono": "2236344967",
+      "lat": -38.007111,
+      "lng": -57.715596
+    },
+    {
+      "nombre": "LUJAN",
+      "direccion": "FORTUNATO DE LA PLAZA 6992",
+      "telefono": "2233465521",
+      "lat": -38.03142,
+      "lng": -57.589409
+    },
+    {
+      "nombre": "PALKIN INDEPENDENCIA",
+      "direccion": "INDEPENDENCIA 3501",
+      "telefono": "2235589900",
+      "lat": -38.010806,
+      "lng": -57.564819
+    },
+    {
+      "nombre": "SAN JUAN",
+      "direccion": "BELGRANO 4250",
+      "telefono": "2234725920",
+      "lat": -37.992696,
+      "lng": -57.564859
+    }
+  ],
+  "30/04/2026": [
+    {
+      "nombre": "SAN JUAN 3301",
+      "direccion": "SAN JUAN 3301",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "HERRERO",
+      "direccion": "JARA 1842",
+      "telefono": "2235847235",
+      "lat": -37.988439,
+      "lng": -57.571873
+    },
+    {
+      "nombre": "GUEVARA",
+      "direccion": "SAN JUAN 381",
+      "telefono": "2234732109",
+      "lat": -37.980517,
+      "lng": -57.554481
+    },
+    {
+      "nombre": "EDISON II",
+      "direccion": "EDISON 2601",
+      "telefono": "2235353340",
+      "lat": -38.056571,
+      "lng": -57.566558
+    },
+    {
+      "nombre": "CALLE 2 ENTRE 441 Y 443",
+      "direccion": "CALLE 2 ENTRE 441 Y 443",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "MALEN",
+      "direccion": "CATAMARCA 3201",
+      "telefono": "2234732646",
+      "lat": -38.008951,
+      "lng": -57.561759
+    },
+    {
+      "nombre": "PUEYRREDON JBJ II",
+      "direccion": "JUAN B. JUSTO 1601",
+      "telefono": "2234805295",
+      "lat": -38.029462,
+      "lng": -57.557152
+    },
+    {
+      "nombre": "MITRE",
+      "direccion": "COLON 2690",
+      "telefono": "2235410471",
+      "lat": -38.002918,
+      "lng": -57.550893
+    },
+    {
+      "nombre": "DEL CUETO",
+      "direccion": "12 DE OCTUBRE 5054",
+      "telefono": "2234809713",
+      "lat": -38.031584,
+      "lng": -57.561708
+    },
+    {
+      "nombre": "RUTA JARDIN JM FANGIO 16500",
+      "direccion": "RUTA JARDIN JM FANGIO 16500",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "J.P. RAMOS Y 41",
+      "direccion": "J.P. RAMOS Y 41",
+      "telefono": "",
+      "lat": null,
+      "lng": null
+    },
+    {
+      "nombre": "DEL PUERTO TEJEDOR",
+      "direccion": "TEJEDOR 581",
+      "telefono": "2234713066",
+      "lat": -37.96925,
+      "lng": -57.556821
+    }
+  ]
+}
