@@ -5,138 +5,32 @@
   <title>Admin - Corrector de farmacias</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: system-ui, sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #3fb950;
-      font-size: 1.5rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .panel {
-      background: #161b22;
-      border-radius: 16px;
-      border: 1px solid #30363d;
-      padding: 20px;
-    }
-    .campo {
-      margin-bottom: 15px;
-    }
-    .campo label {
-      display: block;
-      font-size: 12px;
-      color: #7d8590;
-      margin-bottom: 4px;
-    }
-    .campo input, .campo textarea {
-      width: 100%;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      color: #e6edf3;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    .coordenadas {
-      background: #0d1117;
-      padding: 12px;
-      border-radius: 12px;
-      margin: 15px 0;
-      display: flex;
-      gap: 10px;
-    }
-    .coordenadas input {
-      flex: 1;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      color: #e6edf3;
-      padding: 6px 8px;
-      border-radius: 8px;
-      font-size: 12px;
-    }
-    .buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    button {
-      background: #3fb950;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    button:hover {
-      background: #2c974b;
-    }
-    .btn-descargar {
-      background: #1f6feb;
-    }
-    .estado {
-      background: #0d1117;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 15px;
-      text-align: center;
-      font-size: 13px;
-    }
-    #map {
-      height: 500px;
-      border-radius: 16px;
-      border: 1px solid #30363d;
-    }
-    .progress {
-      background: #30363d;
-      border-radius: 20px;
-      height: 8px;
-      width: 100%;
-      margin: 20px 0;
-    }
-    .progress-bar {
-      background: #3fb950;
-      border-radius: 20px;
-      height: 8px;
-      width: 0%;
-      transition: width 0.3s;
-    }
-    .badge {
-      background: #3fb950;
-      color: #0d1117;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 11px;
-      margin-left: 10px;
-    }
-    @media (max-width: 768px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { margin-bottom: 20px; color: #3fb950; font-size: 1.5rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .panel { background: #161b22; border-radius: 16px; border: 1px solid #30363d; padding: 20px; }
+    .campo { margin-bottom: 15px; }
+    .campo label { display: block; font-size: 12px; color: #7d8590; margin-bottom: 4px; }
+    .campo input, .campo textarea { width: 100%; background: #0d1117; border: 1px solid #30363d; color: #e6edf3; padding: 8px 12px; border-radius: 8px; font-size: 14px; }
+    .coordenadas { background: #0d1117; padding: 12px; border-radius: 12px; margin: 15px 0; display: flex; gap: 10px; }
+    .coordenadas input { flex: 1; background: #0d1117; border: 1px solid #30363d; color: #e6edf3; padding: 6px 8px; border-radius: 8px; font-size: 12px; }
+    .buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    button { background: #3fb950; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    button:hover { background: #2c974b; }
+    .btn-descargar { background: #1f6feb; }
+    .estado { background: #0d1117; padding: 10px; border-radius: 8px; margin-top: 15px; text-align: center; font-size: 13px; }
+    #map { height: 500px; border-radius: 16px; border: 1px solid #30363d; }
+    .progress { background: #30363d; border-radius: 20px; height: 8px; width: 100%; margin: 20px 0; }
+    .progress-bar { background: #3fb950; border-radius: 20px; height: 8px; width: 0%; transition: width 0.3s; }
+    .badge { background: #3fb950; color: #0d1117; padding: 2px 8px; border-radius: 20px; font-size: 11px; margin-left: 10px; }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 <script>
-  const PASSWORD = 'pasteldepapasconpasasdeuva';
+  const PASSWORD = 'pasteldepapas';
   const userInput = prompt('🔐 Contraseña de administrador:');
   if (userInput !== PASSWORD) {
     document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh;"><div style="text-align:center;"><h1>⛔ Acceso denegado</h1><p>Contraseña incorrecta.</p></div></div>';
@@ -146,10 +40,7 @@
 
 <div class="container">
   <h1>✏️ Editor completo de farmacias</h1>
-  <div class="progress">
-    <div class="progress-bar" id="progress-bar"></div>
-  </div>
-
+  <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
   <div class="grid">
     <div class="panel">
       <h2 id="farm-nombre">Cargando... <span class="badge" id="contador">0/0</span></h2>
@@ -291,7 +182,24 @@
       }
     }
 
-    const jsonStr = JSON.stringify(ciclosData, null, 2);
+    // Formato comprimido: un objeto por línea, igual que db.json
+    let jsonStr = '{\n';
+    const grupos = Object.keys(ciclosData);
+    grupos.forEach((grupo, idxGrupo) => {
+      jsonStr += `  "${grupo}": [\n`;
+      ciclosData[grupo].forEach((f, i) => {
+        const lat = f.lat != null ? f.lat : null;
+        const lng = f.lng != null ? f.lng : null;
+        jsonStr += `    { "nombre": "${f.nombre.replace(/"/g, '\\"')}", "direccion": "${f.direccion.replace(/"/g, '\\"')}", "telefono": "${f.telefono}", "lat": ${lat}, "lng": ${lng} }`;
+        if (i < ciclosData[grupo].length - 1) jsonStr += ',';
+        jsonStr += '\n';
+      });
+      jsonStr += '  ]';
+      if (idxGrupo < grupos.length - 1) jsonStr += ',';
+      jsonStr += '\n';
+    });
+    jsonStr += '}';
+
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
