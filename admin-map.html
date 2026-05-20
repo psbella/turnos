@@ -151,38 +151,48 @@ async function buscarDireccionEnGoogle() {
   const f = todasFarmacias[currentIndex];
   if (!f || !f.direccion) return;
   
-  const query = encodeURIComponent(f.direccion + ', Mar del Plata, Argentina');
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=1`;
+  // Probar varias combinaciones de dirección
+  const queries = [
+    f.direccion + ', Mar del Plata, Argentina',
+    f.direccion.replace(/AV\.? ?/i, 'Avenida ') + ', Mar del Plata, Argentina',
+    f.direccion + ', Mar del Plata',
+    f.direccion
+  ];
   
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
+  let data = null;
+  
+  for (const query of queries) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=ar`;
     
-    if (data.length > 0) {
-      const googleLat = parseFloat(data[0].lat);
-      const googleLng = parseFloat(data[0].lon);
-      
-      // Mostrar marcador de Google en azul
-      const iconoGoogle = L.divIcon({
-        className: 'custom-google-icon',
-        html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#4285F4" stroke="white" stroke-width="1.5"/><circle cx="12" cy="9" r="3" fill="white"/></svg>',
-        iconSize: [34, 34],
-        popupAnchor: [0, -17]
-      });
-      
-      if (window.markerGoogle) map.removeLayer(window.markerGoogle);
-      window.markerGoogle = L.marker([googleLat, googleLng], { icon: iconoGoogle }).addTo(map);
-      window.markerGoogle.bindPopup(`<b>Google Maps</b><br>${data[0].display_name}<br><small>¿Usar estas coordenadas?</small><br><button onclick="usarCoordenadasGoogle(${googleLat}, ${googleLng})" style="margin-top:4px; padding:4px 8px; background:#4285F4; color:white; border:none; border-radius:4px; cursor:pointer;">✅ Usar estas</button>`).openPopup();
-      
-      map.setView([googleLat, googleLng], 16);
-      document.getElementById('estado').innerHTML = '📍 Coordenadas de Google cargadas. Compará con el pin verde.';
-      document.getElementById('estado').style.color = '#4285F4';
-    } else {
-      document.getElementById('estado').innerHTML = '❌ No se encontró la dirección en Google';
-      document.getElementById('estado').style.color = '#f85149';
+    try {
+      const response = await fetch(url);
+      data = await response.json();
+      if (data.length > 0) break;
+    } catch (e) {
+      continue;
     }
-  } catch (e) {
-    document.getElementById('estado').innerHTML = '❌ Error al buscar en Google';
+  }
+  
+  if (data && data.length > 0) {
+    const googleLat = parseFloat(data[0].lat);
+    const googleLng = parseFloat(data[0].lon);
+    
+    const iconoGoogle = L.divIcon({
+      className: 'custom-google-icon',
+      html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#4285F4" stroke="white" stroke-width="1.5"/><circle cx="12" cy="9" r="3" fill="white"/></svg>',
+      iconSize: [34, 34],
+      popupAnchor: [0, -17]
+    });
+    
+    if (window.markerGoogle) map.removeLayer(window.markerGoogle);
+    window.markerGoogle = L.marker([googleLat, googleLng], { icon: iconoGoogle }).addTo(map);
+    window.markerGoogle.bindPopup(`<b>Resultado</b><br>${data[0].display_name}<br><small>¿Usar estas coordenadas?</small><br><button onclick="usarCoordenadasGoogle(${googleLat}, ${googleLng})" style="margin-top:4px; padding:4px 8px; background:#4285F4; color:white; border:none; border-radius:4px; cursor:pointer;">✅ Usar estas</button>`).openPopup();
+    
+    map.setView([googleLat, googleLng], 16);
+    document.getElementById('estado').innerHTML = '📍 Resultado encontrado. Compará con el pin verde.';
+    document.getElementById('estado').style.color = '#4285F4';
+  } else {
+    document.getElementById('estado').innerHTML = '❌ No se encontró la dirección. Probá manualmente.';
     document.getElementById('estado').style.color = '#f85149';
   }
 }
