@@ -20,8 +20,10 @@
     button { background: #3fb950; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
     button:hover { background: #2c974b; }
     .btn-descargar { background: #1f6feb; }
+    .btn-gmaps { background: #ea4335; }
     .estado { background: #0d1117; padding: 10px; border-radius: 8px; margin-top: 15px; text-align: center; font-size: 13px; }
     #map { height: 500px; border-radius: 16px; border: 1px solid #30363d; }
+    #gmaps-frame { border-radius: 16px; }
     .progress { background: #30363d; border-radius: 20px; height: 8px; width: 100%; margin: 20px 0; }
     .progress-bar { background: #3fb950; border-radius: 20px; height: 8px; width: 0%; transition: width 0.3s; }
     .badge { background: #3fb950; color: #0d1117; padding: 2px 8px; border-radius: 20px; font-size: 11px; margin-left: 10px; }
@@ -30,7 +32,7 @@
 </head>
 <body>
 <script>
-  const PASSWORD = 'pasteldepapas';
+  const PASSWORD = 'pasteldepapasconpasasdeuva';
   const userInput = prompt('🔐 Contraseña de administrador:');
   if (userInput !== PASSWORD) {
     document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh;"><div style="text-align:center;"><h1>⛔ Acceso denegado</h1><p>Contraseña incorrecta.</p></div></div>';
@@ -51,11 +53,21 @@
       <div class="buttons">
         <button id="btn-correcta">✅ Guardar y siguiente</button>
         <button id="btn-anterior">⏪ Anterior</button>
+        <button id="btn-gmaps" class="btn-gmaps">📍 Buscar dirección</button>
         <button id="btn-descargar" class="btn-descargar">💾 Descargar JSON</button>
       </div>
       <div id="estado" class="estado">📝 Editá los campos o arrastrá el pin</div>
     </div>
-    <div class="panel" style="padding:0"><div id="map"></div></div>
+    <div class="panel" style="padding:0; display: flex; flex-direction: column;">
+      <div style="display: flex; gap: 4px; padding: 8px; background: #161b22; border-bottom: 1px solid #30363d;">
+        <button id="tab-leaflet" style="flex:1; padding: 6px; background: #3fb950; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">🗺️ Editar (Leaflet)</button>
+        <button id="tab-gmaps" style="flex:1; padding: 6px; background: #30363d; color: #e6edf3; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">📍 Google Maps</button>
+      </div>
+      <div style="flex:1; position: relative;">
+        <div id="map"></div>
+        <iframe id="gmaps-frame" style="display:none; width:100%; height:100%; border:none;"></iframe>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -104,108 +116,103 @@
     document.getElementById('input-nombre').value = f.nombre || '';
     document.getElementById('input-direccion').value = f.direccion || '';
     document.getElementById('input-telefono').value = f.telefono || '';
-    document.getElementById('input-lat').value = f.lat ? f.lat.toFixed(6) : '';
-    document.getElementById('input-lng').value = f.lng ? f.lng.toFixed(6) : '';
+    document.getElementById('input-lat').value = f.lat != null ? f.lat.toFixed(6) : '';
+    document.getElementById('input-lng').value = f.lng != null ? f.lng.toFixed(6) : '';
     document.getElementById('farm-nombre').innerHTML = `${f.nombre || '?'} <span class="badge">${index+1}/${todasFarmacias.length}</span>`;
     actualizarMapa(f);
+    actualizarGoogleMaps();
   }
 
   function actualizarMapa(f) {
-  if (!map) {
-    map = L.map('map').setView([-38.0055, -57.5426], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+    if (!map) {
+      map = L.map('map').setView([-38.0055, -57.5426], 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+    }
+    if (currentMarker) map.removeLayer(currentMarker);
+    if (window.markerGoogle) map.removeLayer(window.markerGoogle);
     
-    // Control para buscar dirección en Google y mostrar resultado en el mapa
-    const BuscarControl = L.Control.extend({
-      options: { position: 'topright' },
-      onAdd: function() {
-        const div = L.DomUtil.create('div');
-        div.innerHTML = '<button style="padding:8px 12px; background:#ea4335; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600; font-size:13px;">📍 Buscar dirección en Google</button>';
-        div.onclick = buscarDireccionEnGoogle;
-        return div;
-      }
+    const lat = parseFloat(document.getElementById('input-lat').value);
+    const lng = parseFloat(document.getElementById('input-lng').value);
+    const pos = (!isNaN(lat) && !isNaN(lng)) ? [lat, lng] : [-38.0055, -57.5426];
+    
+    currentMarker = L.marker(pos, { draggable: true, icon: pharmacyIcon }).addTo(map);
+    currentMarker.bindPopup(`<b>${f.nombre}</b><br>${f.direccion}<br><small>Arrastrá para corregir</small>`).openPopup();
+    currentMarker.on('dragend', () => {
+      const newPos = currentMarker.getLatLng();
+      document.getElementById('input-lat').value = newPos.lat.toFixed(6);
+      document.getElementById('input-lng').value = newPos.lng.toFixed(6);
+      actualizarFarmaciaDesdeCampos();
     });
-    new BuscarControl().addTo(map);
-  }
-  
-  if (currentMarker) map.removeLayer(currentMarker);
-  if (window.markerGoogle) map.removeLayer(window.markerGoogle);
-  
-  const lat = parseFloat(document.getElementById('input-lat').value);
-  const lng = parseFloat(document.getElementById('input-lng').value);
-  const pos = (!isNaN(lat) && !isNaN(lng)) ? [lat, lng] : [-38.0055, -57.5426];
-  
-  currentMarker = L.marker(pos, { draggable: true, icon: pharmacyIcon }).addTo(map);
-  currentMarker.bindPopup(`<b>${f.nombre}</b><br>${f.direccion}<br><small>Coordenadas tuyas (arrastrable)</small>`).openPopup();
-  currentMarker.on('dragend', () => {
-    const newPos = currentMarker.getLatLng();
-    document.getElementById('input-lat').value = newPos.lat.toFixed(6);
-    document.getElementById('input-lng').value = newPos.lng.toFixed(6);
-    actualizarFarmaciaDesdeCampos();
-  });
-  
-  map.setView(pos, 16);
-}
-
-async function buscarDireccionEnGoogle() {
-  const f = todasFarmacias[currentIndex];
-  if (!f || !f.direccion) return;
-  
-  // Probar varias combinaciones de dirección
-  const queries = [
-    f.direccion + ', Mar del Plata, Argentina',
-    f.direccion.replace(/AV\.? ?/i, 'Avenida ') + ', Mar del Plata, Argentina',
-    f.direccion + ', Mar del Plata',
-    f.direccion
-  ];
-  
-  let data = null;
-  
-  for (const query of queries) {
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=ar`;
     
-    try {
-      const response = await fetch(url);
-      data = await response.json();
-      if (data.length > 0) break;
-    } catch (e) {
-      continue;
+    map.setView(pos, 16);
+  }
+
+  function actualizarGoogleMaps() {
+    const f = todasFarmacias[currentIndex];
+    if (f && f.direccion && document.getElementById('gmaps-frame').style.display !== 'none') {
+      const query = encodeURIComponent(f.direccion + ', Mar del Plata, Argentina');
+      document.getElementById('gmaps-frame').src = `https://www.google.com/maps?q=${query}&output=embed&z=16`;
     }
   }
-  
-  if (data && data.length > 0) {
-    const googleLat = parseFloat(data[0].lat);
-    const googleLng = parseFloat(data[0].lon);
-    
-    const iconoGoogle = L.divIcon({
-      className: 'custom-google-icon',
-      html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#4285F4" stroke="white" stroke-width="1.5"/><circle cx="12" cy="9" r="3" fill="white"/></svg>',
-      iconSize: [34, 34],
-      popupAnchor: [0, -17]
-    });
-    
-    if (window.markerGoogle) map.removeLayer(window.markerGoogle);
-    window.markerGoogle = L.marker([googleLat, googleLng], { icon: iconoGoogle }).addTo(map);
-    window.markerGoogle.bindPopup(`<b>Resultado</b><br>${data[0].display_name}<br><small>¿Usar estas coordenadas?</small><br><button onclick="usarCoordenadasGoogle(${googleLat}, ${googleLng})" style="margin-top:4px; padding:4px 8px; background:#4285F4; color:white; border:none; border-radius:4px; cursor:pointer;">✅ Usar estas</button>`).openPopup();
-    
-    map.setView([googleLat, googleLng], 16);
-    document.getElementById('estado').innerHTML = '📍 Resultado encontrado. Compará con el pin verde.';
-    document.getElementById('estado').style.color = '#4285F4';
-  } else {
-    document.getElementById('estado').innerHTML = '❌ No se encontró la dirección. Probá manualmente.';
-    document.getElementById('estado').style.color = '#f85149';
-  }
-}
 
-function usarCoordenadasGoogle(lat, lng) {
-  document.getElementById('input-lat').value = lat.toFixed(6);
-  document.getElementById('input-lng').value = lng.toFixed(6);
-  actualizarFarmaciaDesdeCampos();
-  const f = todasFarmacias[currentIndex];
-  actualizarMapa(f);
-  document.getElementById('estado').innerHTML = '✅ Coordenadas de Google aplicadas';
-  document.getElementById('estado').style.color = '#3fb950';
-}
+  async function buscarDireccionEnGoogle() {
+    const f = todasFarmacias[currentIndex];
+    if (!f || !f.direccion) return;
+    
+    const queries = [
+      f.direccion + ', Mar del Plata, Argentina',
+      f.direccion.replace(/AV\.? ?/i, 'Avenida ') + ', Mar del Plata, Argentina',
+      f.direccion + ', Mar del Plata',
+      f.direccion
+    ];
+    
+    let data = null;
+    
+    for (const query of queries) {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=ar`;
+      try {
+        const response = await fetch(url);
+        data = await response.json();
+        if (data.length > 0) break;
+      } catch (e) { continue; }
+    }
+    
+    if (data && data.length > 0) {
+      const googleLat = parseFloat(data[0].lat);
+      const googleLng = parseFloat(data[0].lon);
+      
+      const iconoGoogle = L.divIcon({
+        className: 'custom-google-icon',
+        html: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#4285F4" stroke="white" stroke-width="1.5"/><circle cx="12" cy="9" r="3" fill="white"/></svg>',
+        iconSize: [34, 34],
+        popupAnchor: [0, -17]
+      });
+      
+      if (window.markerGoogle) map.removeLayer(window.markerGoogle);
+      window.markerGoogle = L.marker([googleLat, googleLng], { icon: iconoGoogle }).addTo(map);
+      window.markerGoogle.bindPopup(`<b>Resultado</b><br>${data[0].display_name}<br><small>¿Usar estas coordenadas?</small><br><button onclick="usarCoordenadasGoogle(${googleLat}, ${googleLng})" style="margin-top:4px; padding:4px 8px; background:#4285F4; color:white; border:none; border-radius:4px; cursor:pointer;">✅ Usar estas</button>`).openPopup();
+      
+      document.getElementById('tab-leaflet').click();
+      map.setView([googleLat, googleLng], 16);
+      document.getElementById('estado').innerHTML = '📍 Resultado encontrado. Compará con el pin verde.';
+      document.getElementById('estado').style.color = '#4285F4';
+    } else {
+      document.getElementById('estado').innerHTML = '❌ No se encontró la dirección. Probá manualmente.';
+      document.getElementById('estado').style.color = '#f85149';
+    }
+  }
+
+  function usarCoordenadasGoogle(lat, lng) {
+    document.getElementById('input-lat').value = lat.toFixed(6);
+    document.getElementById('input-lng').value = lng.toFixed(6);
+    actualizarFarmaciaDesdeCampos();
+    const f = todasFarmacias[currentIndex];
+    actualizarMapa(f);
+    document.getElementById('estado').innerHTML = '✅ Coordenadas aplicadas';
+    document.getElementById('estado').style.color = '#3fb950';
+  }
+
+  window.usarCoordenadasGoogle = usarCoordenadasGoogle;
 
   function actualizarFarmaciaDesdeCampos() {
     const f = todasFarmacias[currentIndex];
@@ -243,23 +250,28 @@ function usarCoordenadasGoogle(lat, lng) {
   async function descargarJSON() {
     actualizarFarmaciaDesdeCampos();
     const res = await fetch('db.json');
-    const ciclosData = await res.json();
+    const dbOriginal = await res.json();
+    const ciclosData = {};
 
-    for (const grupo in ciclosData) {
-      for (const farmacia of ciclosData[grupo]) {
+    for (const grupo in dbOriginal) {
+      ciclosData[grupo] = [];
+      for (const farmacia of dbOriginal[grupo]) {
         const key = `${farmacia.nombre}|${farmacia.direccion}`;
         const encontrada = todasFarmacias.find(f => f.keyOriginal === key);
         if (encontrada) {
-          farmacia.nombre = encontrada.nombre;
-          farmacia.direccion = encontrada.direccion;
-          farmacia.telefono = encontrada.telefono;
-          farmacia.lat = encontrada.lat;
-          farmacia.lng = encontrada.lng;
+          ciclosData[grupo].push({
+            nombre: encontrada.nombre,
+            direccion: encontrada.direccion,
+            telefono: encontrada.telefono,
+            lat: encontrada.lat,
+            lng: encontrada.lng
+          });
+        } else {
+          ciclosData[grupo].push(farmacia);
         }
       }
     }
 
-    // Formato comprimido: un objeto por línea, igual que db.json
     let jsonStr = '{\n';
     const grupos = Object.keys(ciclosData);
     grupos.forEach((grupo, idxGrupo) => {
@@ -286,7 +298,8 @@ function usarCoordenadasGoogle(lat, lng) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    document.getElementById('estado').innerHTML = '✅ JSON descargado. Reemplazá tu db.json.';
+    document.getElementById('estado').innerHTML = '✅ JSON descargado con coordenadas actualizadas.';
+    document.getElementById('estado').style.color = '#3fb950';
   }
 
   function actualizarProgreso() {
@@ -298,6 +311,28 @@ function usarCoordenadasGoogle(lat, lng) {
     document.getElementById('btn-correcta').addEventListener('click', siguiente);
     document.getElementById('btn-anterior').addEventListener('click', anterior);
     document.getElementById('btn-descargar').addEventListener('click', descargarJSON);
+    document.getElementById('btn-gmaps').addEventListener('click', buscarDireccionEnGoogle);
+    
+    document.getElementById('tab-leaflet').addEventListener('click', () => {
+      document.getElementById('map').style.display = 'block';
+      document.getElementById('gmaps-frame').style.display = 'none';
+      document.getElementById('tab-leaflet').style.background = '#3fb950';
+      document.getElementById('tab-gmaps').style.background = '#30363d';
+      if (map) map.invalidateSize();
+    });
+
+    document.getElementById('tab-gmaps').addEventListener('click', () => {
+      const f = todasFarmacias[currentIndex];
+      if (f && f.direccion) {
+        const query = encodeURIComponent(f.direccion + ', Mar del Plata, Argentina');
+        document.getElementById('gmaps-frame').src = `https://www.google.com/maps?q=${query}&output=embed&z=16`;
+        document.getElementById('map').style.display = 'none';
+        document.getElementById('gmaps-frame').style.display = 'block';
+        document.getElementById('tab-leaflet').style.background = '#30363d';
+        document.getElementById('tab-gmaps').style.background = '#ea4335';
+      }
+    });
+    
     const campos = ['input-nombre', 'input-direccion', 'input-telefono', 'input-lat', 'input-lng'];
     campos.forEach(id => {
       document.getElementById(id).addEventListener('input', () => {
@@ -310,7 +345,6 @@ function usarCoordenadasGoogle(lat, lng) {
   }
 
   cargarFarmacias();
-  window.usarCoordenadasGoogle = usarCoordenadasGoogle;
   bindEvents();
 </script>
 </body>
