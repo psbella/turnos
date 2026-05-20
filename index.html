@@ -4,7 +4,6 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384773741296777"
      crossorigin="anonymous"></script>
   <script>
-  // Forzar actualización de Service Worker antiguo
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(registrations => {
       for(let registration of registrations) {
@@ -147,13 +146,30 @@
   <main>
     <div class="col-list">
       <div id="intro" aria-live="polite"></div>
-      <div id="lista" aria-live="polite"></div>
+      <div id="lista" aria-live="polite">
+        <div class="card">
+          <div class="card-num">01</div>
+          <div class="card-info">
+            <div class="card-name">MITRE</div>
+            <div class="card-address"><span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span> COLON 2690</div>
+          </div>
+          <div class="card-phone"><a href="tel:2235410471" class="phone-link"><span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span> 2235410471</a></div>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <div class="card-info">
+            <div class="card-name">DEL PUERTO</div>
+            <div class="card-address"><span class="icon-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--accent)"/><circle cx="12" cy="9" r="3" fill="white"/></svg></span> 12 DE OCTUBRE 3499</div>
+          </div>
+          <div class="card-phone"><a href="tel:2234800271" class="phone-link"><span class="icon-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="var(--accent)"/></svg></span> 2234800271</a></div>
+        </div>
+      </div>
     </div>
     <div class="col-map">
       <div id="map-desktop"></div>
     </div>
 
-    <div id="static-content" style="display: none;" aria-hidden="true">
+    <div id="static-content" style="position: absolute; left: -9999px;" aria-hidden="true">
         <h2>Farmacias de Turno en Mar del Plata</h2>
         <p>Directorio actualizado diariamente de farmacias de turno en Mar del Plata. Consultá qué farmacia está de turno hoy con dirección, teléfono y mapa interactivo. Información basada en la rotación oficial del Colegio de Farmacéuticos de General Pueyrredon.</p>
         
@@ -167,10 +183,14 @@
             <li><strong>Farmacia AVENIDA</strong> - LIBERTAD 4490 - Tel: 2234735863</li>
             <li><strong>Farmacia 25 DE MAYO</strong> - 25 DE MAYO 3610 - Tel: 2236410479</li>
             <li><strong>Farmacia ABALLAY</strong> - PERALTA RAMOS 821 - Tel: 2234815223</li>
+            <li><strong>Farmacia FRONTINI</strong> - 12 DE OCTUBRE 5362 - Tel: 2234820421</li>
+            <li><strong>Farmacia BADAMAR</strong> - COLON 1399 - Tel: 2234515104</li>
+            <li><strong>Farmacia DEL BARRIO</strong> - JARA 3290 - Tel: 2234755685</li>
+            <li><strong>Farmacia CORAL</strong> - INDEPENDENCIA 874 - Tel: 2234743111</li>
         </ul>
 
         <h3>Zonas cubiertas</h3>
-        <p>Centro, Puerto, Playa Grande, Constitución, Peralta Ramos, Güemes, Colon, Juan B. Justo, Libertad, Fortunato de la Plaza, Batan, Chapadmalal, El Coyunco.</p>
+        <p>Centro, Puerto, Playa Grande, Constitución, Peralta Ramos, Güemes, Colon, Juan B. Justo, Libertad, Fortunato de la Plaza, Batan, Chapadmalal, El Coyunco, Sierra de los Padres.</p>
 
         <h3>Características del servicio</h3>
         <ul>
@@ -180,6 +200,16 @@
             <li>Disponible sin conexión a internet (PWA)</li>
             <li>Compatible con celulares, tablets y computadoras</li>
             <li>Modo claro y oscuro automático</li>
+            <li>Servicio gratuito y sin publicidad invasiva</li>
+        </ul>
+
+        <h3>Horarios de atención</h3>
+        <p>Las farmacias de turno atienden desde las 9:00 AM del día indicado hasta las 9:00 AM del día siguiente, incluyendo fines de semana y feriados.</p>
+
+        <h3>Teléfonos útiles</h3>
+        <ul>
+            <li>Colegio de Farmacéuticos de Gral. Pueyrredon: (0223) 474-0039</li>
+            <li>Emergencias médicas: 107</li>
         </ul>
 
         <h3>Contacto</h3>
@@ -287,6 +317,15 @@
         <span>© 2026 - Farmacias de Turno MDP</span>
     </div>
 </footer>
+
+<noscript>
+    <div style="padding: 20px; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin: 20px;">
+        <h2>Farmacias de Turno en Mar del Plata</h2>
+        <p>Esta página requiere JavaScript para mostrar las farmacias de turno actualizadas.</p>
+        <p>Consultá el sitio oficial del Colegio de Farmacéuticos: <a href="http://colfarmamdp.com.ar">colfarmamdp.com.ar</a></p>
+        <p>Horario de atención: las farmacias de turno atienden desde las 9:00 AM hasta las 9:00 AM del día siguiente.</p>
+    </div>
+</noscript>
   
 <script type="module" src="js/main.js"></script>
 
