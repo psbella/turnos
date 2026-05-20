@@ -45,7 +45,11 @@
   <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
   <div class="grid">
     <div class="panel">
-      <h2 id="farm-nombre">Cargando... <span class="badge" id="contador">0/0</span></h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+    <h2 id="farm-nombre" style="margin: 0;">Cargando... <span class="badge" id="contador">0/0</span></h2>
+    <button id="btn-lista" style="background: #30363d; color: #e6edf3; border: 1px solid #30363d; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">📋 Ver lista</button>
+</div>
+<div id="panel-lista" style="display: none; max-height: 300px; overflow-y: auto; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 8px; margin-bottom: 12px;"></div>
       <div class="campo"><label>🏷️ Nombre</label><input type="text" id="input-nombre"></div>
       <div class="campo"><label>📍 Dirección</label><textarea id="input-direccion" rows="2"></textarea></div>
       <div class="campo"><label>📞 Teléfono</label><input type="text" id="input-telefono"></div>
@@ -345,6 +349,19 @@
   }
 
   cargarFarmacias();
+  document.getElementById('btn-lista').addEventListener('click', () => {
+    const panel = document.getElementById('panel-lista');
+    if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        panel.innerHTML = todasFarmacias.map((f, i) => 
+            `<div style="padding: 6px 8px; cursor: pointer; border-radius: 4px; color: #e6edf3; font-size: 13px; ${i === currentIndex ? 'background: #3fb950; color: #0d1117;' : ''}"
+                onclick="document.getElementById('panel-lista').style.display='none'; window.mostrarFarmacia(${i});">${i+1}. ${f.nombre} — ${f.direccion}</div>`
+        ).join('');
+    } else {
+        panel.style.display = 'none';
+    }
+});
+window.mostrarFarmacia = mostrarFarmacia;
   bindEvents();
 </script>
 </body>
