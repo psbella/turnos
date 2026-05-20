@@ -674,13 +674,6 @@
       "lat": -38.036813,
       "lng": -57.582445
     },
-	{
-  "nombre": "MILAZZO",
-  "direccion": "AV. FORTUNATO DE LA PLAZA 4332",
-  "telefono": "2236920583",
-  "lat": null,
-  "lng": null
-	},
     {
       "nombre": "VARA",
       "direccion": "DIAGONAL ESTADOS UNIDOS 779",
@@ -690,6 +683,13 @@
     }
   ],
   "10": [
+    {
+      "nombre": "MILAZZO",
+      "direccion": "AV. FORTUNATO DE LA PLAZA 4332",
+      "telefono": "2236920583",
+      "lat": null,
+      "lng": null
+    },
     {
       "nombre": "25 DE MAYO",
       "direccion": "25 DE MAYO 3610",
