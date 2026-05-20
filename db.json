@@ -58,7 +58,7 @@
     { "nombre": "DEL PUERTO 12 DE OCTUBRE", "direccion": "12 DE OCTUBRE 3185", "telefono": "2234895735", "lat": -38.043605, "lng": -57.545325 },
     { "nombre": "PHARMARURAL", "direccion": "RUTA NACIONAL 226 KM 16.5, EL COYUNCO", "telefono": "2233540982", "lat": -37.914035, "lng": -57.743867 },
     { "nombre": "SOICH P. RAMOS", "direccion": "JACINTO PERALTA RAMOS 2101", "telefono": "2236910038", "lat": -38.033367, "lng": -57.588819 },
-    { "nombre": "DEL PUERTO TEJEDOR", "direccion": "TEJEDOR 581", "telefono": "2234713066", "lat": -37.96925, "lng": -57.556821 }
+    { "nombre": "DEL PUERTO TEJEDOR", "direccion": "TEJEDOR 581", "telefono": "2234713066", "lat": -37.969119, "lng": -57.556794 }
   ],
   "6": [
     { "nombre": "PUEYREDON JBJ", "direccion": "JUAN B. JUSTO 3200", "telefono": "2235648000", "lat": -38.019237, "lng": -57.571857 },
@@ -100,8 +100,8 @@
     { "nombre": "VARA", "direccion": "DIAGONAL ESTADOS UNIDOS 779", "telefono": "2235808030", "lat": -38.092237, "lng": -57.554393 }
   ],
   "9": [
-    { "nombre": "25 DE MAYO", "direccion": "25 DE MAYO 3610", "telefono": "2236410479", "lat": -37.992646, "lng": -57.555979 },
-    { "nombre": "CARRIZO", "direccion": "RUTA NACIONAL 226 KM 16.5, EL COYUNCO", "telefono": "2235464734", "lat": -38.017014, "lng": -57.532912 },
+    { "nombre": "25 DE MAYO", "direccion": "25 DE MAYO 3610", "telefono": "2236410479", "lat": -37.992341, "lng": -57.555699 },
+    { "nombre": "CARRIZO", "direccion": "RUTA NACIONAL 226 KM 16.5, EL COYUNCO", "telefono": "2235464734", "lat": -37.914257, "lng": -57.743513 },
     { "nombre": "ZUICH", "direccion": "ALBERTI 1387", "telefono": "2234860599", "lat": -38.012757, "lng": -57.540507 },
     { "nombre": "LISSARRAGUE", "direccion": "AYACUCHO 4698", "telefono": "2236774797", "lat": -37.980777, "lng": -57.561358 },
     { "nombre": "MITRE", "direccion": "COLON 2690", "telefono": "2235410471", "lat": -38.002918, "lng": -57.550893 },
@@ -157,7 +157,7 @@
     { "nombre": "BARRIO BELGRANO", "direccion": "TRIPULANTES DEL FOURNIER 11012", "telefono": "2234653547", "lat": -37.999912, "lng": -57.624114 },
     { "nombre": "DEL AGUILA", "direccion": "LURO 4610", "telefono": "2234721830", "lat": -37.988433, "lng": -57.566655 },
     { "nombre": "FARMACIA SUR", "direccion": "COLON 5398", "telefono": "2234748777", "lat": -37.98934, "lng": -57.578435 },
-    { "nombre": "D´ALESSANDRO", "direccion": "LURO 9615", "telefono": "2234871651", "lat": -37.971056, "lng": -57.552933 },
+    { "nombre": "D´ALESSANDRO", "direccion": "LURO 9615", "telefono": "2234871651", "lat": -37.96270855594916, "lng": -57.61657316441653 },
     { "nombre": "JARDIN DEL BOSQUE", "direccion": "MARIO BRAVO 2674", "telefono": "2235244020", "lat": -38.065909, "lng": -57.564388 },
     { "nombre": "RIADIGOS CASTELLI", "direccion": "CASTELLI 1311", "telefono": "2234518537", "lat": -38.015419, "lng": -57.541837 },
     { "nombre": "MITRE", "direccion": "COLON 2690", "telefono": "2235410471", "lat": -38.002918, "lng": -57.550893 },
@@ -168,7 +168,7 @@
   ],
   "14": [
     { "nombre": "FRONTINI", "direccion": "JARA 42", "telefono": "2234711961", "lat": -37.973987, "lng": -57.560144 },
-    { "nombre": "FAILONI", "direccion": "FELIX U. CAMET 123", "telefono": "2234736352", "lat": -37.954714, "lng": -57.537854 },
+    { "nombre": "FAILONI", "direccion": "FELIX U. CAMET 123", "telefono": "2234736352", "lat": -37.979758, "lng": -57.544338 },
     { "nombre": "FLORES PRADO", "direccion": "BELTRAN 5688", "telefono": "2235313404", "lat": -37.939832, "lng": -57.545844 },
     { "nombre": "MITRE", "direccion": "COLON 2690", "telefono": "2235410471", "lat": -38.002918, "lng": -57.550893 },
     { "nombre": "EDISON", "direccion": "EDISON 1175", "telefono": "2236701400", "lat": -38.046679, "lng": -57.554604 },
@@ -179,11 +179,11 @@
     { "nombre": "RODRIGUEZ", "direccion": "JARA 2598", "telefono": "2235160637", "lat": -38.005832, "lng": -57.547304 },
     { "nombre": "BAUZA LURO", "direccion": "LURO 3219", "telefono": "2234916427", "lat": -37.99533, "lng": -57.552539 }
   ],
-    "15": [
+  "15": [
     { "nombre": "LOPEZ PEÑA", "direccion": "RODRIGUEZ PEÑA 2535", "telefono": "2234937823", "lat": -38.013275, "lng": -57.55723 },
     { "nombre": "DEL PUERTO", "direccion": "12 DE OCTUBRE 3499", "telefono": "2234800271", "lat": -38.041584, "lng": -57.548029 },
     { "nombre": "CONSTITUCION LURO", "direccion": "LURO 7498", "telefono": "2233467859", "lat": -37.973822, "lng": -57.595576 },
-    { "nombre": "FEBA", "direccion": "COLON 9102", "telefono": "2234870670", "lat": -38.001213, "lng": -57.554656 },
+    { "nombre": "FEBA", "direccion": "COLON 9102", "telefono": "2234870670", "lat": -37.970252, "lng": -57.615631 },
     { "nombre": "SANTICH", "direccion": "FORTUNATO DE LA PLAZA 6304", "telefono": "2235362678", "lat": -38.024296, "lng": -57.591509 },
     { "nombre": "LOPEZ 25 DE MAYO", "direccion": "25 DE MAYO 2999", "telefono": "2234951637", "lat": -37.99576, "lng": -57.549381 },
     { "nombre": "MARQUEZ", "direccion": "JARA 936", "telefono": "2234758219", "lat": -37.981097, "lng": -57.565893 },
@@ -196,7 +196,7 @@
     { "nombre": "BADAMAR", "direccion": "COLON 1399", "telefono": "2234515104", "lat": -38.009516, "lng": -57.537862 },
     { "nombre": "BUSTOS", "direccion": "MATHEU 3673", "telefono": "2234724031", "lat": -38.01064, "lng": -57.571131 },
     { "nombre": "DEL INTERZONAL", "direccion": "JUAN B. JUSTO 6404", "telefono": "2235599679", "lat": -37.99772, "lng": -57.599484 },
-    { "nombre": "EL GROSELLAR", "direccion": "JOSE MANUEL ESTRADA 5610", "telefono": "2234562065", "lat": -37.952945, "lng": -57.552263 },
+    { "nombre": "EL GROSELLAR", "direccion": "JOSE MANUEL ESTRADA 5610", "telefono": "2234562065", "lat": -37.952861, "lng": -57.55218 },
     { "nombre": "GOMEZ JBJ", "direccion": "JUAN B. JUSTO 2278", "telefono": "2234827037", "lat": -38.00066, "lng": -57.59506 },
     { "nombre": "MARTI", "direccion": "TEODORO BRONZINI 597", "telefono": "2235023596", "lat": -37.974052, "lng": -57.571935 },
     { "nombre": "MEDICI", "direccion": "RAWSON 4197", "telefono": "2234728758", "lat": -37.999326, "lng": -57.569315 },
@@ -206,96 +206,18 @@
     { "nombre": "PREVILEY F. DE LA PLAZA", "direccion": "FORTUNATO DE LA PLAZA 5120", "telefono": "2233541521", "lat": -38.04191, "lng": -57.575462 }
   ],
   "farmacias_extra": [
-    {
-      "nombre": "AMOF CENTRO",
-      "direccion": "Santiago del Estero 1745",
-      "telefono": "2234931338",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "AMOF JUAN B. JUSTO",
-      "direccion": "San Luis 4580",
-      "telefono": "2234917979",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACIA MUTUAL A.M.",
-      "direccion": "Buenos Aires 3155",
-      "telefono": "2235304792",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACIA MUTUAL METALÚRGICOS",
-      "direccion": "Independencia 1855",
-      "telefono": "2234958492",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "A.M.E.C.C.O.",
-      "direccion": "Independencia 2243",
-      "telefono": "2234914886",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "S.U.M.A.",
-      "direccion": "Funes 3187",
-      "telefono": "2234761369",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACIA GREMIAL O.S.A.R.P.Y.H.",
-      "direccion": "España 1555",
-      "telefono": "2234734838",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACIA GREMIAL S.E.C.Z.A.",
-      "direccion": "Independencia 1839",
-      "telefono": "2234993700",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACIA GREMIAL A.M.U.P.E.",
-      "direccion": "Alberti 2639",
-      "telefono": "2234951715",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACITY",
-      "direccion": "Gascon 2899",
-      "telefono": "2234328776",
-      "lat": -38.0055,
-      "lng": -57.5426
-    },
-    {
-      "nombre": "FARMACIA POLICIAL",
-      "direccion": "Fortunato de la Plaza 3237",
-      "telefono": "2235550111",
-      "lat": -38.024017,
-      "lng": -57.592189
-    },
-    {
-      "nombre": "BORONAT",
-      "direccion": "Tucumán 2402",
-      "telefono": "2234951505",
-      "lat": -38.011628,
-      "lng": -57.548542
-    },
-    {
-      "nombre": "AMANCAY",
-      "direccion": "Independencia 514",
-      "telefono": "2235276015",
-      "lat": -38.0055,
-      "lng": -57.5426
-    }
+    { "nombre": "AMOF CENTRO", "direccion": "Santiago del Estero 1745", "telefono": "2234931338", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "AMOF JUAN B. JUSTO", "direccion": "San Luis 4580", "telefono": "2234917979", "lat": -38.018632, "lng": -57.563875 },
+    { "nombre": "FARMACIA MUTUAL A.M.", "direccion": "Buenos Aires 3155", "telefono": "2235304792", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "FARMACIA MUTUAL METALÚRGICOS", "direccion": "Independencia 1855", "telefono": "2234958492", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "A.M.E.C.C.O.", "direccion": "Independencia 2243", "telefono": "2234914886", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "S.U.M.A.", "direccion": "Funes 3187", "telefono": "2234761369", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "FARMACIA GREMIAL O.S.A.R.P.Y.H.", "direccion": "España 1555", "telefono": "2234734838", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "FARMACIA GREMIAL S.E.C.Z.A.", "direccion": "Independencia 1839", "telefono": "2234993700", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "FARMACIA GREMIAL A.M.U.P.E.", "direccion": "Alberti 2639", "telefono": "2234951715", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "FARMACITY", "direccion": "Gascon 2899", "telefono": "2234328776", "lat": -38.0055, "lng": -57.5426 },
+    { "nombre": "FARMACIA POLICIAL", "direccion": "Fortunato de la Plaza 3237", "telefono": "2235550111", "lat": -38.053954, "lng": -57.558875 },
+    { "nombre": "BORONAT", "direccion": "Tucumán 2402", "telefono": "2234951505", "lat": -38.011628, "lng": -57.548542 },
+    { "nombre": "AMANCAY", "direccion": "Independencia 514", "telefono": "2235276015", "lat": -38.0055, "lng": -57.5426 }
   ]
 }
