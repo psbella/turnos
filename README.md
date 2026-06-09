@@ -1,1117 +1,398 @@
-<p align="center">
-  <img src="https://psbella.github.io/remediar/img/favicon.svg" width="90" />
-</p>
+# 💊 Farmacias de Turno MDP
 
-#  remediar — Buscador de precios de medicamentos en Argentina
+**PWA que calcula la rotación diaria de farmacias de turno en Mar del Plata, Argentina, usando un modelo matemático determinístico.**
 
-<!-- SEO -->
-<p align="center">
-  <strong>Buscador de precios de medicamentos en Argentina</strong><br>
-  <em>Sistema open source que procesa datos oficiales de SIAFAR/COFA y genera un comparador de precios de medicamentos con actualización automática dos veces al día.</em>
-</p>
-
-<p align="center">
-  <a href="https://remedi.ar">https://remedi.ar</a> ·
-  <a href="https://github.com/psbella/remediar">GitHub</a>
-</p>
-
----
-<p align="center">
-
-<!-- Hosting & License -->
-<img src="https://img.shields.io/badge/hosted-GitHub%20Pages-brightgreen">
-<img src="https://img.shields.io/badge/hosted-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white">
-<img src="https://img.shields.io/badge/License-MIT-blue.svg">
-<img src="https://img.shields.io/github/repo-size/psbella/remedi.ar">
-<img src="https://img.shields.io/github/last-commit/psbella/remedi.ar">
-<img src="https://img.shields.io/github/issues-raw/psbella/remedi.ar">
-
-<br>
-
-<!-- Valores -->
-<img src="https://img.shields.io/badge/Open_Source-Yes-brightgreen">
-<img src="https://img.shields.io/badge/Ads-No-red">
-<img src="https://img.shields.io/badge/Tracking-No-red">
-<img src="https://img.shields.io/badge/Privacy_First-Yes-success">
-
-<br>
-
-<!-- Frontend -->
-<img src="https://img.shields.io/badge/Responsive-Yes-brightgreen">
-<img src="https://img.shields.io/badge/Mobile_First-Yes-brightgreen">
-<img src="https://img.shields.io/badge/PWA-Enabled-5A0FC8?logo=pwa">
-<img src="https://img.shields.io/badge/SEO-Optimized-success">
-<img src="https://img.shields.io/badge/Lighthouse-94%2F100-success">
-<img src="https://img.shields.io/badge/dependencies-0-success">
-<img src="https://img.shields.io/badge/Static_Site-Yes-blue">
-
-<br>
-
-<!-- Tecnologías -->
-<img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/JSON-000000?logo=json&logoColor=white">
-<img src="https://img.shields.io/badge/SVG-FF9800?logo=svg&logoColor=white">
-
-<br>
-
-<!-- Backend / Automation -->
-<img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/PyMuPDF-ee0000?logo=pypi&logoColor=white">
-<img src="https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=white">
-<img src="https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions">
-
-<br>
-
-<!-- Diagramas -->
-<img src="https://img.shields.io/badge/diagrams-Mermaid-ff3670?logo=mermaid&logoColor=white">
-
-</p>
+[![Version](https://img.shields.io/badge/version-2.0-blue)](https://farmaciasmdp.com.ar/)
+[![Stable](https://img.shields.io/badge/stable-%E2%9C%93-brightgreen)](https://github.com/psbella/turnos)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![PWA](https://img.shields.io/badge/PWA-Enabled-5a0fc8)](https://web.dev/progressive-web-apps/)
+[![No Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)](https://github.com/psbella/turnos)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)](https://developer.mozilla.org/es/docs/Web/JavaScript)
+[![Leaflet](https://img.shields.io/badge/Leaflet-199900?logo=leaflet&logoColor=white)](https://leafletjs.com/)
+[![GitHub Pages](https://img.shields.io/badge/Hosting-GitHub%20Pages-blue)](https://pages.github.com/)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-DNS-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
 
 ---
 
-# 📋 Tabla de Contenidos
+## 🌐 Demo en vivo
 
-- [✨ Demo en Vivo](#-demo-en-vivo)
-- [📊 Dataset actual](#-dataset-actual)
-- [🎯 Funcionamiento General](#-funcionamiento-general)
-- [🧭 Principios del Proyecto](#-principios-del-proyecto)
-- [👤 Flujo del Usuario](#-flujo-del-usuario)
-- [🧠 Algoritmo de Búsqueda y Filtrado](#-algoritmo-de-búsqueda-y-filtrado)
-- [🔄 Actualización Automática de Datos](#-actualización-automática-de-datos)
-- [📦 Estructura de Datos JSON](#-estructura-de-datos-json)
-- [⚡ Optimizaciones Implementadas](#-optimizaciones-implementadas)
-- [⏱️ Tiempos de Respuesta](#️-tiempos-de-respuesta)
-- [🏗️ Arquitectura del Sistema](#️-arquitectura-del-sistema)
-- [📁 Estructura del Repositorio](#-estructura-del-repositorio)
-- [🧰 Stack Tecnológico](#-stack-tecnológico)
-- [🧠 Decisiones Técnicas](#-decisiones-técnicas)
-- [💻 Ejecución Local](#-ejecución-local)
-- [🐍 Scripts Python](#-scripts-python)
-- [📊 Métricas y Rendimiento](#-métricas-y-rendimiento)
-- [🔍 SEO y Metadatos](#-seo-y-metadatos)
-- [🔒 Seguridad y Privacidad](#-seguridad-y-privacidad)
-- [📚 Documentación Completa](#-documentación-completa)
-- [🔌 API No Oficial](#-api-no-oficial)
-- [👥 Guía de Contribución](#-guía-de-contribución)
-- [📊 Diagramas de Flujo Detallados](#-diagramas-de-flujo-detallados)
-- [🧩 Referencia de Componentes Frontend](#-referencia-de-componentes-frontend)
-- [🎨 Guía de Estilos CSS](#-guía-de-estilos-css)
-- [🔧 Documentación de Workflows](#-documentación-de-workflows)
-- [❓ Preguntas Frecuentes (FAQ)](#-preguntas-frecuentes-faq)
-- [🗺️ Roadmap](#️-roadmap)
-- [📄 Licencia](#-licencia)
-- [🙏 Fuente de Datos](#-fuente-de-datos)
+**→ [farmaciasmdp.com.ar](https://farmaciasmdp.com.ar)**
 
 ---
 
-# ✨ Demo en Vivo
+## 📋 Índice
 
-| Entorno | URL | Propósito |
-|---|---|---|
-| GitHub Pages | https://psbella.github.io/remediar/ | Desarrollo y respaldo |
-| Cloudflare Pages | https://remedi.ar | Producción principal |
+- [¿Qué es?](#-qué-es)
+- [Características](#-características)
+- [Cómo funciona la rotación](#-cómo-funciona-la-rotación)
+- [Arquitectura](#-arquitectura)
+- [Estructura de archivos](#-estructura-de-archivos)
+- [Stack tecnológico](#-stack-tecnológico)
+- [Flujo de la aplicación](#-flujo-de-la-aplicación)
+- [Datos y fuentes](#-datos-y-fuentes)
+- [PWA y offline](#-pwa-y-offline)
+- [Instalación local](#️-instalación-local)
+- [Licencia](#-licencia)
 
 ---
 
-# 📊 Dataset actual
+## 🏥 ¿Qué es?
 
-| Métrica | Valor |
+Farmacias de Turno MDP es una **Progressive Web App (PWA)** estática que permite consultar rápidamente qué farmacia está de turno en Mar del Plata en cualquier momento. No hace scraping, no tiene backend, no requiere servidor: toda la lógica corre en el navegador del usuario usando un modelo matemático basado en la fecha actual.
+
+---
+
+## ✨ Características
+
+| Feature | Detalle |
 |---|---|
-| Registros | ~12.100 |
-| Drogas únicas | ~460 |
-| Landings SEO | 56+ |
-| Tamaño JSON | ~2.5 MB |
-| Tamaño gzip | ~520 KB |
-| Actualizaciones | 2 veces/día (lunes a viernes) |
+| 🗺️ **Mapa interactivo** | Leaflet + OpenStreetMap con marcadores personalizados |
+| 🔄 **Rotación automática** | Cálculo determinístico, sin APIs externas |
+| 📱 **Responsive** | Mobile-first, bottom sheet en móvil, grid en desktop |
+| 🌙 **Modo claro/oscuro** | Toggle manual, persiste preferencia |
+| 📲 **Instalable (PWA)** | Funciona como app nativa en iOS y Android |
+| ♿ **Accesible** | Roles ARIA, navegación por teclado (WCAG AAA) |
+| ⚡ **Offline-first** | Service Worker con caché multi-capa |
+| 📊 **SEO completo** | Schema.org, Open Graph, sitemap, robots.txt |
+| 🔒 **Sin tracking** | No cookies propias, no recopila datos personales |
 
 ---
 
-# 🎯 Funcionamiento General
+## 🧠 Cómo funciona la rotación
 
-El sistema se compone de tres capas principales:
+El Colegio de Farmacéuticos de General Pueyrredon organiza las farmacias en **16 grupos rotativos**. La app replica esta lógica de forma puramente matemática:
 
-## 1️⃣ Extracción y procesamiento
+```
+grupo_hoy = Math.floor(diasDesde(FECHA_INICIO)) % 16
+```
 
-- GitHub Actions ejecuta un workflow automático dos veces al día (lunes a viernes)
-- Se descarga el PDF oficial desde SIAFAR / COFA
-- Python extrae y normaliza los registros mediante un pipeline de 8 capas
-- Se cruzan los datos con el vademécum de PAMI para enriquecer cobertura
-- Se genera `medicamentos.json`
-- Se crean 56+ landings HTML estáticas SEO
+Donde `FECHA_INICIO = 2026-04-26T09:00:00-03:00` es el ancla conocida del ciclo 1.
 
----
+```mermaid
+flowchart TD
+    A[Usuario abre la app] --> B[Obtiene fecha/hora actual]
+    B --> C[Lee FECHA_INICIO_CICLO_1 de config.json]
+    C --> D{¿Es antes de las 9:00 AM?}
+    D -- Sí --> E[Usa fecha del día anterior]
+    D -- No --> F[Usa fecha de hoy]
+    E --> G[Calcula días transcurridos]
+    F --> G
+    G --> H["grupo = Math.floor(días) % 16"]
+    H --> I[Busca grupo en db.json]
+    I --> J[Renderiza lista de farmacias]
+    I --> K[Coloca marcadores en mapa Leaflet]
+    J --> L[Usuario ve turno del día ✅]
+    K --> L
+```
 
-## 2️⃣ Distribución
+### Ciclo de 16 grupos
 
-- El proyecto es 100% estático
-- GitHub Pages funciona como backup
-- Cloudflare Pages distribuye el contenido globalmente mediante CDN
-- No existe backend persistente ni base de datos tradicional
-
----
-
-## 3️⃣ Frontend SPA
-
-- `index.html` carga la aplicación
-- Los datos se descargan una sola vez
-- Se indexan en memoria
-- La búsqueda ocurre completamente del lado cliente
-- El estado UI es reactivo mediante `store.js`
-
----
-
-# 🧭 Principios del Proyecto
-
-- Acceso libre a información de medicamentos
-- Sin publicidad invasiva
-- Sin tracking
-- Performance primero
-- Mobile first
-- Open source
-- Infraestructura simple y transparente
-- Datos públicos y auditables
+```mermaid
+pie title Distribución de farmacias por grupo (aprox.)
+    "Grupos con 12 farmacias" : 4
+    "Grupos con 11 farmacias" : 6
+    "Grupos con 10 farmacias" : 4
+    "Grupos con 9 farmacias"  : 2
+```
 
 ---
 
-# 👤 Flujo del Usuario
+## 🏗️ Arquitectura
+
+La app es **100% estática**: HTML + CSS + JS vanilla servido desde GitHub Pages, con DNS y CDN via Cloudflare.
+
+```mermaid
+graph TB
+    subgraph Cliente["🖥️ Cliente (Navegador)"]
+        SW[Service Worker]
+        APP[App JS ES6 Modules]
+        MAP[Leaflet Map]
+        UI[DOM / CSS]
+    end
+
+    subgraph Repo["📦 GitHub (psbella/turnos)"]
+        GHP[GitHub Pages]
+        DATA[db.json + config.json]
+        JS[js/ modules]
+        HTML[index.html]
+    end
+
+    subgraph Infra["☁️ Infraestructura"]
+        CF[Cloudflare DNS + CDN]
+        GF[Google Fonts]
+        OSM[OpenStreetMap Tiles]
+        ADS[Google AdSense]
+    end
+
+    USER([👤 Usuario]) --> CF
+    CF --> GHP
+    GHP --> HTML
+    GHP --> DATA
+    GHP --> JS
+    HTML --> APP
+    DATA --> APP
+    JS --> APP
+    APP --> MAP
+    APP --> UI
+    MAP --> OSM
+    UI --> GF
+    UI --> ADS
+    SW -.->|Caché offline| APP
+    SW -.->|Caché offline| DATA
+```
+
+---
+
+## 📁 Estructura de archivos
+
+```
+turnos/
+│
+├── index.html              # Entry point — SEO hardcodeado + carga JS modular
+├── style.css               # Estilos globales (dark/light mode, variables CSS)
+├── sw.js                   # Service Worker — caché offline multi-capa
+├── manifest.json           # PWA manifest (iconos, nombre, colores)
+│
+├── config.json             # Fecha ancla del ciclo 1
+│                           # { "FECHA_INICIO_CICLO_1": "2026-04-26T09:00:00-03:00" }
+│
+├── db.json                 # Base de datos de farmacias
+│                           # { "1": [...], "2": [...], ..., "16": [...] }
+│
+├── js/
+│   ├── main.js             # Entry JS — inicialización, carga config + db
+│   └── ...                 # Módulos ES6 (mapa, UI, rotación, etc.)
+│
+├── admin-map.html          # Herramienta interna para verificar coordenadas
+├── privacidad.html         # Política de privacidad
+├── terminos.html           # Términos de uso
+│
+├── sitemap.xml             # SEO sitemap
+├── robots.txt              # Directivas para crawlers
+├── ads.txt                 # Autorización AdSense
+├── CNAME                   # → farmaciasmdp.com.ar
+│
+├── icon-16.png             # Favicon
+├── icon-32.png
+├── icon-48.png
+├── icon-96.png
+├── icon-512.png            # PWA splash icon
+│
+└── .gitignore
+```
+
+---
+
+## 🛠️ Stack tecnológico
+
+```mermaid
+mindmap
+  root((Farmacias MDP))
+    Frontend
+      HTML5
+      CSS3 Custom Properties
+      JavaScript ES6+ Modules
+      Nunito + Bebas Neue
+    Mapas
+      Leaflet.js
+      OpenStreetMap tiles
+    PWA
+      Service Worker
+      Web App Manifest
+      Cache API
+    Hosting
+      GitHub Pages
+      Cloudflare CDN/DNS
+    SEO
+      Schema.org
+      Open Graph
+      Twitter Cards
+      sitemap.xml
+    Herramientas
+      GitHub Actions
+      Google Search Console
+      Cloudflare Analytics
+      Lighthouse
+```
+
+---
+
+## 🔄 Flujo de la aplicación
+
+### Primer acceso
 
 ```mermaid
 sequenceDiagram
-    autonumber
+    actor U as Usuario
+    participant B as Browser
+    participant SW as Service Worker
+    participant GH as GitHub Pages
+    participant CF as Cloudflare
 
-    participant U as 👤 Usuario
-    participant B as 🌐 Navegador
-    participant CDN as ⚡ Cloudflare CDN
-    participant CACHE as 💾 sessionStorage
-    participant JSON as 📦 medicamentos.json
-    participant STORE as 🧠 store.js
-    participant UI as 🖥️ uiRenderer.js
+    U->>B: Navega a farmaciasmdp.com.ar
+    B->>CF: Request DNS
+    CF->>GH: Proxy request
+    GH-->>B: index.html + assets
+    B->>SW: Instala Service Worker
+    SW->>GH: Cachea assets (config, db, css, js)
+    GH-->>SW: Assets cacheados ✅
+    B->>B: Carga js/main.js como módulo
+    B->>B: Calcula grupo del día
+    B->>B: Renderiza lista + mapa
+    B-->>U: ✅ App lista
+```
 
-    U->>B: Ingresa a remedi.ar
+### Accesos siguientes (offline)
 
-    B->>CDN: GET /index.html
-    CDN-->>B: HTML + CSS + JS
+```mermaid
+sequenceDiagram
+    actor U as Usuario
+    participant B as Browser
+    participant SW as Service Worker
 
-    B->>B: Render inicial (skeleton)
-    B->>STORE: Inicializar estado
-
-    alt Caché válida (< 4 horas)
-        B->>CACHE: Leer medicamentos.json
-        CACHE-->>B: Datos cacheados
-    else Caché vacía o vencida
-        B->>CDN: GET /data/medicamentos.json
-        CDN-->>B: JSON comprimido (~520KB gzip)
-        B->>CACHE: Guardar datos + timestamp
-    end
-
-    B->>STORE: Indexar medicamentos
-    STORE->>UI: Render primeros resultados
-
-    U->>B: Escribe "ibuprofeno"
-
-    B->>B: Debounce 250ms
-    B->>STORE: Ejecutar búsqueda
-
-    STORE->>STORE: Filtrar + ordenar
-    STORE->>UI: Actualizar resultados + dropdowns
-
-    U->>B: Activa filtro PAMI
-    STORE->>STORE: Recalcular filtros
-    STORE->>UI: Render reactivo
-
-    U->>B: Click en medicamento
-    UI-->>U: Mostrar detalles + badge PAMI
+    U->>B: Navega a farmaciasmdp.com.ar
+    B->>SW: Request interceptado
+    SW-->>B: Sirve desde caché local ⚡
+    B->>B: Calcula grupo del día (sin red)
+    B-->>U: ✅ App lista offline
 ```
 
 ---
 
-# 🧠 Algoritmo de Búsqueda y Filtrado
+## 📊 Datos y fuentes
 
-## Indexación inicial
+Los datos de farmacias (nombre, dirección, teléfono, coordenadas) están almacenados en `db.json`, organizados en 16 grupos. La fecha ancla del ciclo está en `config.json`.
 
-```javascript
-function buildSearchIndex(medicamentos) {
-  const drogasSet = new Set();
-  const drogaToIndices = new Map();
-
-  medicamentos.forEach((item, idx) => {
-    const droga = normalizeString(item.droga);
-
-    drogasSet.add(droga);
-
-    if (!drogaToIndices.has(droga)) {
-      drogaToIndices.set(droga, []);
+```mermaid
+erDiagram
+    CONFIG {
+        string FECHA_INICIO_CICLO_1
     }
 
-    drogaToIndices.get(droga).push(idx);
-  });
+    GRUPO {
+        string id "1..16"
+    }
 
-  return { drogasSet, drogaToIndices };
-}
+    FARMACIA {
+        string nombre
+        string direccion
+        string telefono
+        float lat
+        float lng
+    }
+
+    CONFIG ||--o{ GRUPO : "ancla el ciclo de"
+    GRUPO ||--|{ FARMACIA : "contiene"
 ```
 
----
+### Notas sobre los datos
 
-## Debounce
-
-```javascript
-let debounceTimer;
-
-searchInput.addEventListener('input', (e) => {
-  clearTimeout(debounceTimer);
-
-  debounceTimer = setTimeout(() => {
-    performSearch(e.target.value);
-  }, 250);
-});
-```
+> ⚠️ **Coordenadas nulas**: Hay al menos una farmacia con `lat: null` (MILAZZO, grupo 10). No aparece en el mapa pero sí en la lista.
+>
+> ⚠️ **Farmacia permanente**: MITRE (Colón 2690) aparece en todos los grupos — es de turno permanente.
 
 ---
 
-## Filtrado principal
+## 📲 PWA y offline
 
-```javascript
-function performSearch(query, filters) {
-  let results = [...store.rawData];
-
-  if (query) {
-    const normalized = normalizeString(query);
-
-    results = results.filter(item =>
-      normalizeString(item.droga).includes(normalized) ||
-      normalizeString(item.laboratorio).includes(normalized)
-    );
-  }
-
-  if (filters.pamiOnly) {
-    results = results.filter(item => item.pami_cobertura > 0);
-  }
-
-  if (filters.sortBy === 'price_asc') {
-    results.sort((a, b) => a.precio - b.precio);
-  }
-
-  renderResults(results.slice(0, 50));
-}
-```
-
----
-
-## Complejidades
-
-| Operación | Complejidad | Tiempo estimado |
-|---|---|---|
-| Indexación | O(n) | ~80ms |
-| Búsqueda | O(n) | ~25-50ms |
-| Ordenamiento | O(n log n) | ~60ms |
-| Filtro PAMI | O(n) | ~15ms |
-
----
-
-# 🔄 Actualización Automática de Datos
-
-## Workflow
-
-```mermaid
-flowchart TD
-
-    A[⏰ Cron GitHub Actions]
-    B[📥 Descargar PDF SIAFAR]
-    C[📄 Extraer registros por página]
-    D[🧹 Limpiar y normalizar]
-    N1[🔧 Pipeline de normalización 8 capas]
-    BL[🛡️ Aplicar lista negra]
-    E[🔍 Detectar outliers]
-    F[💾 Generar medicamentos.json]
-    R[📋 Generar outlier_report.json]
-    G[🌐 Generar landings HTML + sitemap.xml]
-    H[📤 Commit automático]
-    I[🚀 GitHub Pages actualizado]
-
-    A --> B
-    B --> C
-    C --> D
-    D --> N1
-    N1 --> BL
-    BL --> E
-    E --> F
-    E --> R
-    F --> G
-    G --> H
-    H --> I
-```
-
----
-
-## Pipeline de normalización (8 capas)
-
-El parser aplica correcciones en cascada para resolver los problemas estructurales del PDF de SIAFAR:
-
-| Capa | Función | Descripción |
-|---|---|---|
-| 0 | `reparar_droga_faltante()` | Cuando el PDF omite la línea del principio activo, todos los campos se desplazan. Separa droga+marca fusionadas usando un diccionario de 50 prefijos truncados |
-| 1 | Detección en parse | Detecta registros con 4 campos en lugar de 5 durante la extracción del PDF |
-| 2 | `rescatar_laboratorios()` | Recupera `laboratorio="Desconocido"` buscando el lab como sufijo en `presentacion` |
-| 3 | `reparar_denver()` | Denver Farma usa droga+lab como nombre comercial; separa marca y presentacion fusionadas (variantes DENCR., DF) |
-| 4 | `reparar_marca_desplazada()` | Cuando `marca` empieza con dígito y `presentacion` está vacía, invierte el desplazamiento |
-| 5 | `extraer_presentacion_de_marca()` | Extrae la presentacion fusionada en el campo marca usando regex de dosis y formas farmacéuticas |
-| 5b | `reparar_presentacion_desplazada()` | Separa presentacion+lab fusionados en el campo lab (3 sub-patrones: 2A, 2B, 2C) |
-| 6 | `crosswalk_pami()` | Cruza contra `data/pami.xlsx` por marca+presentacion: recupera droga vacía, corrige lab, agrega `pami_cobertura` |
-| 7 | `aplicar_droga_fixes()` | Aplica correcciones manuales desde `data/droga_fixes.json` (marca → droga, con soporte para corrección simultánea de marca) |
-
----
-
-## Workflow GitHub Actions
-
-```yaml
-name: Actualizar precios
-
-on:
-  schedule:
-    - cron: '30 13,21 * * 1-5'
-  workflow_dispatch:
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - run: |
-          python -m pip install --upgrade pip
-          pip install pymupdf pandas openpyxl
-
-      - run: python scripts/pdf_to_json.py
-
-      - run: python scripts/generar_landings.py
-
-      - name: Commit y push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
-          git pull --rebase origin main
-          git add data/medicamentos.json
-          git add data/outlier_report.json
-          git add data/droga_fixes.json
-          git add data/pami.xlsx
-          git add *.html
-          git add sitemap.xml
-          git commit -m "Actualizar precios $(date +'%Y-%m-%d')" || echo "No changes"
-          git push origin main
-```
-
----
-
-# 📦 Estructura de Datos JSON
-
-## Ejemplo de registro
-
-```json
-{
-  "droga": "ibuprofeno",
-  "marca": "IBUPIRAC",
-  "presentacion": "400 mg comp.x 20",
-  "laboratorio": "Pfizer",
-  "precio": 9800.50,
-  "pami_cobertura": 55,
-  "vigencia_score": 100,
-  "flags": [],
-  "precio_outlier_tipo": null,
-  "outlier_razones": []
-}
-```
-
----
-
-## Campos
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `droga` | string | Principio activo (nombre genérico) |
-| `marca` | string | Nombre comercial |
-| `presentacion` | string | Dosis, forma farmacéutica y cantidad |
-| `laboratorio` | string | Laboratorio fabricante |
-| `precio` | number | PVP en ARS (fuente: SIAFAR) |
-| `pami_cobertura` | number\|null | Porcentaje de cobertura PAMI (ej: 55). Null si no está en el vademécum |
-| `vigencia_score` | number | Score de confiabilidad del precio (0-100). < 50 = outlier |
-| `flags` | array | Etiquetas de anomalía (`precio_bajo`, `precio_sospechoso`, `precio_obsoleto`) |
-| `precio_outlier_tipo` | string\|null | Categoría del outlier detectado |
-| `outlier_razones` | array | Descripción de por qué es outlier |
-
----
-
-## Archivos de referencia
-
-| Archivo | Descripción |
-|---|---|
-| `data/pami.xlsx` | Vademécum PAMI con cobertura por marca+presentacion |
-| `data/droga_fixes.json` | Correcciones manuales marca→droga para casos no resolubles con regex |
-| `data/blacklist.json` | Registros excluidos manualmente del dataset |
-| `data/outlier_report.json` | Reporte detallado de outliers de la última corrida |
-
-### Cómo agregar una corrección a `droga_fixes.json`
-
-`droga_fixes.json` es editable manualmente — no hace falta tocar el código para cubrir nuevas marcas sin principio activo en el PDF.
-
-Dos formatos soportados:
-
-```json
-// Solo droga (la marca ya está bien parseada)
-"FORXIGA": "dapagliflozina"
-
-// Droga + corrección de marca (droga y marca estaban fusionadas)
-"DICLOFENAC POTÁSICO, PARACETAM KINALGIN P": {
-  "droga": "diclofenac potásico, paracetamol",
-  "marca": "KINALGIN P"
-}
-```
-
-La clave es siempre el valor del campo `marca` o `droga` en mayúsculas tal como aparece en el JSON. El workflow lo aplica automáticamente en cada corrida.
-
----
-
-# ⚡ Optimizaciones Implementadas
-
-## ✅ Búsqueda en memoria
-
-El JSON se carga una sola vez y se indexa.
-
----
-
-## ✅ Estado centralizado
-
-`store.js` controla búsqueda, filtros, ordenamiento y render reactivo.
-
----
-
-## ✅ Debounce
-
-La búsqueda espera 250ms luego de la última tecla.
-
----
-
-## ✅ Caché
-
-Los datos se almacenan en `sessionStorage` durante 4 horas.
-
----
-
-## ✅ Dropdowns contextuales
-
-Al buscar un medicamento, los filtros de presentación y laboratorio se actualizan para mostrar solo las opciones disponibles en los resultados actuales.
-
----
-
-## ✅ Mobile first
-
-CSS optimizado para móviles, tablets y desktop.
-
----
-
-## ✅ Renderizado progresivo
-
-50 resultados iniciales con botón "Ver más" para evitar bloquear el hilo principal.
-
----
-
-## ✅ Landings SEO sin outliers
-
-Las páginas estáticas por droga filtran automáticamente los registros con `vigencia_score < 50` para no mostrar precios obsoletos.
-
----
-
-# ⏱️ Tiempos de Respuesta
-
-| Métrica | Valor |
-|---|---|
-| FCP | 0.8 - 1.2s |
-| LCP | 1.5 - 2.0s |
-| TTI | 1.8 - 2.5s |
-| Búsqueda | 25 - 100ms |
-| TTFB | 50 - 150ms |
-
----
-
-# 🏗️ Arquitectura del Sistema
+La app implementa una estrategia **Cache First** para assets estáticos y **Network First** para los datos JSON:
 
 ```mermaid
 flowchart LR
+    REQ[Request] --> SW{Service Worker}
+    SW -->|Assets CSS/JS/HTML| CACHE[(Cache local)]
+    SW -->|Datos JSON| NET[Red]
+    NET -->|OK| CACHE
+    NET -->|Sin red| CACHE
+    CACHE --> RES[Respuesta al usuario]
+```
 
-    subgraph ONE["🌐 FUENTE EXTERNA"]
-        A[("SIAFAR / COFA\nPDF Oficial")]
-        B["📄 Publicación diaria"]
-    end
+El manifest define:
+- `display: standalone` — se ve como app nativa
+- `start_url: /` — abre desde el ícono directo al turno del día
+- `theme_color: #0d1117` — dark mode por defecto
 
-    subgraph TWO["⚙️ AUTOMATIZACIÓN"]
-        C["⏰ Cron GitHub Actions"]
-        D["🔄 Workflow manual"]
-    end
+---
 
-    subgraph THREE["🐍 ETL Python"]
-        E["pdf_to_json.py\n8 capas normalización"]
-        F["generar_landings.py"]
-        G["📊 medicamentos.json"]
-    end
+## 🖥️ Vistas
 
-    subgraph REF["📋 REFERENCIA"]
-        H["pami.xlsx"]
-        I["droga_fixes.json"]
-        J["blacklist.json"]
-    end
+### Mobile (< 768px)
+- Lista vertical de farmacias
+- Botón flotante "Ver mapa" → bottom sheet deslizable
+- Botón "Instalar app" si el dispositivo lo soporta
 
-    subgraph FIVE["🌐 FRONTEND"]
-        K["index.html"]
-        L["store.js"]
-        M["searchEngine.js"]
-        N["uiRenderer.js"]
-    end
+### Desktop (≥ 768px)
+- Grid de 2 columnas: lista izquierda + mapa sticky derecha
+- Mapa Leaflet de 500px de altura
+- Hover effects en cards
 
-    subgraph SIX["📈 SEO"]
-        O["Landings HTML"]
-        P["sitemap.xml"]
-    end
-
-    subgraph SEVEN["☁️ HOSTING"]
-        Q["GitHub Pages"]
-        R["Cloudflare Pages"]
-    end
-
-    A --> B
-    B --> C
-    D --> C
-    C --> E
-    H --> E
-    I --> E
-    J --> E
-    E --> G
-    G --> F
-    F --> O
-    F --> K
-    K --> L
-    L --> M
-    M --> N
-    O --> P
-    K --> Q
-    Q --> R
+```
+Mobile                          Desktop
+┌──────────────────┐           ┌─────────────┬─────────────┐
+│ 💊 FARMACIAS MDP │           │ 💊 FARMACIAS│             │
+│ [🌙 toggle]      │           │             │  [MAPA      │
+├──────────────────┤           ├─────────────┤   LEAFLET   │
+│ ┌──────────────┐ │           │ ┌─────────┐ │   sticky]   │
+│ │ 1. FARMACIA  │ │           │ │1.FARM.  │ │             │
+│ │ Dirección    │ │           │ └─────────┘ │             │
+│ │ 📞 tel       │ │           │ ┌─────────┐ │             │
+│ └──────────────┘ │           │ │2.FARM.  │ │             │
+│ ...              │           │ └─────────┘ │             │
+├──────────────────┤           └─────────────┴─────────────┘
+│ [VER MAPA 🗺️]   │
+└──────────────────┘
+     [bottom sheet]
+┌──────────────────┐
+│ ── [cerrar]      │
+│  [MAPA LEAFLET]  │
+│                  │
+└──────────────────┘
 ```
 
 ---
 
-# 📁 Estructura del Repositorio
-
-```text
-remediar/
-├── index.html
-├── style.css
-├── manifest.json
-├── robots.txt
-├── sitemap.xml
-├── privacidad.html
-├── terminos.html
-├── README.md
-├── _headers
-├── .nojekyll
-│
-├── img/
-│   └── favicon.svg
-│
-├── js/
-│   ├── main.js
-│   ├── dataLoader.js
-│   ├── filters.js
-│   ├── searchEngine.js
-│   ├── uiRenderer.js
-│   ├── utils.js
-│   └── core/
-│       └── store.js
-│
-├── data/
-│   ├── medicamentos.json
-│   ├── outlier_report.json
-│   ├── blacklist.json
-│   ├── droga_fixes.json
-│   └── pami.xlsx
-│
-├── scripts/
-│   ├── pdf_to_json.py
-│   └── generar_landings.py
-│
-├── .github/workflows/
-│   └── update-prices.yml
-│
-└── [56+ landings HTML]
-```
-
----
-
-# 🧰 Stack Tecnológico
-
-| Capa | Tecnología |
-|---|---|
-| Frontend | HTML5 + CSS3 + Vanilla JS |
-| Backend ETL | Python 3.11 |
-| Parsing PDF | PyMuPDF |
-| Crosswalk PAMI | pandas + openpyxl |
-| Datos | JSON |
-| CI/CD | GitHub Actions |
-| Hosting | GitHub Pages + Cloudflare |
-| SEO | JSON-LD + Open Graph |
-| Caché | sessionStorage |
-
----
-
-# 🧠 Decisiones Técnicas
-
-## ¿Por qué Vanilla JS?
-
-- Menor tamaño final
-- Mejor tiempo de carga
-- Sin dependencias pesadas
-- SEO más simple
-- Mantenimiento sencillo
-
-## ¿Por qué JSON plano y no base de datos?
-
-- Hosting estático
-- Costos prácticamente cero
-- CDN extremadamente eficiente
-- Menor complejidad operacional
-
-## ¿Por qué 8 capas de normalización?
-
-El PDF de SIAFAR no tiene un esquema tabular estricto. Distintos laboratorios omiten campos, fusionan droga+marca sin separador, o desplazan la presentación al campo laboratorio. Las capas se aplican en cascada de menor a mayor complejidad, garantizando que cada corrección no interfiera con las anteriores.
-
-## ¿Por qué Cloudflare Pages?
-
-- CDN global
-- Excelente latencia en Argentina
-- Deploy automático
-- HTTPS gratuito
-
----
-
-# 💻 Ejecución Local
-
-## Python
+## ⚙️ Instalación local
 
 ```bash
-git clone https://github.com/psbella/remediar.git
-cd remediar
-python -m http.server 8000
+# 1. Clonar el repositorio
+git clone https://github.com/psbella/turnos.git
+cd turnos
+
+# 2. Servir con cualquier servidor HTTP local
+# Opción A — Python
+python3 -m http.server 8080
+
+# Opción B — Node.js
+npx serve .
+
+# Opción C — VS Code
+# Instalar extensión "Live Server" y hacer clic en "Go Live"
+
+# 3. Abrir en el navegador
+# http://localhost:8080
 ```
 
-## Node.js
-
-```bash
-npx http-server -p 8000 --cors -c-1
-```
-
-## Docker
-
-```dockerfile
-FROM nginx:alpine
-COPY . /usr/share/nginx/html
-```
-
-```bash
-docker build -t remediar .
-docker run -p 8080:80 remediar
-```
+> **Nota**: Abrir `index.html` directamente como `file://` no funciona correctamente para el Service Worker ni para los módulos ES6. Siempre servir con un servidor HTTP local.
 
 ---
 
-# 🐍 Scripts Python
+## 🔗 Proyectos relacionados
 
-| Script | Función |
+| Proyecto | Descripción |
 |---|---|
-| `pdf_to_json.py` | Descarga PDF; aplica pipeline de 8 capas de normalización; crosswalk con PAMI (`pami_cobertura`); aplica blacklist; detecta outliers; genera `medicamentos.json` y `outlier_report.json` |
-| `generar_landings.py` | Crea landings SEO estáticas por droga (filtrando outliers), regenera `sitemap.xml` con fecha del día |
+| [remedi.ar](https://remedi.ar) | Buscador de precios de medicamentos en Argentina |
 
 ---
 
-# 📊 Métricas y Rendimiento
+## 📄 Licencia
 
-| Métrica | Valor |
-|---|---|
-| Lighthouse Performance | 94-96 |
-| Accessibility | 98 |
-| Best Practices | 100 |
-| SEO | 100 |
-| CLS | 0.02 |
-| FID | 12ms |
+[Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — Podés usar y adaptar el código con atribución, pero no para fines comerciales.
 
 ---
 
-# 🔍 SEO y Metadatos
-
-## Implementaciones
-
-- JSON-LD (Drug, Offer, BreadcrumbList)
-- Open Graph
-- Twitter Cards
-- Sitemap.xml
-- robots.txt
-- Landings estáticas indexables por droga
-
----
-
-## Ejemplo JSON-LD
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Drug",
-  "name": "Ibuprofeno",
-  "activeIngredient": "Ibuprofeno"
-}
-```
-
----
-
-# 🔒 Seguridad y Privacidad
-
-- No se recopilan datos personales
-- No se utilizan cookies de tracking
-- No existe autenticación en el frontend
-- No existe backend persistente
-- No se comparte información con terceros
-- Todo el frontend puede auditarse públicamente
-
----
-
-# 📚 Documentación Completa
-
-| Documento | Descripción | Link |
-|---|---|---|
-| API No Oficial | Consumo externo de `medicamentos.json` | [Ver sección](#-api-no-oficial) |
-| Guía de Contribución | Cómo colaborar con el proyecto | [Ver sección](#-guía-de-contribución) |
-| Diagramas Mermaid | Arquitectura y flujos internos | [Ver sección](#-diagramas-de-flujo-detallados) |
-| Referencia Frontend | Componentes y módulos JS | [Ver sección](#-referencia-de-componentes-frontend) |
-| Guía CSS | Variables, breakpoints y estilos | [Ver sección](#-guía-de-estilos-css) |
-| Workflows | Automatización y CI/CD | [Ver sección](#-documentación-de-workflows) |
-| FAQ | Preguntas frecuentes | [Ver sección](#-preguntas-frecuentes-faq) |
-| Roadmap | Funcionalidades futuras | [Ver sección](#️-roadmap) |
-
----
-
-## 🌐 Enlaces del Proyecto
-
-| Recurso | URL |
-|---|---|
-| Producción | https://remedi.ar |
-| GitHub Pages | https://psbella.github.io/remediar/ |
-| Repositorio GitHub | https://github.com/psbella/remediar |
-| Actions / CI | https://github.com/psbella/remediar/actions |
-| medicamentos.json (CDN) | https://remedi.ar/data/medicamentos.json |
-| medicamentos.json (GitHub Raw) | https://raw.githubusercontent.com/psbella/remediar/main/data/medicamentos.json |
-| Sitemap | https://remedi.ar/sitemap.xml |
-| robots.txt | https://remedi.ar/robots.txt |
-| Política de privacidad | https://remedi.ar/privacidad.html |
-| Términos y condiciones | https://remedi.ar/terminos.html |
-
----
-
-## 📦 Archivos Importantes
-
-| Archivo | Función |
-|---|---|
-| `index.html` | SPA principal |
-| `style.css` | Estilos globales |
-| `js/core/store.js` | Estado reactivo |
-| `js/searchEngine.js` | Motor de búsqueda |
-| `js/uiRenderer.js` | Renderizado frontend + badge PAMI |
-| `data/medicamentos.json` | Dataset principal |
-| `data/pami.xlsx` | Vademécum PAMI (cobertura por marca+presentacion) |
-| `data/droga_fixes.json` | Correcciones manuales de droga |
-| `data/blacklist.json` | Registros excluidos |
-| `scripts/pdf_to_json.py` | ETL principal (pipeline de 8 capas) |
-| `scripts/generar_landings.py` | Generador de landings SEO |
-| `.github/workflows/update-prices.yml` | Automatización |
-
----
-
-# 🔌 API No Oficial
-
-## Endpoints
-
-| Método | URL |
-|---|---|
-| GET | https://remedi.ar/data/medicamentos.json |
-| GET | https://raw.githubusercontent.com/psbella/remediar/main/data/medicamentos.json |
-
----
-
-## JavaScript
-
-```javascript
-const response = await fetch('https://remedi.ar/data/medicamentos.json');
-const { medicamentos } = await response.json();
-
-// Filtrar por droga con cobertura PAMI
-const conPami = medicamentos.filter(m => m.pami_cobertura > 0);
-
-// Calcular copago PAMI
-const copago = m => Math.round(m.precio * (1 - m.pami_cobertura / 100));
-```
-
----
-
-## Python
-
-```python
-import pandas as pd
-
-df = pd.read_json("https://remedi.ar/data/medicamentos.json")
-meds = pd.json_normalize(df['medicamentos'])
-
-# Filtrar solo los que tienen cobertura PAMI
-con_pami = meds[meds['pami_cobertura'].notna()]
-```
-
----
-
-# 👥 Guía de Contribución
-
-## Flujo
-
-```bash
-git checkout -b feature/nueva-funcion
-git commit -m "feat: agregar filtro"
-git push
-```
-
-## Convenciones de commits
-
-| Tipo | Ejemplo |
-|---|---|
-| `feat` | Nueva funcionalidad |
-| `fix` | Corrección de bug |
-| `docs` | Documentación |
-| `perf` | Performance |
-
----
-
-# 📊 Diagramas de Flujo Detallados
-
-## Pipeline ETL completo
-
-```mermaid
-flowchart TD
-
-    A[PDF SIAFAR]
-    B[Descarga + extracción por página]
-    C0[Capa 0: reparar_droga_faltante]
-    C1[Capa 1: desplazamiento en parse]
-    C2[Capa 2: rescatar_laboratorios]
-    C3[Capa 3: reparar_denver]
-    C4[Capa 4: reparar_marca_desplazada]
-    C5[Capa 5: extraer_presentacion_de_marca]
-    C5B[Capa 5b: reparar_presentacion_desplazada]
-    C6[Capa 6: crosswalk_pami]
-    C7[Capa 7: aplicar_droga_fixes]
-    BL[Blacklist]
-    OUT[Detección de outliers]
-    JSON[medicamentos.json]
-
-    A --> B
-    B --> C0
-    C0 --> C1
-    C1 --> C2
-    C2 --> C3
-    C3 --> C4
-    C4 --> C5
-    C5 --> C5B
-    C5B --> C6
-    C6 --> C7
-    C7 --> BL
-    BL --> OUT
-    OUT --> JSON
-```
-
----
-
-## Frontend
-
-```mermaid
-flowchart LR
-
-    A[Usuario]
-    B[index.html]
-    C[store.js]
-    D[searchEngine.js]
-    E[uiRenderer.js]
-
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-```
-
----
-
-# 🧩 Referencia de Componentes Frontend
-
-## store.js
-
-- Estado global reactivo
-- Filtros (texto, laboratorio, presentacion, pamiOnly)
-- Ordenamiento
-- Suscripciones
-
-## uiRenderer.js
-
-- Render tarjetas con badge PAMI (`pami_cobertura`)
-- Actualización contextual de dropdowns según resultados
-- Skeleton loaders
-- Mensajes de error/vacío
-
-## dataLoader.js
-
-- Caché con `sessionStorage`
-- Timestamp de vencimiento (4 horas)
-- Refresh manual
-
-## searchEngine.js
-
-- Índice en memoria por droga
-- Búsqueda normalizada (sin tildes, lowercase)
-- Filtrado por laboratorio y presentacion
-
----
-
-# 🎨 Guía de Estilos CSS
-
-## Variables principales
-
-```css
-:root {
-  --teal:        #00bfa5;
-  --teal-light:  #e0f7f4;
-  --teal-darker: #00897b;
-  --text-1:      #1a2e2e;
-  --text-4:      #7a9696;
-  --border-radius: 12px;
-}
-```
-
-## Responsive
-
-| Breakpoint | Tamaño |
-|---|---|
-| Mobile | < 640px |
-| Tablet | 641px - 1024px |
-| Desktop | > 1024px |
-
----
-
-# 🔧 Documentación de Workflows
-
-| Parámetro | Valor |
-|---|---|
-| Schedule | 10:30 y 18:30 ARG (lunes a viernes) |
-| Runtime | Ubuntu latest |
-| Python | 3.11 |
-| Dependencias | pymupdf, pandas, openpyxl |
-| Trigger manual | Sí (`workflow_dispatch`) |
-| Pull antes de commit | Sí (`git pull --rebase`) |
-
----
-
-# ❓ Preguntas Frecuentes (FAQ)
-
-## ¿De dónde salen los datos?
-
-Del PDF oficial publicado por SIAFAR / COFA dos veces al día.
-
-## ¿Qué es el vigencia_score?
-
-Un score de 0 a 100 que indica la confiabilidad del precio. Un score < 50 indica que el precio es probable outlier (obsoleto, cero, o estadísticamente anómalo respecto a la mediana de la droga). Las landings SEO y el frontend filtran estos registros automáticamente.
-
-## ¿Qué significa el badge PAMI?
-
-Muestra el porcentaje de cobertura del medicamento en el vademécum de PAMI y calcula el copago estimado aplicando ese porcentaje sobre el PVP actual de SIAFAR.
-
-**Ejemplo:**
-```
-PVP SIAFAR:       $10.000
-Cobertura PAMI:   55%
-Copago estimado:  $10.000 × (1 - 0.55) = $4.500
-```
-
-Es una aproximación — el copago real puede variar porque el porcentaje de cobertura es del vademécum PAMI y el precio base es el PVP actualizado de SIAFAR.
-
-## ¿Cada cuánto se actualiza?
-
-Dos veces al día, de lunes a viernes.
-
-## ¿Tiene publicidad?
-
-No.
-
-## ¿Tiene tracking?
-
-No.
-
-## ¿Se puede usar el JSON libremente?
-
-Sí, bajo licencia MIT.
-
----
-
-# ⚠️ Limitaciones conocidas
-
-| Limitación | Descripción |
-|---|---|
-| ~9 registros sin presentación | El PDF de SIAFAR no incluye la presentación para estas marcas (KETOSTERIL, FRENALER D, DEXALERGIN, VIXALERG, KINALGIN P, ASFARADIL, FEMIDEN, SIGNORINA, VAXNEUVANCE). No son errores del parser — el dato simplemente no está en la fuente. |
-| `pami_cobertura` es aproximado | El porcentaje de cobertura proviene del vademécum PAMI (que se actualiza con menor frecuencia) aplicado sobre el PVP actual de SIAFAR. El copago real puede diferir por actualizaciones de precios o cambios en la cobertura. |
-| Precios de SIAFAR en ARS | Con la inflación argentina, los precios pueden quedar desactualizados entre corridas. El `vigencia_score` ayuda a identificar los registros más sospechosos. |
-| PDF de SIAFAR sin esquema fijo | Distintos laboratorios aplican su propia semántica al PDF (nombre comercial como droga, presentación fusionada con marca, etc.). El pipeline de 8 capas resuelve los patrones conocidos; pueden aparecer casos nuevos en futuras corridas. |
-| Cobertura PAMI parcial | El vademécum de PAMI no cubre todos los medicamentos del dataset de SIAFAR. Los registros sin `pami_cobertura` simplemente no están en el vademécum. |
-
----
-
-# 🗺️ Roadmap
-
-## Corto plazo
-
-- Historial de precios
-- IOMA como segunda fuente de crosswalk
-- Normalización de presentaciones en campos estructurados (forma, dosis, unidad, cantidad)
-
-## Mediano plazo
-
-- API REST pública
-- Dashboard estadístico
-- Evolución histórica de precios
-
-## Largo plazo
-
-- Integración farmacias tiempo real
-- App móvil
-- Geolocalización
-
----
-
-# 📄 Licencia
-
-MIT License. Uso libre para proyectos personales y comerciales.
-
----
-
-# 🙏 Fuente de Datos
-
-Datos proporcionados por SIAFAR / COFA. Cobertura PAMI desde el vademécum oficial del PAMI.
-
----
-
-<p align="center">
-  <strong>Hecho con ❤️ para que los medicamentos sean más accesibles en Argentina.</strong>
-</p>
+<div align="center">
+  Hecho con ❤️ en Mar del Plata, Argentina<br>
+  <a href="https://farmaciasmdp.com.ar">farmaciasmdp.com.ar</a>
+</div>
