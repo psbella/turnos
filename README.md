@@ -1,6 +1,6 @@
-# 💊 Farmacias de Turno MDP
+# Farmacias de Turno MDP
 
-**PWA que calcula la rotación diaria de farmacias de turno en Mar del Plata, Argentina, usando un modelo matemático determinístico.**
+> PWA estática que calcula la rotación diaria de farmacias de turno en Mar del Plata, Argentina, mediante un modelo matemático determinístico. Sin backend, sin scraping, sin dependencias.
 
 [![Version](https://img.shields.io/badge/version-2.0-blue)](https://farmaciasmdp.com.ar/)
 [![Stable](https://img.shields.io/badge/stable-%E2%9C%93-brightgreen)](https://github.com/psbella/turnos)
@@ -14,385 +14,292 @@
 [![GitHub Pages](https://img.shields.io/badge/Hosting-GitHub%20Pages-blue)](https://pages.github.com/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-DNS-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
 
----
-
-## 🌐 Demo en vivo
-
 **→ [farmaciasmdp.com.ar](https://farmaciasmdp.com.ar)**
 
 ---
 
-## 📋 Índice
+## Tabla de contenidos
 
-- [¿Qué es?](#-qué-es)
-- [Características](#-características)
-- [Cómo funciona la rotación](#-cómo-funciona-la-rotación)
-- [Arquitectura](#-arquitectura)
-- [Estructura de archivos](#-estructura-de-archivos)
-- [Stack tecnológico](#-stack-tecnológico)
-- [Flujo de la aplicación](#-flujo-de-la-aplicación)
-- [Datos y fuentes](#-datos-y-fuentes)
-- [PWA y offline](#-pwa-y-offline)
-- [Instalación local](#️-instalación-local)
-- [Licencia](#-licencia)
-
----
-
-## 🏥 ¿Qué es?
-
-Farmacias de Turno MDP es una **Progressive Web App (PWA)** estática que permite consultar rápidamente qué farmacia está de turno en Mar del Plata en cualquier momento. No hace scraping, no tiene backend, no requiere servidor: toda la lógica corre en el navegador del usuario usando un modelo matemático basado en la fecha actual.
+- [Descripción](#descripción)
+- [Cómo funciona la rotación](#cómo-funciona-la-rotación)
+- [Arquitectura del sistema](#arquitectura-del-sistema)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Stack tecnológico](#stack-tecnológico)
+- [Flujo de usuario](#flujo-de-usuario)
+- [Modelo de datos](#modelo-de-datos)
+- [Estrategia de caché (PWA)](#estrategia-de-caché-pwa)
+- [Instalación local](#instalación-local)
+- [Proyectos relacionados](#proyectos-relacionados)
+- [Licencia](#licencia)
 
 ---
 
-## ✨ Características
+## Descripción
 
-| Feature | Detalle |
-|---|---|
-| 🗺️ **Mapa interactivo** | Leaflet + OpenStreetMap con marcadores personalizados |
-| 🔄 **Rotación automática** | Cálculo determinístico, sin APIs externas |
-| 📱 **Responsive** | Mobile-first, bottom sheet en móvil, grid en desktop |
-| 🌙 **Modo claro/oscuro** | Toggle manual, persiste preferencia |
-| 📲 **Instalable (PWA)** | Funciona como app nativa en iOS y Android |
-| ♿ **Accesible** | Roles ARIA, navegación por teclado (WCAG AAA) |
-| ⚡ **Offline-first** | Service Worker con caché multi-capa |
-| 📊 **SEO completo** | Schema.org, Open Graph, sitemap, robots.txt |
-| 🔒 **Sin tracking** | No cookies propias, no recopila datos personales |
+El Colegio de Farmacéuticos de General Pueyrredon organiza las farmacias de Mar del Plata en **16 grupos rotativos**. Esta aplicación replica esa lógica de forma completamente local: dado un punto de ancla conocido (`FECHA_INICIO_CICLO_1`) y la fecha actual, se calcula el grupo de turno con una operación de módulo. No hay llamadas a APIs externas para determinar el turno.
+
+La app es instalable como PWA, funciona offline gracias a un Service Worker y está optimizada para SEO con Schema.org, Open Graph y sitemap.
 
 ---
 
-## 🧠 Cómo funciona la rotación
-
-El Colegio de Farmacéuticos de General Pueyrredon organiza las farmacias en **16 grupos rotativos**. La app replica esta lógica de forma puramente matemática:
+## Cómo funciona la rotación
 
 ```
-grupo_hoy = Math.floor(diasDesde(FECHA_INICIO)) % 16
+grupo_hoy = Math.floor( diasDesde(FECHA_INICIO_CICLO_1, ahora) ) % 16
 ```
 
-Donde `FECHA_INICIO = 2026-04-26T09:00:00-03:00` es el ancla conocida del ciclo 1.
+El cambio de turno ocurre a las **09:00 hs (UTC-3)**. Si el usuario consulta antes de esa hora, se usa la fecha del día anterior.
 
 ```mermaid
 flowchart TD
-    A[Usuario abre la app] --> B[Obtiene fecha/hora actual]
-    B --> C[Lee FECHA_INICIO_CICLO_1 de config.json]
-    C --> D{¿Es antes de las 9:00 AM?}
-    D -- Sí --> E[Usa fecha del día anterior]
+    A([Usuario abre la app]) --> B[Obtiene fecha y hora actual]
+    B --> C[Lee FECHA_INICIO_CICLO_1\ndesde config.json]
+    C --> D{¿Hora actual < 09:00?}
+    D -- Sí --> E[Retrocede un día]
     D -- No --> F[Usa fecha de hoy]
-    E --> G[Calcula días transcurridos]
+    E --> G[Calcula días transcurridos\ndesde la fecha ancla]
     F --> G
     G --> H["grupo = Math.floor(días) % 16"]
-    H --> I[Busca grupo en db.json]
+    H --> I[Lee grupo desde db.json]
     I --> J[Renderiza lista de farmacias]
-    I --> K[Coloca marcadores en mapa Leaflet]
-    J --> L[Usuario ve turno del día ✅]
+    I --> K[Renderiza marcadores en mapa]
+    J --> L([App lista ✓])
     K --> L
 ```
 
-### Ciclo de 16 grupos
-
-```mermaid
-pie title Distribución de farmacias por grupo (aprox.)
-    "Grupos con 12 farmacias" : 4
-    "Grupos con 11 farmacias" : 6
-    "Grupos con 10 farmacias" : 4
-    "Grupos con 9 farmacias"  : 2
-```
-
 ---
 
-## 🏗️ Arquitectura
+## Arquitectura del sistema
 
-La app es **100% estática**: HTML + CSS + JS vanilla servido desde GitHub Pages, con DNS y CDN via Cloudflare.
+La aplicación es **100% estática**: no existe servidor de aplicaciones. GitHub Pages sirve los archivos, Cloudflare actúa como CDN y proxy DNS, y toda la lógica de negocio corre en el navegador del usuario.
 
 ```mermaid
 graph TB
-    subgraph Cliente["🖥️ Cliente (Navegador)"]
-        SW[Service Worker]
-        APP[App JS ES6 Modules]
-        MAP[Leaflet Map]
-        UI[DOM / CSS]
+    subgraph user["Cliente"]
+        direction TB
+        SW["Service Worker\n(caché offline)"]
+        APP["JS ES6 Modules\n(lógica de rotación)"]
+        MAP["Leaflet\n(mapa interactivo)"]
     end
 
-    subgraph Repo["📦 GitHub (psbella/turnos)"]
-        GHP[GitHub Pages]
-        DATA[db.json + config.json]
-        JS[js/ modules]
-        HTML[index.html]
+    subgraph infra["Infraestructura"]
+        CF["Cloudflare\nDNS + CDN"]
+        GHP["GitHub Pages\n(hosting estático)"]
     end
 
-    subgraph Infra["☁️ Infraestructura"]
-        CF[Cloudflare DNS + CDN]
-        GF[Google Fonts]
-        OSM[OpenStreetMap Tiles]
-        ADS[Google AdSense]
+    subgraph assets["Assets servidos"]
+        HTML["index.html"]
+        CSS["style.css"]
+        JSMOD["js/"]
+        DB["db.json"]
+        CFG["config.json"]
     end
 
-    USER([👤 Usuario]) --> CF
+    subgraph third["Servicios externos"]
+        OSM["OpenStreetMap\n(tiles del mapa)"]
+        GF["Google Fonts"]
+        ADS["Google AdSense"]
+    end
+
+    VISITOR([Visitante]) --> CF
     CF --> GHP
-    GHP --> HTML
-    GHP --> DATA
-    GHP --> JS
-    HTML --> APP
-    DATA --> APP
-    JS --> APP
+    GHP --> assets
+    assets --> APP
     APP --> MAP
-    APP --> UI
     MAP --> OSM
-    UI --> GF
-    UI --> ADS
-    SW -.->|Caché offline| APP
-    SW -.->|Caché offline| DATA
+    SW -.->|"Cache First"| assets
+    APP --> GF
+    APP --> ADS
 ```
 
 ---
 
-## 📁 Estructura de archivos
+## Estructura del proyecto
 
 ```
 turnos/
+├── index.html                  # Entry point — contenido SSG para SEO + bootstrap JS
+├── style.css                   # Estilos globales con CSS custom properties (dark/light)
+├── sw.js                       # Service Worker — estrategia de caché multi-capa
+├── manifest.json               # Web App Manifest (PWA)
 │
-├── index.html              # Entry point — SEO hardcodeado + carga JS modular
-├── style.css               # Estilos globales (dark/light mode, variables CSS)
-├── sw.js                   # Service Worker — caché offline multi-capa
-├── manifest.json           # PWA manifest (iconos, nombre, colores)
+├── config.json                 # Fecha ancla del ciclo
+│                               #   { "FECHA_INICIO_CICLO_1": "2026-04-26T09:00:00-03:00" }
 │
-├── config.json             # Fecha ancla del ciclo 1
-│                           # { "FECHA_INICIO_CICLO_1": "2026-04-26T09:00:00-03:00" }
-│
-├── db.json                 # Base de datos de farmacias
-│                           # { "1": [...], "2": [...], ..., "16": [...] }
+├── db.json                     # Base de datos de farmacias
+│                               #   { "1": [ {nombre, direccion, telefono, lat, lng}, ... ],
+│                               #     ...
+│                               #    "16": [ ... ] }
 │
 ├── js/
-│   ├── main.js             # Entry JS — inicialización, carga config + db
-│   └── ...                 # Módulos ES6 (mapa, UI, rotación, etc.)
+│   └── main.js                 # Módulo principal — inicializa UI, mapa y rotación
 │
-├── admin-map.html          # Herramienta interna para verificar coordenadas
-├── privacidad.html         # Política de privacidad
-├── terminos.html           # Términos de uso
+├── admin-map.html              # Herramienta interna para auditar coordenadas
+├── privacidad.html             # Política de privacidad
+├── terminos.html               # Términos de uso
 │
-├── sitemap.xml             # SEO sitemap
-├── robots.txt              # Directivas para crawlers
-├── ads.txt                 # Autorización AdSense
-├── CNAME                   # → farmaciasmdp.com.ar
+├── sitemap.xml                 # Sitemap para crawlers
+├── robots.txt                  # Directivas de indexación
+├── ads.txt                     # Autorización Google AdSense
+├── CNAME                       # → farmaciasmdp.com.ar
 │
-├── icon-16.png             # Favicon
+├── icon-16.png
 ├── icon-32.png
 ├── icon-48.png
 ├── icon-96.png
-├── icon-512.png            # PWA splash icon
-│
-└── .gitignore
+└── icon-512.png                # Ícono PWA splash
 ```
 
 ---
 
-## 🛠️ Stack tecnológico
+## Stack tecnológico
 
-```mermaid
-mindmap
-  root((Farmacias MDP))
-    Frontend
-      HTML5
-      CSS3 Custom Properties
-      JavaScript ES6+ Modules
-      Nunito + Bebas Neue
-    Mapas
-      Leaflet.js
-      OpenStreetMap tiles
-    PWA
-      Service Worker
-      Web App Manifest
-      Cache API
-    Hosting
-      GitHub Pages
-      Cloudflare CDN/DNS
-    SEO
-      Schema.org
-      Open Graph
-      Twitter Cards
-      sitemap.xml
-    Herramientas
-      GitHub Actions
-      Google Search Console
-      Cloudflare Analytics
-      Lighthouse
-```
+| Capa | Tecnología | Notas |
+|---|---|---|
+| Markup | HTML5 | Contenido SSG inline para SEO; Schema.org embebido |
+| Estilos | CSS3 + Custom Properties | Dark/light mode sin JS, mobile-first |
+| Lógica | JavaScript ES6+ Modules | Sin frameworks, sin bundler |
+| Mapas | Leaflet 1.x + OpenStreetMap | Marcadores SVG personalizados |
+| PWA | Service Worker + Web App Manifest | Cache API, instalable |
+| Hosting | GitHub Pages | Deploy en cada push a `main` |
+| CDN / DNS | Cloudflare | HTTPS, caché edge, analytics |
+| SEO | Schema.org · Open Graph · Twitter Cards | Structured data + sitemap.xml |
+| Fuentes | Google Fonts | Bebas Neue (display) + Nunito (body) |
+| Publicidad | Google AdSense | — |
+| Monitoreo | Google Search Console · Cloudflare Analytics | Sin cookies propias |
 
 ---
 
-## 🔄 Flujo de la aplicación
+## Flujo de usuario
 
-### Primer acceso
+### Primer acceso (red disponible)
 
 ```mermaid
 sequenceDiagram
     actor U as Usuario
-    participant B as Browser
+    participant B as Navegador
     participant SW as Service Worker
-    participant GH as GitHub Pages
-    participant CF as Cloudflare
+    participant CF as Cloudflare / GH Pages
 
-    U->>B: Navega a farmaciasmdp.com.ar
-    B->>CF: Request DNS
-    CF->>GH: Proxy request
-    GH-->>B: index.html + assets
-    B->>SW: Instala Service Worker
-    SW->>GH: Cachea assets (config, db, css, js)
-    GH-->>SW: Assets cacheados ✅
-    B->>B: Carga js/main.js como módulo
+    U->>B: farmaciasmdp.com.ar
+    B->>CF: GET index.html
+    CF-->>B: 200 OK
+    B->>SW: Registro del SW
+    SW->>CF: Precachea config.json, db.json, css, js
+    CF-->>SW: Assets cacheados ✓
+    B->>B: Ejecuta js/main.js
     B->>B: Calcula grupo del día
     B->>B: Renderiza lista + mapa
-    B-->>U: ✅ App lista
+    B-->>U: App lista
 ```
 
-### Accesos siguientes (offline)
+### Accesos siguientes (con o sin red)
 
 ```mermaid
 sequenceDiagram
     actor U as Usuario
-    participant B as Browser
+    participant B as Navegador
     participant SW as Service Worker
 
-    U->>B: Navega a farmaciasmdp.com.ar
+    U->>B: farmaciasmdp.com.ar
     B->>SW: Request interceptado
-    SW-->>B: Sirve desde caché local ⚡
-    B->>B: Calcula grupo del día (sin red)
-    B-->>U: ✅ App lista offline
+    SW-->>B: Sirve desde caché ⚡
+    B->>B: Calcula grupo del día
+    B-->>U: App lista (sin red)
 ```
 
 ---
 
-## 📊 Datos y fuentes
-
-Los datos de farmacias (nombre, dirección, teléfono, coordenadas) están almacenados en `db.json`, organizados en 16 grupos. La fecha ancla del ciclo está en `config.json`.
+## Modelo de datos
 
 ```mermaid
 erDiagram
     CONFIG {
-        string FECHA_INICIO_CICLO_1
+        string FECHA_INICIO_CICLO_1 "ISO 8601 con offset -03:00"
     }
 
     GRUPO {
-        string id "1..16"
+        string id "Valores: '1' a '16'"
+        int total_farmacias
     }
 
     FARMACIA {
         string nombre
         string direccion
         string telefono
-        float lat
-        float lng
+        float  lat "nullable — sin coordenadas: aparece en lista, no en mapa"
+        float  lng "nullable"
     }
 
     CONFIG ||--o{ GRUPO : "ancla el ciclo de"
-    GRUPO ||--|{ FARMACIA : "contiene"
+    GRUPO  ||--|{ FARMACIA : "contiene"
 ```
 
-### Notas sobre los datos
+**Notas sobre la calidad de los datos:**
 
-> ⚠️ **Coordenadas nulas**: Hay al menos una farmacia con `lat: null` (MILAZZO, grupo 10). No aparece en el mapa pero sí en la lista.
->
-> ⚠️ **Farmacia permanente**: MITRE (Colón 2690) aparece en todos los grupos — es de turno permanente.
+- `MITRE (Colón 2690)` aparece en los 16 grupos — es farmacia de turno permanente.
+- Al menos una farmacia tiene `lat: null` (grupo 10) — se muestra en la lista pero no en el mapa.
 
 ---
 
-## 📲 PWA y offline
-
-La app implementa una estrategia **Cache First** para assets estáticos y **Network First** para los datos JSON:
+## Estrategia de caché (PWA)
 
 ```mermaid
 flowchart LR
-    REQ[Request] --> SW{Service Worker}
-    SW -->|Assets CSS/JS/HTML| CACHE[(Cache local)]
-    SW -->|Datos JSON| NET[Red]
-    NET -->|OK| CACHE
-    NET -->|Sin red| CACHE
-    CACHE --> RES[Respuesta al usuario]
+    REQ([Request]) --> SW{Service Worker}
+
+    SW -->|"HTML · CSS · JS · íconos"| C1["Cache First\n(assets estáticos)"]
+    SW -->|"config.json · db.json"| C2["Network First\n(datos)"]
+    SW -->|"Tiles OSM"| C3["Stale While Revalidate\n(mapa)"]
+
+    C1 --> RES([Respuesta])
+    C2 --> RES
+    C3 --> RES
 ```
 
-El manifest define:
-- `display: standalone` — se ve como app nativa
-- `start_url: /` — abre desde el ícono directo al turno del día
-- `theme_color: #0d1117` — dark mode por defecto
+El manifest declara `display: standalone` y `start_url: /`, por lo que la app se comporta como nativa una vez instalada desde el navegador.
 
 ---
 
-## 🖥️ Vistas
 
-### Mobile (< 768px)
-- Lista vertical de farmacias
-- Botón flotante "Ver mapa" → bottom sheet deslizable
-- Botón "Instalar app" si el dispositivo lo soporta
+## Instalación local
 
-### Desktop (≥ 768px)
-- Grid de 2 columnas: lista izquierda + mapa sticky derecha
-- Mapa Leaflet de 500px de altura
-- Hover effects en cards
-
-```
-Mobile                          Desktop
-┌──────────────────┐           ┌─────────────┬─────────────┐
-│ 💊 FARMACIAS MDP │           │ 💊 FARMACIAS│             │
-│ [🌙 toggle]      │           │             │  [MAPA      │
-├──────────────────┤           ├─────────────┤   LEAFLET   │
-│ ┌──────────────┐ │           │ ┌─────────┐ │   sticky]   │
-│ │ 1. FARMACIA  │ │           │ │1.FARM.  │ │             │
-│ │ Dirección    │ │           │ └─────────┘ │             │
-│ │ 📞 tel       │ │           │ ┌─────────┐ │             │
-│ └──────────────┘ │           │ │2.FARM.  │ │             │
-│ ...              │           │ └─────────┘ │             │
-├──────────────────┤           └─────────────┴─────────────┘
-│ [VER MAPA 🗺️]   │
-└──────────────────┘
-     [bottom sheet]
-┌──────────────────┐
-│ ── [cerrar]      │
-│  [MAPA LEAFLET]  │
-│                  │
-└──────────────────┘
-```
-
----
-
-## ⚙️ Instalación local
+> **Requisito**: servir con un servidor HTTP local. Los módulos ES6 y el Service Worker no funcionan con `file://`.
 
 ```bash
-# 1. Clonar el repositorio
+# Clonar el repositorio
 git clone https://github.com/psbella/turnos.git
 cd turnos
 
-# 2. Servir con cualquier servidor HTTP local
-# Opción A — Python
+# Opción A — Python (sin instalar nada)
 python3 -m http.server 8080
 
 # Opción B — Node.js
 npx serve .
 
-# Opción C — VS Code
-# Instalar extensión "Live Server" y hacer clic en "Go Live"
-
-# 3. Abrir en el navegador
-# http://localhost:8080
+# Opción C — VS Code + extensión Live Server
+# Clic derecho en index.html → "Open with Live Server"
 ```
 
-> **Nota**: Abrir `index.html` directamente como `file://` no funciona correctamente para el Service Worker ni para los módulos ES6. Siempre servir con un servidor HTTP local.
+Luego abrir `http://localhost:8080` en el navegador.
 
 ---
 
-## 🔗 Proyectos relacionados
+## Proyectos relacionados
 
 | Proyecto | Descripción |
 |---|---|
-| [remedi.ar](https://remedi.ar) | Buscador de precios de medicamentos en Argentina |
+| [remedi.ar](https://remedi.ar) | Buscador de precios de medicamentos en farmacias de Argentina |
 
 ---
 
-## 📄 Licencia
+## Licencia
 
-[Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — Podés usar y adaptar el código con atribución, pero no para fines comerciales.
+Distribuido bajo [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+Podés usar y adaptar el código con atribución, pero no con fines comerciales.
 
 ---
 
 <div align="center">
-  Hecho con ❤️ en Mar del Plata, Argentina<br>
-  <a href="https://farmaciasmdp.com.ar">farmaciasmdp.com.ar</a>
+  Hecho en Mar del Plata, Argentina
 </div>
