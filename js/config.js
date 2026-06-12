@@ -15,6 +15,6 @@ export async function cargarConfiguracion() {
     console.log('Configuración cargada:', FECHA_INICIO_CICLO_1);
   } catch (error) {
     console.warn('No se pudo cargar config.json, usando fecha por defecto');
-    FECHA_INICIO_CICLO_1 = new Date(2026, 4, 25, 9, 0, 0);
+    FECHA_INICIO_CICLO_1 = new Date(2026, 3, 26, 9, 0, 0);
   }
 }
