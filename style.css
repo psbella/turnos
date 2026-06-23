@@ -807,3 +807,82 @@ a:focus-visible,
   outline-offset: 3px;
   border-radius: 30px;
 }
+
+/* ==================== BANNER REMEDI.AR ==================== */
+.banner-remedi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid rgba(0, 137, 123, 0.3);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-remedi::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,137,123,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.banner-remedi:hover {
+  border-color: rgba(0, 137, 123, 0.6);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+.banner-remedi__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.banner-remedi__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.banner-remedi__name {
+  font-family: 'Bebas Neue', 'Nunito', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  color: #00897b;
+  line-height: 1;
+}
+
+.banner-remedi__desc {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.banner-remedi__cta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #00897b;
+  background: rgba(0, 137, 123, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: background 0.2s ease;
+}
+
+.banner-remedi:hover .banner-remedi__cta {
+  background: rgba(0, 137, 123, 0.2);
+}
