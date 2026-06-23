@@ -810,7 +810,7 @@ a:focus-visible,
 
 /* ==================== BANNER REMEDI.AR ==================== */
 .banner-remedi {
-  display: flex;
+  display: flex !important;
   align-items: center;
   gap: 12px;
   background: var(--surface);
