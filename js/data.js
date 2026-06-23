@@ -23,37 +23,21 @@ export function limpiarTelefono(t) {
   return (!t || t === 'nan' || t === 'NaN' || t === 'null') ? '' : t.replace(/\s/g, '');
 }
 
-function obtenerTurnoPorDia(dia) {
-  for (let t = 1; t <= 6; t++) {
-    if (dia === t + 10 || dia === t + 26) return t;
-  }
-  for (let t = 7; t <= 16; t++) {
-    if (dia === t - 6 || dia === t + 10) return t;
-  }
-  return null;
-}
-
 export function obtenerCicloActual() {
   const ahora = formatearFechaGMT3();
   let fechaTurno = new Date(ahora);
-  
+
   if (ahora.getHours() < CONFIG.HORA_CAMBIO) {
     fechaTurno.setDate(fechaTurno.getDate() - 1);
   }
-  
-  const dia = fechaTurno.getDate();
-  const turno = obtenerTurnoPorDia(dia);
-  
-  if (turno) return turno;
-  
-  // Fallback
+
   const totalCiclos = Object.keys(ciclosData).filter(k => !isNaN(k)).length || 16;
   const fechaBase = new Date(FECHA_INICIO_CICLO_1);
-  fechaBase.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
+  fechaBase.setHours(0, 0, 0, 0);
   const fechaCalc = new Date(fechaTurno);
-  fechaCalc.setHours(CONFIG.HORA_CAMBIO, 0, 0, 0);
+  fechaCalc.setHours(0, 0, 0, 0);
   const diffDias = Math.floor((fechaCalc - fechaBase) / 86400000);
-  return (diffDias % totalCiclos) + 1;
+  return ((diffDias % totalCiclos) + totalCiclos) % totalCiclos + 1;
 }
 
 export async function obtenerFarmaciasDelDia() {
